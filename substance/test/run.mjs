@@ -16,6 +16,7 @@ import { parseSpec, SpecError } from '../spec.mjs'
 import { emitPython } from '../emit.mjs'
 import { draw } from '../draw.mjs'
 import { findProject } from '../project.mjs'
+import { LANGUAGES } from '../strings.mjs'
 import os from 'node:os'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
@@ -403,7 +404,7 @@ check('a spec inside a library is told where the graph belongs', () => {
     if (!project.watchesAlias) problems.push('the watched path was not matched to the alias')
 
     const spec = parseSpec(fs.readFileSync(specPath, 'utf8'), catalogue)
-    const page = draw(spec, project)
+    const page = draw(spec, { project })
     for (const wanted of ['Where this graph belongs', 'team://panel_base.sbs', 'packages/panel_base.sbs', 'Preferences']) {
       if (!page.includes(wanted)) problems.push(`the guide does not mention ${wanted}`)
     }
@@ -411,10 +412,50 @@ check('a spec inside a library is told where the graph belongs', () => {
     if (!page.includes('Team.sbsprj')) problems.push('the guide does not name the project file to register')
 
     // A spec with no library above it gets no guidance, and must not gain an empty section.
-    if (draw(spec, null).includes('Where this graph belongs')) problems.push('a one-off spec is given library guidance')
+    if (draw(spec).includes('Where this graph belongs')) problems.push('a one-off spec is given library guidance')
   } finally {
     fs.rmSync(root, { recursive: true, force: true })
   }
+  return problems
+})
+
+check('the page speaks the reader language, and the graph does not', () => {
+  const problems = []
+
+  // Every language carries every field. A missing one would render as undefined on the page,
+  // which is worse than not translating at all.
+  const shape = (o, prefix = '') => Object.entries(o).flatMap(([k, v]) =>
+    (v && typeof v === 'object' && !Array.isArray(v)) ? shape(v, prefix + k + '.') : [prefix + k])
+  const reference = shape(LANGUAGES.en).sort().join()
+  for (const [code, words] of Object.entries(LANGUAGES)) {
+    if (shape(words).sort().join() !== reference) problems.push(`the ${code} strings do not match the en ones`)
+  }
+
+  const source = 'graph rough\nlang ko\nn perlin_noise scale=6\no output usage=height\nn -> o\n'
+  const spec = parseSpec(source, catalogue)
+  if (spec.lang !== 'ko') problems.push('the lang line was not read')
+
+  const page = draw(spec)
+  // Prose follows the reader...
+  if (!page.includes('참고')) problems.push('the notes heading is not translated')
+  if (!page.includes('복사')) problems.push('the copy button is not translated')
+  if (page.includes('>Notes<')) problems.push('English prose is left on a Korean page')
+  // ...and the graph does not. Designer's spelling is the same in any language.
+  for (const kept of ['perlin_noise', 'unique_filter_output', 'scale', 'inputNodeOutput']) {
+    if (!page.includes(kept)) problems.push(`${kept} was translated, and must not be`)
+  }
+
+  // --lang overrides the spec, and an unknown language is refused rather than falling back.
+  if (!draw(spec, { lang: 'en' }).includes('>Notes<')) problems.push('--lang does not override the spec')
+  try {
+    draw(spec, { lang: 'zz' })
+    problems.push('an unknown page language is accepted')
+  } catch { /* expected */ }
+
+  let refused = null
+  try { parseSpec('graph t\nlang zz\nn perlin_noise', catalogue) } catch (error) { refused = error.message }
+  if (!refused) problems.push('an unknown lang line is accepted')
+  else if (!refused.includes('ko')) problems.push('a rejected language does not list the ones that exist')
   return problems
 })
 

@@ -10,6 +10,7 @@ import { render } from '../lib/render.mjs'
 import { page } from '../lib/page.mjs'
 import { emitPython } from './emit.mjs'
 import { theme } from './theme.mjs'
+import { stringsFor } from './strings.mjs'
 
 const ATOMIC_PIN_TYPE = 'either' // atomic filters take whatever the graph is carrying
 
@@ -56,79 +57,65 @@ function showValue (value) {
 // then where the .sbs goes and what other graphs will call it matter more than the picture does.
 // The library's own .sbsprj is what knows those, so the page repeats them rather than leaving
 // the reader to find the folder.
-function guideFor (spec, project) {
+function guideFor (spec, project, words) {
   if (!project) return null
   const code = text => `<code>${escape(text)}</code>`
   const name = spec.name ?? 'this_graph'
 
   const rows = [
-    ['Library', code(project.root)],
-    ['Declared by', code(project.file.slice(project.root.length + 1))],
+    [words.guideRows.library, code(project.root)],
+    [words.guideRows.declaredBy, code(project.file.slice(project.root.length + 1))],
   ]
   if (project.alias) {
     const folder = project.alias.path
       ? project.alias.path.slice(project.root.length + 1).split(path.sep).join('/')
       : project.alias.url
-    rows.push(['Save the graph as', code(`${folder}/${name}.sbs`)])
-    rows.push(['Other graphs reference it as', code(`${project.alias.name}://${name}.sbs`)])
+    rows.push([words.guideRows.saveAs, code(`${folder}/${name}.sbs`)])
+    rows.push([words.guideRows.referencedAs, code(`${project.alias.name}://${name}.sbs`)])
   }
-  rows.push(['Outputs', spec.nodes.filter(n => n.type === 'output')
+  rows.push([words.guideRows.outputs, spec.nodes.filter(n => n.type === 'output')
     .map(n => code(n.annotations.find(a => a.id === 'identifier')?.value.components[0] ?? n.name)).join(' ') || '&mdash;'])
 
   const registered = project.alias
-    ? `Nothing here resolves until <code>${escape(project.name)}.sbsprj</code> is registered in Designer &mdash; ` +
-      '<code>Edit &rsaquo; Preferences &rsaquo; Projects</code>, add the file, restart. ' +
-      'It is the one step a pasted script cannot take: the Python API has no alias management. ' +
-      (project.watchesAlias
-        ? `Once it is, <code>${escape(project.alias.name)}://</code> is a watched path, so graphs saved there appear in the Library panel beside Designer&rsquo;s own.`
-        : `The project declares no watched path for <code>${escape(project.alias.name)}://</code>, so graphs saved there will not appear in the Library panel.`)
-    : `<code>${escape(project.name)}.sbsprj</code> declares no alias, so a reference to this graph will be stored as a path and will not survive a different checkout.`
+    ? words.guideRegister(escape(project.name) + '.sbsprj', escape(project.alias.name), project.watchesAlias)
+    : words.guideNoAlias(escape(project.name) + '.sbsprj')
 
-  return {
-    heading: 'Where this graph belongs',
-    blurb: 'This spec is part of a library, not a one-off network. Saving the graph under the ' +
-      'alias below is what lets the next spec name it as a node instead of rebuilding it.',
-    rows,
-    todo: registered,
-  }
+  return { heading: words.guideHeading, blurb: words.guideBlurb, rows, todo: registered }
 }
 
 const escape = s => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-export function draw (spec, project = null) {
+export function draw (spec, options) {
+  const { project = null, lang = spec.lang ?? 'en' } = options ?? {}
+  const words = stringsFor(lang)
   const nodes = spec.nodes.map(shapeOf)
   const graph = render(nodes, spec.wires, theme)
 
   const libraryCount = spec.nodes.filter(n => n.kind === 'library').length
-  const subtitle = `${spec.nodes.length} nodes, ${spec.wires.length} wires` +
-    (libraryCount ? ` — ${libraryCount} from the library, ${spec.nodes.length - libraryCount} built in` : '')
+  const subtitle = words.subtitle(spec.nodes.length, spec.wires.length) +
+    (libraryCount ? words.subtitleSplit(libraryCount, spec.nodes.length - libraryCount) : '')
 
   return page({
     title: spec.name ?? 'Substance graph',
     subtitle,
     graph: graph.svg,
     theme,
+    words,
     payload: {
-      heading: 'The same network, for Designer',
-      subtitle: 'Open the graph you want it in, then Windows › Python Editor, paste, Run.',
+      heading: words.payloadHeading,
+      subtitle: words.payloadSubtitle,
       text: emitPython(spec),
     },
-    guide: guideFor(spec, project),
+    guide: guideFor(spec, project, words),
     legend: [
-      { colour: theme.types.color, label: 'colour' },
-      { colour: theme.types.gray, label: 'grayscale' },
-      { colour: theme.types.either, label: 'either' },
-      { colour: theme.types.value, label: 'value' },
-      { colour: theme.kinds.atomic, label: 'built-in filter', block: true },
-      { colour: theme.kinds.library, label: 'library node', block: true },
+      { colour: theme.types.color, label: words.legend.color },
+      { colour: theme.types.gray, label: words.legend.gray },
+      { colour: theme.types.either, label: words.legend.either },
+      { colour: theme.types.value, label: words.legend.value },
+      { colour: theme.kinds.atomic, label: words.legend.atomic, block: true },
+      { colour: theme.kinds.library, label: words.legend.library, block: true },
     ],
-    notes: [
-      'Pin colours are this page&rsquo;s, not Designer&rsquo;s — the canvas palette lives in the ' +
-      'application binary, not in any readable resource. They separate what a pin carries: a ' +
-      'colour texture, a grayscale one, either, or a plain number.',
-      'Built-in filters accept whichever of colour or grayscale the graph is already carrying, ' +
-      'so their pins are drawn as <code>either</code> rather than guessed at.',
-    ],
+    notes: words.notes,
   })
 }

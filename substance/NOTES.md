@@ -484,6 +484,20 @@ collected:
 `dump-catalog.py` is kept because it is the record of how the four definition sources were
 compared, but nothing needs it to build.
 
+## Designer writes a relative alias by itself
+
+The open question about a committed `.sbsprj` -- that Designer writes alias paths as
+`file:///F:/...`, which no other checkout can use -- answered itself. Registering a project whose
+alias points inside the project's own folder makes Designer rewrite it:
+
+```xml
+<_1 prefix="_"><path>file:packages</path><name>hb</name></_1>
+```
+
+`file:packages`, relative to the `.sbsprj`. The same file also came back carrying
+`<dependencies><path_storage_methods>` set to `relative` both ways. So a committed project file
+is portable without a trick, and `project.mjs` resolves both forms.
+
 ## The Copy button
 
 `lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting

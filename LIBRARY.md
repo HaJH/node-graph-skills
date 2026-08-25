@@ -148,10 +148,10 @@ than repeat it, so the mapping is declared once.
 The Python API has no alias management -- `sd` exposes none -- so the `.sbsprj` is edited as a
 file or through Designer's preferences, never by a payload.
 
-**Unverified:** the aliases Designer writes are absolute (`file:///C:/...`), which a committed
-file cannot be. A `url` of the form `environment:SBS_DESIGNER_PYTHON_PATH` does appear in the
-same file, so an indirection exists; whether an alias path accepts it, or a relative URL, has not
-been tested.
+**Settled, by Designer itself.** Registering a project whose alias points inside the project's
+own folder makes Designer rewrite the path as `file:packages` -- relative to the `.sbsprj`. The
+same file comes back with `<dependencies><path_storage_methods>` set to `relative` both ways. A
+committed project file is portable as written.
 
 ## What has to change
 

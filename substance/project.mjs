@@ -20,24 +20,33 @@ import path from 'node:path'
 
 const tag = (text, name) => text.match(new RegExp(`<${name}>([^<]*)</${name}>`))?.[1]?.trim()
 
-// Designer writes an alias path as a file:// URL. It also uses an environment: URL elsewhere in
-// the same file, and a project might yet be able to use a relative one -- so anything that is
-// not file:// is passed through as written rather than resolved.
-function localPath (url) {
+// Designer writes an alias two ways, and which one it picks is the whole portability question.
+// Given an absolute path under the project file's own folder it rewrites it as `file:packages`
+// -- relative, and relative to the .sbsprj. That is what makes a committed project file work on
+// a checkout somewhere else, and it is Designer's own doing rather than a trick. An alias
+// outside the project folder stays `file:///C:/...`, and `environment:NAME` also appears in
+// these files; neither is resolved here.
+function localPath (url, projectDir) {
   if (!url) return null
-  if (!url.startsWith('file:///')) return null
-  return decodeURIComponent(url.slice('file:///'.length))
+  if (url.startsWith('file:///')) return decodeURIComponent(url.slice('file:///'.length))
+  if (url.startsWith('file:')) {
+    const relative = decodeURIComponent(url.slice('file:'.length))
+    if (!relative || relative.startsWith('/')) return null
+    return path.resolve(projectDir, relative)
+  }
+  return null
 }
 
 function parseProjectFile (file) {
   const text = fs.readFileSync(file, 'utf8')
+  const dir = path.dirname(file)
 
   const aliases = []
   const aliasBlock = text.match(/<urlaliases>([\s\S]*?)<\/urlaliases>/)?.[1] ?? ''
   for (const [, entry] of aliasBlock.matchAll(/<_\d+ prefix="_">([\s\S]*?)<\/_\d+>/g)) {
     const name = tag(entry, 'name')
     const url = tag(entry, 'path')
-    if (name && url) aliases.push({ name, url, path: localPath(url) })
+    if (name && url) aliases.push({ name, url, path: localPath(url, dir), relative: !url.startsWith('file:///') })
   }
 
   const watched = []

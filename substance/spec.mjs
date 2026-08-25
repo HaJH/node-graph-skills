@@ -68,6 +68,8 @@ function parseUsage (text) {
 
 const isEnum = type => type.includes('::')
 
+import { LANGUAGES } from './strings.mjs'
+
 export class SpecError extends Error {
   constructor (problems) {
     super(problems.map(p => `line ${p.line}: ${p.message}`).join('\n'))
@@ -211,12 +213,24 @@ export function parseSpec (text, catalogue) {
   const nodes = new Map()
   const wires = []
   let name = null
+  let lang = null
 
   const lines = text.split(/\r?\n/)
   lines.forEach((raw, i) => {
     const line = stripComment(raw).trim()
     if (!line) return
     const at = i + 1
+
+    // The page's own prose is written in the reader's language, and the spec is where that is
+    // declared -- so a spec written for a team keeps its language whoever builds it.
+    if (/^lang\s/.test(line)) {
+      const value = line.slice(4).trim()
+      if (!LANGUAGES[value]) {
+        problems.push({ line: at, message: `there is no "${value}" page language -- there is ${Object.keys(LANGUAGES).join(', ')}` })
+      } else if (lang) problems.push({ line: at, message: 'the language is already set' })
+      else lang = value
+      return
+    }
 
     if (/^graph\s/.test(line)) {
       const value = line.slice(5).trim()
@@ -343,7 +357,7 @@ export function parseSpec (text, catalogue) {
   resolvePins(nodes, wires, problems)
 
   if (problems.length) throw new SpecError(problems.sort((a, b) => a.line - b.line))
-  return { name, nodes: [...nodes.values()], wires }
+  return { name, lang, nodes: [...nodes.values()], wires }
 }
 
 function resolvePins (nodes, wires, problems) {

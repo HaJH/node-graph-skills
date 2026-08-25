@@ -1,4 +1,4 @@
-// node substance/build.mjs <spec file> [--py <path>] [--html <path>]
+// node substance/build.mjs <spec file> [--py <path>] [--html <path>] [--lang <code>]
 //
 // Reads a spec, reports anything wrong with it, and writes both halves: the Designer payload
 // and the page that draws the same network.
@@ -19,7 +19,7 @@ function arg (name) {
 
 const input = process.argv[2]
 if (!input || input.startsWith('--')) {
-  console.error('usage: node substance/build.mjs <spec file> [--py <path>] [--html <path>]')
+  console.error('usage: node substance/build.mjs <spec file> [--py <path>] [--html <path>] [--lang <code>]')
   process.exit(2)
 }
 
@@ -42,7 +42,7 @@ const htmlAt = arg('html') ?? base + '.html'
 const project = findProject(input)
 
 fs.writeFileSync(pythonAt, emitPython(spec))
-fs.writeFileSync(htmlAt, draw(spec, project))
+fs.writeFileSync(htmlAt, draw(spec, { project, lang: arg('lang') ?? spec.lang ?? 'en' }))
 
 console.log(`${spec.nodes.length} nodes, ${spec.wires.length} wires`)
 console.log('payload:', pythonAt)

@@ -32,9 +32,24 @@ The build fails loudly, with line numbers, on an unknown node, a pin the node do
 parameter that does not exist, or a value of the wrong type — so a clean build means the graph is
 structurally sound. Every problem is reported at once rather than one per run.
 
-**This skill is written in English; the page you build is not.** The graph title comes from the
-spec's `graph` line and is an identifier, but if you add prose anywhere, write it in the language
-the user is speaking. Node names, pin ids and parameter names stay as Designer spells them.
+**This skill is written in English; the page you build is not.** Put a `lang` line in the spec
+naming the language the user is speaking, and the page's own prose -- legend, notes, payload
+heading, the Copy button, the library guidance -- comes out in it. `--lang <code>` overrides for
+a one-off.
+
+```
+graph rough_metal
+lang ko
+```
+
+`substance/strings.mjs` holds the languages; today that is `en` and `ko`. An unknown code is a
+build error listing the ones that exist, never a silent fall back to English. Adding one means
+adding a key with every field filled -- the test refuses a partial translation, because half a
+translated page reads worse than an untranslated one.
+
+**Only the page's own voice is translated.** Node names, pin ids, parameter names and usages stay
+as Designer spells them in every language: they are what the reader types into Designer, and a
+translated `unique_filter_output` would be a lie.
 
 ## Spec format
 
@@ -209,6 +224,7 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/draw.mjs` | spec → the page |
 | `substance/project.mjs` | finds the library a spec sits in, and reads its aliases and watched paths |
 | `substance/theme.mjs` | colours and metrics |
+| `substance/strings.mjs` | everything the page says in its own voice, per language |
 | `substance/catalogue.generated.mjs` | 29 built-in and 501 library nodes, with pins and types |
 | `substance/tools/generate-catalogue.mjs` | regenerates that from an installed Designer |
 | `substance/tools/dump-catalog.py` | reads the built-in definitions out of a running Designer -- how the catalogue's source was settled, not needed to build it |
