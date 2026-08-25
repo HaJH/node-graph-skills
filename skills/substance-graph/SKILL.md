@@ -179,6 +179,27 @@ different checkout, and `.sbsprj` is where an alias is declared, so the build re
 than repeating it. `.sbsprj` also declares the **watched paths** that put a folder's graphs in
 Designer's Library panel.
 
+**Inside a library the payload builds a package instead of pasting into the open graph.** It
+opens (or creates) `<alias folder>/<package>.sbs`, finds the graph by identifier, **empties it**
+and rebuilds, then saves. So running a spec again converges on the spec instead of leaving a
+second copy, which is what makes a graph something you can edit rather than only make once.
+No graph has to be open when it runs.
+
+Emptied rather than deleted and remade, because another package instancing this graph points at
+the resource. Replacing the contents keeps every dependant working. **Anything changed by hand
+in that graph is replaced** -- the page says so.
+
+`package <name>` picks which `.sbs`, defaulting to the graph's own name. A package holds many
+graphs and Adobe's own do -- `blur_hq.sbs` holds `blur_hq` and `blur_hq_grayscale`.
+
+```
+graph panel_base
+package HBNoises
+```
+
+Outside a library nothing changes: the payload is still a network to paste into whatever is open,
+nothing is saved, and it offsets itself clear of what is already there.
+
 **The library's own graphs are node names.** Every `.sbs` under the alias folder is scanned with
 the same parser that reads Designer's install, so a graph the team saved there is named in a spec
 exactly the way `perlin_noise` is -- nothing to register, nothing to import, the folder is the

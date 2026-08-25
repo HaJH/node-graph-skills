@@ -54,17 +54,30 @@ const base = path.join(path.dirname(input), path.basename(input, path.extname(in
 const pythonAt = arg('py') ?? base + '.py'
 const htmlAt = arg('html') ?? base + '.html'
 
-fs.writeFileSync(pythonAt, emitPython(spec))
-fs.writeFileSync(htmlAt, draw(spec, { project, lang: arg('lang') ?? spec.lang ?? 'en' }))
+// Inside a library the payload builds into a package and saves it, so a re-run converges. On
+// its own it stays a network to paste into whatever is open.
+const target = project?.alias?.path
+  ? {
+      graph: spec.name ?? path.basename(input, path.extname(input)),
+      packageName: spec.package ?? spec.name ?? path.basename(input, path.extname(input)),
+      packagePath: '',
+    }
+  : null
+if (target) target.packagePath = path.join(project.alias.path, target.packageName + '.sbs')
+
+fs.writeFileSync(pythonAt, emitPython(spec, target))
+fs.writeFileSync(htmlAt, draw(spec, { project, target, lang: arg('lang') ?? spec.lang ?? 'en' }))
 
 console.log(`${spec.nodes.length} nodes, ${spec.wires.length} wires`)
 console.log('payload:', pythonAt)
-console.log('  paste it into Designer: Windows > Python Editor, with the target graph open')
+console.log('  ', target
+  ? 'paste it into Designer: Windows > Python Editor. No graph has to be open -- it builds and saves the package itself'
+  : 'paste it into Designer: Windows > Python Editor, with the target graph open')
 console.log('page   :', htmlAt, '-', (fs.statSync(htmlAt).size / 1024).toFixed(0) + ' KB')
 if (project) {
   console.log('library:', project.root)
   if (project.nodeCount) console.log('  ', `${project.nodeCount} of its graphs are usable as node names`)
-  console.log('  ', project.alias
-    ? `save the graph as ${project.alias.name}://${spec.name ?? 'this_graph'}.sbs`
-    : `${path.basename(project.file)} declares no alias -- references will be stored as paths`)
+  console.log('  ', target
+    ? `builds ${target.graph} into ${project.alias.name}://${target.packageName}.sbs, and saves it`
+    : `${path.basename(project.file)} declares no alias -- nothing to build into`)
 }

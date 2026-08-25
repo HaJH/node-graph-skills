@@ -39,7 +39,7 @@ function valueExpression (value) {
   return `${value.class}.sNew(${struct}(${args}))`
 }
 
-function imports (spec) {
+function imports (spec, target = null) {
   const classes = new Set()
   const structs = new Set(['float2']) // setPosition always needs it
   for (const node of spec.nodes) {
@@ -56,6 +56,8 @@ function imports (spec) {
   }
   const lines = ['import os', '', 'import sd', `from sd.api.sdbasetypes import ${[...structs].sort().join(', ')}`]
   lines.push('from sd.api.sdapplication import SDApplicationPath')
+  // Only the package mode creates a graph, and only it needs the class that makes one.
+  if (target) lines.push('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')
   for (const c of [...classes].sort()) lines.push(`from sd.api.${c.toLowerCase()} import ${c}`)
   // A usage is an array value of a type with no SDValue class of its own, so these four come in
   // together or not at all. Shape taken from Designer's own sample_sbs_graph.py.
@@ -68,7 +70,57 @@ function imports (spec) {
   return lines.join('\n')
 }
 
-const PREAMBLE = `
+const FREE_OFFSET = `
+
+def free_offset(graph):
+    """Drop the new network clear of whatever is already in the graph."""
+    lowest = None
+    for node in graph.getNodes():
+        position = node.getPosition()
+        lowest = position.y if lowest is None else max(lowest, position.y)
+    return 0.0 if lowest is None else lowest + 192.0
+`
+
+const PACKAGE = `
+
+def open_package(app, package_path):
+    """The package this spec owns. Reuse it if Designer already has it open, load it if it is
+    on disk, otherwise make a new one."""
+    package_mgr = app.getPackageMgr()
+    existing = package_mgr.getUserPackageFromFilePath(package_path)
+    if existing is not None:
+        return existing
+    if os.path.isfile(package_path):
+        return package_mgr.loadUserPackage(package_path)
+    directory = os.path.dirname(package_path)
+    if directory and not os.path.isdir(directory):
+        os.makedirs(directory)
+    return package_mgr.newUserPackage()
+
+
+def target_graph(package, identifier):
+    """The graph this spec builds, emptied if it is already there.
+
+    Emptied rather than deleted and remade: another package that instances this graph points at
+    the resource, and replacing the resource would break that reference. Replacing its contents
+    keeps every dependant working.
+
+    Returns the graph and whether it already existed."""
+    for resource in package.getChildrenResources(True):
+        if resource.getIdentifier() != identifier:
+            continue
+        if getattr(resource, 'getNodes', None) is None:
+            continue
+        for node in list(resource.getNodes()):
+            resource.deleteNode(node)
+        return resource, True
+
+    graph = SDSBSCompGraph.sNew(package)
+    graph.setIdentifier(identifier)
+    return graph, False
+`
+
+const FIND_RESOURCE = `
 
 def resources_dir(app):
     """Where the shipped .sbs packages live. Asking the application beats hardcoding an install
@@ -110,37 +162,55 @@ def find_resource(app, package_name, identifier, explicit_path=None):
                 return resource
 
     raise RuntimeError('cannot find {0} in {1}.sbs'.format(identifier, package_name))
-
-
-def free_offset(graph):
-    """Drop the new network clear of whatever is already in the graph."""
-    lowest = None
-    for node in graph.getNodes():
-        position = node.getPosition()
-        lowest = position.y if lowest is None else max(lowest, position.y)
-    return 0.0 if lowest is None else lowest + 192.0
 `
 
-export function emitPython (spec) {
+// Two ways a payload can land, and which one is right is not a preference.
+//
+//   target given  -- the spec owns a graph in a package. The graph is emptied and rebuilt, so
+//                    running the spec twice converges instead of stacking two copies, and the
+//                    package is saved. This is what lets an asset be edited rather than only
+//                    made once.
+//   no target     -- the spec is a network to drop into whatever is open. Nothing is saved and
+//                    nothing existing is touched; it offsets itself clear of what is there.
+//
+// A spec inside a library gets the first, because a library is the thing being accumulated.
+export function emitPython (spec, target = null) {
   const { positions } = layout(spec.nodes, spec.wires, LAYOUT)
+  const graphName = spec.name ?? 'this_graph'
 
   const lines = []
   lines.push('# Generated from a node-graph spec' + (spec.name ? ` -- ${spec.name}` : '') + '.')
   lines.push('#')
-  lines.push('# Open the graph you want these nodes in, then: Windows > Python Editor, paste, Run.')
-  lines.push('# Nodes are added below anything already in the graph; nothing existing is touched.')
+  if (target) {
+    lines.push(`# Builds the graph "${target.graph}" in ${target.packageName}.sbs and saves it.`)
+    lines.push('# Run it again after editing the spec: the graph is emptied and rebuilt, so it')
+    lines.push('# converges rather than gaining a second copy. Anything you changed by hand in')
+    lines.push('# that graph is replaced -- dump it back to a spec first if you want to keep it.')
+    lines.push('# Nothing else in the package is touched.')
+  } else {
+    lines.push('# Open the graph you want these nodes in, then: Windows > Python Editor, paste, Run.')
+    lines.push('# Nodes are added below anything already in the graph; nothing existing is touched.')
+  }
   lines.push('')
-  lines.push(imports(spec))
-  lines.push(PREAMBLE)
+  lines.push(imports(spec, target))
+  lines.push(FIND_RESOURCE)
+  lines.push(target ? PACKAGE : FREE_OFFSET)
   lines.push('')
   lines.push('def main():')
   lines.push('    app = sd.getContext().getSDApplication()')
-  lines.push('    graph = app.getUIMgr().getCurrentGraph()')
-  lines.push('    if graph is None:')
-  lines.push("        print('open a compositing graph first')")
-  lines.push('        return')
-  lines.push('')
-  lines.push('    offset = free_offset(graph)')
+  if (target) {
+    lines.push(`    package_path = ${quote(target.packagePath)}`)
+    lines.push('    package = open_package(app, package_path)')
+    lines.push(`    graph, existed = target_graph(package, ${quote(target.graph)})`)
+    lines.push('    offset = 0.0')
+  } else {
+    lines.push('    graph = app.getUIMgr().getCurrentGraph()')
+    lines.push('    if graph is None:')
+    lines.push("        print('open a compositing graph first')")
+    lines.push('        return')
+    lines.push('')
+    lines.push('    offset = free_offset(graph)')
+  }
   lines.push('    nodes = {}')
   lines.push('')
 
@@ -183,7 +253,13 @@ export function emitPython (spec) {
   }
 
   lines.push('')
-  lines.push(`    print('added {0} nodes and {1} wires'.format(${spec.nodes.length}, ${spec.wires.length}))`)
+  if (target) {
+    lines.push('    app.getPackageMgr().savePackageAs(package, package_path)')
+    lines.push(`    print('{0} {1} in {2} -- ${spec.nodes.length} nodes, ${spec.wires.length} wires'.format(`)
+    lines.push(`        'rebuilt' if existed else 'created', ${quote(target.graph)}, os.path.basename(package_path)))`)
+  } else {
+    lines.push(`    print('added {0} nodes and {1} wires'.format(${spec.nodes.length}, ${spec.wires.length}))`)
+  }
   lines.push('')
   lines.push('')
   lines.push('main()')

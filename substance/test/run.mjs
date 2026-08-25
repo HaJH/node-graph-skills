@@ -227,6 +227,11 @@ check('the page draws every node and wire, and stands on its own', () => {
   }
 
   if (/NaN|undefined/.test(html)) problems.push('the page contains NaN or undefined')
+  // A botched edit to a template literal leaks its own source into the page, which renders as
+  // plain text and looks like nothing is wrong. One shipped that way before this check existed.
+  for (const fragment of ['${', "')}", '`}']) {
+    if (html.includes(fragment)) problems.push(`a template fragment leaked into the page: ${fragment}`)
+  }
 
   // Inline script is fine -- the select button needs a few lines. Fetching anything is not:
   // the artifact CSP blocks external hosts, and a page has to open offline besides. The SVG
@@ -406,10 +411,17 @@ check('a spec inside a library is told where the graph belongs', () => {
     if (!project.watchesAlias) problems.push('the watched path was not matched to the alias')
 
     const spec = parseSpec(fs.readFileSync(specPath, 'utf8'), catalogue)
-    const page = draw(spec, { project })
+    const target = {
+      graph: 'panel_base',
+      packageName: 'panel_base',
+      packagePath: path.join(project.alias.path, 'panel_base.sbs'),
+    }
+    const page = draw(spec, { project, target })
     for (const wanted of ['Where this graph belongs', 'team://panel_base.sbs', 'packages/panel_base.sbs', 'Preferences']) {
       if (!page.includes(wanted)) problems.push(`the guide does not mention ${wanted}`)
     }
+    // Re-running has to be described, because it destroys hand edits in that graph.
+    if (!page.includes('empties')) problems.push('the guide does not say a re-run replaces the graph')
     // The one manual step has to be stated, since no payload can take it.
     if (!page.includes('Team.sbsprj')) problems.push('the guide does not name the project file to register')
 
@@ -521,6 +533,35 @@ check('a graph the project owns is a node the next spec can name', () => {
   } finally {
     fs.rmSync(root, { recursive: true, force: true })
   }
+  return problems
+})
+
+check('a spec in a library builds into its package, and a re-run converges', () => {
+  // The difference between an asset and a thing you made once. Appending meant running a spec
+  // twice gave two copies, so a graph could never be edited -- only remade.
+  const problems = []
+  const spec = parseSpec('graph panel_base\npackage TeamNoises\nn perlin_noise\no output usage=height\nn -> o\n', catalogue)
+  if (spec.package !== 'TeamNoises') problems.push('the package line was not read')
+
+  const target = { graph: 'panel_base', packageName: 'TeamNoises', packagePath: 'C:/lib/packages/TeamNoises.sbs' }
+  const built = emitPython(spec, target)
+
+  for (const wanted of ['open_package', 'target_graph', 'savePackageAs', 'TeamNoises.sbs', "'panel_base'"]) {
+    if (!built.includes(wanted)) problems.push(`the package payload is missing ${wanted}`)
+  }
+  // Emptied, not deleted: a package that instances this graph points at the resource.
+  if (!built.includes('deleteNode')) problems.push('the payload does not empty the graph it rebuilds')
+  if (built.includes('SDSBSCompGraph.sNew') === false) problems.push('the payload cannot create the graph')
+  if (!built.includes('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')) problems.push('the graph class is not imported')
+  if (built.includes('free_offset')) problems.push('the package payload still offsets itself, which only makes sense when appending')
+
+  // Outside a library nothing is saved and nothing existing is touched.
+  const loose = emitPython(spec)
+  if (!loose.includes('free_offset')) problems.push('the loose payload no longer offsets itself')
+  for (const absent of ['savePackageAs', 'deleteNode', 'newUserPackage']) {
+    if (loose.includes(absent)) problems.push(`a loose payload must not ${absent}`)
+  }
+  if (!loose.includes('getCurrentGraph')) problems.push('the loose payload no longer targets the open graph')
   return problems
 })
 

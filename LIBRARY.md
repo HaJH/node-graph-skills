@@ -170,9 +170,10 @@ In dependency order.
    install, and merge the result with the shipped catalogue. A team graph becomes a node name.
    This is the arrow that makes the library compound, and it replaces the `use <path>` declaration
    sketched earlier — a spec should name a node, not a file path.
-3. **A build target that is a named graph in a package**, replacing the current "append to
-   whatever is open". `SDSBSCompGraph.sNew(package)` plus `SDResource.setIdentifier`, and on a
-   re-run, find and empty rather than create.
+3. ~~**A build target that is a named graph in a package.**~~ **Done.** Inside a library the
+   payload opens or creates the package, finds the graph by identifier, empties it and rebuilds,
+   then saves. A re-run converges. Emptied rather than remade so dependants keep resolving.
+   Outside a library it still appends to whatever is open.
 4. **`dump`: graph to spec.** Reshape `tools/roundtrip.py`'s dump leg to emit a spec instead of
    json, so hand-built and hand-tuned graphs can enter the system.
 5. **Exposed parameters and presets.** `input_value` bridges typed and defaulted, and

@@ -42,12 +42,16 @@ const en = {
   ],
 
   guideHeading: 'Where this graph belongs',
-  guideBlurb: 'This spec is part of a library, not a one-off network. Saving the graph under ' +
-    'the alias below is what lets the next spec name it as a node instead of rebuilding it.',
+  guideBlurb: 'This spec is part of a library, not a one-off network. It builds into a package ' +
+    'rather than into whatever is open, and the next spec can name the result as a node instead ' +
+    'of rebuilding it.',
+  guideRebuild: graph => `Running it again empties <code>${graph}</code> and rebuilds it, so the ` +
+    'graph converges on the spec instead of gaining a second copy. Anything changed by hand in ' +
+    'that graph goes with it. Nothing else in the package is touched.',
   guideRows: {
     library: 'Library',
     declaredBy: 'Declared by',
-    saveAs: 'Save the graph as',
+    buildsInto: 'Builds into',
     referencedAs: 'Other graphs reference it as',
     outputs: 'Outputs',
   },
@@ -94,12 +98,15 @@ const ko = {
   ],
 
   guideHeading: '이 그래프가 속한 곳',
-  guideBlurb: '이 스펙은 일회성 네트워크가 아니라 라이브러리의 일부다. 아래 별칭 아래에 ' +
-    '그래프를 저장해야 다음 스펙이 이것을 다시 만들지 않고 노드 이름으로 부를 수 있다.',
+  guideBlurb: '이 스펙은 일회성 네트워크가 아니라 라이브러리의 일부다. 열려 있는 그래프가 ' +
+    '아니라 패키지 안으로 빌드되고, 그 결과를 다음 스펙이 다시 만들지 않고 노드 이름으로 부를 수 있다.',
+  guideRebuild: graph => `다시 실행하면 <code>${graph}</code>를 비우고 새로 만든다. 그래서 복사본이 ` +
+    '하나 더 생기는 대신 그래프가 스펙으로 수렴한다. 그 그래프에서 손으로 바꾼 것은 같이 사라진다. ' +
+    '패키지 안의 다른 것은 건드리지 않는다.',
   guideRows: {
     library: '라이브러리',
     declaredBy: '선언한 파일',
-    saveAs: '그래프 저장 위치',
+    buildsInto: '빌드 대상',
     referencedAs: '다른 그래프가 부르는 이름',
     outputs: '출력',
   },

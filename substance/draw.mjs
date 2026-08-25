@@ -57,7 +57,7 @@ function showValue (value) {
 // then where the .sbs goes and what other graphs will call it matter more than the picture does.
 // The library's own .sbsprj is what knows those, so the page repeats them rather than leaving
 // the reader to find the folder.
-function guideFor (spec, project, words) {
+function guideFor (spec, project, words, target) {
   if (!project) return null
   const code = text => `<code>${escape(text)}</code>`
   const name = spec.name ?? 'this_graph'
@@ -66,12 +66,10 @@ function guideFor (spec, project, words) {
     [words.guideRows.library, code(project.root)],
     [words.guideRows.declaredBy, code(project.file.slice(project.root.length + 1))],
   ]
-  if (project.alias) {
-    const folder = project.alias.path
-      ? project.alias.path.slice(project.root.length + 1).split(path.sep).join('/')
-      : project.alias.url
-    rows.push([words.guideRows.saveAs, code(`${folder}/${name}.sbs`)])
-    rows.push([words.guideRows.referencedAs, code(`${project.alias.name}://${name}.sbs`)])
+  if (target) {
+    const folder = project.alias.path.slice(project.root.length + 1).split(path.sep).join('/')
+    rows.push([words.guideRows.buildsInto, code(`${folder}/${target.packageName}.sbs`) + ' › ' + code(target.graph)])
+    rows.push([words.guideRows.referencedAs, code(`${project.alias.name}://${target.packageName}.sbs`)])
   }
   rows.push([words.guideRows.outputs, spec.nodes.filter(n => n.type === 'output')
     .map(n => code(n.annotations.find(a => a.id === 'identifier')?.value.components[0] ?? n.name)).join(' ') || '&mdash;'])
@@ -80,14 +78,15 @@ function guideFor (spec, project, words) {
     ? words.guideRegister(escape(project.name) + '.sbsprj', escape(project.alias.name), project.watchesAlias)
     : words.guideNoAlias(escape(project.name) + '.sbsprj')
 
-  return { heading: words.guideHeading, blurb: words.guideBlurb, rows, todo: registered }
+  const todo = target ? [words.guideRebuild(escape(target.graph)), registered] : [registered]
+  return { heading: words.guideHeading, blurb: words.guideBlurb, rows, todo }
 }
 
 const escape = s => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
 export function draw (spec, options) {
-  const { project = null, lang = spec.lang ?? 'en' } = options ?? {}
+  const { project = null, lang = spec.lang ?? 'en', target = null } = options ?? {}
   const words = stringsFor(lang)
   const nodes = spec.nodes.map(shapeOf)
   const graph = render(nodes, spec.wires, theme)
@@ -105,9 +104,9 @@ export function draw (spec, options) {
     payload: {
       heading: words.payloadHeading,
       subtitle: words.payloadSubtitle,
-      text: emitPython(spec),
+      text: emitPython(spec, target),
     },
-    guide: guideFor(spec, project, words),
+    guide: guideFor(spec, project, words, target),
     legend: [
       { colour: theme.types.color, label: words.legend.color },
       { colour: theme.types.gray, label: words.legend.gray },

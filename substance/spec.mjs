@@ -216,6 +216,7 @@ export function parseSpec (text, catalogue) {
   const wires = []
   let name = null
   let lang = null
+  let pkg = null
 
   const lines = text.split(/\r?\n/)
   lines.forEach((raw, i) => {
@@ -231,6 +232,17 @@ export function parseSpec (text, catalogue) {
         problems.push({ line: at, message: `there is no "${value}" page language -- there is ${Object.keys(LANGUAGES).join(', ')}` })
       } else if (lang) problems.push({ line: at, message: 'the language is already set' })
       else lang = value
+      return
+    }
+
+    // Which .sbs the graph is built into. Optional, because one graph per package is the
+    // common case -- but a package holds many graphs and Adobe's own do, so a spec has to be
+    // able to say. blur_hq.sbs holds blur_hq and blur_hq_grayscale.
+    if (/^package\s/.test(line)) {
+      const value = line.slice(7).trim()
+      if (!IDENTIFIER.test(value)) problems.push({ line: at, message: `"${value}" is not a usable package name` })
+      else if (pkg) problems.push({ line: at, message: 'the package is already named' })
+      else pkg = value
       return
     }
 
@@ -359,7 +371,7 @@ export function parseSpec (text, catalogue) {
   resolvePins(nodes, wires, problems)
 
   if (problems.length) throw new SpecError(problems.sort((a, b) => a.line - b.line))
-  return { name, lang, nodes: [...nodes.values()], wires }
+  return { name, lang, package: pkg, nodes: [...nodes.values()], wires }
 }
 
 function resolvePins (nodes, wires, problems) {
