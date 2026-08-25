@@ -30,6 +30,10 @@ node substance/test/run.mjs                  # checked against the graph that ma
 steel in 21 nodes, height into normal into curvature into a wear mask that drives basecolor and
 roughness both.
 
+Where this is going -- a project whose assets accumulate rather than being regenerated from
+scratch each time, and the naming convention that makes them portable to an engine -- is in
+[`LIBRARY.md`](LIBRARY.md).
+
 The catalogue of 29 built-in and 501 library nodes is generated from an installed Designer, so
 every pin name and type is the tool's own. What is known about Designer, and how each piece of it
 was verified, is in [`substance/NOTES.md`](substance/NOTES.md).
