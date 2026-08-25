@@ -162,9 +162,11 @@ In dependency order.
    offline and carries annotations and 15 enum types besides. Verified by regenerating and
    diffing against the table that came out of a running Designer: identical. `blendingmode=substract`
    is writable and the hardcoded annotation list is gone.
-2. **A project catalogue.** *(Half done: `project.mjs` finds the library and reads its aliases,
-   and the page carries the guidance. The scan that turns a team `.sbs` into a node name is
-   still to come.)* Scan a project's `.sbs` files with the same parser that reads the
+2. ~~**A project catalogue.**~~ **Done.** `sbs.mjs` is the one `.sbs` parser, shared by the
+   catalogue generator and the build, so a graph the team wrote is described exactly as one Adobe
+   shipped. Every package under the alias folder is scanned and merged, and a spec names a team
+   graph the way it names `perlin_noise`. A name that clashes with a shipped node is refused
+   rather than shadowed. Scan a project's `.sbs` files with the same parser that reads the
    install, and merge the result with the shipped catalogue. A team graph becomes a node name.
    This is the arrow that makes the library compound, and it replaces the `use <path>` declaration
    sketched earlier — a spec should name a node, not a file path.

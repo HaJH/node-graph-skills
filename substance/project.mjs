@@ -18,6 +18,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { readPackages } from './sbs.mjs'
+
 const tag = (text, name) => text.match(new RegExp(`<${name}>([^<]*)</${name}>`))?.[1]?.trim()
 
 // Designer writes an alias two ways, and which one it picks is the whole portability question.
@@ -92,4 +94,48 @@ export function findProject (specPath) {
 function isInside (root, candidate) {
   const rel = path.relative(path.resolve(root), path.resolve(candidate))
   return rel === '' || (!rel.startsWith('..') && !path.isAbsolute(rel))
+}
+
+
+// The project's own graphs, in the shape the catalogue uses, so a spec names one exactly the way
+// it names perlin_noise. This is what makes the library compound: a graph saved into the alias
+// folder is a node the next spec can call, and nothing has to be registered anywhere for it --
+// the folder is the registry.
+//
+// The same parser reads these and Designer's own 501, so a team graph is described no worse.
+export function projectNodes (project) {
+  const problems = []
+  const nodes = {}
+  if (!project?.alias?.path || !fs.existsSync(project.alias.path)) return { nodes, problems }
+
+  for (const [name, entries] of readPackages(project.alias.path)) {
+    // Same rule as the shipped catalogue: a graph the Library is told to hide is not offered.
+    const visible = entries.filter(e => !e.hidden)
+    if (!visible.length) continue
+    if (visible.length > 1) {
+      problems.push(`"${name}" is declared by more than one package here -- ${visible.map(e => e.package + '.sbs').join(', ')}`)
+      continue
+    }
+    const { hidden, ...entry } = visible[0]
+    nodes[name] = {
+      ...entry,
+      kind: 'project',
+      alias: project.alias.name,
+      packagePath: path.join(project.alias.path, entry.package + '.sbs'),
+    }
+  }
+  return { nodes, problems }
+}
+
+// A project graph that shadows one Designer ships would silently change what a spec means, so it
+// is refused rather than resolved. Renaming is cheap; a spec that reads one way and builds
+// another is not.
+export function mergeCatalogue (catalogue, projectNodesByName) {
+  const clashes = Object.keys(projectNodesByName)
+    .filter(name => catalogue.LIBRARY[name] || catalogue.ATOMIC[name])
+  if (clashes.length) {
+    throw new Error(
+      `these graphs have the same name as one Designer ships, so a spec could not say which it meant: ${clashes.join(', ')}`)
+  }
+  return { ...catalogue, LIBRARY: { ...catalogue.LIBRARY, ...projectNodesByName } }
 }

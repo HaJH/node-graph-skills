@@ -34,6 +34,9 @@ export const theme = {
   kinds: {
     atomic: '#3d4450',
     library: '#4a4030',
+    // The project's own graphs read as a third kind on purpose. "Which of these did we write"
+    // is the question a library that accumulates makes worth asking.
+    project: '#2f4739',
   },
 
   metrics: {

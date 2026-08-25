@@ -179,6 +179,21 @@ different checkout, and `.sbsprj` is where an alias is declared, so the build re
 than repeating it. `.sbsprj` also declares the **watched paths** that put a folder's graphs in
 Designer's Library panel.
 
+**The library's own graphs are node names.** Every `.sbs` under the alias folder is scanned with
+the same parser that reads Designer's install, so a graph the team saved there is named in a spec
+exactly the way `perlin_noise` is -- nothing to register, nothing to import, the folder is the
+registry. The build says how many are available:
+
+```
+  library: F:\...\Resources\Substance
+     1 of its graphs are usable as node names
+```
+
+They draw in their own colour with their own legend entry, because "which of these did we write"
+is worth being able to see. **A project graph may not share a name with one Designer ships** --
+the build refuses it rather than shadowing, since a spec that reads one way and builds another is
+worse than a rename.
+
 **Registering the project is the human step.** The `sd` API exposes nothing for aliases, so no
 payload can do it: `Edit > Preferences > Projects`, add the `.sbsprj`, restart. The page says so
 whenever it finds a library.
@@ -222,7 +237,8 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/spec.mjs` | the spec parser and its error messages |
 | `substance/emit.mjs` | spec → the Designer Python payload |
 | `substance/draw.mjs` | spec → the page |
-| `substance/project.mjs` | finds the library a spec sits in, and reads its aliases and watched paths |
+| `substance/project.mjs` | finds the library a spec sits in, reads its aliases, and turns its packages into node names |
+| `substance/sbs.mjs` | reads a `.sbs` package -- shared by the catalogue generator and the build |
 | `substance/theme.mjs` | colours and metrics |
 | `substance/strings.mjs` | everything the page says in its own voice, per language |
 | `substance/catalogue.generated.mjs` | 29 built-in and 501 library nodes, with pins and types |

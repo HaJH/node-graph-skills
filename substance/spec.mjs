@@ -196,7 +196,9 @@ function splitParameters (rest) {
 
 function definitionFor (catalogue, type) {
   if (catalogue.ATOMIC[type]) return { kind: 'atomic', def: catalogue.ATOMIC[type] }
-  if (catalogue.LIBRARY[type]) return { kind: 'library', def: catalogue.LIBRARY[type] }
+  // A project's own graph resolves like any other library node; only its kind differs, so a
+  // reader of the page can see which graphs the team wrote.
+  if (catalogue.LIBRARY[type]) return { kind: catalogue.LIBRARY[type].kind ?? 'library', def: catalogue.LIBRARY[type] }
   return null
 }
 

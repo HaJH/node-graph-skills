@@ -115,6 +115,11 @@ export function draw (spec, options) {
       { colour: theme.types.value, label: words.legend.value },
       { colour: theme.kinds.atomic, label: words.legend.atomic, block: true },
       { colour: theme.kinds.library, label: words.legend.library, block: true },
+      // Only shown when the graph uses one. On a spec built outside a library it would name a
+      // kind the reader cannot have.
+      ...(spec.nodes.some(n => n.kind === 'project')
+        ? [{ colour: theme.kinds.project, label: words.legend.project, block: true }]
+        : []),
     ],
     notes: words.notes,
   })

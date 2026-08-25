@@ -82,9 +82,13 @@ def resources_dir(app):
     ]
 
 
-def find_resource(app, package_name, identifier):
+def find_resource(app, package_name, identifier, explicit_path=None):
     """Library nodes are graphs inside .sbs packages and no definition manager lists them.
-    Match on identifier, never on the resource url -- its ?dependency=NNNN is a per-session uid."""
+    Match on identifier, never on the resource url -- its ?dependency=NNNN is a per-session uid.
+
+    explicit_path is set for a graph the project itself owns: it sits in the project's alias
+    folder rather than the install. This script is regenerated per machine, so an absolute
+    path here is written fresh each build rather than committed."""
     package_mgr = app.getPackageMgr()
     filename = package_name + '.sbs'
 
@@ -95,8 +99,9 @@ def find_resource(app, package_name, identifier):
                 if resource.getIdentifier() == identifier:
                     return resource
 
-    for directory in resources_dir(app):
-        candidate = os.path.join(directory, filename)
+    search = ([explicit_path] if explicit_path else [])
+    search += [os.path.join(directory, filename) for directory in resources_dir(app)]
+    for candidate in search:
         if not os.path.isfile(candidate):
             continue
         package = package_mgr.loadUserPackage(candidate)
@@ -142,8 +147,11 @@ export function emitPython (spec) {
   for (const node of spec.nodes) {
     const variable = `nodes[${quote(node.name)}]`
     lines.push(`    # ${node.name} -- ${node.type}`)
-    if (node.kind === 'library') {
-      lines.push(`    ${variable} = graph.newInstanceNode(find_resource(app, ${quote(node.def.package)}, ${quote(node.type)}))`)
+    if (node.kind !== 'atomic') {
+      // A graph the project owns is found by path; one Designer ships is found by name in the
+      // install. Same call either way -- only where to look differs.
+      const where = node.def.packagePath ? `, ${quote(node.def.packagePath)}` : ''
+      lines.push(`    ${variable} = graph.newInstanceNode(find_resource(app, ${quote(node.def.package)}, ${quote(node.type)}${where}))`)
     } else {
       lines.push(`    ${variable} = graph.newNode(${quote(node.def.id)})`)
     }

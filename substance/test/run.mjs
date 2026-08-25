@@ -15,7 +15,7 @@ import * as catalogue from '../catalogue.generated.mjs'
 import { parseSpec, SpecError } from '../spec.mjs'
 import { emitPython } from '../emit.mjs'
 import { draw } from '../draw.mjs'
-import { findProject } from '../project.mjs'
+import { findProject, projectNodes, mergeCatalogue } from '../project.mjs'
 import { LANGUAGES } from '../strings.mjs'
 import os from 'node:os'
 
@@ -458,6 +458,69 @@ check('the page speaks the reader language, and the graph does not', () => {
   try { parseSpec('graph t\nlang zz\nn perlin_noise', catalogue) } catch (error) { refused = error.message }
   if (!refused) problems.push('an unknown lang line is accepted')
   else if (!refused.includes('ko')) problems.push('a rejected language does not list the ones that exist')
+  return problems
+})
+
+check('a graph the project owns is a node the next spec can name', () => {
+  // This is the arrow that makes a library compound. Without it every material starts from
+  // Designer's shipped nodes and nothing the team built is reachable by name.
+  const problems = []
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sbslib-'))
+  try {
+    const packages = path.join(root, 'packages')
+    fs.mkdirSync(packages)
+    fs.mkdirSync(path.join(root, 'specs'))
+    fs.writeFileSync(path.join(root, 'Team.sbsprj'),
+      '<root><preferences><resources><urlaliases><size>1</size>' +
+      '<_1 prefix="_"><path>file:packages</path><name>team</name></_1>' +
+      '</urlaliases></resources><library><watchedpaths><size>1</size>' +
+      '<_1 prefix="_"><url>team://</url><isrecursive>true</isrecursive><isenabled>true</isenabled></_1>' +
+      '</watchedpaths></library></preferences></root>')
+
+    // A package whose filename is not its graph name, which is the case that catches a build
+    // that assumed the two are the same. Adobe's own blur_hq.sbs holds two differently named
+    // graphs, so this is the normal shape rather than an awkward one.
+    fs.writeFileSync(path.join(packages, 'TeamNoises.sbs'),
+      '<package><content><graph><identifier v="team_base"/><graphOutputs>' +
+      '<graphoutput><identifier v="height"/><channels v="2"/></graphoutput>' +
+      '<graphoutput><identifier v="colour"/></graphoutput>' +
+      '</graphOutputs></graph></content></package>')
+
+    const project = findProject(path.join(root, 'specs', 'x.spec'))
+    if (!project) return ['the project was not found']
+    // A relative alias is what Designer writes for a folder inside the project, so it has to work.
+    if (project.alias?.path !== packages) problems.push('a relative alias did not resolve: ' + project.alias?.path)
+
+    const { nodes, problems: found } = projectNodes(project)
+    if (found.length) problems.push('scanning reported: ' + found.join('; '))
+    if (!nodes.team_base) return [...problems, 'the project graph was not read']
+    if (nodes.team_base.package !== 'TeamNoises') problems.push('the package name is wrong: ' + nodes.team_base.package)
+    if (nodes.team_base.kind !== 'project') problems.push('the project graph is not marked as one')
+    if (nodes.team_base.outputs.map(o => o.id + ':' + o.type).join() !== 'height:gray,colour:color') {
+      problems.push('output pins or types are wrong: ' + JSON.stringify(nodes.team_base.outputs))
+    }
+
+    const merged = mergeCatalogue(catalogue, nodes)
+    const spec = parseSpec('graph t\nb team_base\no output usage=height\nb.height -> o\n', merged)
+    if (spec.nodes[0].kind !== 'project') problems.push('the spec did not resolve it as a project node')
+
+    const python = emitPython(spec)
+    // Found by path, because it is not in the install where the name search looks.
+    if (!python.includes("'TeamNoises', 'team_base'")) problems.push('the payload does not instance the project graph')
+    if (!python.includes('TeamNoises.sbs')) problems.push('the payload does not say where the package is')
+
+    if (!draw(spec, { project }).includes(LANGUAGES.en.legend.project)) {
+      problems.push('the page does not mark the project as a kind of node')
+    }
+
+    // Shadowing a shipped node would silently change what a spec means.
+    let refused = null
+    try { mergeCatalogue(catalogue, { blur_hq: nodes.team_base }) } catch (error) { refused = error.message }
+    if (!refused) problems.push('a project graph is allowed to shadow one Designer ships')
+    else if (!refused.includes('blur_hq')) problems.push('the clash message does not name the graph')
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
+  }
   return problems
 })
 

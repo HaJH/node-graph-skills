@@ -10,7 +10,7 @@ import * as catalogue from './catalogue.generated.mjs'
 import { parseSpec, SpecError } from './spec.mjs'
 import { emitPython } from './emit.mjs'
 import { draw } from './draw.mjs'
-import { findProject } from './project.mjs'
+import { findProject, projectNodes, mergeCatalogue } from './project.mjs'
 
 function arg (name) {
   const i = process.argv.indexOf('--' + name)
@@ -23,9 +23,26 @@ if (!input || input.startsWith('--')) {
   process.exit(2)
 }
 
+// A spec inside a library gets the library's own guidance on the page, and the library's own
+// graphs as node names: a graph saved into the alias folder is nameable by the next spec, and
+// nothing has to be registered anywhere for it -- the folder is the registry.
+const project = findProject(input)
+let resolved = catalogue
+if (project) {
+  const { nodes, problems } = projectNodes(project)
+  for (const problem of problems) console.error('warning:', problem)
+  try {
+    resolved = mergeCatalogue(catalogue, nodes)
+  } catch (error) {
+    console.error(`${project.file}: ${error.message}`)
+    process.exit(1)
+  }
+  project.nodeCount = Object.keys(nodes).length
+}
+
 let spec
 try {
-  spec = parseSpec(fs.readFileSync(input, 'utf8'), catalogue)
+  spec = parseSpec(fs.readFileSync(input, 'utf8'), resolved)
 } catch (error) {
   if (!(error instanceof SpecError)) throw error
   console.error(`${input}:`)
@@ -37,10 +54,6 @@ const base = path.join(path.dirname(input), path.basename(input, path.extname(in
 const pythonAt = arg('py') ?? base + '.py'
 const htmlAt = arg('html') ?? base + '.html'
 
-// A spec sitting inside a library gets the library's own guidance on the page: where the .sbs
-// goes, what alias other graphs will reference it by, and the one setup step no script can do.
-const project = findProject(input)
-
 fs.writeFileSync(pythonAt, emitPython(spec))
 fs.writeFileSync(htmlAt, draw(spec, { project, lang: arg('lang') ?? spec.lang ?? 'en' }))
 
@@ -50,6 +63,7 @@ console.log('  paste it into Designer: Windows > Python Editor, with the target 
 console.log('page   :', htmlAt, '-', (fs.statSync(htmlAt).size / 1024).toFixed(0) + ' KB')
 if (project) {
   console.log('library:', project.root)
+  if (project.nodeCount) console.log('  ', `${project.nodeCount} of its graphs are usable as node names`)
   console.log('  ', project.alias
     ? `save the graph as ${project.alias.name}://${spec.name ?? 'this_graph'}.sbs`
     : `${path.basename(project.file)} declares no alias -- references will be stored as paths`)

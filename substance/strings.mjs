@@ -23,6 +23,7 @@ const en = {
     value: 'value',
     atomic: 'built-in filter',
     library: 'library node',
+    project: 'this project',
   },
 
   payloadHeading: 'The same network, for Designer',
@@ -74,6 +75,7 @@ const ko = {
     value: '값',
     atomic: '내장 필터',
     library: '라이브러리 노드',
+    project: '이 프로젝트',
   },
 
   payloadHeading: '같은 네트워크, Designer용',
