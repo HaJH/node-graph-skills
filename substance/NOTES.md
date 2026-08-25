@@ -56,15 +56,15 @@ with the scripts that made them:
 | `tools/generate-node-index.sh` | regenerates the first from `resources/packages` and `resources/tooltips` |
 | `tools/generate-io-index.py` | regenerates the second by parsing the shipped `.sbs` packages |
 
-That covers leg C for this domain, and more of it than it looked. `io-index.txt` is four columns,
-not three — `name`, `inputs`, `outputs`, **`package`** — and that fourth column is the `.sbs`
-filename the node lives in, already disambiguated: `perlin_noise` resolves to
-`noise_perlin_noise`, not to any of `noise_perlin_noise_v2`, `perlin_noise_1`, `perlin_noise_2`
-or `perlin_noise_zoom`. All 779 names are unique, so it is a complete 1:1 node → package map.
+That covers leg C for this domain. `io-index.txt` is four columns, not three — `name`, `inputs`,
+`outputs`, **`package`** — and the pin names in it are the real API pin ids, confirmed against a
+live graph: `perlin_noise` and `clouds_2` both report their output pin as `output`, which is what
+the table says.
 
-That is the hard half of what `newInstanceNode` needs, and it already exists. Only the last hop is
-open — whether `loadUserPackage(<package>.sbs)` plus `findResourceFromUrl('pkg:///<name>')`
-resolves, and what the url actually looks like.
+**Its `package` column is not usable, though.** It resolves `perlin_noise` to
+`noise_perlin_noise` and `clouds_2` to `noise_clouds_2`, and Designer actually instantiates
+`noise_perlin_noise_v2` and `noise_clouds_2_v2`. See "Which package a library node comes from"
+below for the rule that does hold.
 
 The other thing the emitter needed was the atomic node ids the API uses (`sbs::compositing::blend`
 form). `dump-catalog.py` answered that outright — see below.
@@ -133,6 +133,78 @@ network by hand, read it back, and the resource url an instance node points at c
 `sbs::function` (85) and `sbs::fxmap` (4 — Quadrant, Switch, Iterate, Dot) enumerate the same
 way when those graphs come into scope. They are out of `v1`.
 
+## Instance nodes — settled
+
+Read off a live graph with two library nodes placed by hand.
+
+- **Every library node shares one definition id, `sbs::compositing::sbscompgraph_instance`.**
+  It is a 30th compositing definition and it is not in the catalogue's 29, because `newNode`
+  cannot create it. A library node has no identity of its own at the definition level.
+- Identity is entirely in `getReferencedResource()`: `identifier` (`perlin_noise`) plus the
+  package's `getFilePath()`. `getDefinition().getLabel()` gives the display name
+  (`Perlin noise`).
+- **The resource url is not a key.** It comes back as `pkg:///perlin_noise?dependency=1579705510`
+  and that number is a per-package dependency uid in the same space as node uids. Match on
+  `identifier` inside `getChildrenResources(True)`, not on a stored url.
+- **A library node's output pin is `output`, not `unique_filter_output`.** That name is atomic
+  filters only. Library pin ids are per-node and are the names `io-index.txt` already lists —
+  `blur_hq` outputs `Blur_HQ`, capitalised.
+- Placing one library node loads more than one package: `noise_perlin_noise_v2.sbs` pulled in
+  `functions.sbs` (200 resources) as a transitive dependency.
+
+## Which package a library node comes from
+
+A graph identifier is not unique across the shipped packages — `clouds_2` is declared by
+`clouds_2.sbs`, `noise_clouds_2.sbs` and `noise_clouds_2_v2.sbs`. What separates them is
+**`<hideInLibrary v="1"/>`** on the graph's own attributes. The Library panel offers the one
+graph that does not carry it, and that is the one `newInstanceNode` has to be pointed at.
+
+The rule predicts both live data points: hand-placing Perlin Noise and Clouds 2 loaded
+`noise_perlin_noise_v2.sbs` and `noise_clouds_2_v2.sbs`, which are exactly the non-hidden
+candidates. `tools/map-library-packages.mjs` applies it across the install — Designer does not
+have to be running:
+
+| | |
+|---|---|
+| 812 | graph ids across 541 `.sbs` files |
+| 544 | exactly one visible package — resolvable |
+| 247 | none visible — retired or internal, correctly not in the Library |
+| 21 | more than one visible — genuinely ambiguous, listed by the script |
+
+`_v2` is a symptom, not the rule. Some `_v2` packages also rename the graph
+(`anisotropic_noise` → `anisotropic_noise_v2`, `moisture_noise` → `moisture_noise_1`), which is
+why the old name resolving to nothing visible is the correct answer rather than a miss.
+
+## Values do not round-trip as text
+
+`SDValueSerializer` has `sToString` and **no `sFromString`**. A serialised value is write-only.
+Two consequences:
+
+- A dump has to record the `SDValue` subclass name plus components pulled out of `.get()`, and
+  rebuild dispatches on the class name to `sNew(struct(*components))`. `SDValueEnum` is the one
+  exception — `sFromValue(typeId, int)`. Every `sdbasetypes` struct supports `__getitem__`, so
+  components come out by index.
+- Comparing a value against its default has to compare components, not text.
+  `SDValueColorRGBA(ColorRGBA(0,0,0,1))` and `SDValueFloat4(float4(0,0,0,1))` are the same value
+  and different strings, and a text comparison reports every such parameter as edited.
+
+A definition's default is also not the value a placed node has: `$outputsize` defaults to
+`int2(8,8)` on the definition and reads `int2(0,0)` on every placed node.
+
+## Connections name their ends relative to the query
+
+`getPropertyConnections` populates from both the output side and the input side, and both passes
+return the same complete set of wires — 8 and 8 on the test network. But `SDConnection`'s two
+accessors are relative to the pin queried from, not to dataflow role:
+
+| Queried from | `getOutputProperty()` | `getInputProperty()` |
+|---|---|---|
+| an output pin | the queried pin (source) | the far pin (destination) |
+| an input pin | the queried pin (**destination**) | the far pin (**source**) |
+
+So reading from output pins is the direction whose names match dataflow. Reading from input pins
+and trusting the names inverts every wire.
+
 ## The format, if it is ever needed
 
 `resources/documentation/sbs_reference.md` — 732 lines, the whole `.sbs` DTD, in the box. Node
@@ -148,39 +220,47 @@ need.
 
 ## The round-trip gate
 
-`tools/` holds the two halves of the "out" leg and nothing else until the gate passes.
+`tools/` holds probes and nothing else until the gate passes.
 
-| Script | Reads | Writes |
-|---|---|---|
-| `dump-catalog.py` | the four definition sources | `~/node-graph-harvest/sd-catalog.json` — done, see above |
-| `dump-graph.py` | the open graph's nodes, wires, positions, non-default values | `~/node-graph-harvest/sd-graph.json` |
+| Script | Does |
+|---|---|
+| `dump-catalog.py` | reads the four definition sources — done, see above |
+| `map-library-packages.mjs` | resolves a library node name to its `.sbs`, offline — done, see above |
+| `roundtrip.py` | both legs. `MODE = "dump"` reads the open graph to `sd-graph.json`; `MODE = "rebuild"` builds that file into a new empty graph and reads the result back to `sd-graph-rebuilt.json` |
 
-The network the gate is measured against is hand-built in Designer and has to contain, in about
-ten nodes: at least two library nodes (an instance node is the one thing the catalogue cannot
-describe), a `blend` with all three of `source` / `destination` / `opacity` wired, a node with a
-parameter moved off its default, and an `output`. Anything less does not exercise the parts that
-are still guesses.
+One file for both legs because the value codec and the resource lookup are needed by each, and
+the Python Editor runs a single pasted file with no import path.
 
-A concrete network that covers all four, and nothing in it is exotic:
+Procedure: build a network by hand, run `"dump"`, open a **new empty** compositing graph, run
+`"rebuild"` there. The gate passes when the two json files describe the same network. `rebuild`
+refuses to run on a graph that already holds nodes.
+
+The network has to contain, in about ten nodes: two library nodes **that take image inputs**, a
+`blend` with all three of `source` / `destination` / `opacity` wired, a parameter moved off its
+default, and an `output`.
 
 ```
-perlin_noise ─┐                     clouds_2 ─── levels ─── Dot
-              ├─ blend ── normal ── output
-              │  (opacity from a grayscale uniform)
-transformation ┘
+perlin_noise ─── blur_hq ─┐                clouds_2 ─── levels ─── Dot
+                          ├─ blend ── normal ── output
+   uniform (grayscale) ───┤  (opacity)
+       transformation ────┘
 ```
 
-Open questions `dump-graph.py` is pointed at:
+The first run of this used `perlin_noise` and `clouds_2` alone. Both are generators with no image
+inputs, so it settled every question about instance nodes except the one that matters most for
+wiring — what a library node's **input** pin ids look like. `blur_hq` is in the diagram above
+because `io-index.txt` calls its input `Source` and its output `Blur_HQ`, capitals and all, which
+tests the "table names are API ids" assumption harder than a pin called `output` does.
 
-- what an instance node reports as its `definitionId`, and whether the resource `url`
-  (`pkg:///name?dependency=NNNN` form) is stable or per-session. If the dependency number is
-  per-session, `findResourceFromUrl` cannot be fed a stored string and `getChildrenResources`
-  plus an identifier match is the only route.
-- whether `getPropertyConnections` populates from the output side, the input side, or both
-- whether a `float2` position round-trips exactly
-- what a library node's pin ids are. `io-index.txt` has the pin *names*, but whether those are
-  the ids `newPropertyConnectionFromId` takes is an assumption until an instance node is read
-  back.
+Still open, and what the next run answers:
+
+- library node **input** pin ids — untested
+- whether `loadUserPackage` against a package inside the read-only install directory works, and
+  whether it disturbs anything
+- whether `newNode('sbs::compositing::output')` produces a usable output bridge, or whether a
+  graph output has to be declared separately first
+- whether a `float2` position round-trips exactly — the hand-built graph had nodes at
+  `1053.7752685546875`, so the canvas does not snap
 
 ## What is not covered
 
