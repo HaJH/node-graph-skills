@@ -166,17 +166,23 @@ A graph identifier is not unique across the shipped packages — `clouds_2` is d
 **`<hideInLibrary v="1"/>`** on the graph's own attributes. The Library panel offers the one
 graph that does not carry it, and that is the one `newInstanceNode` has to be pointed at.
 
-The rule predicts both live data points: hand-placing Perlin Noise and Clouds 2 loaded
-`noise_perlin_noise_v2.sbs` and `noise_clouds_2_v2.sbs`, which are exactly the non-hidden
-candidates. `tools/map-library-packages.mjs` applies it across the install — Designer does not
-have to be running:
+The rule predicts every live data point: hand-placing Perlin Noise, Clouds 2 and Blur HQ
+Grayscale loaded `noise_perlin_noise_v2.sbs`, `noise_clouds_2_v2.sbs` and `blur_hq.sbs`, which
+are exactly the non-hidden candidates. `tools/generate-catalogue.mjs` applies it across the
+install — Designer does not have to be running:
 
 | | |
 |---|---|
 | 812 | graph ids across 541 `.sbs` files |
-| 544 | exactly one visible package — resolvable |
-| 247 | none visible — retired or internal, correctly not in the Library |
-| 21 | more than one visible — genuinely ambiguous, listed by the script |
+| 501 | exactly one visible package — resolvable, and what the catalogue ships |
+| 310 | none visible — retired or internal, correctly not in the Library |
+| 1 | more than one visible — `clamp`, declared by both `clamp.sbs` and `glow.sbs` |
+
+**Read the whole attributes block, not a fixed window.** `<attributes>` carries an `<icon>` with
+a base64 PNG in it, so it runs to 10–11 KB, and `hideInLibrary` sits after that blob. Scanning a
+4 KB window finds the label and misses the flag, which silently promotes hidden legacy graphs to
+visible — `shape.sbs` ("Shape (Legacy)") and `flood_fill.sbs` both read as visible that way and
+turn what is actually a clean resolution into a false ambiguity.
 
 `_v2` is a symptom, not the rule. Some `_v2` packages also rename the graph
 (`anisotropic_noise` → `anisotropic_noise_v2`, `moisture_noise` → `moisture_noise_1`), which is
@@ -232,7 +238,7 @@ Passed on Designer 15.1.0 — see below. `tools/` holds the probes it was run wi
 | Script | Does |
 |---|---|
 | `dump-catalog.py` | reads the four definition sources — done, see above |
-| `map-library-packages.mjs` | resolves a library node name to its `.sbs`, offline — done, see above |
+| `generate-catalogue.mjs` | writes `catalogue.generated.mjs` from that dump plus the shipped `.sbs` packages, offline |
 | `roundtrip.py` | both legs. `MODE = "dump"` reads the open graph to `sd-graph.json`; `MODE = "rebuild"` builds that file into a new empty graph and reads the result back to `sd-graph-rebuilt.json` |
 
 One file for both legs because the value codec and the resource lookup are needed by each, and
@@ -288,14 +294,39 @@ should reproduce that file. The renderer has no such automatic check.
 The catalogue is **regenerated from the installed Designer**, inside `substance/tools/`, rather
 than copied from `procedural-texture-advisor` or read out of it at build time. That keeps this
 repo standing on its own and follows the "catalogues are generated, never transcribed" rule.
-`map-library-packages.mjs` is roughly half of it already — it walks the 541 packages and applies
-the `hideInLibrary` rule. What has to be added is each library graph's image inputs and outputs,
-with pin ids and colour / grayscale typing, plus the atomic set read out of `sd-catalog.json`.
+`generate-catalogue.mjs` does it and `catalogue.generated.mjs` is the result — 261 KB, committed,
+because the skill has to work without anyone running a generator.
 
-Open where that work stopped: **how a `.sbs` graph declares an image input.** `<paraminputs>` is
-parameters only — `scale` with `<type v="16"/>` is an int, not a texture. `blur_hq.sbs` declares
-`Source` somewhere else, and finding that structure is the first thing the generator needs.
-`resources/documentation/sbs_reference.md` has the DTD.
+## What the catalogue holds
+
+`ATOMIC` keyed by short name (`blend`), `LIBRARY` keyed by graph identifier (`blur_hq_grayscale`).
+
+Image inputs are in `<paraminputs>` after all, alongside the parameters — the DTD calls it "list
+of parameters **and compositing inputs**". What separates them is the type code, and
+`<isConnectable v="1"/>` marks the same set:
+
+| Code | Meaning |
+|---|---|
+| 1 | colour texture |
+| 2 | grayscale texture |
+| 3 | either |
+| 16 / 256 / 512 / 1024 / 2048 | int1, float1, float2, float3, float4 — parameters, not pins |
+
+`<primaryInput>` on the graph holds the uid of the primary image input, which is the same idea as
+`isPrimary` on an atomic definition.
+
+Outputs are `<graphoutput>`, and their `<channels>` uses those same codes with one twist:
+**colour is encoded by absence.** The value `1` never appears anywhere in the install, 988
+outputs carry `2` and 825 carry nothing. `blur_hq.sbs` settles it — the colour variant omits
+`<channels>`, the grayscale one carries `2`.
+
+Some library graphs have **value outputs** rather than image ones — `min_max` returns floats,
+`value_get_size` a float2. The catalogue types those `value`; they cannot take an image wire.
+
+Library entries carry pins only, no parameters. 501 nodes with their full parameter lists would
+run to megabytes for something the emitter does not need, since
+`setInputPropertyValueFromId` takes an id and Designer validates it. The 29 atomic definitions do
+carry their parameters, defaults included — cheap, and they are what most specs are made of.
 
 ## What is not covered
 
