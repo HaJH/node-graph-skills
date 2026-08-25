@@ -147,8 +147,15 @@ Read off a live graph with two library nodes placed by hand.
   and that number is a per-package dependency uid in the same space as node uids. Match on
   `identifier` inside `getChildrenResources(True)`, not on a stored url.
 - **A library node's output pin is `output`, not `unique_filter_output`.** That name is atomic
-  filters only. Library pin ids are per-node and are the names `io-index.txt` already lists —
-  `blur_hq` outputs `Blur_HQ`, capitalised.
+  filters only. Library pin ids are per-node.
+- **`io-index.txt`'s pin names are the API pin ids, capitalisation and all.** Confirmed on the
+  one node placed specifically to break the assumption: `blur_hq_grayscale` reads back with
+  input `Source` and output `Blur_HQ`, against a table row of
+  `blur_hq_grayscale | Source:gray | Blur_HQ | blur_hq`. All four fields agree, package column
+  included — that column is only wrong where a hidden duplicate of the graph exists elsewhere.
+- Colour and grayscale variants are **separate graph identifiers inside one package**:
+  `blur_hq.sbs` declares both `blur_hq` and `blur_hq_grayscale`, and the bare name is the
+  colour one.
 - Placing one library node loads more than one package: `noise_perlin_noise_v2.sbs` pulled in
   `functions.sbs` (200 resources) as a transitive dependency.
 
@@ -246,21 +253,22 @@ perlin_noise ─── blur_hq ─┐                clouds_2 ─── levels �
        transformation ────┘
 ```
 
-The first run of this used `perlin_noise` and `clouds_2` alone. Both are generators with no image
-inputs, so it settled every question about instance nodes except the one that matters most for
-wiring — what a library node's **input** pin ids look like. `blur_hq` is in the diagram above
-because `io-index.txt` calls its input `Source` and its output `Blur_HQ`, capitals and all, which
-tests the "table names are API ids" assumption harder than a pin called `output` does.
+**The `"dump"` leg is proven.** Nine nodes, seven wires, three instance nodes — one of them
+`blur_hq_grayscale`, which carries an image input and answered the pin-id question. Values come
+back structurally as `SDValueInt2`, `SDValueBool` and `SDValueEnum`, none unsupported, none
+function-driven.
 
-Still open, and what the next run answers:
+Still open:
 
-- library node **input** pin ids — untested
-- whether `loadUserPackage` against a package inside the read-only install directory works, and
-  whether it disturbs anything
-- whether `newNode('sbs::compositing::output')` produces a usable output bridge, or whether a
-  graph output has to be declared separately first
-- whether a `float2` position round-trips exactly — the hand-built graph had nodes at
-  `1053.7752685546875`, so the canvas does not snap
+- **`newNode('sbs::compositing::output')`** — the hand-built network has no output bridge, so
+  whether one can be created this way, or whether a graph output has to be declared first, is
+  untested.
+- **`loadUserPackage` against the read-only install directory.** Rebuilding in the session that
+  built the network will not exercise it: those packages are already loaded, so `find_resource`
+  matches them in `getPackages()` and never calls it. Testing it for real means **restarting
+  Designer** before the rebuild run, which is also the situation a shipped payload script meets.
+- whether a `float2` position round-trips exactly — an earlier hand-built graph had a node at
+  `1053.7752685546875`, so the canvas does not snap.
 
 ## What is not covered
 
