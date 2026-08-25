@@ -365,15 +365,58 @@ really in the catalogue. Documentation drifts the moment nothing checks it, and 
 the first thing anyone copies — it is how `curvature_smooth` got into a draft of that file when
 the node the Library actually offers is `curvature_smooth_v2`.
 
+Three more guard what a reader actually meets: the `SKILL.md` example parses and builds, the
+worked example under `example/` still draws without overlaps and still uses a multi-output node,
+and the payload button still tries both clipboard routes in the order that works.
+
 ## Done, and proved in Designer
 
 The payload has been run: `added 10 nodes and 9 wires`. That closes the three things the offline
 checks could not reach — `getPath` finding the install, `loadUserPackage` against the read-only
 install directory, and `free_offset`.
 
+## The worked example
+
+`example/worn_painted_metal.spec` — 21 nodes, 23 wires, nine of them library nodes. Chipped paint
+over brushed steel, height first: a bevelled panel grid under anisotropic noise, scratches carved
+in and slope-blurred, the height into `normal`, that normal into `curvature_smooth_v2`, the
+curvature scanned by `histogram_scan` into one wear mask, and that single mask driving both the
+basecolor blend and the roughness blend so the chips line up across the maps. Four `output`
+bridges.
+
+It exists because `gate-graph.json` is ten nodes picked to break the emitter, which is a different
+job from being read. Writing this one found nothing broken — the build's one complaint was the
+right one, that `height_blend` has two outputs and the wire had to say which.
+
+Two gaps it did surface, neither blocking:
+
+- **Enum parameters are unwritable in practice.** `blendingmode` on a `blend` is
+  `sbs::compositing::blendingmode` and the spec takes a whole number, but the catalogue carries
+  the enum's type name and not its value labels, so nothing says which integer is Subtract. The
+  example leaves every blending mode at its default for that reason.
+- A 21-node graph draws 3062 px wide. The frame scrolls, so nothing breaks, but the layout has no
+  notion of a page width to fold against.
+
+## The Copy button
+
+`lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting
+`navigator.clipboard.writeText` ahead of it would spend the click's user activation — then the
+async API, and leaves the payload selected either way so Ctrl+C always still works.
+
+**Verified on a top-level page**: clicking Copy and pasting back into the same page returns all
+11546 characters of the payload.
+
+**Not verified inside an artifact**: the button reports `Copied` there, which means `execCommand`
+returned true, but whether the system clipboard actually received it is untested. The browser
+automation available here keeps a clipboard that does not survive a navigation or a tab switch —
+a copy proven to work on one page pastes empty on the next — so no cross-page check through it
+means anything, in either direction. One human click in a published artifact followed by a paste
+into Designer settles it.
+
 ## Next
 
-Nothing is outstanding for Substance. The remaining work in this repo is other domains — Blender
+Substance has one open question — whether the artifact Copy button reaches the system clipboard,
+above. Beyond that, nothing is outstanding. The remaining work in this repo is other domains — Blender
 Geometry Nodes, Houdini, ComfyUI — each of which starts at its own round-trip gate.
 
 Worth doing here eventually, none of it blocking:

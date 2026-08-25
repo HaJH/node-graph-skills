@@ -109,9 +109,12 @@ left and outputs down the right, values listed under them, and curved wires colo
 carry. Designer draws a node as a square tile showing its own cooked texture, which a static page
 cannot reproduce — so this shows pin names instead, which is the part prose is worst at anyway.
 
-The Python payload sits under the graph with a **Select all** button. It selects rather than
-copies: an artifact is framed cross-origin without `clipboard-write` delegated, so the Clipboard
-API always rejects there. The reader presses Ctrl+C after clicking.
+The Python payload sits under the graph with a **Copy** button. An artifact is framed
+cross-origin without `clipboard-write` delegated, so `navigator.clipboard` rejects there;
+`document.execCommand('copy')` is gated on the click's user activation rather than on a
+permission, so the button tries that first -- synchronously, because awaiting the clipboard
+promise ahead of it would spend the activation -- and the async API second. Whichever runs, the
+payload is left selected, so a browser that refuses both still leaves the reader one Ctrl+C away.
 
 ## How it goes back into Designer
 
@@ -157,6 +160,7 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/tools/generate-catalogue.mjs` | regenerates that from an installed Designer |
 | `substance/tools/dump-catalog.py` | reads the built-in definitions out of a running Designer |
 | `substance/tools/roundtrip.py` | reads a graph out of Designer and builds one back in |
+| `substance/example/worn_painted_metal.spec` | the worked example -- 21 nodes, four outputs, one wear mask driving basecolor and roughness |
 | `substance/test/run.mjs` | checks the catalogue, parser, emitter, page and this file against a graph that made the trip for real |
 | `substance/NOTES.md` | what is verified about Designer, and how |
 | `lib/` | `layout.mjs`, `render.mjs`, `page.mjs` — shared with the other domains |

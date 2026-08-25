@@ -267,6 +267,67 @@ check('the spec in SKILL.md is one that builds', () => {
   return problems
 })
 
+check('the shipped example builds, and is worth shipping', () => {
+  // gate-graph is ten nodes chosen to break the emitter. This one is chosen to be read: a real
+  // material, four outputs, one wear mask driving basecolor and roughness both. It is the graph
+  // anyone judges the skill by, so it gets the same treatment as the gate network.
+  const source = fs.readFileSync(path.join(HERE, '..', 'example', 'worn_painted_metal.spec'), 'utf8')
+
+  let spec
+  try {
+    spec = parseSpec(source, catalogue)
+  } catch (error) {
+    return ['the example does not parse: ' + error.message]
+  }
+
+  const problems = []
+  if (spec.nodes.length < 15) problems.push(`the example is down to ${spec.nodes.length} nodes -- it is meant to be a large one`)
+
+  // Multi-output nodes are where a spec author trips, so the example has to keep exercising them.
+  if (!spec.nodes.some(n => n.def.outputs.length > 1)) {
+    problems.push('the example no longer uses a node with more than one output')
+  }
+
+  const python = emitPython(spec)
+  const html = draw(spec)
+  const wires = (html.match(/stroke-width="1\.6"/g) || []).length
+  if (wires !== spec.wires.length) problems.push(`${wires} wires drawn for ${spec.wires.length}`)
+
+  const boxes = [...html.matchAll(/<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)" rx=/g)]
+    .map(m => ({ x: +m[1], y: +m[2], w: +m[3], h: +m[4] }))
+  for (let i = 0; i < boxes.length; i++) {
+    for (let j = i + 1; j < boxes.length; j++) {
+      const a = boxes[i]; const b = boxes[j]
+      if (a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h) {
+        problems.push(`node boxes overlap at ${a.x},${a.y} and ${b.x},${b.y}`)
+      }
+    }
+  }
+  if (!python.includes('newInstanceNode')) problems.push('the example places no library node')
+  return problems
+})
+
+check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
+  // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
+  // route that can survive that, so it has to be tried first and synchronously -- awaiting the
+  // clipboard promise ahead of it spends the click's user activation. Whatever happens the
+  // payload ends up selected, so Ctrl+C is always still there.
+  const spec = parseSpec(fs.readFileSync(path.join(HERE, '..', 'example', 'worn_painted_metal.spec'), 'utf8'), catalogue)
+  const html = draw(spec)
+  const problems = []
+
+  const execAt = html.indexOf("document.execCommand('copy')")
+  const asyncAt = html.indexOf('navigator.clipboard.writeText')
+  if (execAt < 0) problems.push('the button does not try execCommand')
+  if (asyncAt < 0) problems.push('the button does not fall back to the clipboard API')
+  if (execAt >= 0 && asyncAt >= 0 && execAt > asyncAt) {
+    problems.push('the clipboard promise is awaited before execCommand, which spends the user activation')
+  }
+  if (!html.includes('selection.addRange(range)')) problems.push('the payload is not selected, so Ctrl+C has nothing to take')
+  if (!html.includes('Ctrl+C')) problems.push('a reader whose browser refuses both is told nothing')
+  return problems
+})
+
 console.log('')
 if (failures.length) {
   console.log(`${failures.length} failing check${failures.length > 1 ? 's' : ''}`)

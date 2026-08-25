@@ -1,5 +1,6 @@
-# Built pages and the specs that produce them are per-use, not part of the skill.
+# Built pages and payloads are generated from a spec; the spec is the source, they are not.
 *.html
+substance/example/*.py
 !page.template.html
 _site/
 node_modules/

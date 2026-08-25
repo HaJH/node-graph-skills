@@ -17,16 +17,18 @@ Blender Geometry Nodes, Houdini and ComfyUI are the next domains.
 
 ## Status
 
-Early. Nothing builds yet.
-
 **`substance-graph` works end to end.** A ten-node network went out of Designer 15.1.0, back into
 an empty graph and out again matching on every node, position, value and wire — and a spec run
 back through the emitter rebuilt it in Designer for real.
 
 ```
-node substance/build.mjs rough_metal.spec    # -> rough_metal.html and rough_metal.py
+node substance/build.mjs substance/example/worn_painted_metal.spec
 node substance/test/run.mjs                  # checked against the graph that made the trip
 ```
+
+`substance/example/worn_painted_metal.spec` is the worked example: chipped paint over brushed
+steel in 21 nodes, height into normal into curvature into a wear mask that drives basecolor and
+roughness both.
 
 The catalogue of 29 built-in and 501 library nodes is generated from an installed Designer, so
 every pin name and type is the tool's own. What is known about Designer, and how each piece of it
