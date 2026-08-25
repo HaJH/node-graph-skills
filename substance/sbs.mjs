@@ -87,7 +87,10 @@ function readGraph (body, pkg) {
 function walk (dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, entry.name)
-    if (entry.isDirectory()) walk(p, out)
+    // Designer writes autosaves into .autosave next to the package, and a checkout has .git.
+    // Scanning those makes one graph look like it is declared by three packages, which reads as
+    // an ambiguity the user has to resolve and is really just a backup.
+    if (entry.isDirectory()) { if (!entry.name.startsWith('.')) walk(p, out) }
     else if (entry.name.endsWith('.sbs')) out.push(p)
   }
   return out

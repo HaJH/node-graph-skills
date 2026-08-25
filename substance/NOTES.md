@@ -533,25 +533,31 @@ own word. Worth remembering the next time a name looks obvious enough to skip th
 There is no offline source for this table the way `sbs_compositing.rst.txt` is one for node
 definitions, so it lives in `spec.mjs` with this note rather than being generated.
 
-### The panel builds from an index, and only at startup
+### The panel's tree is hardcoded, and a custom category cannot join it
 
-`%LOCALAPPDATA%/Adobe/Adobe Substance 3D Designer/<version>/databases/resources.json` is what the
-Library panel draws. Each graph is an entry with `extension: "graph"`, a url of
-`<package>.sbs/<graph identifier>`, `is_listable`, and a `metadata` block carrying `category`,
-`label`, `description` and `tags`. That metadata is the graph's attributes, so the category set
-by the payload is exactly what files it in the tree.
+`%LOCALAPPDATA%/.../<version>/databases/resources.json` is the library index, and a graph lands
+in it correctly: `extension: "graph"`, `is_listable: true`, and a `metadata` block carrying the
+`category`, `label` and `description` the payload set. Measured -- saved at 08:25:37, indexed at
+08:26:04, unprompted, Korean description intact.
 
-Note the version folder: `<install>/databases/resources.json` also exists and is stale by a year.
-Reading that one says the packages are missing when they are not.
+**None of that puts it in the tree.** The Library panel is a *shelf*: a fixed set of predefined
+queries, each with its own label and icon compiled into the executable
+(`:/pfx/editor/components/shelf/icons/query_materials_pbr.svg` and forty more). Nothing outside
+the binary defines them -- there is no shelf file in the install, none in the user config, and
+`default_configuration.sbscfg` holds only the registered project list.
 
-**Indexing is automatic and quick; the tree is not.** Measured: the payload saved the package at
-08:25:37 and the index carried it, category and all, at 08:26:04 -- 27 seconds later, with no
-prompting. But a Designer already running went on showing the tree it built at startup, which is
-why a newly categorised graph is searchable and invisible at the same time. **Restart Designer to
-see it in the tree.** Nothing about the graph or the watched path is wrong when that happens.
+The children are hardcoded too, not read from the data. The binary lists `PBR Materials/` then
+`Bricks, Concrete, Fabric, Ground, Metal, Paper, Pavement, Tiles, Wood, Stone` -- and **`Stone`
+matches nothing in the install**, so that list cannot have been generated from the packages.
 
-A graph with no category is indexed too -- `hbtest`, saved by hand, is in there with a `metadata`
-block holding nothing but `plugindesc`. Searchable, and nowhere to sit.
+So a category of one's own is metadata that nothing displays. What the shelf does show is
+whatever matches a query it already has, which means an existing category string -- `Generator`,
+`Filter`, `Material Filter`, `PBR Materials/Metal` and the rest of the 21 the install uses.
+Restarting changes nothing; this was tested.
+
+Three things still work, and they are what the pipeline actually leans on: the graph is found by
+**search**, it can be **starred** (`databases/favorites.json`), and a spec names it directly,
+which needs no panel at all.
 
 The payload sets the description **before it empties the graph**: a bad id then raises on a graph
 nothing has been done to yet.

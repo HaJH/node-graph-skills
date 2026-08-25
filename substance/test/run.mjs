@@ -498,6 +498,11 @@ check('a graph the project owns is a node the next spec can name', () => {
       '<graphoutput><identifier v="colour"/></graphoutput>' +
       '</graphOutputs></graph></content></package>')
 
+    // Designer drops autosaves in .autosave beside the package. Scanning those makes one graph
+    // look like three packages declare it, and it gets dropped as ambiguous.
+    fs.mkdirSync(path.join(packages, '.autosave'))
+    fs.copyFileSync(path.join(packages, 'TeamNoises.sbs'), path.join(packages, '.autosave', 'TeamNoises.sbs'))
+
     const project = findProject(path.join(root, 'specs', 'x.spec'))
     if (!project) return ['the project was not found']
     // A relative alias is what Designer writes for a folder inside the project, so it has to work.

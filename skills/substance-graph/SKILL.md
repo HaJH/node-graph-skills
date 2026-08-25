@@ -206,7 +206,7 @@ not what the `.sbs` format calls them -- `author_url`, `show_in_library` and `ph
 
 **`category` is what puts a graph in the Library panel's tree.** Without one Designer still
 indexes the graph -- search finds it -- but there is nowhere for it to sit, so it looks missing.
-Slash separated for nesting. **The panel builds its tree at startup from an index, so a graph that has just been given a category is searchable but not in the tree until Designer is restarted** -- the index itself updates within a minute, unprompted. Inside a library the category defaults to the alias name, so the library's
+Slash separated for nesting. **A category of your own will not appear in the Library panel's tree**: the tree is a fixed set of queries compiled into Designer, down to the sub-entries, so only a category string it already knows -- `Generator`, `Filter`, `Material Filter`, `PBR Materials/Metal` -- files a graph somewhere visible. The graph is indexed and searchable either way. Inside a library the category defaults to the alias name, so the library's
 graphs land under one heading; a spec can override. `label` and `description` are the other two
 worth setting, and they are what a person browsing reads.
 
