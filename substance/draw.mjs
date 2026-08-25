@@ -6,6 +6,7 @@
 
 import { render } from '../lib/render.mjs'
 import { page } from '../lib/page.mjs'
+import { emitPython } from './emit.mjs'
 import { theme } from './theme.mjs'
 
 const ATOMIC_PIN_TYPE = 'either' // atomic filters take whatever the graph is carrying
@@ -49,6 +50,11 @@ export function draw (spec) {
     subtitle,
     graph: graph.svg,
     theme,
+    payload: {
+      heading: 'The same network, for Designer',
+      subtitle: 'Open the graph you want it in, then Windows › Python Editor, paste, Run.',
+      text: emitPython(spec),
+    },
     legend: [
       { colour: theme.types.color, label: 'colour' },
       { colour: theme.types.gray, label: 'grayscale' },

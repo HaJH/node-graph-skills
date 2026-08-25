@@ -224,11 +224,46 @@ check('the page draws every node and wire, and stands on its own', () => {
   }
 
   if (/NaN|undefined/.test(html)) problems.push('the page contains NaN or undefined')
-  if (/<script/.test(html)) problems.push('the page carries script')
-  // The SVG namespace is an identifier, not a fetch; anything else would be a network request.
+
+  // Inline script is fine -- the select button needs a few lines. Fetching anything is not:
+  // the artifact CSP blocks external hosts, and a page has to open offline besides. The SVG
+  // namespace is an identifier rather than a request, so it is the one allowed URL.
+  if (/<script[^>]*\ssrc=/.test(html)) problems.push('the page loads script from elsewhere')
   const external = (html.match(/https?:\/\/[^"' )]+/g) || []).filter(u => u !== 'http://www.w3.org/2000/svg')
   if (external.length) problems.push('the page reaches outside itself: ' + external.join(', '))
 
+  if (!html.includes('newPropertyConnectionFromId')) problems.push('the page carries no Designer payload')
+
+  return problems
+})
+
+check('the spec in SKILL.md is one that builds', () => {
+  // Documentation drifts the moment nothing checks it, and this example is the first thing
+  // anyone copies.
+  const skill = fs.readFileSync(path.join(HERE, '..', '..', 'skills', 'substance-graph', 'SKILL.md'), 'utf8')
+  const block = skill.match(/```\n(graph [\s\S]*?)```/)
+  if (!block) return ['SKILL.md has no spec example to check']
+
+  const problems = []
+  let spec
+  try {
+    spec = parseSpec(block[1], catalogue)
+  } catch (error) {
+    return ['the documented spec does not parse:\n' + error.message]
+  }
+  if (!spec.nodes.length || !spec.wires.length) problems.push('the documented spec is empty')
+  try {
+    emitPython(spec)
+    draw(spec)
+  } catch (error) {
+    problems.push('the documented spec parses but does not build: ' + error.message)
+  }
+
+  // Every node name the prose lists as usable has to actually be in the catalogue.
+  const listed = [...skill.matchAll(/`([a-z][a-z0-9_]{2,})`/g)].map(m => m[1])
+  const known = new Set([...Object.keys(catalogue.ATOMIC), ...Object.keys(catalogue.LIBRARY)])
+  const nodeish = listed.filter(n => known.has(n))
+  if (nodeish.length < 20) problems.push(`only ${nodeish.length} of the names in SKILL.md resolve -- expected the node lists`)
   return problems
 })
 

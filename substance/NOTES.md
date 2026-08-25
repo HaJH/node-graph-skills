@@ -349,7 +349,7 @@ reads left to right, Houdini SOP and Nuke top to bottom.
 
 ## Tests
 
-`node substance/test/run.mjs`. Six checks, and the two that matter both lean on
+`node substance/test/run.mjs`. The three that carry the most weight all lean on
 `test/gate-graph.json` — the network that cleared the gate, read straight out of Designer:
 
 - every pin id, package and parameter in it still resolves against the generated catalogue.
@@ -357,15 +357,32 @@ reads left to right, Houdini SOP and Nuke top to bottom.
 - turning it back into a spec and emitting produces a payload whose creation and connection
   calls match it exactly. The emitter is checked against a graph known to work, not against
   its own idea of one.
+- drawing that spec produces a page with every node and wire in it, no overlapping node boxes,
+  and nothing fetched from outside.
 
-## Next — not yet built
+A fourth checks that the spec example in `SKILL.md` parses, builds, and names nodes that are
+really in the catalogue. Documentation drifts the moment nothing checks it, and that example is
+the first thing anyone copies — it is how `curvature_smooth` got into a draft of that file when
+the node the Library actually offers is `curvature_smooth_v2`.
 
-**The renderer.** `lib/layout.mjs` is written and already carries both halves' positions; what
-is missing is the SVG renderer and the page shell around it, plus `skills/substance-graph/SKILL.md`.
+## Done, and proved in Designer
 
-Not yet proven in Designer: **the emitted payload has never been run.** Its calls match the gate
-graph line for line offline, but `getPath`, `loadUserPackage` against the install directory, and
-`free_offset` have not been exercised. One paste into the Python Editor closes that.
+The payload has been run: `added 10 nodes and 9 wires`. That closes the three things the offline
+checks could not reach — `getPath` finding the install, `loadUserPackage` against the read-only
+install directory, and `free_offset`.
+
+## Next
+
+Nothing is outstanding for Substance. The remaining work in this repo is other domains — Blender
+Geometry Nodes, Houdini, ComfyUI — each of which starts at its own round-trip gate.
+
+Worth doing here eventually, none of it blocking:
+
+- `clamp` is the one graph id of 812 with two visible packages (`clamp.sbs` and `glow.sbs`) and
+  is left out of the catalogue until something disambiguates it.
+- Function graphs and FX-Maps are still out of scope, and the spec has no nesting to hold them.
+- Library parameter defaults are not carried, so the build cannot say that a value being set is
+  the one the node already had.
 
 The catalogue is **regenerated from the installed Designer**, inside `substance/tools/`, rather
 than copied from `procedural-texture-advisor` or read out of it at build time. That keeps this
