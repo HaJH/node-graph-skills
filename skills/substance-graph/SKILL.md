@@ -241,6 +241,27 @@ worse than a rename.
 payload can do it: `Edit > Preferences > Projects`, add the `.sbsprj`, restart. The page says so
 whenever it finds a library.
 
+## Getting a graph that has no spec into the system
+
+`substance/tools/graph-to-spec.py`, pasted into the Python Editor, reads the graph Designer has
+open and writes the spec that rebuilds it. That is the way in for a graph built by hand, or one
+somebody refined inside Designer after a build -- dump it and it becomes reviewable, rebuildable
+and nameable by the next spec.
+
+It writes into the library's `specs/` folder when it can find one by walking up from the package,
+and beside the package otherwise. Set `LANG` at the top of the file to put a `lang` line in.
+
+**Two things it will not carry, and it says which when it drops one:**
+
+- a parameter driven by a function rather than a constant, since the spec has no function graphs
+  in it and the value would be a lie
+- a base parameter left on inherit. Only one set to `Absolute` means anything, and a definition's
+  default is not the value a placed node has -- `$outputsize` reads `int2(0,0)` on every node
+  against a default of `int2(8,8)`, so "differs from the default" is not the test. Inheritance is.
+
+Node names are the graph's own where it has them -- an output is named by its identifier -- and
+the node type otherwise, numbered where it repeats. Rename them; they are yours.
+
 ## How it goes back into Designer
 
 **Python, not the clipboard.** Designer has no equivalent of Unreal's T3D — copying nodes puts
@@ -288,8 +309,10 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/tools/generate-catalogue.mjs` | regenerates that from an installed Designer |
 | `substance/tools/dump-catalog.py` | reads the built-in definitions out of a running Designer -- how the catalogue's source was settled, not needed to build it |
 | `substance/tools/dump-usages.mjs` | reports the usages Designer's own graph templates declare |
-| `substance/tools/roundtrip.py` | reads a graph out of Designer and builds one back in |
+| `substance/tools/graph-to-spec.py` | reads the open graph and writes the spec that rebuilds it |
+| `substance/tools/roundtrip.py` | the round-trip gate, both legs -- the record of how this was proved |
 | `substance/example/worn_painted_metal.spec` | the worked example -- 21 nodes, four outputs, one wear mask driving basecolor and roughness |
+| `substance/test/fake-designer.py` | stands up enough of the `sd` API to run the dump tool offline |
 | `substance/test/run.mjs` | checks the catalogue, parser, emitter, page and this file against a graph that made the trip for real |
 | `substance/NOTES.md` | what is verified about Designer, and how |
 | `lib/` | `layout.mjs`, `render.mjs`, `page.mjs` — shared with the other domains |

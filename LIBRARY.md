@@ -174,8 +174,11 @@ In dependency order.
    payload opens or creates the package, finds the graph by identifier, empties it and rebuilds,
    then saves. A re-run converges. Emptied rather than remade so dependants keep resolving.
    Outside a library it still appends to whatever is open.
-4. **`dump`: graph to spec.** Reshape `tools/roundtrip.py`'s dump leg to emit a spec instead of
-   json, so hand-built and hand-tuned graphs can enter the system.
+4. ~~**`dump`: graph to spec.**~~ **Done.** `tools/graph-to-spec.py` reads the open graph and
+   writes the spec that rebuilds it, enums by value id and all. It drops a function-driven
+   parameter and an inherited base parameter, and says which. `test/fake-designer.py` stands up
+   enough of the `sd` API to run it against the gate network offline, so a mistake in it costs a
+   test rather than a round trip through a person.
 5. **Exposed parameters and presets.** `input_value` bridges typed and defaulted, and
    `graph.newPreset` / `preset.addInput`. This is what turns a graph from a network into
    something another person can use without opening it.
