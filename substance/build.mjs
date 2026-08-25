@@ -1,7 +1,7 @@
-// node substance/build.mjs <spec file> [--py <path>]
+// node substance/build.mjs <spec file> [--py <path>] [--html <path>]
 //
-// Reads a spec, reports anything wrong with it, and writes the Designer payload.
-// The rendered page is not wired up yet -- that is the renderer's half.
+// Reads a spec, reports anything wrong with it, and writes both halves: the Designer payload
+// and the page that draws the same network.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -9,6 +9,7 @@ import path from 'node:path'
 import * as catalogue from './catalogue.generated.mjs'
 import { parseSpec, SpecError } from './spec.mjs'
 import { emitPython } from './emit.mjs'
+import { draw } from './draw.mjs'
 
 function arg (name) {
   const i = process.argv.indexOf('--' + name)
@@ -17,7 +18,7 @@ function arg (name) {
 
 const input = process.argv[2]
 if (!input || input.startsWith('--')) {
-  console.error('usage: node substance/build.mjs <spec file> [--py <path>]')
+  console.error('usage: node substance/build.mjs <spec file> [--py <path>] [--html <path>]')
   process.exit(2)
 }
 
@@ -32,9 +33,13 @@ try {
 }
 
 const base = path.join(path.dirname(input), path.basename(input, path.extname(input)))
-const target = arg('py') ?? base + '.py'
-fs.writeFileSync(target, emitPython(spec))
+const pythonAt = arg('py') ?? base + '.py'
+const htmlAt = arg('html') ?? base + '.html'
+
+fs.writeFileSync(pythonAt, emitPython(spec))
+fs.writeFileSync(htmlAt, draw(spec))
 
 console.log(`${spec.nodes.length} nodes, ${spec.wires.length} wires`)
-console.log('payload:', target)
+console.log('payload:', pythonAt)
 console.log('  paste it into Designer: Windows > Python Editor, with the target graph open')
+console.log('page   :', htmlAt, '-', (fs.statSync(htmlAt).size / 1024).toFixed(0) + ' KB')

@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url'
 import * as catalogue from '../catalogue.generated.mjs'
 import { parseSpec, SpecError } from '../spec.mjs'
 import { emitPython } from '../emit.mjs'
+import { draw } from '../draw.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const failures = []
@@ -186,6 +187,48 @@ check('the emitter reproduces the graph that cleared the gate', () => {
   if (python !== emitPython(parseSpec([...declarations, '', ...wireLines].join('\n'), catalogue))) {
     problems.push('emitting the same spec twice gave different output')
   }
+  return problems
+})
+
+check('the page draws every node and wire, and stands on its own', () => {
+  const dump = JSON.parse(fs.readFileSync(path.join(HERE, 'gate-graph.json'), 'utf8')).graph
+  const nameFor = new Map(dump.nodes.map((n, i) => [n.uid, 'n' + i]))
+  const spec = parseSpec([
+    ...dump.nodes.map(n => `${nameFor.get(n.uid)} ${entryFor(n).name}`),
+    '',
+    ...dump.nodes.flatMap(n => n.connections.map(w =>
+      `${nameFor.get(n.uid)}.${w.fromProperty} -> ${nameFor.get(w.toNode)}.${w.toProperty}`)),
+  ].join('\n'), catalogue)
+
+  const html = draw(spec)
+  const problems = []
+
+  const boxes = [...html.matchAll(/<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)" rx=/g)]
+    .map(m => ({ x: +m[1], y: +m[2], w: +m[3], h: +m[4] }))
+  if (boxes.length !== spec.nodes.length) problems.push(`${boxes.length} node boxes for ${spec.nodes.length} nodes`)
+
+  const wireCount = (html.match(/stroke-width="1\.6"/g) || []).length
+  if (wireCount !== spec.wires.length) problems.push(`${wireCount} wires drawn for ${spec.wires.length}`)
+
+  const pinCount = (html.match(/<circle /g) || []).length
+  const expectedPins = spec.nodes.reduce((n, x) => n + x.def.inputs.length + x.def.outputs.length, 0)
+  if (pinCount !== expectedPins) problems.push(`${pinCount} pins drawn for ${expectedPins}`)
+
+  for (let i = 0; i < boxes.length; i++) {
+    for (let j = i + 1; j < boxes.length; j++) {
+      const a = boxes[i]; const b = boxes[j]
+      if (a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h) {
+        problems.push(`node boxes overlap at ${a.x},${a.y} and ${b.x},${b.y}`)
+      }
+    }
+  }
+
+  if (/NaN|undefined/.test(html)) problems.push('the page contains NaN or undefined')
+  if (/<script/.test(html)) problems.push('the page carries script')
+  // The SVG namespace is an identifier, not a fetch; anything else would be a network request.
+  const external = (html.match(/https?:\/\/[^"' )]+/g) || []).filter(u => u !== 'http://www.w3.org/2000/svg')
+  if (external.length) problems.push('the page reaches outside itself: ' + external.join(', '))
+
   return problems
 })
 
