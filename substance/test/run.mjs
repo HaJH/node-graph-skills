@@ -13,6 +13,7 @@ import { fileURLToPath } from 'node:url'
 
 import * as catalogue from '../catalogue.generated.mjs'
 import { parseSpec, SpecError } from '../spec.mjs'
+import { emitPython } from '../emit.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const failures = []
@@ -146,6 +147,44 @@ check('the spec parser reports every problem at once', () => {
       if (!(error instanceof SpecError)) throw error
       if (!error.message.includes(needle)) problems.push(`expected "${needle}", got: ${error.message.replace(/\n/g, ' | ')}`)
     }
+  }
+  return problems
+})
+
+check('the emitter reproduces the graph that cleared the gate', () => {
+  // Turn the fixture back into a spec, emit from it, and require every wire the real graph had
+  // to come out with the same pin ids and the same packages.
+  const dump = JSON.parse(fs.readFileSync(path.join(HERE, 'gate-graph.json'), 'utf8')).graph
+  const nameFor = new Map(dump.nodes.map((n, i) => [n.uid, 'n' + i]))
+
+  const declarations = dump.nodes.map(n => `${nameFor.get(n.uid)} ${entryFor(n).name}`)
+  const wireLines = dump.nodes.flatMap(n => n.connections.map(w =>
+    `${nameFor.get(n.uid)}.${w.fromProperty} -> ${nameFor.get(w.toNode)}.${w.toProperty}`))
+
+  const spec = parseSpec([...declarations, '', ...wireLines].join('\n'), catalogue)
+  const python = emitPython(spec)
+  const problems = []
+
+  for (const line of wireLines) {
+    const [source, target] = line.split(' -> ')
+    const [fromNode, fromPin] = source.split('.')
+    const [toNode, toPin] = target.split('.')
+    const call = `nodes['${fromNode}'].newPropertyConnectionFromId('${fromPin}', nodes['${toNode}'], '${toPin}')`
+    if (!python.includes(call)) problems.push('payload is missing ' + call)
+  }
+
+  for (const node of dump.nodes) {
+    const entry = entryFor(node)
+    const name = nameFor.get(node.uid)
+    const call = entry.kind === 'library'
+      ? `nodes['${name}'] = graph.newInstanceNode(find_resource(app, '${entry.def.package}', '${entry.name}'))`
+      : `nodes['${name}'] = graph.newNode('${entry.def.id}')`
+    if (!python.includes(call)) problems.push('payload is missing ' + call)
+  }
+
+  if (!/setPosition\(float2\(/.test(python)) problems.push('no node was positioned')
+  if (python !== emitPython(parseSpec([...declarations, '', ...wireLines].join('\n'), catalogue))) {
+    problems.push('emitting the same spec twice gave different output')
   }
   return problems
 })

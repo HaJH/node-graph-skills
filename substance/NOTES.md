@@ -320,19 +320,52 @@ A type containing `::` is an enum and gets `SDValueEnum.sFromValue`.
 Every problem in a spec is reported at once, with line numbers and the pins or parameters that do
 exist, rather than one per run.
 
+## The emitter
+
+`emit.mjs` turns a parsed spec into a Python script to paste into the Python Editor.
+`build.mjs` is the command line around it:
+
+```
+node substance/build.mjs rough_metal.spec
+```
+
+Everything the payload does was proved by the gate, and three details in it are there for
+reasons that are not obvious from the code:
+
+- **The install path is asked for, not hardcoded.** `SDApplicationPath.DefaultResourcesDir` and
+  `InstallationDir` come off `SDApplication.getPath`. Which one the shipped packages sit under
+  is not worth a probe round trip, so the payload tries the plausible joins and takes the first
+  that exists.
+- **A package already open is reused before anything is loaded.** Matching on the filename
+  suffix of `getFilePath()` avoids a second copy of a package the user already has open.
+- **The payload adds to the open graph rather than making its own**, which is the point of a
+  spec — something to drop into work in progress. It reads the lowest `y` in the graph and
+  offsets itself below that, so nothing lands on top of existing nodes.
+
+Positions come from `lib/layout.mjs`, shared with the renderer so a drawn page and a pasted
+graph agree. Longest-path layering, then barycentre sweeps; no dummy nodes, so a wire spanning
+several layers passes behind whatever is between. Flow direction is a parameter — Substance
+reads left to right, Houdini SOP and Nuke top to bottom.
+
 ## Tests
 
-`node substance/test/run.mjs`. Five checks, the first of which is the one that matters:
-`test/gate-graph.json` is the network that cleared the gate, read out of Designer, and every pin
-id, package and parameter in it has to still resolve against the generated catalogue. That is the
-only thing standing between a bad regeneration and a 545 KB table nobody reads.
+`node substance/test/run.mjs`. Six checks, and the two that matter both lean on
+`test/gate-graph.json` — the network that cleared the gate, read straight out of Designer:
+
+- every pin id, package and parameter in it still resolves against the generated catalogue.
+  That is the only thing standing between a bad regeneration and a 545 KB table nobody reads.
+- turning it back into a spec and emitting produces a payload whose creation and connection
+  calls match it exactly. The emitter is checked against a graph known to work, not against
+  its own idea of one.
 
 ## Next — not yet built
 
-Order: **the emitter, then the renderer.** The emitter goes first because the gate left a
-ready-made answer key behind — writing the ten-node network as a spec, emitting a payload,
-running it and dumping again should reproduce `test/gate-graph.json`. The renderer has no such
-automatic check.
+**The renderer.** `lib/layout.mjs` is written and already carries both halves' positions; what
+is missing is the SVG renderer and the page shell around it, plus `skills/substance-graph/SKILL.md`.
+
+Not yet proven in Designer: **the emitted payload has never been run.** Its calls match the gate
+graph line for line offline, but `getPath`, `loadUserPackage` against the install directory, and
+`free_offset` have not been exercised. One paste into the Python Editor closes that.
 
 The catalogue is **regenerated from the installed Designer**, inside `substance/tools/`, rather
 than copied from `procedural-texture-advisor` or read out of it at build time. That keeps this

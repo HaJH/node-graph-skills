@@ -19,11 +19,19 @@ Blender Geometry Nodes, Houdini and ComfyUI are the next domains.
 
 Early. Nothing builds yet.
 
-**Substance has cleared the round-trip gate.** A ten-node network — three library nodes, a fully
-wired `blend`, edited parameters, an output bridge — went out of Designer 15.1.0 through
-`substance/tools/roundtrip.py`, back into a new empty graph, and out again matching on every node,
-position, value and wire. That unblocks the emitter and the renderer, neither of which is written
-yet. What is known about Designer is in [`substance/NOTES.md`](substance/NOTES.md).
+**Substance has cleared the round-trip gate** — a ten-node network went out of Designer 15.1.0,
+back into an empty graph and out again, matching on every node, position, value and wire.
+
+Since then: a generated catalogue of 29 atomic and 501 library nodes, the spec format and its
+parser, and the emitter.
+
+```
+node substance/build.mjs rough_metal.spec    # -> rough_metal.py, paste into the Python Editor
+node substance/test/run.mjs                  # 6 checks, against the graph that cleared the gate
+```
+
+Still to write: the SVG renderer and the page shell, and the skill itself. What is known about
+Designer is in [`substance/NOTES.md`](substance/NOTES.md).
 
 ## Licence
 
