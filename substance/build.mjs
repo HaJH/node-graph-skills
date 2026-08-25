@@ -65,10 +65,7 @@ const target = project?.alias?.path
   : null
 if (target) {
   target.packagePath = path.join(project.alias.path, target.packageName + '.sbs')
-  // A graph with no category is indexed by the Library panel but has no place in its tree, so
-  // it only turns up in search. Defaulting to the alias puts the library's graphs under one
-  // heading, which is where somebody browsing expects to find them.
-  target.describe = { category: { type: 'string', text: project.alias.name }, ...spec.describe }
+  target.describe = { ...spec.describe }
 }
 
 fs.writeFileSync(pythonAt, emitPython(spec, target))
@@ -83,6 +80,16 @@ console.log('page   :', htmlAt, '-', (fs.statSync(htmlAt).size / 1024).toFixed(0
 if (project) {
   console.log('library:', project.root)
   if (project.nodeCount) console.log('  ', `${project.nodeCount} of its graphs are usable as node names`)
+  // The Library panel's tree is a fixed set of queries compiled into Designer, so a category of
+  // your own is metadata nothing displays. Saying so beats letting somebody wonder where their
+  // graph went -- it is indexed and searchable either way.
+  const category = target?.describe?.category?.text
+  if (category && !catalogue.CATEGORIES.includes(category)) {
+    console.log('  ', `"${category}" is not a category the Library panel lists, so the graph will only be found by search`)
+    console.log('  ', `it lists: ${catalogue.CATEGORIES.join(', ')}`)
+  } else if (target && !category) {
+    console.log('  ', 'no category set, so the graph will only be found by search. Add one the panel lists to have it appear in the tree')
+  }
   console.log('  ', target
     ? `builds ${target.graph} into ${project.alias.name}://${target.packageName}.sbs, and saves it`
     : `${path.basename(project.file)} declares no alias -- nothing to build into`)

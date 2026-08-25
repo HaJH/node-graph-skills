@@ -206,7 +206,16 @@ not what the `.sbs` format calls them -- `author_url`, `show_in_library` and `ph
 
 **`category` is what puts a graph in the Library panel's tree.** Without one Designer still
 indexes the graph -- search finds it -- but there is nowhere for it to sit, so it looks missing.
-Slash separated for nesting. **A category of your own will not appear in the Library panel's tree**: the tree is a fixed set of queries compiled into Designer, down to the sub-entries, so only a category string it already knows -- `Generator`, `Filter`, `Material Filter`, `PBR Materials/Metal` -- files a graph somewhere visible. The graph is indexed and searchable either way. Inside a library the category defaults to the alias name, so the library's
+Slash separated for nesting.
+
+**A category of your own will not appear in the panel's tree.** The tree is a fixed set of queries
+compiled into Designer, sub-entries included, so only a string it already asks for files a graph
+somewhere visible -- confirmed both ways: `PBR Materials/Metal` shows, a made-up one does not.
+`catalogue.generated.mjs` carries `CATEGORIES`, the sixteen the install's own packages use, and
+the build says so when a spec sets something outside them or nothing at all.
+
+Setting one is optional and there is no default. The graph is indexed and searchable either way;
+a spec names it regardless, so the library's
 graphs land under one heading; a spec can override. `label` and `description` are the other two
 worth setting, and they are what a person browsing reads.
 

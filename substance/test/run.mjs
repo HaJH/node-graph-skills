@@ -598,6 +598,32 @@ check('a spec in a library builds into its package, and a re-run converges', () 
   return problems
 })
 
+check('the shelf categories are read off the install, and entities are decoded', () => {
+  // The Library panel's tree is a fixed set of queries compiled into Designer, so a category of
+  // one's own is metadata nothing displays. The only defensible list of what it does show is the
+  // set the install's own packages use, since every one of those appears in the panel.
+  const problems = []
+  const { CATEGORIES } = catalogue
+  if (!Array.isArray(CATEGORIES) || CATEGORIES.length < 10) {
+    return ['the catalogue carries no shelf categories']
+  }
+  for (const expected of ['Generator', 'Filter', 'Material Filter', 'PBR Materials/Metal']) {
+    if (!CATEGORIES.includes(expected)) problems.push(`the shelf categories are missing ${expected}`)
+  }
+  // Adobe ships one with a trailing space, a duplicate of the same category without it.
+  if (CATEGORIES.some(c => c !== c.trim())) problems.push('a category was not trimmed')
+  if (new Set(CATEGORIES).size !== CATEGORIES.length) problems.push('the categories are not unique')
+
+  // Attribute values are XML. "Splines &amp; Paths" is one category, not a string with an entity
+  // in it, and the same decoding is what keeps a label readable.
+  if (!CATEGORIES.includes('Splines & Paths')) problems.push('XML entities are not decoded in attributes')
+  if (CATEGORIES.some(c => /&[a-z]+;/.test(c))) problems.push('an undecoded entity is left in a category')
+  if (Object.values(catalogue.LIBRARY).some(e => e.label && /&[a-z]+;/.test(e.label))) {
+    problems.push('an undecoded entity is left in a library label')
+  }
+  return problems
+})
+
 check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
   // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
   // route that can survive that, so it has to be tried first and synchronously -- awaiting the

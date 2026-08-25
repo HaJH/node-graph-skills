@@ -184,6 +184,15 @@ for (const [name, entries] of candidates) {
 
 const sorted = obj => Object.fromEntries(Object.keys(obj).sort().map(k => [k, obj[k]]))
 
+// The Library panel's tree is a fixed set of queries compiled into Designer -- a category of
+// one's own is metadata nothing displays. What does show is a category string the shelf already
+// asks for, and the only honest list of those is the set the install's own packages use, since
+// every one of them demonstrably appears in the panel. Collected here rather than transcribed.
+const categories = [...new Set([...candidates.values()].flat()
+  .filter(entry => !entry.hidden && entry.category)
+  // Adobe ships one with a trailing space, a duplicate of the same category without it.
+  .map(entry => entry.category.trim()))].sort()
+
 const header = `// GENERATED FILE -- do not edit by hand.
 //
 //   node substance/tools/generate-catalogue.mjs
@@ -207,12 +216,18 @@ export const LIBRARY = ${JSON.stringify(sorted(library), null, 1)}
 // Enum parameters take a value id, not the integer behind it: blendingmode=multiply rather than
 // blendingmode=5. The integer is here because SDValueEnum.sFromValue wants it.
 export const ENUMS = ${JSON.stringify(sorted(enums), null, 1)}
+
+// Category strings the Library panel is known to display, because the install's own packages use
+// them and those appear in its tree. A category outside this set is still valid metadata; it
+// just has no shelf entry to be listed under.
+export const CATEGORIES = ${JSON.stringify(categories, null, 1)}
 `
 
 fs.mkdirSync(path.dirname(OUT), { recursive: true })
 fs.writeFileSync(OUT, body)
 
 console.log('atomic definitions :', Object.keys(atomic).length)
+console.log('shelf categories   :', categories.length)
 console.log('enum types         :', Object.keys(enums).length, '--', Object.values(enums).reduce((n, v) => n + v.length, 0), 'values')
 console.log('library nodes      :', Object.keys(library).length)
 console.log('  retired/internal :', retired)

@@ -551,9 +551,14 @@ The children are hardcoded too, not read from the data. The binary lists `PBR Ma
 matches nothing in the install**, so that list cannot have been generated from the packages.
 
 So a category of one's own is metadata that nothing displays. What the shelf does show is
-whatever matches a query it already has, which means an existing category string -- `Generator`,
-`Filter`, `Material Filter`, `PBR Materials/Metal` and the rest of the 21 the install uses.
-Restarting changes nothing; this was tested.
+whatever matches a query it already has. **Confirmed both ways**: a graph given
+`PBR Materials/Metal` turns up in that shelf entry; one given `HB/Materials` never does, restart
+or no restart.
+
+`generate-catalogue.mjs` collects the categories the install's own packages use into
+`CATEGORIES` -- sixteen, after trimming one Adobe ships with a trailing space. Every one of them
+demonstrably appears in the panel, which is the only evidence available that a shelf entry asks
+for it. The build warns when a spec sets something else.
 
 Three things still work, and they are what the pipeline actually leans on: the graph is found by
 **search**, it can be **starred** (`databases/favorites.json`), and a spec names it directly,

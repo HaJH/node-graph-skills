@@ -1983,6 +1983,7 @@ export const LIBRARY = {
  "2dtransform_path": {
   "package": "paths_tools",
   "label": "Path 2D transform",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -2010,6 +2011,7 @@ export const LIBRARY = {
  "3D_perlin_noise": {
   "package": "3d_perlin_noise",
   "label": "3D Perlin noise",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2069,6 +2071,7 @@ export const LIBRARY = {
  "3D_perlin_noise_fractal": {
   "package": "3d_perlin_noise",
   "label": "3D Perlin noise fractal",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2148,6 +2151,7 @@ export const LIBRARY = {
  "3D_ridged_noise_fractal": {
   "package": "3d_perlin_noise",
   "label": "3D ridged noise fractal",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2223,6 +2227,7 @@ export const LIBRARY = {
  "3D_worley_noise": {
   "package": "3d_worley_noise",
   "label": "3D Worley noise",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2274,6 +2279,7 @@ export const LIBRARY = {
  "3d_linear_gradient": {
   "package": "3d_gradient",
   "label": "3D linear gradient",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2317,6 +2323,7 @@ export const LIBRARY = {
  "3d_planar_projection": {
   "package": "3d_planar_projection",
   "label": "3D planar projection grayscale",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "position",
@@ -2390,6 +2397,7 @@ export const LIBRARY = {
  "3d_planar_projection_color": {
   "package": "3d_planar_projection",
   "label": "3D planar projection color",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "position",
@@ -2463,6 +2471,7 @@ export const LIBRARY = {
  "3d_simplex_noise": {
   "package": "3d_simplex_noise",
   "label": "3D simplex noise",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2490,6 +2499,7 @@ export const LIBRARY = {
  "3d_texture_offset_color": {
   "package": "3d_texture_transform",
   "label": "3D texture offset color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -2517,6 +2527,7 @@ export const LIBRARY = {
  "3d_texture_offset_grayscale": {
   "package": "3d_texture_transform",
   "label": "3D texture offset grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -2544,6 +2555,7 @@ export const LIBRARY = {
  "3d_texture_position": {
   "package": "3d_texture_position",
   "label": "3D texture position",
+  "category": "Filter",
   "inputs": [],
   "outputs": [
    {
@@ -2561,6 +2573,7 @@ export const LIBRARY = {
  "3d_texture_sdf": {
   "package": "3d_texture_jump_flood",
   "label": "3D texture SDF",
+  "category": "Filter",
   "inputs": [
    {
     "id": "mask_input",
@@ -2592,6 +2605,7 @@ export const LIBRARY = {
  "3d_texture_surface_render": {
   "package": "3d_texture_render",
   "label": "3D texture surface render",
+  "category": "Filter",
   "inputs": [
    {
     "id": "3d_distance_field",
@@ -2656,6 +2670,7 @@ export const LIBRARY = {
  "3d_texture_volume_render_light": {
   "package": "3d_texture_render",
   "label": "3D texture volume render",
+  "category": "Filter",
   "inputs": [
    {
     "id": "3d_signed_distance_field",
@@ -2760,6 +2775,7 @@ export const LIBRARY = {
  "3d_volume_mask": {
   "package": "3d_volume_mask",
   "label": "3D volume mask",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2811,6 +2827,7 @@ export const LIBRARY = {
  "3d_voronoi": {
   "package": "noise_voronoi",
   "label": "3D Voronoi",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -2894,6 +2911,7 @@ export const LIBRARY = {
  "3d_voronoi_fractal": {
   "package": "noise_voronoi",
   "label": "3D Voronoi fractal",
+  "category": "Generator",
   "inputs": [
    {
     "id": "position",
@@ -3001,6 +3019,7 @@ export const LIBRARY = {
  "Bitmap2Material_2_Light": {
   "package": "bitmaptomaterial_2_light",
   "label": "Bitmap to material light",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "bitmap_diffuse",
@@ -3205,6 +3224,7 @@ export const LIBRARY = {
  "PBR_render": {
   "package": "pbr_render2",
   "label": "PBR render",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "basecolor",
@@ -3588,6 +3608,7 @@ export const LIBRARY = {
  "PBR_render_mapping_color": {
   "package": "pbr_render2",
   "label": "PBR render mapping color",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "texture",
@@ -3616,6 +3637,7 @@ export const LIBRARY = {
  "PBR_render_mapping_grayscale": {
   "package": "pbr_render2",
   "label": "PBR render mapping grayscale",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "texture",
@@ -3644,6 +3666,7 @@ export const LIBRARY = {
  "acescg_to_linear_srgb": {
   "package": "color_space_conversion",
   "label": "ACEScg to linear sRGB",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -3662,6 +3685,7 @@ export const LIBRARY = {
  "acescg_to_srgb": {
   "package": "color_space_conversion",
   "label": "ACEScg to sRGB",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -3680,6 +3704,7 @@ export const LIBRARY = {
  "alveolus": {
   "package": "pattern_alveolus",
   "label": "Alveolus",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -3709,6 +3734,7 @@ export const LIBRARY = {
  "anisotropic_blur": {
   "package": "anisotropic_blur",
   "label": "Anisotropic blur color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -3744,6 +3770,7 @@ export const LIBRARY = {
  "anisotropic_blur_grayscale": {
   "package": "anisotropic_blur",
   "label": "Anisotropic blur grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -3779,6 +3806,7 @@ export const LIBRARY = {
  "anisotropic_kuwahara_color": {
   "package": "anisotropic_kuwahara",
   "label": "Anisotropic Kuwahara color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -3862,6 +3890,7 @@ export const LIBRARY = {
  "anisotropic_kuwahara_grayscale": {
   "package": "anisotropic_kuwahara",
   "label": "Anisotropic Kuwahara grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -3941,6 +3970,7 @@ export const LIBRARY = {
  "anisotropic_noise_v2": {
   "package": "noise_anisotropic_noise_v2",
   "label": "Anisotropic noise",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -3990,6 +4020,7 @@ export const LIBRARY = {
  "ao_cancel": {
   "package": "ao_cancel",
   "label": "AO cancellation",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "color",
@@ -4022,6 +4053,7 @@ export const LIBRARY = {
  "apply_color_palette": {
   "package": "quantize_color",
   "label": "Apply color palette",
+  "category": "Filter",
   "inputs": [
    {
     "id": "id",
@@ -4045,6 +4077,7 @@ export const LIBRARY = {
  "arc_pavement": {
   "package": "pattern_arc_pavement",
   "label": "Arc pavement",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input",
@@ -4132,6 +4165,7 @@ export const LIBRARY = {
  "atlas_scatter": {
   "package": "atlas_scatter",
   "label": "Atlas scatter",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "basecolor",
@@ -4480,6 +4514,7 @@ export const LIBRARY = {
  "atlas_spliter": {
   "package": "atlas_spliter",
   "label": "Atlas splitter",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "basecolor",
@@ -4658,6 +4693,7 @@ export const LIBRARY = {
  "auto_crop_color": {
   "package": "auto_crop",
   "label": "Auto crop color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -4689,6 +4725,7 @@ export const LIBRARY = {
  "auto_crop_grayscale": {
   "package": "auto_crop",
   "label": "Auto crop grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -4716,6 +4753,7 @@ export const LIBRARY = {
  "auto_levels": {
   "package": "auto_levels",
   "label": "Auto levels",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -4734,6 +4772,7 @@ export const LIBRARY = {
  "base_color_2_inputs": {
   "package": "mesh_adaptive_base_color",
   "label": "Base color 2 inputs",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "Input_Map",
@@ -4770,6 +4809,7 @@ export const LIBRARY = {
  "base_color_4_inputs": {
   "package": "mesh_adaptive_base_color",
   "label": "Base color 4 inputs",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "Input_Map",
@@ -4814,6 +4854,7 @@ export const LIBRARY = {
  "base_color_8_inputs": {
   "package": "mesh_adaptive_base_color",
   "label": "Base color 8 inputs",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "Input_Map",
@@ -4874,6 +4915,7 @@ export const LIBRARY = {
  "basecolor_metallic_roughness_converter": {
   "package": "pbr_converter",
   "label": "Base color/metallic/roughness converter",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "basecolor",
@@ -4953,6 +4995,7 @@ export const LIBRARY = {
  "bevel": {
   "package": "bevel",
   "label": "Bevel",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -5009,6 +5052,7 @@ export const LIBRARY = {
  "bevel_smooth": {
   "package": "bevel_smooth",
   "label": "Bevel smooth",
+  "category": "Filter",
   "inputs": [
    {
     "id": "mask_input",
@@ -5078,6 +5122,7 @@ export const LIBRARY = {
  "blackbody": {
   "package": "blackbody",
   "label": "Blackbody",
+  "category": "3D View",
   "inputs": [],
   "outputs": [
    {
@@ -5095,6 +5140,7 @@ export const LIBRARY = {
  "blue_noise_fast": {
   "package": "blue_noise",
   "label": "Blue noise fast",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5112,6 +5158,7 @@ export const LIBRARY = {
  "blur_hq": {
   "package": "blur_hq",
   "label": "Blur HQ color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -5139,6 +5186,7 @@ export const LIBRARY = {
  "blur_hq_grayscale": {
   "package": "blur_hq",
   "label": "Blur HQ grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -5166,6 +5214,7 @@ export const LIBRARY = {
  "bnw_spots_1": {
   "package": "noise_bnw_spots_1_v2",
   "label": "BnW spots 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5211,6 +5260,7 @@ export const LIBRARY = {
  "bnw_spots_2": {
   "package": "noise_bnw_spots_2_v2",
   "label": "BnW spots 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5252,6 +5302,7 @@ export const LIBRARY = {
  "bnw_spots_3": {
   "package": "noise_bnw_spots_3_v2",
   "label": "BnW spots 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5293,6 +5344,7 @@ export const LIBRARY = {
  "brick_1": {
   "package": "pattern_brick_1",
   "label": "Brick 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5322,6 +5374,7 @@ export const LIBRARY = {
  "brick_2": {
   "package": "pattern_brick_2",
   "label": "Brick 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5351,6 +5404,7 @@ export const LIBRARY = {
  "brick_generator": {
   "package": "pattern_brick_generator",
   "label": "Brick generator",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5400,6 +5454,7 @@ export const LIBRARY = {
  "bricks_001": {
   "package": "materials/pbr/bricks_001",
   "label": "Bricks 001",
+  "category": "PBR Materials/Bricks",
   "inputs": [],
   "outputs": [
    {
@@ -5553,6 +5608,7 @@ export const LIBRARY = {
  "bricks_005": {
   "package": "materials/pbr/bricks_005",
   "label": "Bricks 005",
+  "category": "PBR Materials/Bricks",
   "inputs": [],
   "outputs": [
    {
@@ -5694,6 +5750,7 @@ export const LIBRARY = {
  "cardboard_001": {
   "package": "materials/pbr/cardboard_001",
   "label": "Cardboard 001",
+  "category": "PBR Materials/Paper",
   "inputs": [],
   "outputs": [
    {
@@ -5839,6 +5896,7 @@ export const LIBRARY = {
  "cartesian_to_polar": {
   "package": "cartesian_polar_transformation",
   "label": "Cartesian to polar color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -5857,6 +5915,7 @@ export const LIBRARY = {
  "cartesian_to_polar_grayscale": {
   "package": "cartesian_polar_transformation",
   "label": "Cartesian to polar grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -5875,6 +5934,7 @@ export const LIBRARY = {
  "cells_1": {
   "package": "noise_cells_1_v2",
   "label": "Cells 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5940,6 +6000,7 @@ export const LIBRARY = {
  "cells_2": {
   "package": "noise_cells_2_v2",
   "label": "Cells 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -5977,6 +6038,7 @@ export const LIBRARY = {
  "cells_3": {
   "package": "noise_cells_3_v2",
   "label": "Cells 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -6042,6 +6104,7 @@ export const LIBRARY = {
  "cells_4": {
   "package": "noise_cells_4_v2",
   "label": "Cells 4",
+  "category": "Generator",
   "inputs": [
    {
     "id": "input",
@@ -6085,6 +6148,7 @@ export const LIBRARY = {
  "channel_mixer": {
   "package": "channel_mixer",
   "label": "Channel mixer",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -6120,6 +6184,7 @@ export const LIBRARY = {
  "checker_1": {
   "package": "pattern_checker_1",
   "label": "Checker 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -6145,6 +6210,7 @@ export const LIBRARY = {
  "chrominance_extract": {
   "package": "chrominance_extract",
   "label": "Chrominance extract",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -6163,6 +6229,7 @@ export const LIBRARY = {
  "clamp_grayscale": {
   "package": "clamp",
   "label": "Clamp grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -6190,6 +6257,7 @@ export const LIBRARY = {
  "clone": {
   "package": "clone",
   "label": "Clone",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -6222,6 +6290,7 @@ export const LIBRARY = {
  "clone_patch": {
   "package": "clone_patch",
   "label": "Clone patch color",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input",
@@ -6289,6 +6358,7 @@ export const LIBRARY = {
  "clone_patch_grayscale": {
   "package": "clone_patch",
   "label": "Clone patch grayscale",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input",
@@ -6352,6 +6422,7 @@ export const LIBRARY = {
  "clouds_1": {
   "package": "noise_clouds_1_v2",
   "label": "Clouds 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -6393,6 +6464,7 @@ export const LIBRARY = {
  "clouds_2": {
   "package": "noise_clouds_2_v2",
   "label": "Clouds 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -6434,6 +6506,7 @@ export const LIBRARY = {
  "clouds_3": {
   "package": "noise_clouds_3_v2",
   "label": "Clouds 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -6475,6 +6548,7 @@ export const LIBRARY = {
  "color": {
   "package": "blend",
   "label": "Color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Foreground",
@@ -6512,6 +6586,7 @@ export const LIBRARY = {
  "color_burn": {
   "package": "blend",
   "label": "Color burn",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Foreground",
@@ -6549,6 +6624,7 @@ export const LIBRARY = {
  "color_dodge": {
   "package": "blend",
   "label": "Color dodge",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Foreground",
@@ -6586,6 +6662,7 @@ export const LIBRARY = {
  "color_equalizer": {
   "package": "color_equalizer",
   "label": "Color equalizer",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input",
@@ -6670,6 +6747,7 @@ export const LIBRARY = {
  "color_match": {
   "package": "color_match",
   "label": "Color match",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -6768,6 +6846,7 @@ export const LIBRARY = {
  "color_temperature_adjustment": {
   "package": "color_temperature_adjustment",
   "label": "Color temperature adjustment",
+  "category": "3D View",
   "inputs": [
    {
     "id": "input",
@@ -6799,6 +6878,7 @@ export const LIBRARY = {
  "color_to_mask": {
   "package": "color_to_mask_v2",
   "label": "Color to mask",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -6847,6 +6927,7 @@ export const LIBRARY = {
  "concrete_002": {
   "package": "materials/pbr/concrete_002",
   "label": "Concrete 002",
+  "category": "PBR Materials/Concrete",
   "inputs": [],
   "outputs": [
    {
@@ -6988,6 +7069,7 @@ export const LIBRARY = {
  "concrete_006": {
   "package": "materials/pbr/concrete_006",
   "label": "Concrete 006",
+  "category": "PBR Materials/Concrete",
   "inputs": [],
   "outputs": [
    {
@@ -7141,6 +7223,7 @@ export const LIBRARY = {
  "concrete_010": {
   "package": "materials/pbr/concrete_010",
   "label": "Concrete 010",
+  "category": "PBR Materials/Concrete",
   "inputs": [],
   "outputs": [
    {
@@ -7274,6 +7357,7 @@ export const LIBRARY = {
  "concrete_011": {
   "package": "materials/pbr/concrete_011",
   "label": "Concrete 011",
+  "category": "PBR Materials/Concrete",
   "inputs": [],
   "outputs": [
    {
@@ -7407,6 +7491,7 @@ export const LIBRARY = {
  "concrete_044": {
   "package": "materials/pbr/concrete_044",
   "label": "Concrete 044",
+  "category": "PBR Materials/Concrete",
   "inputs": [],
   "outputs": [
    {
@@ -7544,6 +7629,7 @@ export const LIBRARY = {
  "concrete_070": {
   "package": "materials/pbr/concrete_070",
   "label": "Concrete 070",
+  "category": "PBR Materials/Concrete",
   "inputs": [],
   "outputs": [
    {
@@ -7669,6 +7755,7 @@ export const LIBRARY = {
  "contrast_luminosity": {
   "package": "contrast_luminosity",
   "label": "Contrast/luminosity color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -7696,6 +7783,7 @@ export const LIBRARY = {
  "contrast_luminosity_grayscale": {
   "package": "contrast_luminosity",
   "label": "Contrast/luminosity grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -7723,6 +7811,7 @@ export const LIBRARY = {
  "cracks_weathering": {
   "package": "cracks_weathering_material",
   "label": "Cracks weathering",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "Input_9",
@@ -7913,6 +8002,7 @@ export const LIBRARY = {
  "creased": {
   "package": "noise_creased",
   "label": "Creased",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -7942,6 +8032,7 @@ export const LIBRARY = {
  "create_color_palette_16colors": {
   "package": "quantize_color",
   "label": "Create color palette (16)",
+  "category": "Filter",
   "inputs": [
    {
     "id": "palette",
@@ -8037,6 +8128,7 @@ export const LIBRARY = {
  "crop": {
   "package": "crop",
   "label": "Crop color",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input",
@@ -8092,6 +8184,7 @@ export const LIBRARY = {
  "crop_grayscale": {
   "package": "crop",
   "label": "Crop grayscale",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input",
@@ -8139,6 +8232,7 @@ export const LIBRARY = {
  "cross_section": {
   "package": "cross_section",
   "label": "Cross section",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -8222,6 +8316,7 @@ export const LIBRARY = {
  "crystal_1": {
   "package": "noise_crystal_1",
   "label": "Crystal 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8247,6 +8342,7 @@ export const LIBRARY = {
  "crystal_2": {
   "package": "noise_crystal_2",
   "label": "Crystal 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8272,6 +8368,7 @@ export const LIBRARY = {
  "cube_3d": {
   "package": "pattern_cube_3d",
   "label": "Cube 3D",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8301,6 +8398,7 @@ export const LIBRARY = {
  "cube_3d_gbuffers": {
   "package": "pattern_cube_3d",
   "label": "Cube 3D G-Buffers",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8342,6 +8440,7 @@ export const LIBRARY = {
  "curvature": {
   "package": "curvature",
   "label": "Curvature",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -8373,6 +8472,7 @@ export const LIBRARY = {
  "curvature_smooth_v2": {
   "package": "curvature_smooth_v2",
   "label": "Curvature smooth",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -8408,6 +8508,7 @@ export const LIBRARY = {
  "curvature_sobel": {
   "package": "curvature_sobel",
   "label": "Curvature sobel",
+  "category": "Filter",
   "inputs": [
    {
     "id": "normal",
@@ -8435,6 +8536,7 @@ export const LIBRARY = {
  "details_to_baked_maps": {
   "package": "details_to_baked_maps",
   "label": "Details to baked maps",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "Height",
@@ -8501,6 +8603,7 @@ export const LIBRARY = {
  "difference": {
   "package": "blend",
   "label": "Difference",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Background",
@@ -8538,6 +8641,7 @@ export const LIBRARY = {
  "diffusion_color": {
   "package": "diffusion",
   "label": "Diffusion color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -8587,6 +8691,7 @@ export const LIBRARY = {
  "diffusion_grayscale": {
   "package": "diffusion",
   "label": "Diffusion grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -8628,6 +8733,7 @@ export const LIBRARY = {
  "diffusion_uv": {
   "package": "diffusion",
   "label": "Diffusion UV",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -8656,6 +8762,7 @@ export const LIBRARY = {
  "directional_distance": {
   "package": "directional_distance",
   "label": "Directional distance",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -8713,6 +8820,7 @@ export const LIBRARY = {
  "directional_noise_1": {
   "package": "noise_directional_noise_1_v2",
   "label": "Directional noise 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8762,6 +8870,7 @@ export const LIBRARY = {
  "directional_noise_2": {
   "package": "noise_directional_noise_2_v2",
   "label": "Directional noise 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8811,6 +8920,7 @@ export const LIBRARY = {
  "directional_noise_3": {
   "package": "noise_directional_noise_3_v2",
   "label": "Directional noise 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8860,6 +8970,7 @@ export const LIBRARY = {
  "directional_noise_4": {
   "package": "noise_directional_noise_4_v2",
   "label": "Directional noise 4",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8909,6 +9020,7 @@ export const LIBRARY = {
  "directional_scratches": {
   "package": "noise_directional_scratches_v2",
   "label": "Directional scratches",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -8970,6 +9082,7 @@ export const LIBRARY = {
  "dirt_1": {
   "package": "noise_dirt_1_v2",
   "label": "Dirt 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -9011,6 +9124,7 @@ export const LIBRARY = {
  "dirt_2": {
   "package": "noise_dirt_2_v2",
   "label": "Dirt 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -9052,6 +9166,7 @@ export const LIBRARY = {
  "dirt_3": {
   "package": "noise_dirt_3_v2",
   "label": "Dirt 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -9093,6 +9208,7 @@ export const LIBRARY = {
  "dirt_4": {
   "package": "noise_dirt_4_v2",
   "label": "Dirt 4",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -9134,6 +9250,7 @@ export const LIBRARY = {
  "dirt_5": {
   "package": "noise_dirt_5_v2",
   "label": "Dirt 5",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -9175,6 +9292,7 @@ export const LIBRARY = {
  "dirt_gradient": {
   "package": "noise_dirt_gradient_v2",
   "label": "Dirt gradient",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -9208,6 +9326,7 @@ export const LIBRARY = {
  "dissolve_2": {
   "package": "blend",
   "label": "Dissolve",
+  "category": "Filter",
   "inputs": [
    {
     "id": "foreground",
@@ -9245,6 +9364,7 @@ export const LIBRARY = {
  "edge_detect": {
   "package": "edge_detect",
   "label": "Edge detect",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -9280,6 +9400,7 @@ export const LIBRARY = {
  "emboss_with_gloss": {
   "package": "emboss_with_gloss",
   "label": "Emboss with gloss",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -9324,6 +9445,7 @@ export const LIBRARY = {
  "exposure": {
   "package": "exposure",
   "label": "Exposure",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -9347,6 +9469,7 @@ export const LIBRARY = {
  "extend_shape_color": {
   "package": "extend_shape",
   "label": "Extend shape color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -9398,6 +9521,7 @@ export const LIBRARY = {
  "extend_shape_grayscale": {
   "package": "extend_shape",
   "label": "Extend shape grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -9461,6 +9585,7 @@ export const LIBRARY = {
  "fabric_002": {
   "package": "materials/pbr/fabric_002",
   "label": "Fabric 002",
+  "category": "PBR Materials/Fabric",
   "inputs": [],
   "outputs": [
    {
@@ -9634,6 +9759,7 @@ export const LIBRARY = {
  "fabric_009": {
   "package": "materials/pbr/fabric_009",
   "label": "Fabric 009",
+  "category": "PBR Materials/Fabric",
   "inputs": [],
   "outputs": [
    {
@@ -9771,6 +9897,7 @@ export const LIBRARY = {
  "fabric_025": {
   "package": "materials/pbr/fabric_025",
   "label": "Fabric 025",
+  "category": "PBR Materials/Fabric",
   "inputs": [],
   "outputs": [
    {
@@ -9920,6 +10047,7 @@ export const LIBRARY = {
  "fabric_weathering": {
   "package": "fabric_weathering_material",
   "label": "Fabric weathering",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "Diffuse_1",
@@ -10146,6 +10274,7 @@ export const LIBRARY = {
  "facing_normal": {
   "package": "facing_normal",
   "label": "Facing normal",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Normal",
@@ -10164,6 +10293,7 @@ export const LIBRARY = {
  "fibers_1": {
   "package": "pattern_fibers_1",
   "label": "Fibers 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -10185,6 +10315,7 @@ export const LIBRARY = {
  "fibers_2": {
   "package": "pattern_fibers_2",
   "label": "Fibers 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -10206,6 +10337,7 @@ export const LIBRARY = {
  "flood_fill": {
   "package": "flood_fill_2",
   "label": "Flood fill",
+  "category": "Filter",
   "inputs": [
    {
     "id": "mask",
@@ -10241,6 +10373,7 @@ export const LIBRARY = {
  "flood_fill_to_bbox_size": {
   "package": "flood_fill_2",
   "label": "Flood fill to Bbox size",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -10264,6 +10397,7 @@ export const LIBRARY = {
  "flood_fill_to_color": {
   "package": "flood_fill_2",
   "label": "Flood fill to color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -10300,6 +10434,7 @@ export const LIBRARY = {
  "flood_fill_to_gradient_2": {
   "package": "flood_fill_2",
   "label": "Flood fill to gradient",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -10357,6 +10492,7 @@ export const LIBRARY = {
  "flood_fill_to_grayscale": {
   "package": "flood_fill_2",
   "label": "Flood fill to grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -10393,6 +10529,7 @@ export const LIBRARY = {
  "flood_fill_to_position": {
   "package": "flood_fill_2",
   "label": "Flood fill to position",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -10411,6 +10548,7 @@ export const LIBRARY = {
  "flood_fill_to_random_color": {
   "package": "flood_fill_2",
   "label": "Flood fill to random color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -10429,6 +10567,7 @@ export const LIBRARY = {
  "flood_fill_to_random_grayscale": {
   "package": "flood_fill_2",
   "label": "Flood fill to random grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -10447,6 +10586,7 @@ export const LIBRARY = {
  "floodfill_mapper_color": {
   "package": "floodfill_mapper",
   "label": "Flood fill mapper color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "bbox",
@@ -10618,6 +10758,7 @@ export const LIBRARY = {
  "floodfill_mapper_grayscale": {
   "package": "floodfill_mapper",
   "label": "Flood fill mapper grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "bbox",
@@ -10785,6 +10926,7 @@ export const LIBRARY = {
  "floodfill_to_index": {
   "package": "floodfill_to_index",
   "label": "Flood fill to index",
+  "category": "Filter",
   "inputs": [
    {
     "id": "bbox",
@@ -10833,6 +10975,7 @@ export const LIBRARY = {
  "fluid": {
   "package": "noise_fluid",
   "label": "Fluid",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -10866,6 +11009,7 @@ export const LIBRARY = {
  "fractal_sum_1": {
   "package": "noise_fractal_sum_1_v2",
   "label": "Fractal sum 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -10891,6 +11035,7 @@ export const LIBRARY = {
  "fractal_sum_2": {
   "package": "noise_fractal_sum_2_v2",
   "label": "Fractal sum 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -10916,6 +11061,7 @@ export const LIBRARY = {
  "fractal_sum_3": {
   "package": "noise_fractal_sum_3_v2",
   "label": "Fractal sum 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -10941,6 +11087,7 @@ export const LIBRARY = {
  "fractal_sum_4": {
   "package": "noise_fractal_sum_4_v2",
   "label": "Fractal sum 4",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -10966,6 +11113,7 @@ export const LIBRARY = {
  "fractal_sum_base": {
   "package": "noise_fractal_sum_base_v2",
   "label": "Fractal sum base",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11011,6 +11159,7 @@ export const LIBRARY = {
  "fur_1": {
   "package": "noise_fur_1",
   "label": "Fur 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11036,6 +11185,7 @@ export const LIBRARY = {
  "fur_2": {
   "package": "noise_fur_2",
   "label": "Fur 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11065,6 +11215,7 @@ export const LIBRARY = {
  "fur_3": {
   "package": "noise_fur_3",
   "label": "Fur 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11094,6 +11245,7 @@ export const LIBRARY = {
  "fxaa_color": {
   "package": "fxaa",
   "label": "FXAA color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -11117,6 +11269,7 @@ export const LIBRARY = {
  "fxaa_grayscale": {
   "package": "fxaa",
   "label": "FXAA grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -11135,6 +11288,7 @@ export const LIBRARY = {
  "gaussian_1": {
   "package": "pattern_gaussian_1",
   "label": "Gaussian 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11156,6 +11310,7 @@ export const LIBRARY = {
  "gaussian_2": {
   "package": "pattern_gaussian_2",
   "label": "Gaussian 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11177,6 +11332,7 @@ export const LIBRARY = {
  "gaussian_noise": {
   "package": "noise_gaussian_noise_v2",
   "label": "Gaussian noise",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11218,6 +11374,7 @@ export const LIBRARY = {
  "gaussian_spots_1": {
   "package": "noise_gaussian_spots_1_v2",
   "label": "Gaussian spots 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11259,6 +11416,7 @@ export const LIBRARY = {
  "gaussian_spots_2": {
   "package": "noise_gaussian_spots_2_v2",
   "label": "Gaussian spots 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11300,6 +11458,7 @@ export const LIBRARY = {
  "get_size_color": {
   "package": "value_get_size",
   "label": "Get size color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -11318,6 +11477,7 @@ export const LIBRARY = {
  "get_size_grayscale": {
   "package": "value_get_size",
   "label": "Get size grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -11336,6 +11496,7 @@ export const LIBRARY = {
  "glow": {
   "package": "glow",
   "label": "Glow color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -11371,6 +11532,7 @@ export const LIBRARY = {
  "glow_grayscale": {
   "package": "glow",
   "label": "Glow grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -11402,6 +11564,7 @@ export const LIBRARY = {
  "gradient_axial": {
   "package": "gradient_axial",
   "label": "Gradient axial",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11427,6 +11590,7 @@ export const LIBRARY = {
  "gradient_axial_reflected": {
   "package": "gradient_axial",
   "label": "Gradient axial reflected",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11452,6 +11616,7 @@ export const LIBRARY = {
  "gradient_circular": {
   "package": "gradient_circular",
   "label": "Gradient circular",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11481,6 +11646,7 @@ export const LIBRARY = {
  "gradient_linear_1": {
   "package": "gradient_linear_1",
   "label": "Gradient linear 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11502,6 +11668,7 @@ export const LIBRARY = {
  "gradient_linear_2": {
   "package": "gradient_linear_2",
   "label": "Gradient linear 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11523,6 +11690,7 @@ export const LIBRARY = {
  "gradient_linear_3": {
   "package": "gradient_linear_3",
   "label": "Gradient linear 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11548,6 +11716,7 @@ export const LIBRARY = {
  "gradient_radial": {
   "package": "gradient_radial",
   "label": "Gradient radial",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11577,6 +11746,7 @@ export const LIBRARY = {
  "gravel": {
   "package": "materials/pbr/gravel",
   "label": "Gravel",
+  "category": "PBR Materials/Ground",
   "inputs": [],
   "outputs": [
    {
@@ -11706,6 +11876,7 @@ export const LIBRARY = {
  "grayscale_conversion_advanced": {
   "package": "grayscale_conversion_advanced",
   "label": "Grayscale conversion advanced",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -11729,6 +11900,7 @@ export const LIBRARY = {
  "grunge_concrete": {
   "package": "grunge_concrete",
   "label": "Grunge concrete",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11782,6 +11954,7 @@ export const LIBRARY = {
  "grunge_damas": {
   "package": "grunge_damas",
   "label": "Grunge Damas",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11831,6 +12004,7 @@ export const LIBRARY = {
  "grunge_galvanic_large": {
   "package": "grunge_galvanic_large",
   "label": "Grunge galvanic large",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11872,6 +12046,7 @@ export const LIBRARY = {
  "grunge_galvanic_small": {
   "package": "grunge_galvanic_small",
   "label": "Grunge galvanic small",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11913,6 +12088,7 @@ export const LIBRARY = {
  "grunge_leaks": {
   "package": "grunge_leaks",
   "label": "Grunge leaks",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -11958,6 +12134,7 @@ export const LIBRARY = {
  "grunge_leaky_paint": {
   "package": "grunge_leaky_paint",
   "label": "Grunge leaky paint",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12003,6 +12180,7 @@ export const LIBRARY = {
  "grunge_map_001": {
   "package": "noise_grunge_map_001",
   "label": "Grunge map 001",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12036,6 +12214,7 @@ export const LIBRARY = {
  "grunge_map_002": {
   "package": "noise_grunge_map_002",
   "label": "Grunge map 002",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12069,6 +12248,7 @@ export const LIBRARY = {
  "grunge_map_003": {
   "package": "noise_grunge_map_003",
   "label": "Grunge map 003",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12102,6 +12282,7 @@ export const LIBRARY = {
  "grunge_map_004": {
   "package": "noise_grunge_map_004",
   "label": "Grunge map 004",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12135,6 +12316,7 @@ export const LIBRARY = {
  "grunge_map_005": {
   "package": "noise_grunge_map_005",
   "label": "Grunge map 005",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12172,6 +12354,7 @@ export const LIBRARY = {
  "grunge_map_006": {
   "package": "noise_grunge_map_006",
   "label": "Grunge map 006",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12205,6 +12388,7 @@ export const LIBRARY = {
  "grunge_map_007": {
   "package": "noise_grunge_map_007",
   "label": "Grunge map 007",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12238,6 +12422,7 @@ export const LIBRARY = {
  "grunge_map_008": {
   "package": "noise_grunge_map_008",
   "label": "Grunge map 008",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12271,6 +12456,7 @@ export const LIBRARY = {
  "grunge_map_009": {
   "package": "noise_grunge_map_009",
   "label": "Grunge map 009",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12304,6 +12490,7 @@ export const LIBRARY = {
  "grunge_map_010": {
   "package": "noise_grunge_map_010",
   "label": "Grunge map 010",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12341,6 +12528,7 @@ export const LIBRARY = {
  "grunge_map_011": {
   "package": "noise_grunge_map_011",
   "label": "Grunge map 011",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12378,6 +12566,7 @@ export const LIBRARY = {
  "grunge_map_012": {
   "package": "noise_grunge_map_012",
   "label": "Grunge map 012",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12411,6 +12600,7 @@ export const LIBRARY = {
  "grunge_map_013": {
   "package": "noise_grunge_map_013",
   "label": "Grunge map 013",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12444,6 +12634,7 @@ export const LIBRARY = {
  "grunge_map_014": {
   "package": "noise_grunge_map_014",
   "label": "Grunge map 014",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12477,6 +12668,7 @@ export const LIBRARY = {
  "grunge_map_015": {
   "package": "noise_grunge_map_015",
   "label": "Grunge map 015",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12510,6 +12702,7 @@ export const LIBRARY = {
  "grunge_rough_dirty": {
   "package": "grunge_rough_dirty",
   "label": "Grunge rough dirty",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12555,6 +12748,7 @@ export const LIBRARY = {
  "grunge_rust_fine": {
   "package": "grunge_rust_fine",
   "label": "Grunge rust fine",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12604,6 +12798,7 @@ export const LIBRARY = {
  "grunge_scratches_dirty": {
   "package": "grunge_scratches_dirty",
   "label": "Grunge scratches dirty",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12641,6 +12836,7 @@ export const LIBRARY = {
  "grunge_scratches_fine": {
   "package": "grunge_scratches_fine",
   "label": "Grunge scratches fine",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12682,6 +12878,7 @@ export const LIBRARY = {
  "grunge_scratches_rough": {
   "package": "grunge_scratches_rough",
   "label": "Grunge scratches rough",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12763,6 +12960,7 @@ export const LIBRARY = {
  "grunge_shavings": {
   "package": "grunge_shavings",
   "label": "Grunge shavings",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12808,6 +13006,7 @@ export const LIBRARY = {
  "grunge_splashes_dusty": {
   "package": "grunge_splashes_dusty",
   "label": "Grunge splashes dusty",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12853,6 +13052,7 @@ export const LIBRARY = {
  "grunge_spots": {
   "package": "grunge_spots",
   "label": "Grunge spots",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12894,6 +13094,7 @@ export const LIBRARY = {
  "grunge_spots_dirty": {
   "package": "grunge_spots_dirty",
   "label": "Grunge spots dirty",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -12931,6 +13132,7 @@ export const LIBRARY = {
  "hald_clut": {
   "package": "hald_clut",
   "label": "Hald CLUT",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -12959,6 +13161,7 @@ export const LIBRARY = {
  "hbao": {
   "package": "hbao_2",
   "label": "Ambient occlusion (HBAO)",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13010,6 +13213,7 @@ export const LIBRARY = {
  "hdr_exposure_preview": {
   "package": "hdr_exposure_preview",
   "label": "Exposure preview",
+  "category": "3D View",
   "inputs": [
    {
     "id": "input",
@@ -13037,6 +13241,7 @@ export const LIBRARY = {
  "hdr_merge_2": {
   "package": "hdr_merge",
   "label": "HDR merge",
+  "category": "3D View",
   "inputs": [
    {
     "id": "input_1",
@@ -13147,6 +13352,7 @@ export const LIBRARY = {
  "hdr_range_viewer": {
   "package": "hdr_range_viewer",
   "label": "HDR range viewer color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13174,6 +13380,7 @@ export const LIBRARY = {
  "hdr_range_viewer_grayscale": {
   "package": "hdr_range_viewer",
   "label": "HDR range viewer grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13201,6 +13408,7 @@ export const LIBRARY = {
  "height_blend": {
   "package": "height_blend",
   "label": "Height blend",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "height_top",
@@ -13250,6 +13458,7 @@ export const LIBRARY = {
  "height_extrude": {
   "package": "height_extrude",
   "label": "Height extrude",
+  "category": "Generator",
   "inputs": [
    {
     "id": "height",
@@ -13301,6 +13510,7 @@ export const LIBRARY = {
  "height_map_frequencies_mapper": {
   "package": "height_map_frequencies_mapper",
   "label": "Height map frequencies mapper",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Height",
@@ -13328,6 +13538,7 @@ export const LIBRARY = {
  "height_normal_blend": {
   "package": "height_normal_blend",
   "label": "Height normal blender",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Height",
@@ -13360,6 +13571,7 @@ export const LIBRARY = {
  "height_to_normal_world_units_2": {
   "package": "height_to_normal_world_units",
   "label": "Height to normal world units",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13395,6 +13607,7 @@ export const LIBRARY = {
  "hemisphere": {
   "package": "pattern_shape",
   "label": null,
+  "category": null,
   "inputs": [],
   "outputs": [
    {
@@ -13424,6 +13637,7 @@ export const LIBRARY = {
  "highpass": {
   "package": "highpass",
   "label": "Highpass color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -13447,6 +13661,7 @@ export const LIBRARY = {
  "highpass_grayscale": {
   "package": "highpass",
   "label": "Highpass grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -13470,6 +13685,7 @@ export const LIBRARY = {
  "histogram_compute": {
   "package": "histogram_tools",
   "label": "Histogram compute",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13497,6 +13713,7 @@ export const LIBRARY = {
  "histogram_equalize": {
   "package": "histogram_tools",
   "label": "Histogram equalize",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13524,6 +13741,7 @@ export const LIBRARY = {
  "histogram_range": {
   "package": "histogram_range",
   "label": "Histogram range",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13551,6 +13769,7 @@ export const LIBRARY = {
  "histogram_render": {
   "package": "histogram_tools",
   "label": "Histogram render",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13590,6 +13809,7 @@ export const LIBRARY = {
  "histogram_scan": {
   "package": "histogram_scan",
   "label": "Histogram scan",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input_1",
@@ -13621,6 +13841,7 @@ export const LIBRARY = {
  "histogram_scan_non_uniform": {
   "package": "histogram_scan_non_uniform",
   "label": "Non-uniform histogram scan",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13666,6 +13887,7 @@ export const LIBRARY = {
  "histogram_select": {
   "package": "histogram_select",
   "label": "Histogram select",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13697,6 +13919,7 @@ export const LIBRARY = {
  "histogram_shift": {
   "package": "histogram_shift",
   "label": "Histogram shift",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -13720,6 +13943,7 @@ export const LIBRARY = {
  "id_to_mask_grayscale": {
   "package": "id_to_mask",
   "label": "ID to mask grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "id",
@@ -13751,6 +13975,7 @@ export const LIBRARY = {
  "invert": {
   "package": "invert",
   "label": "Invert color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -13774,6 +13999,7 @@ export const LIBRARY = {
  "invert_grayscale": {
   "package": "invert",
   "label": "Invert grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -13797,6 +14023,7 @@ export const LIBRARY = {
  "leather_weathering": {
   "package": "leather_weathering_material",
   "label": "Leather weathering",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "Diffuse_1",
@@ -14027,6 +14254,7 @@ export const LIBRARY = {
  "lighting_cancel_hf": {
   "package": "lighting_cancel_hf",
   "label": "Lighting cancel high frequencies",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -14054,6 +14282,7 @@ export const LIBRARY = {
  "lighting_cancel_lf": {
   "package": "lighting_cancel_lf",
   "label": "Lighting cancel low frequencies",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -14077,6 +14306,7 @@ export const LIBRARY = {
  "linear_burn": {
   "package": "blend",
   "label": "Linear burn",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Foreground",
@@ -14114,6 +14344,7 @@ export const LIBRARY = {
  "linear_srgb_to_acescg": {
   "package": "color_space_conversion",
   "label": "Linear sRGB to ACEScg",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -14132,6 +14363,7 @@ export const LIBRARY = {
  "linear_srgb_to_srgb": {
   "package": "color_space_conversion",
   "label": "Linear sRGB to sRGB color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -14150,6 +14382,7 @@ export const LIBRARY = {
  "linear_srgb_to_srgb_grayscale": {
   "package": "color_space_conversion",
   "label": "Linear sRGB to sRGB grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -14168,6 +14401,7 @@ export const LIBRARY = {
  "liquid": {
   "package": "noise_liquid",
   "label": "Liquid",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -14197,6 +14431,7 @@ export const LIBRARY = {
  "luminance_highpass": {
   "package": "luminance_highpass",
   "label": "Luminance highpass",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -14220,6 +14455,7 @@ export const LIBRARY = {
  "luminosity": {
   "package": "blend",
   "label": "Luminosity",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Foreground",
@@ -14257,6 +14493,7 @@ export const LIBRARY = {
  "make_it_tile_patch": {
   "package": "make_it_tile_patch",
   "label": "Make it tile patch color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -14324,6 +14561,7 @@ export const LIBRARY = {
  "make_it_tile_patch_grayscale": {
   "package": "make_it_tile_patch_grayscale",
   "label": "Make it tile patch grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -14391,6 +14629,7 @@ export const LIBRARY = {
  "make_it_tile_photo": {
   "package": "make_it_tile_photo",
   "label": "Make it tile photo color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -14434,6 +14673,7 @@ export const LIBRARY = {
  "make_it_tile_photo_grayscale": {
   "package": "make_it_tile_photo_grayscale",
   "label": "Make it tile photo grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -14477,6 +14717,7 @@ export const LIBRARY = {
  "mask_to_paths_2": {
   "package": "paths_tools",
   "label": "Mask to paths",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "mask",
@@ -14548,6 +14789,7 @@ export const LIBRARY = {
  "material_adjustment_blend": {
   "package": "material_adjustment_blend",
   "label": "Material adjustment blend",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "diffuse",
@@ -14952,6 +15194,7 @@ export const LIBRARY = {
  "material_blend": {
   "package": "material_blend",
   "label": "Material blend",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "material2_diffuse",
@@ -15296,6 +15539,7 @@ export const LIBRARY = {
  "material_clone_patch": {
   "package": "clone_patch",
   "label": "Material clone patch",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "diffuse",
@@ -15569,6 +15813,7 @@ export const LIBRARY = {
  "material_color_blend": {
   "package": "material_color_blend",
   "label": "Material color blend",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "diffuse",
@@ -15913,6 +16158,7 @@ export const LIBRARY = {
  "material_crop": {
   "package": "crop",
   "label": "Material crop",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "diffuse",
@@ -16142,6 +16388,7 @@ export const LIBRARY = {
  "material_height_blend": {
   "package": "material_height_blend",
   "label": "Material height blend",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "material2_diffuse",
@@ -16392,6 +16639,7 @@ export const LIBRARY = {
  "material_mesh_data_blender": {
   "package": "material_mesh_data_blender",
   "label": "Material mesh data blender",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "diffuse",
@@ -16661,6 +16909,7 @@ export const LIBRARY = {
  "material_selector": {
   "package": "material_selector",
   "label": "Material selector",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "Input",
@@ -16820,6 +17069,7 @@ export const LIBRARY = {
  "material_switch": {
   "package": "material_switch",
   "label": "Material switch",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "material2_diffuse",
@@ -17050,6 +17300,7 @@ export const LIBRARY = {
  "material_transform": {
   "package": "material_transform",
   "label": "Material transform",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "Input_12",
@@ -17232,6 +17483,7 @@ export const LIBRARY = {
  "median_filter_color": {
   "package": "median_filter",
   "label": "Median filter color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -17263,6 +17515,7 @@ export const LIBRARY = {
  "median_filter_grayscale": {
   "package": "median_filter",
   "label": "Median filter grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -17290,6 +17543,7 @@ export const LIBRARY = {
  "mesh_1": {
   "package": "pattern_mesh_1",
   "label": "Mesh 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -17315,6 +17569,7 @@ export const LIBRARY = {
  "mesh_2": {
   "package": "pattern_mesh_2",
   "label": "Mesh 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -17340,6 +17595,7 @@ export const LIBRARY = {
  "mesh_data_combiner": {
   "package": "mesh_data_combiner",
   "label": "Mesh data combiner",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -17493,6 +17749,7 @@ export const LIBRARY = {
  "messy_fibers_1": {
   "package": "noise_messy_fibers_1_v2",
   "label": "Messy fibers 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -17546,6 +17803,7 @@ export const LIBRARY = {
  "messy_fibers_2": {
   "package": "noise_messy_fibers_2_v2",
   "label": "Messy fibers 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -17599,6 +17857,7 @@ export const LIBRARY = {
  "messy_fibers_3": {
   "package": "noise_messy_fibers_3_v2",
   "label": "Messy fibers 3",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -17652,6 +17911,7 @@ export const LIBRARY = {
  "metal_002": {
   "package": "materials/pbr/metal_002",
   "label": "Metal 002",
+  "category": "PBR Materials/Metal",
   "inputs": [],
   "outputs": [
    {
@@ -17809,6 +18069,7 @@ export const LIBRARY = {
  "metal_003": {
   "package": "materials/pbr/metal_003",
   "label": "Metal 003",
+  "category": "PBR Materials/Metal",
   "inputs": [],
   "outputs": [
    {
@@ -17938,6 +18199,7 @@ export const LIBRARY = {
  "metal_006": {
   "package": "materials/pbr/metal_006",
   "label": "Metal 006",
+  "category": "PBR Materials/Metal",
   "inputs": [],
   "outputs": [
    {
@@ -18075,6 +18337,7 @@ export const LIBRARY = {
  "metal_plate_001": {
   "package": "materials/pbr/metal_plate_001",
   "label": "Metal plate 001",
+  "category": "PBR Materials/Metal",
   "inputs": [],
   "outputs": [
    {
@@ -18224,6 +18487,7 @@ export const LIBRARY = {
  "metal_plate_004": {
   "package": "materials/pbr/metal_plate_004",
   "label": "Metal plate 004",
+  "category": "PBR Materials/Metal",
   "inputs": [],
   "outputs": [
    {
@@ -18385,6 +18649,7 @@ export const LIBRARY = {
  "mg_bottom_to_top": {
   "package": "mg_bottom_to_top",
   "label": "Bottom to top",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "position",
@@ -18426,6 +18691,7 @@ export const LIBRARY = {
  "mg_cloth_wear": {
   "package": "mg_cloth_wear",
   "label": "Cloth wear",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -18463,6 +18729,7 @@ export const LIBRARY = {
  "mg_dirt": {
   "package": "mg_dirt",
   "label": "Dirt",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -18539,6 +18806,7 @@ export const LIBRARY = {
  "mg_dripping_rust": {
   "package": "mg_dripping_rust",
   "label": "Dripping rust",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambientOcclusion",
@@ -18597,6 +18865,7 @@ export const LIBRARY = {
  "mg_dust": {
   "package": "mg_dust",
   "label": "Dust",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -18651,6 +18920,7 @@ export const LIBRARY = {
  "mg_edge_blur": {
   "package": "mg_edge_blur",
   "label": "Edge blur",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -18687,6 +18957,7 @@ export const LIBRARY = {
  "mg_edge_damages": {
   "package": "mg_edge_damages",
   "label": "Edge damages",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -18728,6 +18999,7 @@ export const LIBRARY = {
  "mg_edge_dirt": {
   "package": "mg_edge_dirt",
   "label": "Edge dirt",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -18773,6 +19045,7 @@ export const LIBRARY = {
  "mg_edge_notch": {
   "package": "mg_edge_notch",
   "label": "Edge notch",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -18809,6 +19082,7 @@ export const LIBRARY = {
  "mg_edge_select": {
   "package": "mg_edge_select",
   "label": "Edge select",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -18865,6 +19139,7 @@ export const LIBRARY = {
  "mg_edge_speckle": {
   "package": "mg_edge_speckle",
   "label": "Edge speckle",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -18914,6 +19189,7 @@ export const LIBRARY = {
  "mg_edge_wear": {
   "package": "mg_edge_wear",
   "label": "Edge wear",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -18958,6 +19234,7 @@ export const LIBRARY = {
  "mg_fiber_glass_edge_wear": {
   "package": "mg_fiber_glass_edge_wear",
   "label": "Fiber glass edge wear",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19038,6 +19315,7 @@ export const LIBRARY = {
  "mg_grease": {
   "package": "mg_grease",
   "label": "Grease",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "thickness",
@@ -19083,6 +19361,7 @@ export const LIBRARY = {
  "mg_ground_dirt": {
   "package": "mg_ground_dirt",
   "label": "Ground dirt",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "position",
@@ -19119,6 +19398,7 @@ export const LIBRARY = {
  "mg_leaks": {
   "package": "mg_leaks",
   "label": "Leaks",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19187,6 +19467,7 @@ export const LIBRARY = {
  "mg_leather_wear": {
   "package": "mg_leather_wear",
   "label": "Leather wear",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19245,6 +19526,7 @@ export const LIBRARY = {
  "mg_light": {
   "package": "mg_light",
   "label": "Light",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "normalWS",
@@ -19280,6 +19562,7 @@ export const LIBRARY = {
  "mg_mask_builder_2": {
   "package": "mg_mask_builder",
   "label": "Mask builder",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19530,6 +19813,7 @@ export const LIBRARY = {
  "mg_metal_edge_wear": {
   "package": "mg_metal_edge_wear",
   "label": "Metal edge wear",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19614,6 +19898,7 @@ export const LIBRARY = {
  "mg_paint_wear": {
   "package": "mg_paint_wear",
   "label": "Paint wear",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19672,6 +19957,7 @@ export const LIBRARY = {
  "mg_selective_dirt": {
   "package": "mg_selective_dirt",
   "label": "Selective dirt",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "curvature",
@@ -19717,6 +20003,7 @@ export const LIBRARY = {
  "mg_sun_bleach": {
   "package": "mg_sun_bleach",
   "label": "Sun bleach",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19758,6 +20045,7 @@ export const LIBRARY = {
  "mg_surface_brush": {
   "package": "mg_surface_brush",
   "label": "Surface brush",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "ambient_occlusion",
@@ -19825,6 +20113,7 @@ export const LIBRARY = {
  "microscope_view": {
   "package": "noise_microscope_view",
   "label": "Microscope view",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -19854,6 +20143,7 @@ export const LIBRARY = {
  "min_max": {
   "package": "min_max",
   "label": "Min max",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -19876,6 +20166,7 @@ export const LIBRARY = {
  "mirror": {
   "package": "mirror",
   "label": "Mirror color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -19919,6 +20210,7 @@ export const LIBRARY = {
  "mirror_grayscale": {
   "package": "mirror",
   "label": "Mirror grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -19962,6 +20254,7 @@ export const LIBRARY = {
  "mlv_color": {
   "package": "mean_of_least_variance",
   "label": "MLV color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -20005,6 +20298,7 @@ export const LIBRARY = {
  "mlv_grayscale": {
   "package": "mean_of_least_variance",
   "label": "MLV grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -20044,6 +20338,7 @@ export const LIBRARY = {
  "modify_color_palette": {
   "package": "quantize_color",
   "label": "Modify color palette",
+  "category": "Filter",
   "inputs": [
    {
     "id": "id",
@@ -20112,6 +20407,7 @@ export const LIBRARY = {
  "moisture_noise_1": {
   "package": "noise_moisture_noise_1_v2",
   "label": "Moisture noise 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -20169,6 +20465,7 @@ export const LIBRARY = {
  "moisture_noise_2": {
   "package": "noise_moisture_noise_2",
   "label": "Moisture noise 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -20226,6 +20523,7 @@ export const LIBRARY = {
  "mosaic": {
   "package": "mosaic",
   "label": "Mosaic color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -20258,6 +20556,7 @@ export const LIBRARY = {
  "mosaic_grayscale": {
   "package": "mosaic",
   "label": "Mosaic grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -20290,6 +20589,7 @@ export const LIBRARY = {
  "moss_weathering": {
   "package": "moss_weathering_material",
   "label": "Moss weathering",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "Input_2",
@@ -20480,6 +20780,7 @@ export const LIBRARY = {
  "multi_clone_patch": {
   "package": "clone_patch",
   "label": "Multiclone patch color",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -20614,6 +20915,7 @@ export const LIBRARY = {
  "multi_clone_patch_grayscale": {
   "package": "clone_patch",
   "label": "Multiclone patch grayscale",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -20744,6 +21046,7 @@ export const LIBRARY = {
  "multi_color_equalizer": {
   "package": "color_equalizer",
   "label": "Multicolor equalizer",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -20891,6 +21194,7 @@ export const LIBRARY = {
  "multi_crop": {
   "package": "crop",
   "label": "Multicrop color",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -21005,6 +21309,7 @@ export const LIBRARY = {
  "multi_crop_grayscale": {
   "package": "crop",
   "label": "Multicrop grayscale",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -21115,6 +21420,7 @@ export const LIBRARY = {
  "multi_directional_warp_color": {
   "package": "multi_directional_warp",
   "label": "Multidir. warp color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -21155,6 +21461,7 @@ export const LIBRARY = {
  "multi_directional_warp_grayscale": {
   "package": "multi_directional_warp",
   "label": "Multidir. warp grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -21195,6 +21502,7 @@ export const LIBRARY = {
  "multi_material_blend": {
   "package": "multi_material_blend",
   "label": "Multimaterial blend",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "material16_diffuse",
@@ -22454,6 +22762,7 @@ export const LIBRARY = {
  "multi_switch": {
   "package": "blend_switch",
   "label": "Multiswitch color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -22576,6 +22885,7 @@ export const LIBRARY = {
  "multi_switch_grayscale": {
   "package": "blend_switch",
   "label": "Multiswitch grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -22698,6 +23008,7 @@ export const LIBRARY = {
  "multiangle_to_albedo": {
   "package": "multiangle_to_albedo",
   "label": "Multiangle to albedo",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -22756,6 +23067,7 @@ export const LIBRARY = {
  "multiangle_to_normal": {
   "package": "multiangle_to_normal",
   "label": "Multiangle to normal",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -22830,6 +23142,7 @@ export const LIBRARY = {
  "nadir_extract": {
   "package": "panorama_nadir_extract",
   "label": "Nadir extract",
+  "category": "3D View",
   "inputs": [
    {
     "id": "input",
@@ -22861,6 +23174,7 @@ export const LIBRARY = {
  "noise_upscale_1": {
   "package": "noise_upscale_1",
   "label": "Noise upscale 1",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -22896,6 +23210,7 @@ export const LIBRARY = {
  "noise_upscale_2": {
   "package": "noise_upscale_2",
   "label": "Noise upscale 2",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -22931,6 +23246,7 @@ export const LIBRARY = {
  "noise_upscale_3": {
   "package": "noise_upscale_3",
   "label": "Noise upscale 3",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -22954,6 +23270,7 @@ export const LIBRARY = {
  "non_square_transform": {
   "package": "non_square_transform",
   "label": "Non-square transform color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -22997,6 +23314,7 @@ export const LIBRARY = {
  "non_square_transform_greyscale": {
   "package": "non_square_transform",
   "label": "Non-square transform grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23040,6 +23358,7 @@ export const LIBRARY = {
  "non_uniform_blur": {
   "package": "non_uniform_blur",
   "label": "Non-uniform blur color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -23088,6 +23407,7 @@ export const LIBRARY = {
  "non_uniform_blur_grayscale": {
   "package": "non_uniform_blur",
   "label": "Non-uniform blur grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -23136,6 +23456,7 @@ export const LIBRARY = {
  "non_uniform_directional_warp_color": {
   "package": "non_uniform_directional_warp",
   "label": "Non-uniform dir. warp color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23193,6 +23514,7 @@ export const LIBRARY = {
  "non_uniform_directional_warp_grayscale": {
   "package": "non_uniform_directional_warp",
   "label": "Non-uniform dir. warp grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23250,6 +23572,7 @@ export const LIBRARY = {
  "non_uniform_rotation_color": {
   "package": "non_uniform_rotation",
   "label": "Non-uniform rotation color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23303,6 +23626,7 @@ export const LIBRARY = {
  "non_uniform_rotation_grayscale": {
   "package": "non_uniform_rotation",
   "label": "Non-uniform rotation grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23356,6 +23680,7 @@ export const LIBRARY = {
  "normal_blend": {
   "package": "normal_blend",
   "label": "Normal blend",
+  "category": "Filter",
   "inputs": [
    {
     "id": "NormalFG",
@@ -23393,6 +23718,7 @@ export const LIBRARY = {
  "normal_color": {
   "package": "normal_color",
   "label": "Normal color",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -23418,6 +23744,7 @@ export const LIBRARY = {
  "normal_combine": {
   "package": "normal_combine",
   "label": "Normal combine",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input_1",
@@ -23446,6 +23773,7 @@ export const LIBRARY = {
  "normal_intensity": {
   "package": "normal_intensity",
   "label": "Normal intensity",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23469,6 +23797,7 @@ export const LIBRARY = {
  "normal_invert": {
   "package": "normal_invert",
   "label": "Normal invert",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Normal",
@@ -23504,6 +23833,7 @@ export const LIBRARY = {
  "normal_normalise": {
   "package": "normal_normalise",
   "label": "Normal normalize",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Normal",
@@ -23522,6 +23852,7 @@ export const LIBRARY = {
  "normal_sobel_2": {
   "package": "normal_sobel",
   "label": "Normal sobel",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23549,6 +23880,7 @@ export const LIBRARY = {
  "normal_to_height": {
   "package": "normal_to_height_2",
   "label": "Normal to height",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -23580,6 +23912,7 @@ export const LIBRARY = {
  "normal_to_height_hq": {
   "package": "normal_to_height_hq",
   "label": "Normal to height HQ",
+  "category": "Filter",
   "inputs": [
    {
     "id": "normal",
@@ -23619,6 +23952,7 @@ export const LIBRARY = {
  "normal_transform": {
   "package": "normal_transform",
   "label": "Normal transform",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -23654,6 +23988,7 @@ export const LIBRARY = {
  "normal_uncombine": {
   "package": "normal_uncombine",
   "label": "Normal uncombine",
+  "category": "Filter",
   "inputs": [
    {
     "id": "normal",
@@ -23690,6 +24025,7 @@ export const LIBRARY = {
  "normal_vector_rotation": {
   "package": "normal_vector_rotation",
   "label": "Normal vector rotation",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Normal",
@@ -23722,6 +24058,7 @@ export const LIBRARY = {
  "old_painted_planks": {
   "package": "materials/pbr/old_painted_planks",
   "label": "Old painted planks",
+  "category": "PBR Materials/Wood",
   "inputs": [],
   "outputs": [
    {
@@ -23867,6 +24204,7 @@ export const LIBRARY = {
  "painted_metal_weathering": {
   "package": "painted_metal_weathering_material",
   "label": "Metal weathering",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "Diffuse",
@@ -24113,6 +24451,7 @@ export const LIBRARY = {
  "panorama_3d_position": {
   "package": "panorama_position",
   "label": "Panorama 3D position",
+  "category": "3D View",
   "inputs": [],
   "outputs": [
    {
@@ -24130,6 +24469,7 @@ export const LIBRARY = {
  "panorama_gradient_2_points": {
   "package": "panorama_gradients",
   "label": "Gradient 2 points",
+  "category": "3D View",
   "inputs": [],
   "outputs": [
    {
@@ -24167,6 +24507,7 @@ export const LIBRARY = {
  "panorama_gradient_linear": {
   "package": "panorama_gradients",
   "label": "Gradient linear",
+  "category": "3D View",
   "inputs": [],
   "outputs": [
    {
@@ -24196,6 +24537,7 @@ export const LIBRARY = {
  "panorama_line_light": {
   "package": "panorama_shape",
   "label": "Line light",
+  "category": "3D View",
   "inputs": [
    {
     "id": "background_image_input",
@@ -24337,6 +24679,7 @@ export const LIBRARY = {
  "panorama_nadir_patch": {
   "package": "panorama_nadir_patch",
   "label": "Nadir patch",
+  "category": "3D View",
   "inputs": [
    {
     "id": "input",
@@ -24405,6 +24748,7 @@ export const LIBRARY = {
  "panorama_physical_sun_sky": {
   "package": "panorama_physical_sun_sky",
   "label": "Physical sun/sky",
+  "category": "3D View",
   "inputs": [],
   "outputs": [
    {
@@ -24450,6 +24794,7 @@ export const LIBRARY = {
  "panorama_plane_light": {
   "package": "panorama_shape",
   "label": "Plane light",
+  "category": "3D View",
   "inputs": [
    {
     "id": "background_image_input",
@@ -24579,6 +24924,7 @@ export const LIBRARY = {
  "panorama_rotation": {
   "package": "panorama_rotation",
   "label": "Panorama rotation",
+  "category": "3D View",
   "inputs": [
    {
     "id": "input",
@@ -24614,6 +24960,7 @@ export const LIBRARY = {
  "panorama_shape": {
   "package": "panorama_shape",
   "label": "Panorama shape",
+  "category": "Generator",
   "inputs": [
    {
     "id": "input",
@@ -24685,6 +25032,7 @@ export const LIBRARY = {
  "panorama_shape_2": {
   "package": "panorama_shape",
   "label": "Shape light",
+  "category": "3D View",
   "inputs": [
    {
     "id": "background_image_input",
@@ -24773,6 +25121,7 @@ export const LIBRARY = {
  "panorama_sphere_light": {
   "package": "panorama_shape",
   "label": "Sphere light",
+  "category": "3D View",
   "inputs": [
    {
     "id": "background_image_input",
@@ -24877,6 +25226,7 @@ export const LIBRARY = {
  "panorama_straighten_horizon": {
   "package": "panorama_straighten_horizon",
   "label": "Straighten horizon",
+  "category": "3D View",
   "inputs": [
    {
     "id": "input",
@@ -24912,6 +25262,7 @@ export const LIBRARY = {
  "paper_005": {
   "package": "materials/pbr/paper_005",
   "label": "Paper 005",
+  "category": "PBR Materials/Paper ",
   "inputs": [],
   "outputs": [
    {
@@ -25057,6 +25408,7 @@ export const LIBRARY = {
  "path_to_spline": {
   "package": "paths_tools",
   "label": "Paths to spline",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -25108,6 +25460,7 @@ export const LIBRARY = {
  "paths_polygon": {
   "package": "paths_tools",
   "label": "Paths polygon",
+  "category": "Splines & Paths",
   "inputs": [],
   "outputs": [
    {
@@ -25125,6 +25478,7 @@ export const LIBRARY = {
  "paths_trace": {
   "package": "paths_tools",
   "label": "Paths preview",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -25161,6 +25515,7 @@ export const LIBRARY = {
  "paths_warp": {
   "package": "paths_tools",
   "label": "Paths warp",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -25193,6 +25548,7 @@ export const LIBRARY = {
  "pbr_albedo_safe_color": {
   "package": "pbr_albedo_safe_color",
   "label": "PBR albedo safe color",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "basecolor_diffuse",
@@ -25225,6 +25581,7 @@ export const LIBRARY = {
  "pbr_base_material": {
   "package": "pbr_base_material",
   "label": "Base material",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "diffuse_input",
@@ -25425,6 +25782,7 @@ export const LIBRARY = {
  "pbr_basecolor_metallic_validate_2": {
   "package": "pbr_basecolor_metallic_validate",
   "label": "PBR base color / metallic validate",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "baseColor",
@@ -25465,6 +25823,7 @@ export const LIBRARY = {
  "pbr_dielectric_F0": {
   "package": "pbr_dielectric_F0",
   "label": "PBR dielectric F0",
+  "category": "Material Filter",
   "inputs": [],
   "outputs": [
    {
@@ -25494,6 +25853,7 @@ export const LIBRARY = {
  "pbr_metal_reflectance": {
   "package": "pbr_metal_reflectance",
   "label": "PBR metal reflectance",
+  "category": "Material Filter",
   "inputs": [],
   "outputs": [
    {
@@ -25511,6 +25871,7 @@ export const LIBRARY = {
  "perlin_noise": {
   "package": "noise_perlin_noise_v2",
   "label": "Perlin noise",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -25544,6 +25905,7 @@ export const LIBRARY = {
  "plasma": {
   "package": "noise_plasma",
   "label": "Plasma",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -25569,6 +25931,7 @@ export const LIBRARY = {
  "point_list": {
   "package": "spline_tools",
   "label": "Point list",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "preview",
@@ -25717,6 +26080,7 @@ export const LIBRARY = {
  "polar_to_cartesian": {
   "package": "cartesian_polar_transformation",
   "label": "Polar to cartesian color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -25735,6 +26099,7 @@ export const LIBRARY = {
  "polar_to_cartesian_grayscale": {
   "package": "cartesian_polar_transformation",
   "label": "Polar to cartesian grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -25753,6 +26118,7 @@ export const LIBRARY = {
  "polygon_1": {
   "package": "pattern_polygon_1",
   "label": "Polygon 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -25810,6 +26176,7 @@ export const LIBRARY = {
  "polygon_2": {
   "package": "pattern_polygon_2",
   "label": "Polygon 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -25859,6 +26226,7 @@ export const LIBRARY = {
  "pow": {
   "package": "pow",
   "label": "Pow color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -25882,6 +26250,7 @@ export const LIBRARY = {
  "pow_grayscale": {
   "package": "pow",
   "label": "Pow grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -25905,6 +26274,7 @@ export const LIBRARY = {
  "premult_to_straight": {
   "package": "pre_multiply_straight",
   "label": "Premultiplied to straight",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -25923,6 +26293,7 @@ export const LIBRARY = {
  "quad_transform": {
   "package": "quad_transform",
   "label": "Quad transform color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -25974,6 +26345,7 @@ export const LIBRARY = {
  "quad_transform_grayscale": {
   "package": "quad_transform",
   "label": "Quad transform grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26025,6 +26397,7 @@ export const LIBRARY = {
  "quad_transform_path": {
   "package": "paths_tools",
   "label": "Quad transform on path",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -26060,6 +26433,7 @@ export const LIBRARY = {
  "quantize": {
   "package": "quantize",
   "label": "Quantize color (Simple)",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -26095,6 +26469,7 @@ export const LIBRARY = {
  "quantize_color": {
   "package": "quantize_color",
   "label": "Quantize color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26158,6 +26533,7 @@ export const LIBRARY = {
  "quantize_grayscale": {
   "package": "quantize_2",
   "label": "Quantize grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26198,6 +26574,7 @@ export const LIBRARY = {
  "radial_blur": {
   "package": "radial_blur",
   "label": "Radial blur color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26229,6 +26606,7 @@ export const LIBRARY = {
  "radial_blur_grayscale": {
   "package": "radial_blur",
   "label": "Radial blur grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26260,6 +26638,7 @@ export const LIBRARY = {
  "reaction_diffusion": {
   "package": "reaction_diffusion",
   "label": "Reaction diffusion fast",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26287,6 +26666,7 @@ export const LIBRARY = {
  "replace_color": {
   "package": "replace_color",
   "label": "Replace color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -26314,6 +26694,7 @@ export const LIBRARY = {
  "replace_color_range": {
   "package": "replace_color",
   "label": "Replace color range",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -26349,6 +26730,7 @@ export const LIBRARY = {
  "rgb-a_merge": {
   "package": "rgb-a_merge",
   "label": "Alpha merge",
+  "category": "Filter",
   "inputs": [
    {
     "id": "RGB",
@@ -26372,6 +26754,7 @@ export const LIBRARY = {
  "rgb-a_split": {
   "package": "rgb-a_split",
   "label": "Alpha split",
+  "category": "Filter",
   "inputs": [
    {
     "id": "RGBA",
@@ -26394,6 +26777,7 @@ export const LIBRARY = {
  "rgba_merge": {
   "package": "rgba_merge",
   "label": "RGBA merge",
+  "category": "Filter",
   "inputs": [
    {
     "id": "R",
@@ -26427,6 +26811,7 @@ export const LIBRARY = {
  "rgba_split": {
   "package": "rgba_split",
   "label": "RGBA split",
+  "category": "Filter",
   "inputs": [
    {
     "id": "RGBA",
@@ -26457,6 +26842,7 @@ export const LIBRARY = {
  "rock_weathering": {
   "package": "rock_weathering_material",
   "label": "Rock weathering",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "Diffuse",
@@ -26692,6 +27078,7 @@ export const LIBRARY = {
  "rough_concrete_with_lines": {
   "package": "materials/pbr/rough_concrete_with_lines",
   "label": "Rough concrete with lines",
+  "category": "PBR Materials/Concrete",
   "inputs": [],
   "outputs": [
    {
@@ -26821,6 +27208,7 @@ export const LIBRARY = {
  "rt_ao": {
   "package": "rt_ao_v2",
   "label": "Ambient occlusion (RTAO)",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26868,6 +27256,7 @@ export const LIBRARY = {
  "rt_bent_normal": {
   "package": "rt_bent_normal_v2",
   "label": "Bent normal",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -26919,6 +27308,7 @@ export const LIBRARY = {
  "rt_caustics_color": {
   "package": "rt_caustics",
   "label": "RT caustics color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "input",
@@ -26982,6 +27372,7 @@ export const LIBRARY = {
  "rt_caustics_grayscale": {
   "package": "rt_caustics",
   "label": "RT caustics grayscale",
+  "category": "Generator",
   "inputs": [
    {
     "id": "input",
@@ -27037,6 +27428,7 @@ export const LIBRARY = {
  "rt_irradiance": {
   "package": "rt_irradiance",
   "label": "RT irradiance",
+  "category": "Filter",
   "inputs": [
    {
     "id": "basecolor",
@@ -27116,6 +27508,7 @@ export const LIBRARY = {
  "rt_shadows": {
   "package": "rt_shadows_v2",
   "label": "RT shadows",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -27183,6 +27576,7 @@ export const LIBRARY = {
  "rust_weathering": {
   "package": "rust_weathering_material",
   "label": "Rust weathering",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "diffuse_1",
@@ -27398,6 +27792,7 @@ export const LIBRARY = {
  "safe_transform": {
   "package": "safe_transform",
   "label": "Safe transform color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -27453,6 +27848,7 @@ export const LIBRARY = {
  "safe_transform_grayscale": {
   "package": "safe_transform",
   "label": "Safe transform grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -27508,6 +27904,7 @@ export const LIBRARY = {
  "scatter_on_spline_color": {
   "package": "spline_tools",
   "label": "Scatter on spline color",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -27904,6 +28301,7 @@ export const LIBRARY = {
  "scatter_on_spline_grayscale": {
   "package": "spline_tools",
   "label": "Scatter on spline grayscale",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -28268,6 +28666,7 @@ export const LIBRARY = {
  "scatter_splines_on_splines": {
   "package": "spline_tools",
   "label": "Scatter splines on splines",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -28561,6 +28960,7 @@ export const LIBRARY = {
  "scratches_generator": {
   "package": "pattern_scratches_generator",
   "label": "Scratches generator",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -28642,6 +29042,7 @@ export const LIBRARY = {
  "scratches_generator_normal": {
   "package": "pattern_scratches_generator",
   "label": "Scratches generator normal",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -28735,6 +29136,7 @@ export const LIBRARY = {
  "select_path": {
   "package": "paths_tools",
   "label": "Paths select",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -28770,6 +29172,7 @@ export const LIBRARY = {
  "shadows": {
   "package": "shadows",
   "label": "Shadows",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Input",
@@ -28805,6 +29208,7 @@ export const LIBRARY = {
  "shape": {
   "package": "pattern_shape",
   "label": "Shape",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -28854,6 +29258,7 @@ export const LIBRARY = {
  "shape_drop_shadow_color": {
   "package": "shape_shadow",
   "label": "Shape drop shadow color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -28909,6 +29314,7 @@ export const LIBRARY = {
  "shape_drop_shadow_grayscale": {
   "package": "shape_shadow",
   "label": "Shape drop shadow grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -28964,6 +29370,7 @@ export const LIBRARY = {
  "shape_extrude_2": {
   "package": "shape_extrude",
   "label": "Shape extrude",
+  "category": "Generator",
   "inputs": [
    {
     "id": "extrude_shape_input",
@@ -29045,6 +29452,7 @@ export const LIBRARY = {
  "shape_glow_color": {
   "package": "shape_glow",
   "label": "Shape glow color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -29096,6 +29504,7 @@ export const LIBRARY = {
  "shape_glow_grayscale": {
   "package": "shape_glow",
   "label": "Shape glow grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -29147,6 +29556,7 @@ export const LIBRARY = {
  "shape_mapper": {
   "package": "shape_mapper",
   "label": "Shape mapper",
+  "category": "Generator",
   "inputs": [
    {
     "id": "input",
@@ -29206,6 +29616,7 @@ export const LIBRARY = {
  "shape_splatter": {
   "package": "shape_splatter",
   "label": "Shape splatter",
+  "category": "Generator",
   "inputs": [
    {
     "id": "background_height",
@@ -29481,6 +29892,7 @@ export const LIBRARY = {
  "shape_splatter_blend": {
   "package": "shape_splatter",
   "label": "Shape splatter blend grayscale",
+  "category": "Generator",
   "inputs": [
    {
     "id": "background_color",
@@ -29571,6 +29983,7 @@ export const LIBRARY = {
  "shape_splatter_blend_color": {
   "package": "shape_splatter",
   "label": "Shape splatter blend color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "background_color",
@@ -29677,6 +30090,7 @@ export const LIBRARY = {
  "shape_splatter_data_extract": {
   "package": "shape_splatter",
   "label": "Shape splatter data extract",
+  "category": "Generator",
   "inputs": [
    {
     "id": "splatter_data_1",
@@ -29724,6 +30138,7 @@ export const LIBRARY = {
  "shape_splatter_to_mask": {
   "package": "shape_splatter",
   "label": "Shape splatter to mask",
+  "category": "Generator",
   "inputs": [
    {
     "id": "splatter_data_1",
@@ -29759,6 +30174,7 @@ export const LIBRARY = {
  "shape_stroke_color": {
   "package": "shape_stroke",
   "label": "Shape stroke color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -29802,6 +30218,7 @@ export const LIBRARY = {
  "shape_stroke_grayscale": {
   "package": "shape_stroke",
   "label": "Shape stroke grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -29845,6 +30262,7 @@ export const LIBRARY = {
  "skew": {
   "package": "skew",
   "label": "Skew color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -29876,6 +30294,7 @@ export const LIBRARY = {
  "skew_grayscale": {
   "package": "skew",
   "label": "Skew grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -29907,6 +30326,7 @@ export const LIBRARY = {
  "slope_blur": {
   "package": "slope_blur",
   "label": "Slope blur color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -29943,6 +30363,7 @@ export const LIBRARY = {
  "slope_blur_grayscale_2": {
   "package": "slope_blur",
   "label": "Slope blur grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -29979,6 +30400,7 @@ export const LIBRARY = {
  "smart_auto_tile": {
   "package": "smart_auto_tile",
   "label": "Smart auto tile",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "baseColor",
@@ -30093,6 +30515,7 @@ export const LIBRARY = {
  "snow_cover": {
   "package": "me_snow_cover",
   "label": "Snow cover",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "diffuse",
@@ -30233,6 +30656,7 @@ export const LIBRARY = {
  "sort_by_blue": {
   "package": "paths_tools",
   "label": null,
+  "category": null,
   "inputs": [
    {
     "id": "input",
@@ -30260,6 +30684,7 @@ export const LIBRARY = {
  "splatter": {
   "package": "splatter",
   "label": "Splatter",
+  "category": "Generator",
   "inputs": [
    {
     "id": "Source",
@@ -30355,6 +30780,7 @@ export const LIBRARY = {
  "splatter_circular": {
   "package": "pattern_splatter_circular",
   "label": "Splatter circular grayscale",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input_1",
@@ -30596,6 +31022,7 @@ export const LIBRARY = {
  "splatter_circular_color": {
   "package": "pattern_splatter_circular",
   "label": "Splatter circular color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input_1",
@@ -30837,6 +31264,7 @@ export const LIBRARY = {
  "splatter_color": {
   "package": "splatter_color",
   "label": "Splatter color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "Source",
@@ -30937,6 +31365,7 @@ export const LIBRARY = {
  "spline_2dtransform": {
   "package": "spline_tools",
   "label": "Spline 2D transform",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -31010,6 +31439,7 @@ export const LIBRARY = {
  "spline_append": {
   "package": "spline_tools",
   "label": "Spline append",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords_1",
@@ -31098,6 +31528,7 @@ export const LIBRARY = {
  "spline_bridge_2_splines": {
   "package": "spline_tools",
   "label": "Spline bridge (2 splines)",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords_1",
@@ -31254,6 +31685,7 @@ export const LIBRARY = {
  "spline_bridge_list_v2": {
   "package": "spline_tools",
   "label": "Spline bridge (List)",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -31399,6 +31831,7 @@ export const LIBRARY = {
  "spline_bridge_mapper_color": {
   "package": "spline_tools",
   "label": "Spline bridge mapper color",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "background",
@@ -31469,6 +31902,7 @@ export const LIBRARY = {
  "spline_bridge_mapper_grayscale": {
   "package": "spline_tools",
   "label": "Spline bridge mapper grayscale",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "background",
@@ -31535,6 +31969,7 @@ export const LIBRARY = {
  "spline_circle": {
   "package": "spline_tools",
   "label": "Spline circle",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -31664,6 +32099,7 @@ export const LIBRARY = {
  "spline_cubic": {
   "package": "spline_tools",
   "label": "Spline (Cubic)",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -31801,6 +32237,7 @@ export const LIBRARY = {
  "spline_fill": {
   "package": "spline_tools",
   "label": "Spline fill",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "preview",
@@ -31838,6 +32275,7 @@ export const LIBRARY = {
  "spline_flow_mapper": {
   "package": "spline_tools",
   "label": "Spline flow mapper",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -31932,6 +32370,7 @@ export const LIBRARY = {
  "spline_mapper_color": {
   "package": "spline_tools",
   "label": "Spline mapper color",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "background",
@@ -32080,6 +32519,7 @@ export const LIBRARY = {
  "spline_mapper_grayscale": {
   "package": "spline_tools",
   "label": "Spline mapper grayscale",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "background",
@@ -32228,6 +32668,7 @@ export const LIBRARY = {
  "spline_merge_list": {
   "package": "spline_tools",
   "label": "Spline merge list",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -32293,6 +32734,7 @@ export const LIBRARY = {
  "spline_poly_quadratic": {
   "package": "spline_tools",
   "label": "Spline (Poly quadratic)",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -32528,6 +32970,7 @@ export const LIBRARY = {
  "spline_quadratic": {
   "package": "spline_tools",
   "label": "Spline (Quadratic)",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -32657,6 +33100,7 @@ export const LIBRARY = {
  "spline_render": {
   "package": "spline_tools",
   "label": "Spline render",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -32778,6 +33222,7 @@ export const LIBRARY = {
  "spline_sample_height": {
   "package": "spline_tools",
   "label": "Spline sample height",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -32856,6 +33301,7 @@ export const LIBRARY = {
  "spline_sample_thickness": {
   "package": "spline_tools",
   "label": "Spline sample thickness",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -32934,6 +33380,7 @@ export const LIBRARY = {
  "spline_select": {
   "package": "spline_tools",
   "label": "Spline select",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -33019,6 +33466,7 @@ export const LIBRARY = {
  "spline_warp": {
   "package": "spline_tools",
   "label": "Spline warp",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "spline_coords",
@@ -33135,6 +33583,7 @@ export const LIBRARY = {
  "spot_emboss": {
   "package": "spot_emboss",
   "label": "Spot emboss",
+  "category": null,
   "inputs": [
    {
     "id": "Source",
@@ -33179,6 +33628,7 @@ export const LIBRARY = {
  "srgb_to_acescg": {
   "package": "color_space_conversion",
   "label": "sRGB to ACEScg",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33197,6 +33647,7 @@ export const LIBRARY = {
  "srgb_to_linear_srgb": {
   "package": "color_space_conversion",
   "label": "sRGB to linear sRGB color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33215,6 +33666,7 @@ export const LIBRARY = {
  "srgb_to_linear_srgb_grayscale": {
   "package": "color_space_conversion",
   "label": "sRGB to linear sRGB grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33233,6 +33685,7 @@ export const LIBRARY = {
  "star": {
   "package": "pattern_star",
   "label": "Star",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -33254,6 +33707,7 @@ export const LIBRARY = {
  "starburst": {
   "package": "starburst",
   "label": "Starburst",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -33295,6 +33749,7 @@ export const LIBRARY = {
  "straight_to_premult": {
   "package": "pre_multiply_straight",
   "label": "Straight to premultiplied",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33313,6 +33768,7 @@ export const LIBRARY = {
  "stripes": {
   "package": "pattern_stripes",
   "label": "Stripes",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -33354,6 +33810,7 @@ export const LIBRARY = {
  "summed_area_table": {
   "package": "summed_area_table",
   "label": "Summed area table",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33372,6 +33829,7 @@ export const LIBRARY = {
  "swirl": {
   "package": "swirl",
   "label": "Swirl color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33403,6 +33861,7 @@ export const LIBRARY = {
  "swirl_grayscale": {
   "package": "swirl",
   "label": "Swirl grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33434,6 +33893,7 @@ export const LIBRARY = {
  "switch": {
   "package": "blend_switch",
   "label": "Switch color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -33462,6 +33922,7 @@ export const LIBRARY = {
  "switch_grayscale": {
   "package": "blend_switch",
   "label": "Switch grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input_1",
@@ -33490,6 +33951,7 @@ export const LIBRARY = {
  "symmetry": {
   "package": "symmetry",
   "label": "Symmetry",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -33517,6 +33979,7 @@ export const LIBRARY = {
  "symmetry_slice": {
   "package": "symmetry_slice",
   "label": "Symmetry slice",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -33556,6 +34019,7 @@ export const LIBRARY = {
  "threshold": {
   "package": "threshold",
   "label": "Threshold",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -33583,6 +34047,7 @@ export const LIBRARY = {
  "tile_generator": {
   "package": "pattern_tile_generator",
   "label": "Tile generator grayscale",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input_1",
@@ -33808,6 +34273,7 @@ export const LIBRARY = {
  "tile_generator_color": {
   "package": "pattern_tile_generator",
   "label": "Tile generator color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input_1",
@@ -34041,6 +34507,7 @@ export const LIBRARY = {
  "tile_random": {
   "package": "pattern_tile_random",
   "label": "Tile random grayscale",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input",
@@ -34205,6 +34672,7 @@ export const LIBRARY = {
  "tile_random_2": {
   "package": "pattern_tile_random_2",
   "label": "Tile random 2",
+  "category": "Generator",
   "inputs": [
    {
     "id": "random_size_map",
@@ -34396,6 +34864,7 @@ export const LIBRARY = {
  "tile_random_color": {
   "package": "pattern_tile_random",
   "label": "Tile random color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input",
@@ -34564,6 +35033,7 @@ export const LIBRARY = {
  "tile_sampler": {
   "package": "pattern_tile_sampler",
   "label": "Tile sampler grayscale",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input",
@@ -34836,6 +35306,7 @@ export const LIBRARY = {
  "tile_sampler_color": {
   "package": "pattern_tile_sampler",
   "label": "Tile sampler color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "pattern_input",
@@ -35108,6 +35579,7 @@ export const LIBRARY = {
  "tileable_material_to_mesh_material": {
   "package": "tileable_material_to_mesh_material",
   "label": "Tileable material to mesh material",
+  "category": "Material Filters",
   "inputs": [
    {
     "id": "Diffuse",
@@ -35167,6 +35639,7 @@ export const LIBRARY = {
  "tiles_002": {
   "package": "materials/pbr/tiles_002",
   "label": "Tiles 002",
+  "category": "PBR Materials/Tiles",
   "inputs": [],
   "outputs": [
    {
@@ -35304,6 +35777,7 @@ export const LIBRARY = {
  "tiles_008": {
   "package": "materials/pbr/tiles_008",
   "label": "Tiles 008",
+  "category": "PBR Materials/Tiles",
   "inputs": [],
   "outputs": [
    {
@@ -35457,6 +35931,7 @@ export const LIBRARY = {
  "tiles_011": {
   "package": "materials/pbr/tiles_011",
   "label": "Tiles 011",
+  "category": "PBR Materials/Tiles",
   "inputs": [],
   "outputs": [
    {
@@ -35594,6 +36069,7 @@ export const LIBRARY = {
  "tiles_025": {
   "package": "materials/pbr/tiles_025",
   "label": "Tiles 025",
+  "category": "PBR Materials/Tiles",
   "inputs": [],
   "outputs": [
    {
@@ -35739,6 +36215,7 @@ export const LIBRARY = {
  "trapezoid_transform": {
   "package": "trapezoid_transform",
   "label": "Trapezoid transform color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -35774,6 +36251,7 @@ export const LIBRARY = {
  "trapezoid_transform_grayscale": {
   "package": "trapezoid_transform",
   "label": "Trapezoid transform grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -35809,6 +36287,7 @@ export const LIBRARY = {
  "triangle_grid_color": {
   "package": "pattern_triangle_grid",
   "label": "Triangle grid color",
+  "category": "Generator",
   "inputs": [
    {
     "id": "height",
@@ -35934,6 +36413,7 @@ export const LIBRARY = {
  "triangle_grid_grayscale": {
   "package": "pattern_triangle_grid",
   "label": "Triangle grid grayscale",
+  "category": "Generator",
   "inputs": [
    {
     "id": "height",
@@ -36059,6 +36539,7 @@ export const LIBRARY = {
  "triplanar_3": {
   "package": "triplanar",
   "label": "Triplanar color",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "position",
@@ -36166,6 +36647,7 @@ export const LIBRARY = {
  "triplanar_grayscale_3": {
   "package": "triplanar",
   "label": "Triplanar grayscale",
+  "category": "Mesh Adaptive",
   "inputs": [
    {
     "id": "position",
@@ -36273,6 +36755,7 @@ export const LIBRARY = {
  "uber_emboss": {
   "package": "uber_emboss",
   "label": "Uber emboss",
+  "category": "Filter",
   "inputs": [
    {
     "id": "Source",
@@ -36333,6 +36816,7 @@ export const LIBRARY = {
  "uv_mapper_color": {
   "package": "uv_mapper",
   "label": "UV mapper color",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "uv",
@@ -36365,6 +36849,7 @@ export const LIBRARY = {
  "uv_mapper_grayscale": {
   "package": "uv_mapper",
   "label": "UV mapper grayscale",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "uv",
@@ -36393,6 +36878,7 @@ export const LIBRARY = {
  "vector_morph": {
   "package": "vector_morph",
   "label": "Vector morph color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -36421,6 +36907,7 @@ export const LIBRARY = {
  "vector_morph_grayscale": {
   "package": "vector_morph",
   "label": "Vector morph grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -36449,6 +36936,7 @@ export const LIBRARY = {
  "vector_warp": {
   "package": "vector_warp",
   "label": "Vector warp color",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -36481,6 +36969,7 @@ export const LIBRARY = {
  "vector_warp_grayscale": {
   "package": "vector_warp",
   "label": "Vector warp grayscale",
+  "category": "Filter",
   "inputs": [
    {
     "id": "input",
@@ -36513,6 +37002,7 @@ export const LIBRARY = {
  "vertex_processor": {
   "package": "paths_tools",
   "label": "Paths vertex processor",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -36588,6 +37078,7 @@ export const LIBRARY = {
  "vertex_processor_simple": {
   "package": "paths_tools",
   "label": "Paths vertex processor simple",
+  "category": "Splines & Paths",
   "inputs": [
    {
     "id": "paths",
@@ -36635,6 +37126,7 @@ export const LIBRARY = {
  "view_color_palette": {
   "package": "quantize_color",
   "label": "View color palette",
+  "category": "Filters",
   "inputs": [
    {
     "id": "palette",
@@ -36663,6 +37155,7 @@ export const LIBRARY = {
  "voronoi": {
   "package": "noise_voronoi",
   "label": "Voronoi",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -36740,6 +37233,7 @@ export const LIBRARY = {
  "voronoi_fractal": {
   "package": "noise_voronoi",
   "label": "Voronoi fractal",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -36841,6 +37335,7 @@ export const LIBRARY = {
  "water_level": {
   "package": "me_water_level",
   "label": "Water level",
+  "category": "Material Filter",
   "inputs": [
    {
     "id": "diffuse",
@@ -37017,6 +37512,7 @@ export const LIBRARY = {
  "waveform_01_v2": {
   "package": "waveform_01_v2",
   "label": "Waveform 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -37082,6 +37578,7 @@ export const LIBRARY = {
  "weave_1": {
   "package": "pattern_weave_1",
   "label": "Weave 1",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -37107,6 +37604,7 @@ export const LIBRARY = {
  "weave_2": {
   "package": "pattern_weave_2",
   "label": "Weave 2",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -37136,6 +37634,7 @@ export const LIBRARY = {
  "weave_generator": {
   "package": "pattern_weave_generator",
   "label": "Weave generator",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -37185,6 +37684,7 @@ export const LIBRARY = {
  "white_noise_v2": {
   "package": "white_noise_v2",
   "label": "White noise",
+  "category": "Generator",
   "inputs": [],
   "outputs": [
    {
@@ -37210,6 +37710,7 @@ export const LIBRARY = {
  "wood_american_cherry": {
   "package": "materials/pbr/wood_american_cherry",
   "label": "Wood american cherry",
+  "category": "PBR Materials/Wood",
   "inputs": [],
   "outputs": [
    {
@@ -37736,3 +38237,25 @@ export const ENUMS = {
   }
  ]
 }
+
+// Category strings the Library panel is known to display, because the install's own packages use
+// them and those appear in its tree. A category outside this set is still valid metadata; it
+// just has no shelf entry to be listed under.
+export const CATEGORIES = [
+ "3D View",
+ "Filter",
+ "Filters",
+ "Generator",
+ "Material Filter",
+ "Material Filters",
+ "Mesh Adaptive",
+ "PBR Materials/Bricks",
+ "PBR Materials/Concrete",
+ "PBR Materials/Fabric",
+ "PBR Materials/Ground",
+ "PBR Materials/Metal",
+ "PBR Materials/Paper",
+ "PBR Materials/Tiles",
+ "PBR Materials/Wood",
+ "Splines & Paths"
+]

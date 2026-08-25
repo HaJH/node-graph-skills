@@ -44,8 +44,24 @@ function between (text, open, close) {
   return text.slice(start, end === -1 ? undefined : end)
 }
 
+// Attribute values are XML, so they carry entities: "Splines &amp; Paths" is one category, not
+// a string with an &amp in it. Labels have them too, and a label is read by a person.
+const ENTITIES = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" }
+
+function decode (text) {
+  return text === undefined ? text : text.replace(/&(#x?[0-9a-fA-F]+|[a-z]+);/g, (whole, body) => {
+    if (body[0] === '#') {
+      const code = body[1] === 'x' || body[1] === 'X'
+        ? parseInt(body.slice(2), 16)
+        : parseInt(body.slice(1), 10)
+      return Number.isFinite(code) ? String.fromCodePoint(code) : whole
+    }
+    return ENTITIES[body] ?? whole
+  })
+}
+
 function attr (text, name) {
-  return (text.match(new RegExp('<' + name + ' v="([^"]*)"')) || [])[1]
+  return decode((text.match(new RegExp('<' + name + ' v="([^"]*)"')) || [])[1])
 }
 
 function readGraph (body, pkg) {
@@ -77,6 +93,8 @@ function readGraph (body, pkg) {
   return {
     package: pkg,
     label: attr(head, 'label') ?? null,
+    // Which shelf entry the Library panel files it under, when it files it at all.
+    category: attr(head, 'category') ?? null,
     hidden: /<hideInLibrary v="1"\/>/.test(head),
     inputs,
     outputs,
