@@ -10,11 +10,14 @@
 //   library  the graphs declared by the .sbs packages in the install, read here directly.
 //            No API enumerates them.
 //
-// Library entries carry pins only, not parameters. There are 544 of them and their parameter
-// lists run to tens of entries each, which would make this file megabytes for something the
-// emitter does not need -- setInputPropertyValueFromId takes an id and Designer validates it.
-// The 29 atomic definitions carry their full parameter list, because it is cheap and they are
-// what most specs are made of.
+// Library entries carry each parameter's id and type but not its default, label or widget.
+// The type is not optional: the emitter has to build an SDValue of the right class before it
+// can call setInputPropertyValueFromId, and guessing from a spec literal cannot tell an int
+// parameter from a float one. Ids and types alone are 153 KB across the whole install; the
+// defaults and widgets behind them would be megabytes and nothing needs them.
+//
+// The 29 atomic definitions do carry their defaults, which is cheap at that count and lets the
+// emitter skip writing a value that is already correct.
 
 import fs from 'node:fs'
 import os from 'node:os'
@@ -33,6 +36,16 @@ const OUT = arg('out', path.join('substance', 'catalogue.generated.mjs'))
 // Substance Type Codes, from resources/documentation/sbs_reference.md. Only the texture ones
 // get a name -- anything else is a value pin and cannot take an image wire.
 const TEXTURE_TYPES = { 1: 'color', 2: 'gray', 3: 'either' }
+
+// The rest of the codes, named the way the API names the same types on an atomic definition,
+// so the emitter reads one vocabulary rather than two. A library graph's dropdown parameters
+// are plain ints here -- only atomic definitions carry real enum types.
+const VALUE_TYPES = {
+  4: 'bool',
+  16: 'int', 32: 'int2', 64: 'int3', 128: 'int4',
+  256: 'float', 512: 'float2', 1024: 'float3', 2048: 'float4',
+  16384: 'string', 32768: 'string',
+}
 
 // A graph output's <channels> uses the same codes, and colour is encoded by leaving it out:
 // across the whole install the value 1 never appears, while 825 outputs omit it. blur_hq
@@ -91,11 +104,16 @@ function readGraph (body, pkg) {
 
   const params = between(body, '<paraminputs>', '</paraminputs>')
   const inputs = []
+  const parameters = []
   const primaryUid = attr(body, 'primaryInput')
   for (const m of params.matchAll(/<paraminput>([\s\S]*?)<\/paraminput>/g)) {
-    const type = TEXTURE_TYPES[attr(m[1], 'type')]
-    if (!type) continue // a parameter, not an image input
-    inputs.push({ id: attr(m[1], 'identifier'), type, primary: attr(m[1], 'uid') === primaryUid })
+    const code = attr(m[1], 'type')
+    const id = attr(m[1], 'identifier')
+    if (TEXTURE_TYPES[code]) {
+      inputs.push({ id, type: TEXTURE_TYPES[code], primary: attr(m[1], 'uid') === primaryUid })
+    } else {
+      parameters.push({ id, type: VALUE_TYPES[code] ?? 'code:' + code })
+    }
   }
 
   const outputs = []
@@ -113,6 +131,7 @@ function readGraph (body, pkg) {
     hidden: /<hideInLibrary v="1"\/>/.test(head),
     inputs,
     outputs,
+    parameters,
   }
 }
 

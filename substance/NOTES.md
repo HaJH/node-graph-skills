@@ -284,12 +284,55 @@ session that built the network, the three library packages were already loaded a
 `find_resource` matched them in `getPackages()` without ever calling it. A shipped payload
 script meets a Designer that has none of them open, so this wants one clean run after a restart.
 
-## Next — decided, not yet built
+## The spec
 
-Order: **spec schema, then the emitter, then the renderer.** The emitter goes first because the
-gate left a ready-made answer key behind. `~/node-graph-harvest/sd-graph.json` is the ten-node
-network; writing that same network as a spec, emitting a payload, running it and dumping again
-should reproduce that file. The renderer has no such automatic check.
+`spec.mjs` parses it. Node declarations and wires, nothing about layout — `lib/layout.mjs` works
+positions out from the wires.
+
+```
+graph rough_metal
+
+noise   perlin_noise        scale=6 disorder=0.35
+soft    blur_hq_grayscale
+base    uniform             colorswitch=false
+mix     blend
+out     output
+
+noise -> soft.Source
+soft  -> mix.source
+base  -> mix.destination
+mix   -> out
+```
+
+A line holding `->` is a wire, anything else with content is a node, `#` comments to end of line.
+No section headers and no indentation rules, so nothing has to be kept in sync.
+
+Pins may be left off either end of a wire. The source side defaults to the node's only output and
+is **required** where there is more than one — 119 of the 501 library nodes have several. The
+target side defaults to the primary input; every library node that takes an input has exactly one,
+and `output` falls back to being the only input rather than the primary one, which it is not.
+
+Values are written as bare literals — `6`, `2.5`, `false`, `[0,0,0,1]`, `"text"` — and the
+catalogue's declared type decides the `SDValue` class. That is why the catalogue carries library
+parameter types: `scale=6` on `perlin_noise` is an `int`, and nothing about the literal says so.
+A type containing `::` is an enum and gets `SDValueEnum.sFromValue`.
+
+Every problem in a spec is reported at once, with line numbers and the pins or parameters that do
+exist, rather than one per run.
+
+## Tests
+
+`node substance/test/run.mjs`. Five checks, the first of which is the one that matters:
+`test/gate-graph.json` is the network that cleared the gate, read out of Designer, and every pin
+id, package and parameter in it has to still resolve against the generated catalogue. That is the
+only thing standing between a bad regeneration and a 545 KB table nobody reads.
+
+## Next — not yet built
+
+Order: **the emitter, then the renderer.** The emitter goes first because the gate left a
+ready-made answer key behind — writing the ten-node network as a spec, emitting a payload,
+running it and dumping again should reproduce `test/gate-graph.json`. The renderer has no such
+automatic check.
 
 The catalogue is **regenerated from the installed Designer**, inside `substance/tools/`, rather
 than copied from `procedural-texture-advisor` or read out of it at build time. That keeps this

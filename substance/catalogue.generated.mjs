@@ -1842,6 +1842,16 @@ export const LIBRARY = {
     "id": "paths",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   }
   ]
  },
  "3D_perlin_noise": {
@@ -1858,6 +1868,48 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "distortion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "distortion_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "baseline",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "absolute",
+    "type": "bool"
+   },
+   {
+    "id": "enable_tiling",
+    "type": "bool"
    }
   ]
  },
@@ -1876,6 +1928,68 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "distortion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "distortion_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "min_level",
+    "type": "int"
+   },
+   {
+    "id": "max_level",
+    "type": "int"
+   },
+   {
+    "id": "roughness",
+    "type": "float"
+   },
+   {
+    "id": "lacunarity",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "baseline",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "absolute",
+    "type": "bool"
+   },
+   {
+    "id": "enable_tiling",
+    "type": "bool"
+   }
   ]
  },
  "3D_ridged_noise_fractal": {
@@ -1892,6 +2006,64 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "distortion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "distortion_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "min_level",
+    "type": "int"
+   },
+   {
+    "id": "max_level",
+    "type": "int"
+   },
+   {
+    "id": "roughness",
+    "type": "float"
+   },
+   {
+    "id": "lacunarity",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "baseline",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "enable_tiling",
+    "type": "bool"
    }
   ]
  },
@@ -1910,6 +2082,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "minkowski_number",
+    "type": "float"
+   },
+   {
+    "id": "style",
+    "type": "int"
+   },
+   {
+    "id": "border_width",
+    "type": "float"
+   },
+   {
+    "id": "roundness",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   }
   ]
  },
  "3d_linear_gradient": {
@@ -1926,6 +2132,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "points_position_mode",
+    "type": "int"
+   },
+   {
+    "id": "point_1_uv",
+    "type": "float2"
+   },
+   {
+    "id": "point_2_uv",
+    "type": "float2"
+   },
+   {
+    "id": "point_1_world",
+    "type": "float3"
+   },
+   {
+    "id": "point_2_world",
+    "type": "float3"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
    }
   ]
  },
@@ -1954,6 +2186,52 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "projection_input",
+    "type": "int"
+   },
+   {
+    "id": "target_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "target_position",
+    "type": "float3"
+   },
+   {
+    "id": "target_normal",
+    "type": "float3"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float2"
+   },
+   {
+    "id": "max_depth",
+    "type": "float"
+   },
+   {
+    "id": "depth_fade",
+    "type": "float"
+   },
+   {
+    "id": "normal_threshold",
+    "type": "float"
+   },
+   {
+    "id": "norma_fade",
+    "type": "float"
+   }
   ]
  },
  "3d_planar_projection_color": {
@@ -1981,6 +2259,52 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "projection_input",
+    "type": "int"
+   },
+   {
+    "id": "target_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "target_position",
+    "type": "float3"
+   },
+   {
+    "id": "target_normal",
+    "type": "float3"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float2"
+   },
+   {
+    "id": "max_depth",
+    "type": "float"
+   },
+   {
+    "id": "depth_fade",
+    "type": "float"
+   },
+   {
+    "id": "normal_threshold",
+    "type": "float"
+   },
+   {
+    "id": "norma_fade",
+    "type": "float"
+   }
   ]
  },
  "3d_simplex_noise": {
@@ -1997,6 +2321,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
    }
   ]
  },
@@ -2015,6 +2349,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "grid_size",
+    "type": "int2"
+   }
   ]
  },
  "3d_texture_offset_grayscale": {
@@ -2032,6 +2376,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "grid_size",
+    "type": "int2"
+   }
   ]
  },
  "3d_texture_position": {
@@ -2042,6 +2396,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "grid_size",
+    "type": "int2"
    }
   ]
  },
@@ -2059,6 +2419,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "threshold",
+    "type": "float"
+   },
+   {
+    "id": "grid_size",
+    "type": "int2"
+   },
+   {
+    "id": "output",
+    "type": "int"
    }
   ]
  },
@@ -2082,6 +2456,48 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "output_resolution",
+    "type": "int2"
+   },
+   {
+    "id": "camera_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "camera_distance",
+    "type": "float"
+   },
+   {
+    "id": "camera_fov",
+    "type": "float"
+   },
+   {
+    "id": "albedo",
+    "type": "float3"
+   },
+   {
+    "id": "background_mode",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "enable_ground_plane",
+    "type": "bool"
+   },
+   {
+    "id": "infinite_plane",
+    "type": "bool"
+   },
+   {
+    "id": "ground_plane_size",
+    "type": "float2"
+   }
   ]
  },
  "3d_texture_volume_render_light": {
@@ -2104,6 +2520,88 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "output_resolution",
+    "type": "int2"
+   },
+   {
+    "id": "camera_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "light_uv_pos",
+    "type": "float2"
+   },
+   {
+    "id": "camera_distance",
+    "type": "float"
+   },
+   {
+    "id": "camera_fov",
+    "type": "float"
+   },
+   {
+    "id": "absorption",
+    "type": "float"
+   },
+   {
+    "id": "feather",
+    "type": "float"
+   },
+   {
+    "id": "light_color_mode",
+    "type": "int"
+   },
+   {
+    "id": "light_temperature",
+    "type": "float"
+   },
+   {
+    "id": "light_color",
+    "type": "float3"
+   },
+   {
+    "id": "light_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_color",
+    "type": "float3"
+   },
+   {
+    "id": "ambient_intensity",
+    "type": "float"
+   },
+   {
+    "id": "albedo",
+    "type": "float3"
+   },
+   {
+    "id": "background_mode",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "dithering",
+    "type": "float"
+   },
+   {
+    "id": "enable_ground_plane",
+    "type": "bool"
+   },
+   {
+    "id": "infinite_plane",
+    "type": "bool"
+   },
+   {
+    "id": "ground_plane_size",
+    "type": "float2"
+   }
   ]
  },
  "3d_volume_mask": {
@@ -2120,6 +2618,40 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "position_input",
+    "type": "int"
+   },
+   {
+    "id": "position_uv",
+    "type": "float2"
+   },
+   {
+    "id": "position_worldspace",
+    "type": "float3"
+   },
+   {
+    "id": "rotation",
+    "type": "float3"
+   },
+   {
+    "id": "feather_width",
+    "type": "float"
    }
   ]
  },
@@ -2138,6 +2670,72 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "distortion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "distortion_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rounded_curve",
+    "type": "float"
+   },
+   {
+    "id": "distance_scale",
+    "type": "float"
+   },
+   {
+    "id": "distance_mode",
+    "type": "int"
+   },
+   {
+    "id": "minkowski_number",
+    "type": "float"
+   },
+   {
+    "id": "style",
+    "type": "int"
+   },
+   {
+    "id": "edge_thickness",
+    "type": "float"
+   },
+   {
+    "id": "random_color_seed_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_color_seed",
+    "type": "int"
+   },
+   {
+    "id": "enable_tiling",
+    "type": "bool"
+   }
   ]
  },
  "3d_voronoi_fractal": {
@@ -2154,6 +2752,96 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "distortion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "distortion_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "min_level",
+    "type": "int"
+   },
+   {
+    "id": "max_level",
+    "type": "int"
+   },
+   {
+    "id": "roughness",
+    "type": "float"
+   },
+   {
+    "id": "lacunarity",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "rounded_curve",
+    "type": "float"
+   },
+   {
+    "id": "distance_scale",
+    "type": "float"
+   },
+   {
+    "id": "distance_mode",
+    "type": "int"
+   },
+   {
+    "id": "minkowski_number",
+    "type": "float"
+   },
+   {
+    "id": "blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "style",
+    "type": "int"
+   },
+   {
+    "id": "edge_thickness",
+    "type": "float"
+   },
+   {
+    "id": "random_color_seed_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_color_seed",
+    "type": "int"
+   },
+   {
+    "id": "enable_tiling",
+    "type": "bool"
    }
   ]
  },
@@ -2204,6 +2892,160 @@ export const LIBRARY = {
    {
     "id": "height",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "Depth_Balance",
+    "type": "float"
+   },
+   {
+    "id": "Sharpen",
+    "type": "float"
+   },
+   {
+    "id": "Hue",
+    "type": "float"
+   },
+   {
+    "id": "Saturation",
+    "type": "float"
+   },
+   {
+    "id": "Brightness",
+    "type": "float"
+   },
+   {
+    "id": "Contrast",
+    "type": "float"
+   },
+   {
+    "id": "Output_Normal_Format",
+    "type": "int"
+   },
+   {
+    "id": "Invert_Generated_Relief",
+    "type": "bool"
+   },
+   {
+    "id": "Normal_Strength",
+    "type": "float"
+   },
+   {
+    "id": "Relief_Graphic_Equalizer",
+    "type": "float4"
+   },
+   {
+    "id": "Pinch_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Normal_Sharpen",
+    "type": "float"
+   },
+   {
+    "id": "Normal_Soften",
+    "type": "float"
+   },
+   {
+    "id": "Specular_Diffuse_Influence",
+    "type": "float"
+   },
+   {
+    "id": "Specular_Saturation",
+    "type": "float"
+   },
+   {
+    "id": "Specular_Sharpen",
+    "type": "float"
+   },
+   {
+    "id": "Specular_Levels_In",
+    "type": "float3"
+   },
+   {
+    "id": "Specular_Levels_Out",
+    "type": "float2"
+   },
+   {
+    "id": "metallic_specular_influence",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_levels_in",
+    "type": "float3"
+   },
+   {
+    "id": "glossiness_levels_out",
+    "type": "float2"
+   },
+   {
+    "id": "metallic_glossiness_influence",
+    "type": "float"
+   },
+   {
+    "id": "roughness_levels_in",
+    "type": "float3"
+   },
+   {
+    "id": "roughness_levels_out",
+    "type": "float2"
+   },
+   {
+    "id": "metallic_roughness_influence",
+    "type": "float"
+   },
+   {
+    "id": "AO_Multiply",
+    "type": "float"
+   },
+   {
+    "id": "AO_Spread",
+    "type": "float"
+   },
+   {
+    "id": "AO_Light_Distance",
+    "type": "float"
+   },
+   {
+    "id": "AO_Light_Angle",
+    "type": "float"
+   },
+   {
+    "id": "AO_Levels",
+    "type": "float2"
    }
   ]
  },
@@ -2322,6 +3164,272 @@ export const LIBRARY = {
     "id": "uv",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "displacement_intensity",
+    "type": "float"
+   },
+   {
+    "id": "envrionment_rotation_horizontal",
+    "type": "float"
+   },
+   {
+    "id": "background_mode",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "background_blur",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale",
+    "type": "float"
+   },
+   {
+    "id": "plane_size",
+    "type": "float2"
+   },
+   {
+    "id": "cylinder_radius",
+    "type": "float"
+   },
+   {
+    "id": "cylinder_length",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_direction",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_direction",
+    "type": "float"
+   },
+   {
+    "id": "shape_position",
+    "type": "float3"
+   },
+   {
+    "id": "uv_tiling",
+    "type": "float"
+   },
+   {
+    "id": "sphere_uv_projection",
+    "type": "int"
+   },
+   {
+    "id": "sphere_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "plane_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "cylinder_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "uv_offset",
+    "type": "float2"
+   },
+   {
+    "id": "tilt_uvs",
+    "type": "bool"
+   },
+   {
+    "id": "camera_exposure",
+    "type": "float"
+   },
+   {
+    "id": "tone_mapper",
+    "type": "int"
+   },
+   {
+    "id": "camera_mode",
+    "type": "int"
+   },
+   {
+    "id": "camera_fov",
+    "type": "float"
+   },
+   {
+    "id": "camera_distance",
+    "type": "float"
+   },
+   {
+    "id": "vignette_intensity",
+    "type": "float"
+   },
+   {
+    "id": "vignette_radius",
+    "type": "float"
+   },
+   {
+    "id": "camera_dir_xy",
+    "type": "float2"
+   },
+   {
+    "id": "aperture_radius",
+    "type": "float"
+   },
+   {
+    "id": "aperture_blades",
+    "type": "int"
+   },
+   {
+    "id": "aperture_ring",
+    "type": "float"
+   },
+   {
+    "id": "aperture_difraction",
+    "type": "float"
+   },
+   {
+    "id": "swirly_bokeh",
+    "type": "float"
+   },
+   {
+    "id": "focus_mode",
+    "type": "int"
+   },
+   {
+    "id": "focus_point",
+    "type": "float2"
+   },
+   {
+    "id": "focus_offset",
+    "type": "float"
+   },
+   {
+    "id": "use_custom_aperture_map",
+    "type": "bool"
+   },
+   {
+    "id": "enable_post_effects",
+    "type": "bool"
+   },
+   {
+    "id": "bloom_intensity",
+    "type": "float"
+   },
+   {
+    "id": "bloom_threshold",
+    "type": "float"
+   },
+   {
+    "id": "bloom_chroma_shift",
+    "type": "float"
+   },
+   {
+    "id": "lens_halo_intensity",
+    "type": "float"
+   },
+   {
+    "id": "lens_flares_intensity",
+    "type": "float"
+   },
+   {
+    "id": "lens_dirt_intensity",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_quality",
+    "type": "int"
+   },
+   {
+    "id": "diffuse_emissive_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_shadow_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_dithering",
+    "type": "float"
+   },
+   {
+    "id": "specular_shadow_intensity",
+    "type": "float"
+   },
+   {
+    "id": "opacity_mode",
+    "type": "int"
+   },
+   {
+    "id": "ambient_occlusion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "recompute_normals",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "dielectric_f0_input",
+    "type": "int"
+   },
+   {
+    "id": "dielectric_f0",
+    "type": "float"
+   },
+   {
+    "id": "enable_clearcoat",
+    "type": "bool"
+   },
+   {
+    "id": "clearcoat_weight",
+    "type": "float"
+   },
+   {
+    "id": "coat_specular_level",
+    "type": "float"
+   },
+   {
+    "id": "inherit_normal_from_base_layer",
+    "type": "bool"
+   },
+   {
+    "id": "enable_emissive_lighting",
+    "type": "bool"
+   },
+   {
+    "id": "emissive_intensity",
+    "type": "float"
+   },
+   {
+    "id": "enable_sss",
+    "type": "bool"
+   },
+   {
+    "id": "scattering_distance",
+    "type": "float"
+   },
+   {
+    "id": "sss_redshift",
+    "type": "float"
+   },
+   {
+    "id": "sss_rayleigh",
+    "type": "float"
+   }
   ]
  },
  "PBR_render_mapping_color": {
@@ -2343,6 +3451,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "background_color",
+    "type": "float4"
    }
   ]
  },
@@ -2366,6 +3480,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "background_color",
+    "type": "float4"
+   }
   ]
  },
  "acescg_to_linear_srgb": {
@@ -2383,7 +3503,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "acescg_to_srgb": {
   "package": "color_space_conversion",
@@ -2400,7 +3521,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "alveolus": {
   "package": "pattern_alveolus",
@@ -2410,6 +3532,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "Gradient_Filled_Cells",
+    "type": "bool"
+   },
+   {
+    "id": "Interstice_Width",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -2428,6 +3568,24 @@ export const LIBRARY = {
     "id": "Anisotropic_Blur",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "Angle",
+    "type": "float"
+   },
+   {
+    "id": "Quality",
+    "type": "int"
+   }
   ]
  },
  "anisotropic_blur_grayscale": {
@@ -2444,6 +3602,24 @@ export const LIBRARY = {
    {
     "id": "Anisotropic_Blur",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "Angle",
+    "type": "float"
+   },
+   {
+    "id": "Quality",
+    "type": "int"
    }
   ]
  },
@@ -2486,6 +3662,48 @@ export const LIBRARY = {
     "id": "direction_map",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "smoothness",
+    "type": "float"
+   },
+   {
+    "id": "sharpness",
+    "type": "float"
+   },
+   {
+    "id": "anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "use_input_direction_map",
+    "type": "bool"
+   },
+   {
+    "id": "tensor_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "anisotropy_angle_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "slope_map_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "ignore_alpha",
+    "type": "bool"
+   }
   ]
  },
  "anisotropic_kuwahara_grayscale": {
@@ -2527,6 +3745,44 @@ export const LIBRARY = {
     "id": "direction_map",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "smoothness",
+    "type": "float"
+   },
+   {
+    "id": "sharpness",
+    "type": "float"
+   },
+   {
+    "id": "anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "use_input_direction_map",
+    "type": "bool"
+   },
+   {
+    "id": "tensor_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "anisotropy_angle_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "slope_map_input_multiplier",
+    "type": "float"
+   }
   ]
  },
  "anisotropic_noise_v2": {
@@ -2537,6 +3793,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "X_Amount",
+    "type": "int"
+   },
+   {
+    "id": "Y_Amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount_by_resolution",
+    "type": "bool"
+   },
+   {
+    "id": "rotate",
+    "type": "bool"
+   },
+   {
+    "id": "smoothness",
+    "type": "float"
+   },
+   {
+    "id": "smoothness_interpolation",
+    "type": "float"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -2560,6 +3854,16 @@ export const LIBRARY = {
     "id": "color",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "ao_cancellation",
+    "type": "float"
+   },
+   {
+    "id": "sat",
+    "type": "float"
+   }
   ]
  },
  "apply_color_palette": {
@@ -2582,7 +3886,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "arc_pavement": {
   "package": "pattern_arc_pavement",
@@ -2598,6 +3903,76 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "pattern_amount",
+    "type": "int"
+   },
+   {
+    "id": "pattern_amount_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_min_amount",
+    "type": "int"
+   },
+   {
+    "id": "arcs_amount",
+    "type": "int"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_variation",
+    "type": "float"
+   },
+   {
+    "id": "input_image_filtering",
+    "type": "int"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "float"
+   },
+   {
+    "id": "pattern_width",
+    "type": "float"
+   },
+   {
+    "id": "pattern_height",
+    "type": "float"
+   },
+   {
+    "id": "pattern_width_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_height_random",
+    "type": "float"
+   },
+   {
+    "id": "global_pattern_width_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_height_decrease",
+    "type": "float"
+   },
+   {
+    "id": "color_random",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -2725,6 +4100,228 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "atlas_input_resolution",
+    "type": "int2"
+   },
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "pattern_range",
+    "type": "int2"
+   },
+   {
+    "id": "pattern_distribution_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_atlas_shape_detection_precision",
+    "type": "int"
+   },
+   {
+    "id": "pattern_downscale_atlas_opacity",
+    "type": "int"
+   },
+   {
+    "id": "pattern_ignore_shape_smaller_than",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_no_overlap",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_size",
+    "type": "float2"
+   },
+   {
+    "id": "shape_size_ratio_from_background_slope",
+    "type": "float"
+   },
+   {
+    "id": "shape_size_by_xy_amount_ratio",
+    "type": "float"
+   },
+   {
+    "id": "position_random",
+    "type": "float"
+   },
+   {
+    "id": "position_random_distribution",
+    "type": "int"
+   },
+   {
+    "id": "position_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_horizontal",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_vertical",
+    "type": "float"
+   },
+   {
+    "id": "out_of_bounds_option",
+    "type": "int"
+   },
+   {
+    "id": "shape_rotation",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_from_background_slope",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_scale_auto_adjust",
+    "type": "bool"
+   },
+   {
+    "id": "height_blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "height_offset",
+    "type": "float"
+   },
+   {
+    "id": "height_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "height_offset_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "height_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "height_scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_conform_to_background",
+    "type": "float"
+   },
+   {
+    "id": "height_smooth_conformed_background",
+    "type": "float"
+   },
+   {
+    "id": "height_skew",
+    "type": "float"
+   },
+   {
+    "id": "height_background_slope_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "height_cutout_black_pixels",
+    "type": "bool"
+   },
+   {
+    "id": "height_flatten_pattern_base",
+    "type": "bool"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_random_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "mask_from_background_slope",
+    "type": "float"
+   },
+   {
+    "id": "color_adjustment",
+    "type": "float3"
+   },
+   {
+    "id": "color_random",
+    "type": "float3"
+   },
+   {
+    "id": "color_from_background",
+    "type": "float3"
+   },
+   {
+    "id": "normal_skew",
+    "type": "float"
+   },
+   {
+    "id": "normal_random",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "roughness_adjustment",
+    "type": "float"
+   },
+   {
+    "id": "roughness_from_background",
+    "type": "float"
+   },
+   {
+    "id": "roughness_random",
+    "type": "float"
+   }
   ]
  },
  "atlas_spliter": {
@@ -2809,6 +4406,100 @@ export const LIBRARY = {
     "id": "user2",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "grid_view",
+    "type": "bool"
+   },
+   {
+    "id": "grid_opacity",
+    "type": "float"
+   },
+   {
+    "id": "grid_selection_opacity",
+    "type": "float"
+   },
+   {
+    "id": "auto_scale",
+    "type": "bool"
+   },
+   {
+    "id": "auto_crop",
+    "type": "bool"
+   },
+   {
+    "id": "auto_crop_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_selection",
+    "type": "int"
+   },
+   {
+    "id": "ignore_shape_smaller_than",
+    "type": "float"
+   },
+   {
+    "id": "auto_rotation",
+    "type": "bool"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "input_normal_format",
+    "type": "int"
+   },
+   {
+    "id": "downscale_opacity_mask",
+    "type": "int"
+   },
+   {
+    "id": "shape_detection_precision",
+    "type": "int"
+   },
+   {
+    "id": "dilation_width",
+    "type": "float"
+   },
+   {
+    "id": "enale_additional_inputs",
+    "type": "bool"
+   },
+   {
+    "id": "custom_background_color",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor_bg_color",
+    "type": "float3"
+   },
+   {
+    "id": "normal_bg_color",
+    "type": "float3"
+   },
+   {
+    "id": "metallic_bg_color",
+    "type": "float"
+   },
+   {
+    "id": "roughness_bg_color",
+    "type": "float"
+   },
+   {
+    "id": "height_bg_color",
+    "type": "float"
+   },
+   {
+    "id": "user1_bg_color",
+    "type": "float"
+   },
+   {
+    "id": "user2_bg_color",
+    "type": "float"
+   }
   ]
  },
  "auto_crop_color": {
@@ -2825,6 +4516,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "use_alpha",
+    "type": "bool"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
    }
   ]
  },
@@ -2843,6 +4548,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   }
   ]
  },
  "auto_levels": {
@@ -2860,7 +4575,8 @@ export const LIBRARY = {
     "id": "Output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "base_color_2_inputs": {
   "package": "mesh_adaptive_base_color",
@@ -2881,6 +4597,20 @@ export const LIBRARY = {
    {
     "id": "Base_Color",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Material_1_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_2_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Color_Replacement_Intensity",
+    "type": "float"
    }
   ]
  },
@@ -2904,6 +4634,28 @@ export const LIBRARY = {
     "id": "Base_Color",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Material_1_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_2_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_3_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_4_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Color_Replacement_Intensity",
+    "type": "float"
+   }
   ]
  },
  "base_color_8_inputs": {
@@ -2925,6 +4677,44 @@ export const LIBRARY = {
    {
     "id": "Base_Color",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Material_1_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_2_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_3_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_4_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_5_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_6_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_7_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_8_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Color_Replacement_Intensity",
+    "type": "float"
    }
   ]
  },
@@ -2995,6 +4785,16 @@ export const LIBRARY = {
     "id": "f0",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "use_specularlevel_input",
+    "type": "bool"
+   },
+   {
+    "id": "target",
+    "type": "int"
+   }
   ]
  },
  "bevel": {
@@ -3020,6 +4820,36 @@ export const LIBRARY = {
    {
     "id": "normal",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "distance",
+    "type": "float"
+   },
+   {
+    "id": "bevel_mode",
+    "type": "int"
+   },
+   {
+    "id": "smoothing",
+    "type": "float"
+   },
+   {
+    "id": "non_uniform_blur",
+    "type": "bool"
+   },
+   {
+    "id": "Use_Custom_Curve",
+    "type": "bool"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
    }
   ]
  },
@@ -3052,6 +4882,44 @@ export const LIBRARY = {
     "id": "uv",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "output_mode",
+    "type": "int"
+   },
+   {
+    "id": "direction",
+    "type": "int"
+   },
+   {
+    "id": "maximum_distance",
+    "type": "float"
+   },
+   {
+    "id": "mask_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "mask_offset",
+    "type": "float"
+   },
+   {
+    "id": "mask_threshold",
+    "type": "float"
+   },
+   {
+    "id": "distance_metric",
+    "type": "int"
+   },
+   {
+    "id": "scale",
+    "type": "float2"
+   },
+   {
+    "id": "distance_map_multiplier",
+    "type": "float"
+   }
   ]
  },
  "blackbody": {
@@ -3063,6 +4931,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "temperature",
+    "type": "float"
+   }
   ]
  },
  "blue_noise_fast": {
@@ -3073,6 +4947,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "noise_control",
+    "type": "float"
    }
   ]
  },
@@ -3091,6 +4971,16 @@ export const LIBRARY = {
     "id": "Blur_HQ",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Quality",
+    "type": "int"
+   }
   ]
  },
  "blur_hq_grayscale": {
@@ -3108,6 +4998,16 @@ export const LIBRARY = {
     "id": "Blur_HQ",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Quality",
+    "type": "int"
+   }
   ]
  },
  "bnw_spots_1": {
@@ -3118,6 +5018,40 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "roughness",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3130,6 +5064,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "bnw_spots_3": {
@@ -3140,6 +5104,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3152,6 +5146,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "interstice_width",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "brick_2": {
@@ -3163,6 +5175,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "interstice_width",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "brick_generator": {
@@ -3173,6 +5203,44 @@ export const LIBRARY = {
    {
     "id": "Bricks_Generator",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Bricks",
+    "type": "int2"
+   },
+   {
+    "id": "Bevel",
+    "type": "float4"
+   },
+   {
+    "id": "Keep_Ratio",
+    "type": "bool"
+   },
+   {
+    "id": "Gap",
+    "type": "float2"
+   },
+   {
+    "id": "Middle_Size",
+    "type": "float2"
+   },
+   {
+    "id": "Height",
+    "type": "float4"
+   },
+   {
+    "id": "Slope",
+    "type": "float4"
+   },
+   {
+    "id": "Offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3217,6 +5285,116 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "bricks_amount_x",
+    "type": "int"
+   },
+   {
+    "id": "bricks_amount_y",
+    "type": "int"
+   },
+   {
+    "id": "bricks_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "Bricks_Depth",
+    "type": "float"
+   },
+   {
+    "id": "bricks_balance",
+    "type": "float"
+   },
+   {
+    "id": "age",
+    "type": "float"
+   },
+   {
+    "id": "bricks_01_color",
+    "type": "float3"
+   },
+   {
+    "id": "bricks_02_color",
+    "type": "float3"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   }
   ]
  },
  "bricks_005": {
@@ -3259,6 +5437,104 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "edges_bricks_amount",
+    "type": "int"
+   },
+   {
+    "id": "interstices_shape",
+    "type": "float"
+   },
+   {
+    "id": "damaged_edges",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "cement_color",
+    "type": "float3"
+   },
+   {
+    "id": "tile_color",
+    "type": "float3"
    }
   ]
  },
@@ -3303,6 +5579,108 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "tearing",
+    "type": "float"
+   },
+   {
+    "id": "film",
+    "type": "bool"
+   },
+   {
+    "id": "creases",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "cardboard_color",
+    "type": "float3"
+   },
+   {
+    "id": "film_color",
+    "type": "float3"
+   }
   ]
  },
  "cartesian_to_polar": {
@@ -3320,7 +5698,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "cartesian_to_polar_grayscale": {
   "package": "cartesian_polar_transformation",
@@ -3337,7 +5716,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "cells_1": {
   "package": "noise_cells_1_v2",
@@ -3347,6 +5727,60 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "float"
+   },
+   {
+    "id": "luminance_random",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3359,6 +5793,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "edge_width",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "cells_3": {
@@ -3369,6 +5829,60 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "hardness",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3387,6 +5901,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "color_source",
+    "type": "int"
+   },
+   {
+    "id": "pseudo_random_seed",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "channel_mixer": {
@@ -3404,6 +5944,24 @@ export const LIBRARY = {
     "id": "Output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "red_channel",
+    "type": "float4"
+   },
+   {
+    "id": "green_channel",
+    "type": "float4"
+   },
+   {
+    "id": "blue_channel",
+    "type": "float4"
+   },
+   {
+    "id": "monochrome",
+    "type": "bool"
+   }
   ]
  },
  "checker_1": {
@@ -3414,6 +5972,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "rotate_45_degrees",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3432,7 +6004,8 @@ export const LIBRARY = {
     "id": "Chrominance_Extract",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "clamp_grayscale": {
   "package": "clamp",
@@ -3448,6 +6021,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "min",
+    "type": "float"
+   },
+   {
+    "id": "max",
+    "type": "float"
    }
   ]
  },
@@ -3471,6 +6054,16 @@ export const LIBRARY = {
     "id": "Clone",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Offset",
+    "type": "float2"
+   },
+   {
+    "id": "Blur_Mask",
+    "type": "float"
+   }
   ]
  },
  "clone_patch": {
@@ -3491,6 +6084,52 @@ export const LIBRARY = {
    {
     "id": "areas",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "show_patch_areas",
+    "type": "bool"
+   },
+   {
+    "id": "is_normal",
+    "type": "bool"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "edge_threshold",
+    "type": "float"
+   },
+   {
+    "id": "edge_blur",
+    "type": "float"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grid_resolution",
+    "type": "int"
+   },
+   {
+    "id": "src_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "src_offset",
+    "type": "float2"
+   },
+   {
+    "id": "tgt_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "tgt_offset",
+    "type": "float2"
    }
   ]
  },
@@ -3513,6 +6152,48 @@ export const LIBRARY = {
     "id": "areas",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "show_patch_areas",
+    "type": "bool"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "edge_threshold",
+    "type": "float"
+   },
+   {
+    "id": "edge_blur",
+    "type": "float"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grid_resolution",
+    "type": "int"
+   },
+   {
+    "id": "src_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "src_offset",
+    "type": "float2"
+   },
+   {
+    "id": "tgt_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "tgt_offset",
+    "type": "float2"
+   }
   ]
  },
  "clouds_1": {
@@ -3523,6 +6204,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3535,6 +6246,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "clouds_3": {
@@ -3545,6 +6286,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -3573,6 +6344,16 @@ export const LIBRARY = {
     "id": "Color",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "Alpha_Blending",
+    "type": "bool"
+   }
   ]
  },
  "color_burn": {
@@ -3599,6 +6380,16 @@ export const LIBRARY = {
    {
     "id": "Color_Burn",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "Alpha_Blending",
+    "type": "bool"
    }
   ]
  },
@@ -3627,6 +6418,16 @@ export const LIBRARY = {
     "id": "Color_Dodge",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "Alpha_Blending",
+    "type": "bool"
+   }
   ]
  },
  "color_equalizer": {
@@ -3652,6 +6453,64 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "tiled",
+    "type": "bool"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "custom_color_variation",
+    "type": "bool"
+   },
+   {
+    "id": "variation_hue",
+    "type": "float"
+   },
+   {
+    "id": "variation_chroma",
+    "type": "float"
+   },
+   {
+    "id": "variation_luma",
+    "type": "float"
+   },
+   {
+    "id": "mask_source",
+    "type": "int"
+   },
+   {
+    "id": "color",
+    "type": "float3"
+   },
+   {
+    "id": "mask_hue_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_chroma_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_luma_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_blur",
+    "type": "float"
+   },
+   {
+    "id": "mask_smoothness",
+    "type": "float"
    }
   ]
  },
@@ -3689,6 +6548,68 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "source_color_mode",
+    "type": "int"
+   },
+   {
+    "id": "src_color",
+    "type": "float3"
+   },
+   {
+    "id": "target_color_mode",
+    "type": "int"
+   },
+   {
+    "id": "target_color",
+    "type": "float3"
+   },
+   {
+    "id": "custom_color_variation",
+    "type": "bool"
+   },
+   {
+    "id": "variation_hue",
+    "type": "float"
+   },
+   {
+    "id": "variation_chroma",
+    "type": "float"
+   },
+   {
+    "id": "variation_luma",
+    "type": "float"
+   },
+   {
+    "id": "use_mask",
+    "type": "bool"
+   },
+   {
+    "id": "mask_mode",
+    "type": "int"
+   },
+   {
+    "id": "mask_hue_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_chroma_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_luma_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_blur",
+    "type": "float"
+   },
+   {
+    "id": "mask_smoothness",
+    "type": "float"
+   }
   ]
  },
  "color_temperature_adjustment": {
@@ -3705,6 +6626,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "temp",
+    "type": "float"
+   },
+   {
+    "id": "magreen",
+    "type": "float"
+   },
+   {
+    "id": "color_space",
+    "type": "int"
    }
   ]
  },
@@ -3727,6 +6662,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "use_color_input",
+    "type": "bool"
+   },
+   {
+    "id": "color",
+    "type": "float3"
+   },
+   {
+    "id": "threshold",
+    "type": "float"
+   },
+   {
+    "id": "selection_fade",
+    "type": "float"
+   },
+   {
+    "id": "distance_color_space",
+    "type": "int"
+   },
+   {
+    "id": "distance_weights",
+    "type": "float3"
    }
   ]
  },
@@ -3771,6 +6732,104 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "columns_amount",
+    "type": "int"
+   },
+   {
+    "id": "shape_variation",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "moss",
+    "type": "float"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   },
+   {
+    "id": "moss_color",
+    "type": "float3"
+   }
   ]
  },
  "concrete_006": {
@@ -3813,6 +6872,116 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "lighting_intensity",
+    "type": "float"
+   },
+   {
+    "id": "lighting_angle",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_ao_intensity",
+    "type": "float"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "moisture",
+    "type": "float"
+   },
+   {
+    "id": "paint",
+    "type": "float"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   },
+   {
+    "id": "moisture_color",
+    "type": "float3"
+   },
+   {
+    "id": "paint_color",
+    "type": "float3"
+   },
+   {
+    "id": "damages",
+    "type": "float"
    }
   ]
  },
@@ -3857,6 +7026,96 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "bumps",
+    "type": "float"
+   },
+   {
+    "id": "cracks",
+    "type": "float"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   }
   ]
  },
  "concrete_011": {
@@ -3899,6 +7158,96 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "weathering",
+    "type": "float"
+   },
+   {
+    "id": "pebbles",
+    "type": "float"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   },
+   {
+    "id": "pebbles_color",
+    "type": "float3"
    }
   ]
  },
@@ -3943,6 +7292,100 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "cracks",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness_01_color",
+    "type": "float3"
+   },
+   {
+    "id": "dirtiness_02_color",
+    "type": "float3"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   }
   ]
  },
  "concrete_070": {
@@ -3986,6 +7429,88 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   },
+   {
+    "id": "variations",
+    "type": "float"
+   }
   ]
  },
  "contrast_luminosity": {
@@ -4003,6 +7528,16 @@ export const LIBRARY = {
     "id": "Contrast_Luminosity",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Contrast",
+    "type": "float"
+   },
+   {
+    "id": "Luminosity",
+    "type": "float"
+   }
   ]
  },
  "contrast_luminosity_grayscale": {
@@ -4019,6 +7554,16 @@ export const LIBRARY = {
    {
     "id": "Contrast_Luminosity",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Contrast",
+    "type": "float"
+   },
+   {
+    "id": "Luminosity",
+    "type": "float"
    }
   ]
  },
@@ -4124,6 +7669,92 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "mask",
+    "type": "bool"
+   },
+   {
+    "id": "cracks_propagation",
+    "type": "float"
+   },
+   {
+    "id": "cracks_depth",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_intensity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_intensity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ao_intensity",
+    "type": "float"
+   }
   ]
  },
  "creased": {
@@ -4134,6 +7765,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4156,6 +7805,80 @@ export const LIBRARY = {
     "id": "palette_color_amount",
     "type": "value"
    }
+  ],
+  "parameters": [
+   {
+    "id": "color_amount",
+    "type": "int"
+   },
+   {
+    "id": "color_1",
+    "type": "float3"
+   },
+   {
+    "id": "color_2",
+    "type": "float3"
+   },
+   {
+    "id": "color_3",
+    "type": "float3"
+   },
+   {
+    "id": "color_4",
+    "type": "float3"
+   },
+   {
+    "id": "color_5",
+    "type": "float3"
+   },
+   {
+    "id": "color_6",
+    "type": "float3"
+   },
+   {
+    "id": "color_7",
+    "type": "float3"
+   },
+   {
+    "id": "color_8",
+    "type": "float3"
+   },
+   {
+    "id": "color_9",
+    "type": "float3"
+   },
+   {
+    "id": "color_10",
+    "type": "float3"
+   },
+   {
+    "id": "color_11",
+    "type": "float3"
+   },
+   {
+    "id": "color_12",
+    "type": "float3"
+   },
+   {
+    "id": "color_13",
+    "type": "float3"
+   },
+   {
+    "id": "color_14",
+    "type": "float3"
+   },
+   {
+    "id": "color_15",
+    "type": "float3"
+   },
+   {
+    "id": "color_16",
+    "type": "float3"
+   },
+   {
+    "id": "palette_color_amount",
+    "type": "int"
+   }
   ]
  },
  "crop": {
@@ -4176,6 +7899,40 @@ export const LIBRARY = {
    {
     "id": "area",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "show_crop_area",
+    "type": "bool"
+   },
+   {
+    "id": "input_size",
+    "type": "int2"
+   },
+   {
+    "id": "background",
+    "type": "float4"
+   },
+   {
+    "id": "matrix",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "is_normal",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "filtering",
+    "type": "int"
    }
   ]
  },
@@ -4198,6 +7955,32 @@ export const LIBRARY = {
     "id": "area",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "show_crop_area",
+    "type": "bool"
+   },
+   {
+    "id": "input_size",
+    "type": "int2"
+   },
+   {
+    "id": "background",
+    "type": "float"
+   },
+   {
+    "id": "matrix",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "filtering",
+    "type": "int"
+   }
   ]
  },
  "cross_section": {
@@ -4215,6 +7998,72 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "cross_section_coord",
+    "type": "float"
+   },
+   {
+    "id": "axis",
+    "type": "int"
+   },
+   {
+    "id": "show_helper",
+    "type": "bool"
+   },
+   {
+    "id": "helper_scale",
+    "type": "float"
+   },
+   {
+    "id": "helper_position",
+    "type": "float2"
+   },
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "height_offset",
+    "type": "float"
+   },
+   {
+    "id": "drawing_style",
+    "type": "int"
+   },
+   {
+    "id": "invert_gradient",
+    "type": "bool"
+   },
+   {
+    "id": "smooth_polygonal",
+    "type": "bool"
+   },
+   {
+    "id": "segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "line_thickness",
+    "type": "float"
+   },
+   {
+    "id": "line_style",
+    "type": "int"
+   },
+   {
+    "id": "line_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "color",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   }
   ]
  },
  "crystal_1": {
@@ -4225,6 +8074,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4237,6 +8100,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "cube_3d": {
@@ -4247,6 +8124,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "orientation_offset",
+    "type": "float2"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4271,6 +8166,24 @@ export const LIBRARY = {
     "id": "uv",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "orientation_offset",
+    "type": "float2"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "curvature": {
@@ -4287,6 +8200,20 @@ export const LIBRARY = {
    {
     "id": "Output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "invert_green",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
    }
   ]
  },
@@ -4313,6 +8240,16 @@ export const LIBRARY = {
     "id": "concavity",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   }
   ]
  },
  "curvature_sobel": {
@@ -4329,6 +8266,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "input_normal_type",
+    "type": "int"
    }
   ]
  },
@@ -4370,6 +8317,32 @@ export const LIBRARY = {
     "id": "Combined_Curvature",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Normal_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Normal_Format",
+    "type": "int"
+   },
+   {
+    "id": "AO_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "AO_Spread",
+    "type": "float"
+   },
+   {
+    "id": "Curvature_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Curvature_Softness",
+    "type": "float"
+   }
   ]
  },
  "difference": {
@@ -4396,6 +8369,16 @@ export const LIBRARY = {
    {
     "id": "Difference",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "Alpha_Blending",
+    "type": "bool"
    }
   ]
  },
@@ -4424,6 +8407,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "iterations",
+    "type": "int"
+   },
+   {
+    "id": "distance",
+    "type": "float"
+   },
+   {
+    "id": "enable_dithering",
+    "type": "bool"
+   },
+   {
+    "id": "is_normal",
+    "type": "bool"
+   },
+   {
+    "id": "use_alpha_as_mask",
+    "type": "bool"
+   }
   ]
  },
  "diffusion_grayscale": {
@@ -4451,6 +8456,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "iterations",
+    "type": "int"
+   },
+   {
+    "id": "distance",
+    "type": "float"
+   },
+   {
+    "id": "enable_dithering",
+    "type": "bool"
+   }
   ]
  },
  "diffusion_uv": {
@@ -4472,6 +8491,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "iterations",
+    "type": "int"
    }
   ]
  },
@@ -4504,6 +8529,32 @@ export const LIBRARY = {
     "id": "uv",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "output",
+    "type": "int"
+   },
+   {
+    "id": "max_distance",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "distance_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "angle_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "angle_map_offset",
+    "type": "float"
+   }
   ]
  },
  "directional_noise_1": {
@@ -4514,6 +8565,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4526,6 +8615,44 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "directional_noise_3": {
@@ -4536,6 +8663,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4548,6 +8713,44 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "directional_scratches": {
@@ -4558,6 +8761,56 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_amount",
+    "type": "float"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_random",
+    "type": "float2"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4570,6 +8823,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "dirt_2": {
@@ -4580,6 +8863,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4592,6 +8905,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "dirt_4": {
@@ -4602,6 +8945,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4614,6 +8987,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "dirt_gradient": {
@@ -4624,6 +9027,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -4652,6 +9077,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "Alpha_Blending",
+    "type": "bool"
+   }
   ]
  },
  "edge_detect": {
@@ -4668,6 +9103,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "edge_width",
+    "type": "float"
+   },
+   {
+    "id": "edge_roundness",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "tolerance",
+    "type": "float"
    }
   ]
  },
@@ -4691,6 +9144,28 @@ export const LIBRARY = {
     "id": "Emboss_With_Gloss",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "HighlightColor",
+    "type": "float4"
+   },
+   {
+    "id": "ShadowColor",
+    "type": "float4"
+   },
+   {
+    "id": "Gloss",
+    "type": "float"
+   },
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "LightAngle",
+    "type": "float"
+   }
   ]
  },
  "exposure": {
@@ -4707,6 +9182,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "exposure",
+    "type": "float"
    }
   ]
  },
@@ -4725,6 +9206,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "extension_distance",
+    "type": "float"
+   },
+   {
+    "id": "extension_position",
+    "type": "float"
+   },
+   {
+    "id": "extension_angle",
+    "type": "float"
+   },
+   {
+    "id": "start_position",
+    "type": "float2"
+   },
+   {
+    "id": "end_position",
+    "type": "float2"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   },
+   {
+    "id": "show_helper",
+    "type": "bool"
+   }
   ]
  },
  "extend_shape_grayscale": {
@@ -4741,6 +9256,52 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "extension_distance",
+    "type": "float"
+   },
+   {
+    "id": "extension_position",
+    "type": "float"
+   },
+   {
+    "id": "extension_angle",
+    "type": "float"
+   },
+   {
+    "id": "start_position",
+    "type": "float2"
+   },
+   {
+    "id": "end_position",
+    "type": "float2"
+   },
+   {
+    "id": "start_luminance_offset",
+    "type": "float"
+   },
+   {
+    "id": "end_luminance_offset",
+    "type": "float"
+   },
+   {
+    "id": "luminance_offset_ignores_black_pixels",
+    "type": "bool"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   },
+   {
+    "id": "show_helper",
+    "type": "bool"
    }
   ]
  },
@@ -4785,6 +9346,136 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "int"
+   },
+   {
+    "id": "fabric_pattern_scale",
+    "type": "int"
+   },
+   {
+    "id": "creases_intensity",
+    "type": "float"
+   },
+   {
+    "id": "creases_frequency",
+    "type": "int"
+   },
+   {
+    "id": "Creases_Axis",
+    "type": "int"
+   },
+   {
+    "id": "stains_type",
+    "type": "int"
+   },
+   {
+    "id": "stains_amount",
+    "type": "int"
+   },
+   {
+    "id": "stains_size",
+    "type": "float"
+   },
+   {
+    "id": "stains_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "stains_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "color_01",
+    "type": "float3"
+   },
+   {
+    "id": "color_02",
+    "type": "float3"
+   },
+   {
+    "id": "color_03",
+    "type": "float3"
+   },
+   {
+    "id": "color_04",
+    "type": "float3"
+   }
   ]
  },
  "fabric_009": {
@@ -4828,6 +9519,100 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "seams",
+    "type": "bool"
+   },
+   {
+    "id": "seams_offset",
+    "type": "float"
+   },
+   {
+    "id": "seams_color",
+    "type": "float3"
+   },
+   {
+    "id": "denim_color",
+    "type": "float3"
+   }
   ]
  },
  "fabric_025": {
@@ -4870,6 +9655,112 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "nb_x",
+    "type": "int"
+   },
+   {
+    "id": "nb_y",
+    "type": "int"
+   },
+   {
+    "id": "dirt_amount",
+    "type": "float"
+   },
+   {
+    "id": "creases",
+    "type": "float"
+   },
+   {
+    "id": "creases_frequency",
+    "type": "int"
+   },
+   {
+    "id": "creases_warping",
+    "type": "float"
+   },
+   {
+    "id": "creases_axis",
+    "type": "int"
+   },
+   {
+    "id": "color",
+    "type": "float3"
    }
   ]
  },
@@ -4975,6 +9866,128 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "mask",
+    "type": "bool"
+   },
+   {
+    "id": "Dust",
+    "type": "float"
+   },
+   {
+    "id": "Dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "Edges_Wearing",
+    "type": "float"
+   },
+   {
+    "id": "Used",
+    "type": "float"
+   },
+   {
+    "id": "Age",
+    "type": "float"
+   },
+   {
+    "id": "Age_Threshlod",
+    "type": "float"
+   },
+   {
+    "id": "Age_Creases",
+    "type": "float"
+   },
+   {
+    "id": "Sharp_Edges_Scratches_Scale",
+    "type": "float"
+   },
+   {
+    "id": "Sharp_Edges_Scratches_Warp_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Old_Fabric_Desaturation",
+    "type": "float"
+   },
+   {
+    "id": "Old_Fabric_Brightness",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_intensity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_intensity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   }
   ]
  },
  "facing_normal": {
@@ -4992,7 +10005,8 @@ export const LIBRARY = {
     "id": "Facing_Normal",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "fibers_1": {
   "package": "pattern_fibers_1",
@@ -5002,6 +10016,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5013,6 +10037,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5035,6 +10069,20 @@ export const LIBRARY = {
     "id": "referenceMap",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "profile",
+    "type": "int"
+   },
+   {
+    "id": "advanced",
+    "type": "bool"
+   },
+   {
+    "id": "profileOverride",
+    "type": "int"
+   }
   ]
  },
  "flood_fill_to_bbox_size": {
@@ -5051,6 +10099,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "output",
+    "type": "int"
    }
   ]
  },
@@ -5073,6 +10127,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "hsl_adjustement",
+    "type": "float3"
+   },
+   {
+    "id": "hsl_random",
+    "type": "float3"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
    }
   ]
  },
@@ -5101,6 +10169,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_variation",
+    "type": "float"
+   },
+   {
+    "id": "multiply_by_bbox_size",
+    "type": "float"
+   },
+   {
+    "id": "angle_image_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "slope_image_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "multiply_by_slope_intensity",
+    "type": "float"
+   },
+   {
+    "id": "flat_slope_color",
+    "type": "float"
+   }
   ]
  },
  "flood_fill_to_grayscale": {
@@ -5123,6 +10221,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "luminance_adjustement",
+    "type": "float"
+   },
+   {
+    "id": "luminance_random",
+    "type": "float"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   }
   ]
  },
  "flood_fill_to_position": {
@@ -5140,7 +10252,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "flood_fill_to_random_color": {
   "package": "flood_fill_2",
@@ -5157,7 +10270,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "flood_fill_to_random_grayscale": {
   "package": "flood_fill_2",
@@ -5174,7 +10288,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "floodfill_mapper_color": {
   "package": "floodfill_mapper",
@@ -5250,6 +10365,100 @@ export const LIBRARY = {
    {
     "id": "Output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "tiling_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_jittering",
+    "type": "float"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "size",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_autoscale",
+    "type": "bool"
+   },
+   {
+    "id": "position_offset",
+    "type": "float2"
+   },
+   {
+    "id": "position_offset_alignment",
+    "type": "int"
+   },
+   {
+    "id": "position_offset_random",
+    "type": "float2"
+   },
+   {
+    "id": "is_normal",
+    "type": "bool"
+   },
+   {
+    "id": "input_normal_format",
+    "type": "int"
+   },
+   {
+    "id": "hsl_adjustement",
+    "type": "float3"
+   },
+   {
+    "id": "hsl_random",
+    "type": "float3"
+   },
+   {
+    "id": "alpha_adjustment",
+    "type": "float"
+   },
+   {
+    "id": "alpha_random",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
    }
   ]
  },
@@ -5328,6 +10537,96 @@ export const LIBRARY = {
     "id": "Output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "tiling_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_jittering",
+    "type": "float"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "size",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_autoscale",
+    "type": "bool"
+   },
+   {
+    "id": "position_offset",
+    "type": "float2"
+   },
+   {
+    "id": "position_offset_alignment",
+    "type": "int"
+   },
+   {
+    "id": "position_offset_random",
+    "type": "float2"
+   },
+   {
+    "id": "luminance_range",
+    "type": "float"
+   },
+   {
+    "id": "luminance_range_random",
+    "type": "float"
+   },
+   {
+    "id": "luminance_offset",
+    "type": "float"
+   },
+   {
+    "id": "luminance_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "luminance_offset_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   }
   ]
  },
  "floodfill_to_index": {
@@ -5362,6 +10661,20 @@ export const LIBRARY = {
     "id": "shape_data_table_size",
     "type": "value"
    }
+  ],
+  "parameters": [
+   {
+    "id": "output",
+    "type": "int"
+   },
+   {
+    "id": "ignore_shape_smaller_than",
+    "type": "float"
+   },
+   {
+    "id": "show_floodfill_data_table",
+    "type": "bool"
+   }
   ]
  },
  "fluid": {
@@ -5372,6 +10685,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5384,6 +10719,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "fractal_sum_2": {
@@ -5394,6 +10743,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5406,6 +10769,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "fractal_sum_4": {
@@ -5416,6 +10793,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5428,6 +10819,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Roughness",
+    "type": "float"
+   },
+   {
+    "id": "MinLevel",
+    "type": "int"
+   },
+   {
+    "id": "MaxLevel",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "GlobalOpacity",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "fur_1": {
@@ -5438,6 +10863,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5450,6 +10889,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "waves_scale",
+    "type": "float"
+   },
+   {
+    "id": "waves_rotation",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "fur_3": {
@@ -5460,6 +10917,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "waves_amount",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5478,6 +10953,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "affect_alpha_channel",
+    "type": "bool"
+   }
   ]
  },
  "fxaa_grayscale": {
@@ -5495,7 +10976,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "gaussian_1": {
   "package": "pattern_gaussian_1",
@@ -5505,6 +10987,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5517,6 +11009,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "gaussian_noise": {
@@ -5527,6 +11029,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5539,6 +11071,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "gaussian_spots_2": {
@@ -5549,6 +11111,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5567,7 +11159,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "value"
    }
-  ]
+  ],
+  "parameters": []
  },
  "get_size_grayscale": {
   "package": "value_get_size",
@@ -5584,7 +11177,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "value"
    }
-  ]
+  ],
+  "parameters": []
  },
  "glow": {
   "package": "glow",
@@ -5600,6 +11194,24 @@ export const LIBRARY = {
    {
     "id": "Glow",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Glow_Amount",
+    "type": "float"
+   },
+   {
+    "id": "Clear_Amount",
+    "type": "float"
+   },
+   {
+    "id": "Glow_Size",
+    "type": "float"
+   },
+   {
+    "id": "Glow_Color",
+    "type": "float4"
    }
   ]
  },
@@ -5618,6 +11230,20 @@ export const LIBRARY = {
     "id": "Glow",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Glow_Amount",
+    "type": "float"
+   },
+   {
+    "id": "Clear_Amount",
+    "type": "float"
+   },
+   {
+    "id": "Glow_Size",
+    "type": "float"
+   }
   ]
  },
  "gradient_axial": {
@@ -5628,6 +11254,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "point_1",
+    "type": "float2"
+   },
+   {
+    "id": "point_2",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5640,6 +11280,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "point_1",
+    "type": "float2"
+   },
+   {
+    "id": "point_2",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "gradient_circular": {
@@ -5650,6 +11304,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "point_1",
+    "type": "float2"
+   },
+   {
+    "id": "point_2",
+    "type": "float2"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5662,6 +11334,16 @@ export const LIBRARY = {
     "id": "Simple_Gradient",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "rotation",
+    "type": "int"
+   }
   ]
  },
  "gradient_linear_2": {
@@ -5672,6 +11354,16 @@ export const LIBRARY = {
    {
     "id": "Simple_Gradient_2",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "rotation",
+    "type": "int"
    }
   ]
  },
@@ -5684,6 +11376,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "position",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "int"
+   }
   ]
  },
  "gradient_radial": {
@@ -5694,6 +11400,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "point_1",
+    "type": "float2"
+   },
+   {
+    "id": "point_2",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5738,6 +11462,92 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "layers",
+    "type": "int"
+   },
+   {
+    "id": "amount",
+    "type": "float"
+   },
+   {
+    "id": "gravel_scale",
+    "type": "float"
+   }
   ]
  },
  "grayscale_conversion_advanced": {
@@ -5755,6 +11565,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "grayscale_type",
+    "type": "int"
+   }
   ]
  },
  "grunge_concrete": {
@@ -5765,6 +11581,48 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "base_noisiness",
+    "type": "float"
+   },
+   {
+    "id": "dirt_specks_opacity",
+    "type": "float"
+   },
+   {
+    "id": "invert_dirt",
+    "type": "bool"
+   },
+   {
+    "id": "scratches_opacity",
+    "type": "float"
+   },
+   {
+    "id": "sharpen",
+    "type": "float"
+   },
+   {
+    "id": "large_variation_intensity",
+    "type": "float"
    }
   ]
  },
@@ -5777,6 +11635,44 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "distortion",
+    "type": "float"
+   },
+   {
+    "id": "divisions",
+    "type": "int"
+   },
+   {
+    "id": "waves",
+    "type": "int"
+   },
+   {
+    "id": "details",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   }
   ]
  },
  "grunge_galvanic_large": {
@@ -5787,6 +11683,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ridge_detail_opacity",
+    "type": "float"
+   },
+   {
+    "id": "sharpen_intensity",
+    "type": "float"
    }
   ]
  },
@@ -5799,6 +11725,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "crispness",
+    "type": "float"
+   },
+   {
+    "id": "dirt",
+    "type": "float"
+   },
+   {
+    "id": "micro_distortion",
+    "type": "float"
+   }
   ]
  },
  "grunge_leaks": {
@@ -5809,6 +11765,40 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "drip_length",
+    "type": "float"
+   },
+   {
+    "id": "shape_contrast",
+    "type": "float"
+   },
+   {
+    "id": "drip_crispness",
+    "type": "float"
+   },
+   {
+    "id": "sharpen_intensity",
+    "type": "float"
    }
   ]
  },
@@ -5821,6 +11811,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "leak_intensity",
+    "type": "float"
+   },
+   {
+    "id": "leak_scale",
+    "type": "int"
+   },
+   {
+    "id": "leak_angle_random",
+    "type": "float"
+   },
+   {
+    "id": "leak_crispness",
+    "type": "float"
+   }
   ]
  },
  "grunge_map_001": {
@@ -5831,6 +11855,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5843,6 +11889,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "grunge_map_003": {
@@ -5853,6 +11921,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5865,6 +11955,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "grunge_map_005": {
@@ -5875,6 +11987,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5887,6 +12025,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "grunge_map_007": {
@@ -5897,6 +12057,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5909,6 +12091,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "grunge_map_009": {
@@ -5919,6 +12123,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5931,6 +12157,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "cracks",
+    "type": "float"
+   },
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "grunge_map_011": {
@@ -5941,6 +12193,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "cracks",
+    "type": "float"
+   },
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5953,6 +12231,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "grunge_map_013": {
@@ -5963,6 +12263,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5975,6 +12297,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "grunge_map_015": {
@@ -5985,6 +12329,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "brush_pattern",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -5997,6 +12363,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "main_grunge_intensity",
+    "type": "float"
+   },
+   {
+    "id": "invert_scratches",
+    "type": "bool"
+   },
+   {
+    "id": "scratches_intensity",
+    "type": "float"
+   },
+   {
+    "id": "grain_intensity",
+    "type": "float"
+   }
   ]
  },
  "grunge_rust_fine": {
@@ -6007,6 +12407,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "base_grunge_contrast",
+    "type": "float"
+   },
+   {
+    "id": "base_warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "streaks_intensity",
+    "type": "float"
+   },
+   {
+    "id": "noise_intensity",
+    "type": "float"
+   },
+   {
+    "id": "sharpen_intensity",
+    "type": "float"
    }
   ]
  },
@@ -6019,6 +12457,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "base_grunge_intensity",
+    "type": "float"
+   },
+   {
+    "id": "scratches_intensity",
+    "type": "float"
+   }
   ]
  },
  "grunge_scratches_fine": {
@@ -6029,6 +12493,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "scratches_amount",
+    "type": "float"
+   },
+   {
+    "id": "sharpen_intensity",
+    "type": "float"
+   },
+   {
+    "id": "scratch_value_bias",
+    "type": "float"
    }
   ]
  },
@@ -6041,6 +12535,76 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Position",
+    "type": "float"
+   },
+   {
+    "id": "Contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "scratch_quantity",
+    "type": "float"
+   },
+   {
+    "id": "tile_scratch",
+    "type": "int"
+   },
+   {
+    "id": "scratch_blur",
+    "type": "float"
+   },
+   {
+    "id": "scratch_width",
+    "type": "float"
+   },
+   {
+    "id": "scratch_length",
+    "type": "float"
+   },
+   {
+    "id": "scratch_masking",
+    "type": "float"
+   },
+   {
+    "id": "scratch_dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "double_scratch",
+    "type": "float"
+   },
+   {
+    "id": "spots_opacity",
+    "type": "float"
+   },
+   {
+    "id": "tile_spots",
+    "type": "int"
+   },
+   {
+    "id": "dust",
+    "type": "float"
+   },
+   {
+    "id": "tile_grunge",
+    "type": "int"
+   },
+   {
+    "id": "sharpen_intensity",
+    "type": "float"
+   }
   ]
  },
  "grunge_shavings": {
@@ -6051,6 +12615,40 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "scratch_spots_amount",
+    "type": "float"
+   },
+   {
+    "id": "scratch_spots_tiling",
+    "type": "int"
+   },
+   {
+    "id": "dust_intensity",
+    "type": "float"
+   },
+   {
+    "id": "sharpen_intensity",
+    "type": "float"
    }
   ]
  },
@@ -6063,6 +12661,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "splines_quantity",
+    "type": "float"
+   },
+   {
+    "id": "splines_distortion",
+    "type": "float"
+   },
+   {
+    "id": "splash_dirt_ratio",
+    "type": "float"
+   },
+   {
+    "id": "dust_spread",
+    "type": "float"
+   }
   ]
  },
  "grunge_spots": {
@@ -6074,6 +12706,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "details",
+    "type": "float"
+   },
+   {
+    "id": "density",
+    "type": "float"
+   },
+   {
+    "id": "density_contrast",
+    "type": "float"
+   }
   ]
  },
  "grunge_spots_dirty": {
@@ -6084,6 +12746,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "density",
+    "type": "float"
+   },
+   {
+    "id": "scale",
+    "type": "int"
    }
   ]
  },
@@ -6107,6 +12795,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "lut_intensity_by_input_alpha",
+    "type": "bool"
+   }
   ]
  },
  "hbao": {
@@ -6124,6 +12818,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "use_world_units",
+    "type": "bool"
+   },
+   {
+    "id": "height_depth",
+    "type": "float"
+   },
+   {
+    "id": "surface_size",
+    "type": "float"
+   },
+   {
+    "id": "height_depth_cm",
+    "type": "float"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "samples",
+    "type": "int"
+   },
+   {
+    "id": "non_square",
+    "type": "bool"
+   },
+   {
+    "id": "gpu_optim",
+    "type": "bool"
+   }
   ]
  },
  "hdr_exposure_preview": {
@@ -6140,6 +12868,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "max_exposure",
+    "type": "float"
+   },
+   {
+    "id": "min_exposure",
+    "type": "float"
    }
   ]
  },
@@ -6233,6 +12971,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "inputs",
+    "type": "int"
+   },
+   {
+    "id": "input_exposure_delta",
+    "type": "float"
+   },
+   {
+    "id": "output_auto_exposure",
+    "type": "bool"
+   },
+   {
+    "id": "output_exposure_offset",
+    "type": "float"
+   }
   ]
  },
  "hdr_range_viewer": {
@@ -6250,6 +13006,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "range_min",
+    "type": "float"
+   },
+   {
+    "id": "range_max",
+    "type": "float"
+   }
   ]
  },
  "hdr_range_viewer_grayscale": {
@@ -6266,6 +13032,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "range_min",
+    "type": "float"
+   },
+   {
+    "id": "range_max",
+    "type": "float"
    }
   ]
  },
@@ -6298,6 +13074,24 @@ export const LIBRARY = {
     "id": "height_mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   }
   ]
  },
  "height_extrude": {
@@ -6319,6 +13113,36 @@ export const LIBRARY = {
     "id": "normal",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "view_angle",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "voffset",
+    "type": "float"
+   },
+   {
+    "id": "terrain_mode",
+    "type": "bool"
+   },
+   {
+    "id": "inversedy",
+    "type": "bool"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   }
   ]
  },
  "height_map_frequencies_mapper": {
@@ -6339,6 +13163,12 @@ export const LIBRARY = {
    {
     "id": "Relief_Parallax",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Relief",
+    "type": "float"
    }
   ]
  },
@@ -6362,6 +13192,16 @@ export const LIBRARY = {
     "id": "Normal",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Normal_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Normal_Format",
+    "type": "int"
+   }
   ]
  },
  "height_to_normal_world_units_2": {
@@ -6379,6 +13219,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "surface_size",
+    "type": "float"
+   },
+   {
+    "id": "height_depth",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "sampling",
+    "type": "int"
+   }
   ]
  },
  "hemisphere": {
@@ -6389,6 +13247,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size_xy",
+    "type": "float2"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "non_square",
+    "type": "bool"
    }
   ]
  },
@@ -6407,6 +13283,12 @@ export const LIBRARY = {
     "id": "Highpass",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Radius",
+    "type": "float"
+   }
   ]
  },
  "highpass_grayscale": {
@@ -6423,6 +13305,12 @@ export const LIBRARY = {
    {
     "id": "Highpass",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Radius",
+    "type": "float"
    }
   ]
  },
@@ -6445,6 +13333,12 @@ export const LIBRARY = {
     "id": "cdf",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "histogram_resolution",
+    "type": "int"
+   }
   ]
  },
  "histogram_equalize": {
@@ -6461,6 +13355,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "histogram_resolution",
+    "type": "int"
+   },
+   {
+    "id": "histogram_smoothing",
+    "type": "float"
    }
   ]
  },
@@ -6479,6 +13383,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "range",
+    "type": "float"
+   },
+   {
+    "id": "position",
+    "type": "float"
+   }
   ]
  },
  "histogram_render": {
@@ -6496,6 +13410,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "histogram_resolution",
+    "type": "int"
+   },
+   {
+    "id": "automatic_scale",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "sampling",
+    "type": "int"
+   },
+   {
+    "id": "flip_y_axis",
+    "type": "bool"
+   }
   ]
  },
  "histogram_scan": {
@@ -6512,6 +13448,20 @@ export const LIBRARY = {
    {
     "id": "Output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Position",
+    "type": "float"
+   },
+   {
+    "id": "Contrast",
+    "type": "float"
+   },
+   {
+    "id": "Invert_Position",
+    "type": "bool"
    }
   ]
  },
@@ -6540,6 +13490,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "custom_position",
+    "type": "bool"
+   },
+   {
+    "id": "position",
+    "type": "float"
+   },
+   {
+    "id": "custom_contrast",
+    "type": "bool"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   }
   ]
  },
  "histogram_select": {
@@ -6556,6 +13524,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "position",
+    "type": "float"
+   },
+   {
+    "id": "range",
+    "type": "float"
+   },
+   {
+    "id": "constrast",
+    "type": "float"
    }
   ]
  },
@@ -6574,6 +13556,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "position",
+    "type": "float"
+   }
   ]
  },
  "id_to_mask_grayscale": {
@@ -6590,6 +13578,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "selection_mode",
+    "type": "int"
+   },
+   {
+    "id": "id_integer",
+    "type": "int"
+   },
+   {
+    "id": "id_range",
+    "type": "int2"
    }
   ]
  },
@@ -6608,6 +13610,12 @@ export const LIBRARY = {
     "id": "Invert_Color",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   }
   ]
  },
  "invert_grayscale": {
@@ -6624,6 +13632,12 @@ export const LIBRARY = {
    {
     "id": "Invert_Grayscale",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
    }
   ]
  },
@@ -6729,6 +13743,132 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "mask",
+    "type": "bool"
+   },
+   {
+    "id": "Dust",
+    "type": "float"
+   },
+   {
+    "id": "Dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "Edges_Wearing",
+    "type": "float"
+   },
+   {
+    "id": "Used",
+    "type": "float"
+   },
+   {
+    "id": "Age",
+    "type": "float"
+   },
+   {
+    "id": "Age_Threshlod",
+    "type": "float"
+   },
+   {
+    "id": "Cracks_Scale",
+    "type": "float"
+   },
+   {
+    "id": "Cracks_Warp_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Sharp_Edges_Scratches_Scale",
+    "type": "float"
+   },
+   {
+    "id": "Sharp_Edges_Scratches_Warp_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Used_Leather_Desaturation",
+    "type": "float"
+   },
+   {
+    "id": "Used_Leather_Brightness",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_intensity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_intensity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   }
   ]
  },
  "lighting_cancel_hf": {
@@ -6746,6 +13886,16 @@ export const LIBRARY = {
     "id": "Lighting_Cancel_HF",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Radius",
+    "type": "float"
+   }
   ]
  },
  "lighting_cancel_lf": {
@@ -6762,6 +13912,12 @@ export const LIBRARY = {
    {
     "id": "Lighting_Cancel_LF",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Cancellation_Radius",
+    "type": "float"
    }
   ]
  },
@@ -6790,6 +13946,16 @@ export const LIBRARY = {
     "id": "Linear_Burn",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "Alpha_Blending",
+    "type": "bool"
+   }
   ]
  },
  "linear_srgb_to_acescg": {
@@ -6807,7 +13973,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "linear_srgb_to_srgb": {
   "package": "color_space_conversion",
@@ -6824,7 +13991,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "linear_srgb_to_srgb_grayscale": {
   "package": "color_space_conversion",
@@ -6841,7 +14009,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "liquid": {
   "package": "noise_liquid",
@@ -6851,6 +14020,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -6868,6 +14055,12 @@ export const LIBRARY = {
    {
     "id": "Luminance_Highpass",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Radius",
+    "type": "float"
    }
   ]
  },
@@ -6896,6 +14089,16 @@ export const LIBRARY = {
     "id": "Exclusion",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "Alpha_Blending",
+    "type": "bool"
+   }
   ]
  },
  "make_it_tile_patch": {
@@ -6912,6 +14115,56 @@ export const LIBRARY = {
    {
     "id": "Make_It_Tile_Patch",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Mask_Size",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Precision",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Warping",
+    "type": "float"
+   },
+   {
+    "id": "Pattern_size_width",
+    "type": "float"
+   },
+   {
+    "id": "Pattern_size_height",
+    "type": "float"
+   },
+   {
+    "id": "Disorder",
+    "type": "float"
+   },
+   {
+    "id": "Size_Variation",
+    "type": "float"
+   },
+   {
+    "id": "Octave",
+    "type": "int"
+   },
+   {
+    "id": "Rotation",
+    "type": "float"
+   },
+   {
+    "id": "Rotation_Variation",
+    "type": "float"
+   },
+   {
+    "id": "Background_Color",
+    "type": "float4"
+   },
+   {
+    "id": "Color_Variation",
+    "type": "float"
    }
   ]
  },
@@ -6930,6 +14183,56 @@ export const LIBRARY = {
     "id": "Make_It_Tile_Patch",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Mask_Size",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Precision",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Warping",
+    "type": "float"
+   },
+   {
+    "id": "Pattern_size_width",
+    "type": "float"
+   },
+   {
+    "id": "Pattern_size_height",
+    "type": "float"
+   },
+   {
+    "id": "Disorder",
+    "type": "float"
+   },
+   {
+    "id": "Size_Variation",
+    "type": "float"
+   },
+   {
+    "id": "Octave",
+    "type": "int"
+   },
+   {
+    "id": "Rotation",
+    "type": "float"
+   },
+   {
+    "id": "Rotation_Variation",
+    "type": "float"
+   },
+   {
+    "id": "Background_Color",
+    "type": "float"
+   },
+   {
+    "id": "Luminosity_Variation",
+    "type": "float"
+   }
   ]
  },
  "make_it_tile_photo": {
@@ -6947,6 +14250,32 @@ export const LIBRARY = {
     "id": "Make_It_Tile_Photo",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Mask_Warping_H",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Warping_V",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Size_H",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Size_V",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Precision_H",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Precision_V",
+    "type": "float"
+   }
   ]
  },
  "make_it_tile_photo_grayscale": {
@@ -6963,6 +14292,32 @@ export const LIBRARY = {
    {
     "id": "Make_It_Tile_Photo",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Mask_Warping_H",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Warping_V",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Size_H",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Size_V",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Precision_H",
+    "type": "float"
+   },
+   {
+    "id": "Mask_Precision_V",
+    "type": "float"
    }
   ]
  },
@@ -6984,6 +14339,56 @@ export const LIBRARY = {
    {
     "id": "preview",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "mask_filtering",
+    "type": "float"
+   },
+   {
+    "id": "threshold",
+    "type": "float"
+   },
+   {
+    "id": "tolerance",
+    "type": "float"
+   },
+   {
+    "id": "force_close_paths",
+    "type": "bool"
+   },
+   {
+    "id": "corner_threshold",
+    "type": "float"
+   },
+   {
+    "id": "startup_mode",
+    "type": "int"
+   },
+   {
+    "id": "startup_direction",
+    "type": "float"
+   },
+   {
+    "id": "startup_target_pos",
+    "type": "float2"
+   },
+   {
+    "id": "startup_func",
+    "type": "float"
+   },
+   {
+    "id": "order_mode",
+    "type": "int"
+   },
+   {
+    "id": "order_direction",
+    "type": "float"
+   },
+   {
+    "id": "order_func",
+    "type": "float"
    }
   ]
  },
@@ -7110,6 +14515,284 @@ export const LIBRARY = {
    {
     "id": "opacity",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "channel_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "channel_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "channel_normal",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular",
+    "type": "bool"
+   },
+   {
+    "id": "channel_emissive",
+    "type": "bool"
+   },
+   {
+    "id": "channel_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specularlevel",
+    "type": "bool"
+   },
+   {
+    "id": "channel_height",
+    "type": "bool"
+   },
+   {
+    "id": "channel_ambientocclusion",
+    "type": "bool"
+   },
+   {
+    "id": "channel_opacity",
+    "type": "bool"
+   },
+   {
+    "id": "diffuse_contrast",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_hue",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_saturation",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_opacity",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "basecolor_contrast",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_hue",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_saturation",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_opacity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_contrast",
+    "type": "float"
+   },
+   {
+    "id": "specular_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "specular_hue",
+    "type": "float"
+   },
+   {
+    "id": "specular_saturation",
+    "type": "float"
+   },
+   {
+    "id": "specular_opacity",
+    "type": "float"
+   },
+   {
+    "id": "specular_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "emissive_contrast",
+    "type": "float"
+   },
+   {
+    "id": "emissive_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "emissive_hue",
+    "type": "float"
+   },
+   {
+    "id": "emissive_saturation",
+    "type": "float"
+   },
+   {
+    "id": "emissive_opacity",
+    "type": "float"
+   },
+   {
+    "id": "emissive_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "glossiness_contrast",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_opacity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "roughness_contrast",
+    "type": "float"
+   },
+   {
+    "id": "roughness_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_opacity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "metallic_contrast",
+    "type": "float"
+   },
+   {
+    "id": "metallic_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "metallic_opacity",
+    "type": "float"
+   },
+   {
+    "id": "metallic_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "specularlevel_contrast",
+    "type": "float"
+   },
+   {
+    "id": "specularlevel_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "specularlevel_opacity",
+    "type": "float"
+   },
+   {
+    "id": "specularlevel_blendingmode",
+    "type": "int"
+   },
+   {
+    "id": "height_contrast",
+    "type": "float"
+   },
+   {
+    "id": "height_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "height_opacity",
+    "type": "float"
+   },
+   {
+    "id": "height_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "ambient_occlusion_contrast",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_opacity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "ambient_occlusion_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "opacity_contrast",
+    "type": "float"
+   },
+   {
+    "id": "opacity_luminosity",
+    "type": "float"
+   },
+   {
+    "id": "opacity_opacity",
+    "type": "float"
+   },
+   {
+    "id": "opacity_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_mask",
+    "type": "bool"
+   },
+   {
+    "id": "fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "color",
+    "type": "float3"
+   },
+   {
+    "id": "padding",
+    "type": "float"
    }
   ]
  },
@@ -7297,6 +14980,164 @@ export const LIBRARY = {
     "id": "opacity",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "channel_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "channel_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "channel_normal",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular",
+    "type": "bool"
+   },
+   {
+    "id": "channel_emissive",
+    "type": "bool"
+   },
+   {
+    "id": "channel_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specularlevel",
+    "type": "bool"
+   },
+   {
+    "id": "channel_height",
+    "type": "bool"
+   },
+   {
+    "id": "channel_ambientocclusion",
+    "type": "bool"
+   },
+   {
+    "id": "channel_opacity",
+    "type": "bool"
+   },
+   {
+    "id": "diffuse_opacity",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "basecolor_opacity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "normal_opacity",
+    "type": "float"
+   },
+   {
+    "id": "specular_opacity",
+    "type": "float"
+   },
+   {
+    "id": "specular_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "emissive_opacity",
+    "type": "float"
+   },
+   {
+    "id": "emissive_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "glossiness_opacity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "roughness_opacity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "metallic_opacity",
+    "type": "float"
+   },
+   {
+    "id": "metallic_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "specularlevel_opacity",
+    "type": "float"
+   },
+   {
+    "id": "specularlevel_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "ambient_occlusion_opacity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "height_opacity",
+    "type": "float"
+   },
+   {
+    "id": "height_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "opacity_opacity",
+    "type": "float"
+   },
+   {
+    "id": "opacity_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "ColorMask",
+    "type": "bool"
+   },
+   {
+    "id": "Color",
+    "type": "float3"
+   },
+   {
+    "id": "Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Padding",
+    "type": "float"
+   }
   ]
  },
  "material_clone_patch": {
@@ -7452,6 +15293,124 @@ export const LIBRARY = {
     "id": "areas_height",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "channel_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "channel_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "channel_normal",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular",
+    "type": "bool"
+   },
+   {
+    "id": "channel_emissive",
+    "type": "bool"
+   },
+   {
+    "id": "channel_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular_level",
+    "type": "bool"
+   },
+   {
+    "id": "channel_height",
+    "type": "bool"
+   },
+   {
+    "id": "channel_ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "channel_opacity",
+    "type": "bool"
+   },
+   {
+    "id": "channel_anisotropy_level",
+    "type": "bool"
+   },
+   {
+    "id": "channel_anisotropy_angle",
+    "type": "bool"
+   },
+   {
+    "id": "channel_mask",
+    "type": "bool"
+   },
+   {
+    "id": "show_patch_areas",
+    "type": "bool"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "edge_use_threshold_per_channel",
+    "type": "bool"
+   },
+   {
+    "id": "edge_threshold",
+    "type": "float"
+   },
+   {
+    "id": "edge_threshold_baseColor",
+    "type": "float"
+   },
+   {
+    "id": "edge_threshold_normal",
+    "type": "float"
+   },
+   {
+    "id": "edge_threshold_height",
+    "type": "float"
+   },
+   {
+    "id": "edge_blur",
+    "type": "float"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grid_resolution",
+    "type": "int"
+   },
+   {
+    "id": "src_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "src_offset",
+    "type": "float2"
+   },
+   {
+    "id": "tgt_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "tgt_offset",
+    "type": "float2"
+   }
   ]
  },
  "material_color_blend": {
@@ -7577,6 +15536,224 @@ export const LIBRARY = {
    {
     "id": "opacity",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "channel_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "channel_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "channel_normal",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular",
+    "type": "bool"
+   },
+   {
+    "id": "channel_emissive",
+    "type": "bool"
+   },
+   {
+    "id": "channel_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specularlevel",
+    "type": "bool"
+   },
+   {
+    "id": "channel_ambientocclusion",
+    "type": "bool"
+   },
+   {
+    "id": "channel_height",
+    "type": "bool"
+   },
+   {
+    "id": "channel_opacity",
+    "type": "bool"
+   },
+   {
+    "id": "diffuse_color",
+    "type": "float3"
+   },
+   {
+    "id": "diffuse_opacity",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "basecolor_color",
+    "type": "float3"
+   },
+   {
+    "id": "basecolor_opacity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "normal_source",
+    "type": "int"
+   },
+   {
+    "id": "normal_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "normal_height_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_height_opacity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "specular_color",
+    "type": "float3"
+   },
+   {
+    "id": "specular_opacity",
+    "type": "float"
+   },
+   {
+    "id": "specular_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "emissive_color",
+    "type": "float3"
+   },
+   {
+    "id": "emissive_opacity",
+    "type": "float"
+   },
+   {
+    "id": "emissive_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "glossiness_color",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_opacity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "roughness_color",
+    "type": "float"
+   },
+   {
+    "id": "roughness_opacity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "metallic_color",
+    "type": "float"
+   },
+   {
+    "id": "metallic_opacity",
+    "type": "float"
+   },
+   {
+    "id": "metallic_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "specularlevel_color",
+    "type": "float"
+   },
+   {
+    "id": "specularlevel_opacity",
+    "type": "float"
+   },
+   {
+    "id": "specularlevel_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "height_color",
+    "type": "float"
+   },
+   {
+    "id": "height_opacity",
+    "type": "float"
+   },
+   {
+    "id": "height_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "ambient_occlusion_color",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_opacity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "opacity_color",
+    "type": "float"
+   },
+   {
+    "id": "opacity_opacity",
+    "type": "float"
+   },
+   {
+    "id": "opacity_blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_mask",
+    "type": "bool"
+   },
+   {
+    "id": "fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "color",
+    "type": "float3"
+   },
+   {
+    "id": "padding",
+    "type": "float"
    }
   ]
  },
@@ -7724,6 +15901,88 @@ export const LIBRARY = {
    {
     "id": "area",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "channel_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "channel_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "channel_normal",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular",
+    "type": "bool"
+   },
+   {
+    "id": "channel_emissive",
+    "type": "bool"
+   },
+   {
+    "id": "channel_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular_level",
+    "type": "bool"
+   },
+   {
+    "id": "channel_height",
+    "type": "bool"
+   },
+   {
+    "id": "channel_ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "channel_opacity",
+    "type": "bool"
+   },
+   {
+    "id": "channel_anisotropy_level",
+    "type": "bool"
+   },
+   {
+    "id": "channel_anisotropy_angle",
+    "type": "bool"
+   },
+   {
+    "id": "channel_mask",
+    "type": "bool"
+   },
+   {
+    "id": "show_crop_area",
+    "type": "bool"
+   },
+   {
+    "id": "input_size",
+    "type": "int2"
+   },
+   {
+    "id": "matrix",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
    }
   ]
  },
@@ -7905,6 +16164,76 @@ export const LIBRARY = {
     "id": "height_mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "channel_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "channel_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "channel_normal",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular",
+    "type": "bool"
+   },
+   {
+    "id": "channel_emissive",
+    "type": "bool"
+   },
+   {
+    "id": "channel_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specularlevel",
+    "type": "bool"
+   },
+   {
+    "id": "channel_height",
+    "type": "bool"
+   },
+   {
+    "id": "channel_ambientocclusion",
+    "type": "bool"
+   },
+   {
+    "id": "channel_opacity",
+    "type": "bool"
+   },
+   {
+    "id": "height_offset",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "colorcorrect",
+    "type": "float"
+   }
   ]
  },
  "material_mesh_data_blender": {
@@ -8024,6 +16353,156 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse_1",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor_1",
+    "type": "bool"
+   },
+   {
+    "id": "normal_1",
+    "type": "bool"
+   },
+   {
+    "id": "specular_1",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness_1",
+    "type": "bool"
+   },
+   {
+    "id": "roughness_1",
+    "type": "bool"
+   },
+   {
+    "id": "metallic_1",
+    "type": "bool"
+   },
+   {
+    "id": "height_1",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion_1",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion_3",
+    "type": "bool"
+   },
+   {
+    "id": "curvature_1",
+    "type": "bool"
+   },
+   {
+    "id": "height_2",
+    "type": "bool"
+   },
+   {
+    "id": "normal_3",
+    "type": "bool"
+   },
+   {
+    "id": "vertex_color_1",
+    "type": "bool"
+   },
+   {
+    "id": "normalWS_1",
+    "type": "bool"
+   },
+   {
+    "id": "diffuse_ao",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_sharp_edges",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_color_from_vertex_color",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_pre_lighting",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_cartoon_lighting_balance",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_cartoon_pre_lighting_layers",
+    "type": "int"
+   },
+   {
+    "id": "diffuse_cartoon_outlines",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_ao",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_sharp_edges",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_from_vertex_color",
+    "type": "float"
+   },
+   {
+    "id": "normal_material_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_ao",
+    "type": "float"
+   },
+   {
+    "id": "specular_bright_sharp_edges",
+    "type": "float"
+   },
+   {
+    "id": "specular_cartoon_outlines",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_dark_sharp_edges",
+    "type": "float"
+   },
+   {
+    "id": "roughness_bright_sharp_edges",
+    "type": "float"
+   },
+   {
+    "id": "roughness_cartoon_outlines",
+    "type": "float"
+   },
+   {
+    "id": "metallic_bright_sharp_edges",
+    "type": "float"
+   },
+   {
+    "id": "metallic_cartoon_outlines",
+    "type": "float"
+   },
+   {
+    "id": "height_material_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_material_blending_type",
+    "type": "int"
+   },
+   {
+    "id": "ao_materiel_intensity",
+    "type": "float"
+   }
   ]
  },
  "material_selector": {
@@ -8040,6 +16519,148 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "materials",
+    "type": "int"
+   },
+   {
+    "id": "material_1_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_2_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_3_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_4_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_5_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_6_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_7_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_8_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_9_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_10_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_11_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_12_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_13_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_14_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_15_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_16_enable",
+    "type": "bool"
+   },
+   {
+    "id": "material_1_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_2_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_3_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_4_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_5_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_6_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_7_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_8_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_9_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_10_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_11_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_12_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_13_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_14_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_15_color",
+    "type": "float3"
+   },
+   {
+    "id": "material_16_color",
+    "type": "float3"
+   },
+   {
+    "id": "fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "padding",
+    "type": "float"
    }
   ]
  },
@@ -8217,6 +16838,60 @@ export const LIBRARY = {
     "id": "opacity",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "emissive",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "specularlevel",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "opacity",
+    "type": "bool"
+   },
+   {
+    "id": "Switch",
+    "type": "bool"
+   }
   ]
  },
  "material_transform": {
@@ -8333,6 +17008,72 @@ export const LIBRARY = {
     "id": "opacity",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "normal_scale_and_skew_transformation",
+    "type": "bool"
+   },
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "emissive",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "specularlevel",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "opacity",
+    "type": "bool"
+   }
   ]
  },
  "median_filter_color": {
@@ -8349,6 +17090,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "kernel_size",
+    "type": "int"
+   },
+   {
+    "id": "filter_type",
+    "type": "int"
+   },
+   {
+    "id": "affect_alpha",
+    "type": "bool"
    }
   ]
  },
@@ -8367,6 +17122,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "kernel_size",
+    "type": "int"
+   },
+   {
+    "id": "filter_type",
+    "type": "int"
+   }
   ]
  },
  "mesh_1": {
@@ -8378,6 +17143,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "Rotate_45_Degrees",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "mesh_2": {
@@ -8388,6 +17167,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "Rotation",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -8496,6 +17289,52 @@ export const LIBRARY = {
     "id": "normalWS",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "ambient_occlusion_1",
+    "type": "bool"
+   },
+   {
+    "id": "uv_masks_1",
+    "type": "bool"
+   },
+   {
+    "id": "curvature_1",
+    "type": "bool"
+   },
+   {
+    "id": "height_1",
+    "type": "bool"
+   },
+   {
+    "id": "position_grayscale_1",
+    "type": "bool"
+   },
+   {
+    "id": "thickness_1",
+    "type": "bool"
+   },
+   {
+    "id": "normal_1",
+    "type": "bool"
+   },
+   {
+    "id": "position_1",
+    "type": "bool"
+   },
+   {
+    "id": "vertex_color_1",
+    "type": "bool"
+   },
+   {
+    "id": "direction_1",
+    "type": "bool"
+   },
+   {
+    "id": "normalWS_1",
+    "type": "bool"
+   }
   ]
  },
  "messy_fibers_1": {
@@ -8506,6 +17345,48 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "lines_number",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -8518,6 +17399,48 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "lines_number",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "messy_fibers_3": {
@@ -8528,6 +17451,48 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "luminance_random",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -8572,6 +17537,120 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "scratches",
+    "type": "float"
+   },
+   {
+    "id": "deep_rust",
+    "type": "float"
+   },
+   {
+    "id": "rust",
+    "type": "float"
+   },
+   {
+    "id": "rust_drips",
+    "type": "float"
+   },
+   {
+    "id": "bullets_impacts_amount",
+    "type": "float"
+   },
+   {
+    "id": "bullets_impacts_size",
+    "type": "float"
+   },
+   {
+    "id": "bullets_impacts_cracks",
+    "type": "float"
+   },
+   {
+    "id": "rust_color",
+    "type": "float3"
+   },
+   {
+    "id": "deep_rust_color",
+    "type": "float3"
+   },
+   {
+    "id": "metal_color",
+    "type": "float3"
+   }
   ]
  },
  "metal_003": {
@@ -8614,6 +17693,92 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "age",
+    "type": "float"
+   },
+   {
+    "id": "metal_color",
+    "type": "float3"
+   },
+   {
+    "id": "metal_roughness",
+    "type": "float"
    }
   ]
  },
@@ -8658,6 +17823,100 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "scratches",
+    "type": "float"
+   },
+   {
+    "id": "scratches_angle",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "metal_color",
+    "type": "float3"
+   },
+   {
+    "id": "metal_roughness",
+    "type": "float"
+   }
   ]
  },
  "metal_plate_001": {
@@ -8700,6 +17959,112 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "rivets_amount",
+    "type": "int2"
+   },
+   {
+    "id": "riivets_offset",
+    "type": "float"
+   },
+   {
+    "id": "paint_peeling",
+    "type": "float"
+   },
+   {
+    "id": "rust",
+    "type": "float"
+   },
+   {
+    "id": "paint_color",
+    "type": "float3"
+   },
+   {
+    "id": "Sub_Layer_Color",
+    "type": "float3"
+   },
+   {
+    "id": "rust_color",
+    "type": "float3"
+   },
+   {
+    "id": "metal_color",
+    "type": "float3"
    }
   ]
  },
@@ -8744,6 +18109,124 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "pattern_amount",
+    "type": "int"
+   },
+   {
+    "id": "rust",
+    "type": "float"
+   },
+   {
+    "id": "paint_peeling",
+    "type": "float"
+   },
+   {
+    "id": "Rust_Drips",
+    "type": "float"
+   },
+   {
+    "id": "bullets_impacts_amount",
+    "type": "float"
+   },
+   {
+    "id": "bullets_impacts_size",
+    "type": "float"
+   },
+   {
+    "id": "Bullets_Impacts_Cracks",
+    "type": "float"
+   },
+   {
+    "id": "paint_color",
+    "type": "float3"
+   },
+   {
+    "id": "rust_Color",
+    "type": "float3"
+   },
+   {
+    "id": "metal_color",
+    "type": "float3"
+   },
+   {
+    "id": "metal_roughness",
+    "type": "float"
+   }
   ]
  },
  "mg_bottom_to_top": {
@@ -8771,6 +18254,20 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "roughness_variation",
+    "type": "float"
+   }
   ]
  },
  "mg_cloth_wear": {
@@ -8797,6 +18294,16 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "hard_edges_amount",
+    "type": "float"
+   },
+   {
+    "id": "wear_softness",
+    "type": "float"
    }
   ]
  },
@@ -8840,6 +18347,40 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "dirt_level",
+    "type": "float"
+   },
+   {
+    "id": "dirt_contrast",
+    "type": "float"
+   },
+   {
+    "id": "grunge_amount",
+    "type": "float"
+   },
+   {
+    "id": "edges_masking",
+    "type": "float"
+   },
+   {
+    "id": "use_custom_grunge",
+    "type": "bool"
+   },
+   {
+    "id": "grunge_scale",
+    "type": "int"
+   },
+   {
+    "id": "triplanar",
+    "type": "bool"
+   },
+   {
+    "id": "blending_contrast",
+    "type": "float"
+   }
   ]
  },
  "mg_dripping_rust": {
@@ -8871,6 +18412,32 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "rust_spreading",
+    "type": "float"
+   },
+   {
+    "id": "rust_contrast",
+    "type": "float"
+   },
+   {
+    "id": "spreading_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "drips_intensity",
+    "type": "float"
+   },
+   {
+    "id": "drips_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "drips_samples_amount",
+    "type": "int"
    }
   ]
  },
@@ -8904,6 +18471,28 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "occlusion_amount",
+    "type": "float"
+   },
+   {
+    "id": "noise_opacity",
+    "type": "float"
+   },
+   {
+    "id": "override_noise",
+    "type": "bool"
+   }
   ]
  },
  "mg_edge_blur": {
@@ -8925,6 +18514,20 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "blur_radius",
+    "type": "float"
    }
   ]
  },
@@ -8953,6 +18556,20 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "damages_intensity",
+    "type": "float"
+   }
   ]
  },
  "mg_edge_dirt": {
@@ -8980,6 +18597,24 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "variation",
+    "type": "float"
+   },
+   {
+    "id": "override_variation_mask",
+    "type": "bool"
+   }
   ]
  },
  "mg_edge_notch": {
@@ -9002,6 +18637,20 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   }
   ]
  },
  "mg_edge_select": {
@@ -9023,6 +18672,40 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "convex_edges_width",
+    "type": "float"
+   },
+   {
+    "id": "convex_softness",
+    "type": "float"
+   },
+   {
+    "id": "convex_intensity",
+    "type": "float"
+   },
+   {
+    "id": "concave_edges_width",
+    "type": "float"
+   },
+   {
+    "id": "concave_softness",
+    "type": "float"
+   },
+   {
+    "id": "concave_intensity",
+    "type": "float"
    }
   ]
  },
@@ -9051,6 +18734,28 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "edge_selection",
+    "type": "float"
+   },
+   {
+    "id": "variation",
+    "type": "float"
+   },
+   {
+    "id": "override_variation_mask",
+    "type": "bool"
+   }
   ]
  },
  "mg_edge_wear": {
@@ -9072,6 +18777,28 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "threshold",
+    "type": "float"
+   },
+   {
+    "id": "edges_width",
+    "type": "float"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
    }
   ]
  },
@@ -9115,6 +18842,44 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "wear_level",
+    "type": "float"
+   },
+   {
+    "id": "wear_contrast",
+    "type": "float"
+   },
+   {
+    "id": "edges_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grunge_amount",
+    "type": "float"
+   },
+   {
+    "id": "ao_masking",
+    "type": "float"
+   },
+   {
+    "id": "curvature_weight",
+    "type": "float"
+   },
+   {
+    "id": "use_custom_grunge",
+    "type": "bool"
+   },
+   {
+    "id": "triplanar",
+    "type": "bool"
+   },
+   {
+    "id": "triplanar_blending_contrast",
+    "type": "float"
+   }
   ]
  },
  "mg_grease": {
@@ -9142,6 +18907,24 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "thickness_threshold",
+    "type": "float"
+   },
+   {
+    "id": "override_noise",
+    "type": "bool"
+   }
   ]
  },
  "mg_ground_dirt": {
@@ -9163,6 +18946,20 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "Contrast",
+    "type": "float"
+   },
+   {
+    "id": "dirt_height",
+    "type": "float"
    }
   ]
  },
@@ -9206,6 +19003,32 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "Contrast",
+    "type": "float"
+   },
+   {
+    "id": "variation",
+    "type": "float"
+   },
+   {
+    "id": "lenght",
+    "type": "float"
+   },
+   {
+    "id": "occlude",
+    "type": "int"
+   },
+   {
+    "id": "override_variation_mask",
+    "type": "bool"
+   }
   ]
  },
  "mg_leather_wear": {
@@ -9238,6 +19061,32 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "wear_level",
+    "type": "float"
+   },
+   {
+    "id": "wear_contrast",
+    "type": "float"
+   },
+   {
+    "id": "grunge_amount",
+    "type": "float"
+   },
+   {
+    "id": "ao_masking",
+    "type": "float"
+   },
+   {
+    "id": "curvature_weight",
+    "type": "float"
+   },
+   {
+    "id": "use_custom_grunge",
+    "type": "bool"
+   }
   ]
  },
  "mg_light": {
@@ -9254,6 +19103,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "horizontal_angle",
+    "type": "float"
+   },
+   {
+    "id": "vertical_angle",
+    "type": "float"
+   },
+   {
+    "id": "highlight_glossiness",
+    "type": "float"
+   },
+   {
+    "id": "highlight_level",
+    "type": "float"
    }
   ]
  },
@@ -9307,6 +19174,204 @@ export const LIBRARY = {
     "id": "diffuse",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "triplanar",
+    "type": "bool"
+   },
+   {
+    "id": "triplanar_contrast",
+    "type": "float"
+   },
+   {
+    "id": "grunge_intensity",
+    "type": "float"
+   },
+   {
+    "id": "grunge_scale",
+    "type": "int"
+   },
+   {
+    "id": "use_custom_grunge",
+    "type": "bool"
+   },
+   {
+    "id": "second_custom_grunge",
+    "type": "float"
+   },
+   {
+    "id": "grunge_invert",
+    "type": "bool"
+   },
+   {
+    "id": "ao_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ao_range",
+    "type": "float"
+   },
+   {
+    "id": "ao_contrast",
+    "type": "float"
+   },
+   {
+    "id": "ao_noisiness",
+    "type": "float"
+   },
+   {
+    "id": "ao_noise_scale",
+    "type": "int"
+   },
+   {
+    "id": "ao_noise_type",
+    "type": "int"
+   },
+   {
+    "id": "ao_invert",
+    "type": "bool"
+   },
+   {
+    "id": "curv_global_intensity",
+    "type": "float"
+   },
+   {
+    "id": "curvature_convex_intensity",
+    "type": "float"
+   },
+   {
+    "id": "curv_convex_contrast",
+    "type": "float"
+   },
+   {
+    "id": "curvature_invert_convex",
+    "type": "bool"
+   },
+   {
+    "id": "curvature_concave_intensity",
+    "type": "float"
+   },
+   {
+    "id": "curv_cocave_contrast",
+    "type": "float"
+   },
+   {
+    "id": "curvature_invert_concave",
+    "type": "bool"
+   },
+   {
+    "id": "curavture_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "curv_boost",
+    "type": "float"
+   },
+   {
+    "id": "curvature_noisiness",
+    "type": "float"
+   },
+   {
+    "id": "curvature_noise_scale",
+    "type": "int"
+   },
+   {
+    "id": "curvature_noise_type",
+    "type": "int"
+   },
+   {
+    "id": "position_intensity",
+    "type": "float"
+   },
+   {
+    "id": "position_range",
+    "type": "float"
+   },
+   {
+    "id": "position_contrast",
+    "type": "float"
+   },
+   {
+    "id": "posiiton_invert",
+    "type": "bool"
+   },
+   {
+    "id": "wsnormal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "world_space_normal_top_intensity",
+    "type": "float"
+   },
+   {
+    "id": "world_space_normal_bottom_intensity",
+    "type": "float"
+   },
+   {
+    "id": "world_space_normal_front_intensity",
+    "type": "float"
+   },
+   {
+    "id": "world_space_normal_back_intensity",
+    "type": "float"
+   },
+   {
+    "id": "world_space_normal_right_intensity",
+    "type": "float"
+   },
+   {
+    "id": "world_space_normal_left_intensity",
+    "type": "float"
+   },
+   {
+    "id": "scratches_intensity",
+    "type": "float"
+   },
+   {
+    "id": "scratches_amount",
+    "type": "int"
+   },
+   {
+    "id": "scratches_scale",
+    "type": "float"
+   },
+   {
+    "id": "scatter_intensity",
+    "type": "float"
+   },
+   {
+    "id": "scatter_scale",
+    "type": "int"
+   },
+   {
+    "id": "scatter_density",
+    "type": "float"
+   },
+   {
+    "id": "scatter_size",
+    "type": "float"
+   },
+   {
+    "id": "scatter_size_variation",
+    "type": "float"
+   },
+   {
+    "id": "scatter_lum_variation",
+    "type": "float"
+   }
   ]
  },
  "mg_metal_edge_wear": {
@@ -9349,6 +19414,48 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "wear_level",
+    "type": "float"
+   },
+   {
+    "id": "wear_contrast",
+    "type": "float"
+   },
+   {
+    "id": "edges_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grunge_amount",
+    "type": "float"
+   },
+   {
+    "id": "grunge_scale",
+    "type": "int"
+   },
+   {
+    "id": "ao_masking",
+    "type": "float"
+   },
+   {
+    "id": "curvature_weight",
+    "type": "float"
+   },
+   {
+    "id": "use_custom_grunge",
+    "type": "bool"
+   },
+   {
+    "id": "triplanar",
+    "type": "bool"
+   },
+   {
+    "id": "triplanar_blending",
+    "type": "float"
+   }
   ]
  },
  "mg_paint_wear": {
@@ -9381,6 +19488,32 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "occlusion",
+    "type": "float"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "variation",
+    "type": "float"
+   },
+   {
+    "id": "override_variation_mask",
+    "type": "bool"
+   }
   ]
  },
  "mg_selective_dirt": {
@@ -9408,6 +19541,24 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "variation",
+    "type": "float"
+   },
+   {
+    "id": "override_variation_mask",
+    "type": "bool"
+   }
   ]
  },
  "mg_sun_bleach": {
@@ -9434,6 +19585,20 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "occlusion",
+    "type": "float"
    }
   ]
  },
@@ -9472,6 +19637,36 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "level",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "scratches_lenght",
+    "type": "float"
+   },
+   {
+    "id": "occlude_axis",
+    "type": "int"
+   },
+   {
+    "id": "occlude_axis_intensity",
+    "type": "float"
+   },
+   {
+    "id": "occlusion",
+    "type": "float"
+   },
+   {
+    "id": "sharpen_intensity",
+    "type": "float"
+   }
   ]
  },
  "microscope_view": {
@@ -9482,6 +19677,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -9504,7 +19717,8 @@ export const LIBRARY = {
     "id": "max",
     "type": "value"
    }
-  ]
+  ],
+  "parameters": []
  },
  "mirror": {
   "package": "mirror",
@@ -9520,6 +19734,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "mirror_type",
+    "type": "int"
+   },
+   {
+    "id": "axis_x",
+    "type": "float"
+   },
+   {
+    "id": "axis_y",
+    "type": "float"
+   },
+   {
+    "id": "invert_x",
+    "type": "bool"
+   },
+   {
+    "id": "invert_y",
+    "type": "bool"
+   },
+   {
+    "id": "corner_type",
+    "type": "int"
    }
   ]
  },
@@ -9538,6 +19778,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "mirror_type",
+    "type": "int"
+   },
+   {
+    "id": "axis_x",
+    "type": "float"
+   },
+   {
+    "id": "axis_y",
+    "type": "float"
+   },
+   {
+    "id": "invert_x",
+    "type": "bool"
+   },
+   {
+    "id": "invert_y",
+    "type": "bool"
+   },
+   {
+    "id": "corner_type",
+    "type": "int"
+   }
   ]
  },
  "mlv_color": {
@@ -9555,6 +19821,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "smoothness",
+    "type": "float"
+   },
+   {
+    "id": "criterion",
+    "type": "int"
+   },
+   {
+    "id": "gaussian",
+    "type": "bool"
+   },
+   {
+    "id": "affect_alpha",
+    "type": "bool"
+   },
+   {
+    "id": "iterations",
+    "type": "int"
+   }
   ]
  },
  "mlv_grayscale": {
@@ -9571,6 +19863,28 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "smoothness",
+    "type": "float"
+   },
+   {
+    "id": "criterion",
+    "type": "int"
+   },
+   {
+    "id": "gaussian",
+    "type": "bool"
+   },
+   {
+    "id": "iterations",
+    "type": "int"
    }
   ]
  },
@@ -9598,6 +19912,48 @@ export const LIBRARY = {
     "id": "palette",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "color_selection_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_position",
+    "type": "float2"
+   },
+   {
+    "id": "color_index",
+    "type": "int"
+   },
+   {
+    "id": "color_selection_spread",
+    "type": "float"
+   },
+   {
+    "id": "color_selection_contrast",
+    "type": "float"
+   },
+   {
+    "id": "distance_color_space",
+    "type": "int"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "override_color",
+    "type": "float3"
+   },
+   {
+    "id": "hsl",
+    "type": "float3"
+   }
   ]
  },
  "moisture_noise_1": {
@@ -9609,6 +19965,52 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_angle",
+    "type": "float"
+   },
+   {
+    "id": "pattern_angle_random",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "moisture_noise_2": {
@@ -9619,6 +20021,52 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "disorder_anisotropy_angle",
+    "type": "float"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_angle",
+    "type": "float"
+   },
+   {
+    "id": "pattern_angle_random",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -9642,6 +20090,16 @@ export const LIBRARY = {
     "id": "Mosaic",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Samples",
+    "type": "int"
+   },
+   {
+    "id": "Intensity",
+    "type": "float"
+   }
   ]
  },
  "mosaic_grayscale": {
@@ -9663,6 +20121,16 @@ export const LIBRARY = {
    {
     "id": "Mosaic",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Samples",
+    "type": "int"
+   },
+   {
+    "id": "Intensity",
+    "type": "float"
    }
   ]
  },
@@ -9768,6 +20236,92 @@ export const LIBRARY = {
     "id": "height",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "mask",
+    "type": "bool"
+   },
+   {
+    "id": "moss_propagation",
+    "type": "float"
+   },
+   {
+    "id": "Moss_Color",
+    "type": "float3"
+   },
+   {
+    "id": "diffuse_intensity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_intensity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   }
   ]
  },
  "multi_clone_patch": {
@@ -9852,6 +20406,56 @@ export const LIBRARY = {
     "id": "areas",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "input_count",
+    "type": "int"
+   },
+   {
+    "id": "show_patch_areas",
+    "type": "bool"
+   },
+   {
+    "id": "is_normal",
+    "type": "bool"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "edge_threshold",
+    "type": "float"
+   },
+   {
+    "id": "edge_blur",
+    "type": "float"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grid_resolution",
+    "type": "int"
+   },
+   {
+    "id": "src_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "src_offset",
+    "type": "float2"
+   },
+   {
+    "id": "tgt_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "tgt_offset",
+    "type": "float2"
+   }
   ]
  },
  "multi_clone_patch_grayscale": {
@@ -9935,6 +20539,52 @@ export const LIBRARY = {
    {
     "id": "areas",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "input_count",
+    "type": "int"
+   },
+   {
+    "id": "show_patch_areas",
+    "type": "bool"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "edge_threshold",
+    "type": "float"
+   },
+   {
+    "id": "edge_blur",
+    "type": "float"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grid_resolution",
+    "type": "int"
+   },
+   {
+    "id": "src_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "src_offset",
+    "type": "float2"
+   },
+   {
+    "id": "tgt_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "tgt_offset",
+    "type": "float2"
    }
   ]
  },
@@ -10021,6 +20671,68 @@ export const LIBRARY = {
     "id": "output_8",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "input_count",
+    "type": "int"
+   },
+   {
+    "id": "tiled",
+    "type": "bool"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "balance",
+    "type": "float"
+   },
+   {
+    "id": "custom_color_variation",
+    "type": "bool"
+   },
+   {
+    "id": "variation_hue",
+    "type": "float"
+   },
+   {
+    "id": "variation_chroma",
+    "type": "float"
+   },
+   {
+    "id": "variation_luma",
+    "type": "float"
+   },
+   {
+    "id": "mask_source",
+    "type": "int"
+   },
+   {
+    "id": "color",
+    "type": "float3"
+   },
+   {
+    "id": "mask_hue_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_chroma_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_luma_range",
+    "type": "float"
+   },
+   {
+    "id": "mask_blur",
+    "type": "float"
+   },
+   {
+    "id": "mask_smoothness",
+    "type": "float"
+   }
   ]
  },
  "multi_crop": {
@@ -10104,6 +20816,36 @@ export const LIBRARY = {
    {
     "id": "area",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "input_count",
+    "type": "int"
+   },
+   {
+    "id": "show_crop_area",
+    "type": "bool"
+   },
+   {
+    "id": "input_size",
+    "type": "int2"
+   },
+   {
+    "id": "background",
+    "type": "float4"
+   },
+   {
+    "id": "matrix",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "is_normal",
+    "type": "bool"
    }
   ]
  },
@@ -10189,6 +20931,32 @@ export const LIBRARY = {
     "id": "area",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "input_count",
+    "type": "int"
+   },
+   {
+    "id": "show_crop_area",
+    "type": "bool"
+   },
+   {
+    "id": "input_size",
+    "type": "int2"
+   },
+   {
+    "id": "background",
+    "type": "float"
+   },
+   {
+    "id": "matrix",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   }
   ]
  },
  "multi_directional_warp_color": {
@@ -10211,6 +20979,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "warp_angle",
+    "type": "float"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "directions",
+    "type": "int"
+   }
   ]
  },
  "multi_directional_warp_grayscale": {
@@ -10232,6 +21018,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "warp_angle",
+    "type": "float"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "directions",
+    "type": "int"
    }
   ]
  },
@@ -11254,6 +22058,244 @@ export const LIBRARY = {
     "id": "opacity",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Materials",
+    "type": "int"
+   },
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "emissive",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "specularlevel",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "opacity",
+    "type": "bool"
+   },
+   {
+    "id": "Material_2_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_2_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_2_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_3_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_3_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_3_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_4_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_4_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_4_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_5_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_5_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_5_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_6_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_6_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_6_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_7_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_7_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_7_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_8_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_8_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_8_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_9_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_9_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_9_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_10_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_10_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_10_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_11_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_11_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_11_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_12_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_12_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_12_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_13_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_13_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_13_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_14_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_14_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_14_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_15_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_15_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_15_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Material_16_Color",
+    "type": "float3"
+   },
+   {
+    "id": "Material_16_Fuzziness",
+    "type": "float"
+   },
+   {
+    "id": "Material_16_Padding",
+    "type": "float"
+   },
+   {
+    "id": "Opacity",
+    "type": "float"
+   }
   ]
  },
  "multi_switch": {
@@ -11365,6 +22407,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "input_number",
+    "type": "int"
+   },
+   {
+    "id": "input_selection",
+    "type": "int"
    }
   ]
  },
@@ -11478,6 +22530,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "input_number",
+    "type": "int"
+   },
+   {
+    "id": "input_selection",
+    "type": "int"
+   }
   ]
  },
  "multiangle_to_albedo": {
@@ -11529,6 +22591,12 @@ export const LIBRARY = {
    {
     "id": "albedo",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "samples_amount",
+    "type": "int"
    }
   ]
  },
@@ -11582,6 +22650,28 @@ export const LIBRARY = {
     "id": "normal",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "samples_amount",
+    "type": "int"
+   },
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "first_sample_light_angle",
+    "type": "float"
+   },
+   {
+    "id": "next_sample_light_angle",
+    "type": "int"
+   }
   ]
  },
  "nadir_extract": {
@@ -11598,6 +22688,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "output_gamma",
+    "type": "int"
    }
   ]
  },
@@ -11616,6 +22720,24 @@ export const LIBRARY = {
     "id": "Noise_ResolutionX2",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Offset1X",
+    "type": "float"
+   },
+   {
+    "id": "Offset1Y",
+    "type": "float"
+   },
+   {
+    "id": "Offset2X",
+    "type": "float"
+   },
+   {
+    "id": "Offset2Y",
+    "type": "float"
+   }
   ]
  },
  "noise_upscale_2": {
@@ -11632,6 +22754,24 @@ export const LIBRARY = {
    {
     "id": "Noise_ResolutionX2_2",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Offset1X",
+    "type": "float"
+   },
+   {
+    "id": "Offset1Y",
+    "type": "float"
+   },
+   {
+    "id": "Offset2X",
+    "type": "float"
+   },
+   {
+    "id": "Offset2Y",
+    "type": "float"
    }
   ]
  },
@@ -11655,7 +22795,8 @@ export const LIBRARY = {
     "id": "Noise_ResolutionX2_3",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "non_square_transform": {
   "package": "non_square_transform",
@@ -11671,6 +22812,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "tile_mode",
+    "type": "int"
+   },
+   {
+    "id": "tile",
+    "type": "int2"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "tile_safe_rotation",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
    }
   ]
  },
@@ -11688,6 +22855,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "tile_mode",
+    "type": "int"
+   },
+   {
+    "id": "tile",
+    "type": "int2"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "tile_safe_rotation",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
    }
   ]
  },
@@ -11711,6 +22904,32 @@ export const LIBRARY = {
     "id": "Non_Uniform_Blur",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "Asymmetry",
+    "type": "float"
+   },
+   {
+    "id": "Angle",
+    "type": "float"
+   },
+   {
+    "id": "Samples",
+    "type": "int"
+   },
+   {
+    "id": "Blades",
+    "type": "int"
+   }
   ]
  },
  "non_uniform_blur_grayscale": {
@@ -11732,6 +22951,32 @@ export const LIBRARY = {
    {
     "id": "Non_Uniform_Blur",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Anisotropy",
+    "type": "float"
+   },
+   {
+    "id": "Asymmetry",
+    "type": "float"
+   },
+   {
+    "id": "Angle",
+    "type": "float"
+   },
+   {
+    "id": "Samples",
+    "type": "int"
+   },
+   {
+    "id": "Blades",
+    "type": "int"
    }
   ]
  },
@@ -11760,6 +23005,36 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "warp_angle",
+    "type": "float"
+   },
+   {
+    "id": "warp_angle_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "trail_mode",
+    "type": "int"
+   },
+   {
+    "id": "trail_length",
+    "type": "float"
+   },
+   {
+    "id": "trail_fade",
+    "type": "float"
+   },
+   {
+    "id": "trail_curve",
+    "type": "float"
+   }
   ]
  },
  "non_uniform_directional_warp_grayscale": {
@@ -11786,6 +23061,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "warp_angle",
+    "type": "float"
+   },
+   {
+    "id": "warp_angle_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "trail_mode",
+    "type": "int"
+   },
+   {
+    "id": "trail_length",
+    "type": "float"
+   },
+   {
+    "id": "trail_fade",
+    "type": "float"
+   },
+   {
+    "id": "trail_curve",
+    "type": "float"
    }
   ]
  },
@@ -11814,6 +23119,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "rotation_angle_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rotation_angle_offset",
+    "type": "float"
+   },
+   {
+    "id": "use_pivot_position_map",
+    "type": "bool"
+   },
+   {
+    "id": "pivot_position",
+    "type": "float2"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   }
   ]
  },
  "non_uniform_rotation_grayscale": {
@@ -11840,6 +23171,32 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "rotation_angle_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rotation_angle_offset",
+    "type": "float"
+   },
+   {
+    "id": "use_pivot_position_map",
+    "type": "bool"
+   },
+   {
+    "id": "pivot_position",
+    "type": "float2"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
    }
   ]
  },
@@ -11868,6 +23225,16 @@ export const LIBRARY = {
     "id": "Normal_Blend",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "Use_Mask",
+    "type": "bool"
+   }
   ]
  },
  "normal_color": {
@@ -11878,6 +23245,20 @@ export const LIBRARY = {
    {
     "id": "Normal_Color",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Direction",
+    "type": "float"
+   },
+   {
+    "id": "Slope_Angle",
+    "type": "float"
+   },
+   {
+    "id": "Invert_Y",
+    "type": "bool"
    }
   ]
  },
@@ -11901,6 +23282,12 @@ export const LIBRARY = {
     "id": "normal",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "blend_quality",
+    "type": "int"
+   }
   ]
  },
  "normal_intensity": {
@@ -11917,6 +23304,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
    }
   ]
  },
@@ -11935,6 +23328,24 @@ export const LIBRARY = {
     "id": "normal",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "invert_red",
+    "type": "bool"
+   },
+   {
+    "id": "invert_green",
+    "type": "bool"
+   },
+   {
+    "id": "invert_blue",
+    "type": "bool"
+   },
+   {
+    "id": "invert_alpha",
+    "type": "bool"
+   }
   ]
  },
  "normal_normalise": {
@@ -11952,7 +23363,8 @@ export const LIBRARY = {
     "id": "Normalise",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "normal_sobel_2": {
   "package": "normal_sobel",
@@ -11968,6 +23380,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
    }
   ]
  },
@@ -11986,6 +23408,20 @@ export const LIBRARY = {
     "id": "height",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Relief_Balance",
+    "type": "float3"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   }
   ]
  },
  "normal_to_height_hq": {
@@ -12003,6 +23439,28 @@ export const LIBRARY = {
     "id": "height",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "relief_balance",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_normalize",
+    "type": "bool"
+   },
+   {
+    "id": "sample_quality",
+    "type": "int"
+   }
   ]
  },
  "normal_transform": {
@@ -12019,6 +23477,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "handle_scale_and_skew_transformation",
+    "type": "bool"
    }
   ]
  },
@@ -12046,6 +23522,16 @@ export const LIBRARY = {
     "id": "guessed_intensity",
     "type": "value"
    }
+  ],
+  "parameters": [
+   {
+    "id": "intensity_range",
+    "type": "float2"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   }
   ]
  },
  "normal_vector_rotation": {
@@ -12067,6 +23553,16 @@ export const LIBRARY = {
    {
     "id": "Normal",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "rotation_angle",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
    }
   ]
  },
@@ -12110,6 +23606,108 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "planks_q,ount",
+    "type": "int"
+   },
+   {
+    "id": "screws",
+    "type": "float"
+   },
+   {
+    "id": "paint_age",
+    "type": "float"
+   },
+   {
+    "id": "planks_color_variation",
+    "type": "float"
+   },
+   {
+    "id": "paint_color",
+    "type": "float3"
+   },
+   {
+    "id": "planks_color",
+    "type": "float3"
+   },
+   {
+    "id": "paint_roughness",
+    "type": "float"
    }
   ]
  },
@@ -12215,6 +23813,148 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "mask",
+    "type": "bool"
+   },
+   {
+    "id": "dust",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "edges_wearing",
+    "type": "float"
+   },
+   {
+    "id": "paint_peeling",
+    "type": "float"
+   },
+   {
+    "id": "rust",
+    "type": "float"
+   },
+   {
+    "id": "rust_peeling",
+    "type": "float"
+   },
+   {
+    "id": "rust_verdigris",
+    "type": "int"
+   },
+   {
+    "id": "paint_cracks_scale",
+    "type": "float"
+   },
+   {
+    "id": "paint_cracks_warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "sharp_edges_scratches_scale",
+    "type": "float"
+   },
+   {
+    "id": "sharp_ddges_scratches_warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "raw_metal_color",
+    "type": "float3"
+   },
+   {
+    "id": "raw_metal_specular_color",
+    "type": "float3"
+   },
+   {
+    "id": "raw_metal_glossiness_value",
+    "type": "float"
+   },
+   {
+    "id": "raw_metal_roughness_value",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_intensity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_intensity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "metallic_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   }
   ]
  },
  "panorama_3d_position": {
@@ -12225,6 +23965,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "up_vector",
+    "type": "int"
    }
   ]
  },
@@ -12237,6 +23983,32 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "point_1_position",
+    "type": "float2"
+   },
+   {
+    "id": "point_1_color",
+    "type": "float3"
+   },
+   {
+    "id": "point_1_contrast",
+    "type": "float"
+   },
+   {
+    "id": "point_2_position",
+    "type": "float2"
+   },
+   {
+    "id": "point_2_color",
+    "type": "float3"
+   },
+   {
+    "id": "point_2_contrast",
+    "type": "float"
+   }
   ]
  },
  "panorama_gradient_linear": {
@@ -12247,6 +24019,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "point_position",
+    "type": "float2"
+   },
+   {
+    "id": "top_color",
+    "type": "float3"
+   },
+   {
+    "id": "bottom_color",
+    "type": "float3"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
    }
   ]
  },
@@ -12275,6 +24065,120 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "position_mode",
+    "type": "int"
+   },
+   {
+    "id": "show_ground_grid",
+    "type": "bool"
+   },
+   {
+    "id": "up_vector",
+    "type": "int"
+   },
+   {
+    "id": "point_1_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "point_2_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "point_1_world_position",
+    "type": "float3"
+   },
+   {
+    "id": "point_2_position",
+    "type": "float3"
+   },
+   {
+    "id": "line_absolute_height",
+    "type": "float"
+   },
+   {
+    "id": "distance_from_origin",
+    "type": "float"
+   },
+   {
+    "id": "camera_position",
+    "type": "float3"
+   },
+   {
+    "id": "shape_color_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_color",
+    "type": "float3"
+   },
+   {
+    "id": "shape_temperature",
+    "type": "float"
+   },
+   {
+    "id": "shape_image_uv_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_image_repeat_spacing",
+    "type": "float"
+   },
+   {
+    "id": "shape_image_gamma",
+    "type": "int"
+   },
+   {
+    "id": "shape_exposure",
+    "type": "float"
+   },
+   {
+    "id": "line_rotation",
+    "type": "float"
+   },
+   {
+    "id": "line_thickness",
+    "type": "float"
+   },
+   {
+    "id": "shape_pattern",
+    "type": "int"
+   },
+   {
+    "id": "shape_pattern_hardness",
+    "type": "float"
+   },
+   {
+    "id": "shape_pattern_uv_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_pattern_repeat_spacing",
+    "type": "float"
+   },
+   {
+    "id": "enable_ground_clipping",
+    "type": "bool"
+   },
+   {
+    "id": "ground_height",
+    "type": "float"
+   },
+   {
+    "id": "enable_background_input",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "background_image_input_gamma",
+    "type": "int"
+   }
   ]
  },
  "panorama_nadir_patch": {
@@ -12297,6 +24201,52 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "enable",
+    "type": "bool"
+   },
+   {
+    "id": "show_frames_helper",
+    "type": "bool"
+   },
+   {
+    "id": "frame_thickness",
+    "type": "float"
+   },
+   {
+    "id": "patch_scale",
+    "type": "float"
+   },
+   {
+    "id": "patch_size",
+    "type": "float2"
+   },
+   {
+    "id": "patch_rotation",
+    "type": "float"
+   },
+   {
+    "id": "patch_alpha",
+    "type": "int"
+   },
+   {
+    "id": "patch_hardness",
+    "type": "float"
+   },
+   {
+    "id": "source_rotation_offset",
+    "type": "float"
+   },
+   {
+    "id": "source_position",
+    "type": "float2"
+   },
+   {
+    "id": "patch_position",
+    "type": "float2"
+   }
   ]
  },
  "panorama_physical_sun_sky": {
@@ -12307,6 +24257,40 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "sun_pos",
+    "type": "float2"
+   },
+   {
+    "id": "turbidity",
+    "type": "float"
+   },
+   {
+    "id": "albedo",
+    "type": "float"
+   },
+   {
+    "id": "ground_color",
+    "type": "float3"
+   },
+   {
+    "id": "exposure",
+    "type": "float"
+   },
+   {
+    "id": "sun_size",
+    "type": "float"
+   },
+   {
+    "id": "sun_intensity",
+    "type": "float"
+   },
+   {
+    "id": "sky_intensity",
+    "type": "float"
    }
   ]
  },
@@ -12335,6 +24319,108 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "position_mode",
+    "type": "int"
+   },
+   {
+    "id": "show_ground_grid",
+    "type": "bool"
+   },
+   {
+    "id": "up_vector",
+    "type": "int"
+   },
+   {
+    "id": "plane_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "plane_world_position",
+    "type": "float3"
+   },
+   {
+    "id": "plane_absolute_height",
+    "type": "float"
+   },
+   {
+    "id": "distance_from_origin",
+    "type": "float"
+   },
+   {
+    "id": "camera_position",
+    "type": "float3"
+   },
+   {
+    "id": "shape_color_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_color",
+    "type": "float3"
+   },
+   {
+    "id": "shape_temperature",
+    "type": "float"
+   },
+   {
+    "id": "shape_image_uv_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_image_gamma",
+    "type": "int"
+   },
+   {
+    "id": "shape_exposure",
+    "type": "float"
+   },
+   {
+    "id": "plane_scale",
+    "type": "float"
+   },
+   {
+    "id": "plane_size",
+    "type": "float2"
+   },
+   {
+    "id": "plane_rotation",
+    "type": "float3"
+   },
+   {
+    "id": "shape_pattern",
+    "type": "int"
+   },
+   {
+    "id": "shape_pattern_hardness",
+    "type": "float"
+   },
+   {
+    "id": "shape_pattern_uv_mode",
+    "type": "int"
+   },
+   {
+    "id": "enable_ground_clipping",
+    "type": "bool"
+   },
+   {
+    "id": "ground_height",
+    "type": "float"
+   },
+   {
+    "id": "enable_background_input",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "background_image_input_gamma",
+    "type": "int"
+   }
   ]
  },
  "panorama_rotation": {
@@ -12352,6 +24438,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "direction_angle",
+    "type": "float"
+   },
+   {
+    "id": "pre_rotation_around_pole",
+    "type": "float"
+   },
+   {
+    "id": "post_rotation_around_pole",
+    "type": "float"
+   }
   ]
  },
  "panorama_shape": {
@@ -12368,6 +24472,60 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "shape_color",
+    "type": "float3"
+   },
+   {
+    "id": "shape_intensity",
+    "type": "float"
+   },
+   {
+    "id": "shape_soft_borders",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_intensity",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_size",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_falloff",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_position",
+    "type": "float2"
+   },
+   {
+    "id": "enable_background",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "enable_texture_input",
+    "type": "bool"
    }
   ]
  },
@@ -12391,6 +24549,72 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "shape_color_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_color",
+    "type": "float3"
+   },
+   {
+    "id": "shape_temperature",
+    "type": "float"
+   },
+   {
+    "id": "shape_image_input_gamma",
+    "type": "int"
+   },
+   {
+    "id": "shape_exposure",
+    "type": "float"
+   },
+   {
+    "id": "shape_hardness",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_exposure",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_size",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_falloff",
+    "type": "float"
+   },
+   {
+    "id": "hotspot_position",
+    "type": "float2"
+   },
+   {
+    "id": "enable_background_input",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "background_image_input_gamma",
+    "type": "int"
+   }
   ]
  },
  "panorama_sphere_light": {
@@ -12413,6 +24637,88 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "position_mode",
+    "type": "int"
+   },
+   {
+    "id": "up_vector",
+    "type": "int"
+   },
+   {
+    "id": "sphere_world_position",
+    "type": "float3"
+   },
+   {
+    "id": "sphere_uv_position",
+    "type": "float2"
+   },
+   {
+    "id": "distance_from_origin",
+    "type": "float"
+   },
+   {
+    "id": "camera_position",
+    "type": "float3"
+   },
+   {
+    "id": "sphere_color_mode",
+    "type": "int"
+   },
+   {
+    "id": "sphere_color",
+    "type": "float3"
+   },
+   {
+    "id": "sphere_temperature",
+    "type": "float"
+   },
+   {
+    "id": "shere_image_gamma",
+    "type": "int"
+   },
+   {
+    "id": "sphere_rotation",
+    "type": "float2"
+   },
+   {
+    "id": "sphere_exposure",
+    "type": "float"
+   },
+   {
+    "id": "sphere_radius",
+    "type": "float"
+   },
+   {
+    "id": "sphere_hardness",
+    "type": "float"
+   },
+   {
+    "id": "shading",
+    "type": "int"
+   },
+   {
+    "id": "shading_light_world_position",
+    "type": "float3"
+   },
+   {
+    "id": "penombra_transparency",
+    "type": "float"
+   },
+   {
+    "id": "enable_background_input",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "background_image_input_gamma",
+    "type": "int"
+   }
   ]
  },
  "panorama_straighten_horizon": {
@@ -12429,6 +24735,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "enable_horizon_correction",
+    "type": "bool"
+   },
+   {
+    "id": "horizon_p1",
+    "type": "float2"
+   },
+   {
+    "id": "horizon_p2",
+    "type": "float2"
+   },
+   {
+    "id": "horizontal_rotation",
+    "type": "float"
    }
   ]
  },
@@ -12477,6 +24801,104 @@ export const LIBRARY = {
     "id": "opacity",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "opacity",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "age",
+    "type": "float"
+   },
+   {
+    "id": "pleat",
+    "type": "float"
+   },
+   {
+    "id": "creases",
+    "type": "float"
+   },
+   {
+    "id": "paper_color",
+    "type": "float3"
+   },
+   {
+    "id": "paper_roughness",
+    "type": "float"
+   }
   ]
  },
  "path_to_spline": {
@@ -12506,6 +24928,28 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "spline_precision",
+    "type": "int"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   }
   ]
  },
  "paths_polygon": {
@@ -12516,6 +24960,12 @@ export const LIBRARY = {
    {
     "id": "paths",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "nbSides",
+    "type": "int"
    }
   ]
  },
@@ -12539,6 +24989,20 @@ export const LIBRARY = {
     "id": "tracing",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "trace_corners",
+    "type": "bool"
+   },
+   {
+    "id": "trace_vertices",
+    "type": "bool"
+   },
+   {
+    "id": "thickness",
+    "type": "float"
+   }
   ]
  },
  "paths_warp": {
@@ -12561,6 +25025,16 @@ export const LIBRARY = {
     "id": "paths",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "quality",
+    "type": "int"
+   }
   ]
  },
  "pbr_albedo_safe_color": {
@@ -12582,6 +25056,16 @@ export const LIBRARY = {
    {
     "id": "input",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "pbr_workflow",
+    "type": "int"
+   },
+   {
+    "id": "tolerance",
+    "type": "float"
    }
   ]
  },
@@ -12677,6 +25161,112 @@ export const LIBRARY = {
     "id": "ambientOcclusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "pbr_workflow",
+    "type": "int"
+   },
+   {
+    "id": "material_preset",
+    "type": "int"
+   },
+   {
+    "id": "basecolor",
+    "type": "float3"
+   },
+   {
+    "id": "metallic",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_color",
+    "type": "float3"
+   },
+   {
+    "id": "specular",
+    "type": "float3"
+   },
+   {
+    "id": "specular_presets",
+    "type": "int"
+   },
+   {
+    "id": "specular_range",
+    "type": "float"
+   },
+   {
+    "id": "roughness",
+    "type": "float"
+   },
+   {
+    "id": "roughness_grunge_amount",
+    "type": "float"
+   },
+   {
+    "id": "glossiness",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_grunge_amount",
+    "type": "float"
+   },
+   {
+    "id": "grunge_tiling",
+    "type": "int"
+   },
+   {
+    "id": "grunge_custom_input",
+    "type": "bool"
+   },
+   {
+    "id": "normal_from_height_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "user_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "user_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "user_normal",
+    "type": "bool"
+   },
+   {
+    "id": "user_specular",
+    "type": "bool"
+   },
+   {
+    "id": "user_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "user_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "user_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "user_ao",
+    "type": "bool"
+   },
+   {
+    "id": "user_height",
+    "type": "bool"
+   }
   ]
  },
  "pbr_basecolor_metallic_validate_2": {
@@ -12699,6 +25289,24 @@ export const LIBRARY = {
     "id": "baseColor",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "albedo_range",
+    "type": "int"
+   },
+   {
+    "id": "metal_reflectance_range",
+    "type": "int"
+   },
+   {
+    "id": "overlay_maps",
+    "type": "bool"
+   }
   ]
  },
  "pbr_dielectric_F0": {
@@ -12709,6 +25317,24 @@ export const LIBRARY = {
    {
     "id": "specular",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "specular_values",
+    "type": "int"
+   },
+   {
+    "id": "specular_range",
+    "type": "float"
+   },
+   {
+    "id": "specular_range_glass",
+    "type": "float"
+   },
+   {
+    "id": "ior",
+    "type": "float"
    }
   ]
  },
@@ -12721,6 +25347,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "metal_colors",
+    "type": "int"
+   }
   ]
  },
  "perlin_noise": {
@@ -12732,6 +25364,28 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
+   },
+   {
+    "id": "tile_offset",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "plasma": {
@@ -12742,6 +25396,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -12773,6 +25441,124 @@ export const LIBRARY = {
     "id": "point_number",
     "type": "value"
    }
+  ],
+  "parameters": [
+   {
+    "id": "point_number",
+    "type": "int"
+   },
+   {
+    "id": "global_smoothness_adjustment",
+    "type": "float"
+   },
+   {
+    "id": "point_number_input",
+    "type": "int"
+   },
+   {
+    "id": "p1_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p2_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p3_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p4_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p5_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p6_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p7_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p8_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p9_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p10_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p1",
+    "type": "float2"
+   },
+   {
+    "id": "p2",
+    "type": "float2"
+   },
+   {
+    "id": "p3",
+    "type": "float2"
+   },
+   {
+    "id": "p4",
+    "type": "float2"
+   },
+   {
+    "id": "p5",
+    "type": "float2"
+   },
+   {
+    "id": "p6",
+    "type": "float2"
+   },
+   {
+    "id": "p7",
+    "type": "float2"
+   },
+   {
+    "id": "p8",
+    "type": "float2"
+   },
+   {
+    "id": "p9",
+    "type": "float2"
+   },
+   {
+    "id": "p10",
+    "type": "float2"
+   },
+   {
+    "id": "show_labels",
+    "type": "bool"
+   },
+   {
+    "id": "labels_size",
+    "type": "float"
+   },
+   {
+    "id": "show_points",
+    "type": "bool"
+   },
+   {
+    "id": "points_size",
+    "type": "float"
+   },
+   {
+    "id": "hide_first_point",
+    "type": "bool"
+   },
+   {
+    "id": "hide_last_point",
+    "type": "bool"
+   }
   ]
  },
  "polar_to_cartesian": {
@@ -12790,7 +25576,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "polar_to_cartesian_grayscale": {
   "package": "cartesian_polar_transformation",
@@ -12807,7 +25594,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "polygon_1": {
   "package": "pattern_polygon_1",
@@ -12817,6 +25605,52 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Sides",
+    "type": "int"
+   },
+   {
+    "id": "Explode",
+    "type": "float"
+   },
+   {
+    "id": "TriangleSize",
+    "type": "float2"
+   },
+   {
+    "id": "Scale",
+    "type": "float"
+   },
+   {
+    "id": "AutoScale",
+    "type": "bool"
+   },
+   {
+    "id": "Rotation",
+    "type": "float"
+   },
+   {
+    "id": "Gradient",
+    "type": "bool"
+   },
+   {
+    "id": "GradientInvert",
+    "type": "bool"
+   },
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_tiling",
+    "type": "bool"
    }
   ]
  },
@@ -12828,6 +25662,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "Sides",
+    "type": "int"
+   },
+   {
+    "id": "Scale",
+    "type": "float"
+   },
+   {
+    "id": "Rotation",
+    "type": "float"
+   },
+   {
+    "id": "Curve",
+    "type": "float"
+   },
+   {
+    "id": "Gradient",
+    "type": "float"
+   },
+   {
+    "id": "InvertGradient",
+    "type": "bool"
+   },
+   {
+    "id": "autoscale",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -12846,6 +25718,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "exponent",
+    "type": "float"
+   }
   ]
  },
  "pow_grayscale": {
@@ -12862,6 +25740,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "exponent",
+    "type": "float"
    }
   ]
  },
@@ -12880,7 +25764,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "quad_transform": {
   "package": "quad_transform",
@@ -12896,6 +25781,40 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "p00",
+    "type": "float2"
+   },
+   {
+    "id": "p01",
+    "type": "float2"
+   },
+   {
+    "id": "p10",
+    "type": "float2"
+   },
+   {
+    "id": "p11",
+    "type": "float2"
+   },
+   {
+    "id": "culling",
+    "type": "int"
+   },
+   {
+    "id": "enable_tiling",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "sampling",
+    "type": "int"
    }
   ]
  },
@@ -12914,6 +25833,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "p00",
+    "type": "float2"
+   },
+   {
+    "id": "p01",
+    "type": "float2"
+   },
+   {
+    "id": "p10",
+    "type": "float2"
+   },
+   {
+    "id": "p11",
+    "type": "float2"
+   },
+   {
+    "id": "culling",
+    "type": "int"
+   },
+   {
+    "id": "enable_tiling",
+    "type": "bool"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "sampling",
+    "type": "int"
+   }
   ]
  },
  "quad_transform_path": {
@@ -12931,6 +25884,24 @@ export const LIBRARY = {
     "id": "paths",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "p00",
+    "type": "float2"
+   },
+   {
+    "id": "p01",
+    "type": "float2"
+   },
+   {
+    "id": "p10",
+    "type": "float2"
+   },
+   {
+    "id": "p11",
+    "type": "float2"
+   }
   ]
  },
  "quantize": {
@@ -12947,6 +25918,24 @@ export const LIBRARY = {
    {
     "id": "Quantize",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Quantize_R",
+    "type": "int"
+   },
+   {
+    "id": "Quantize_G",
+    "type": "int"
+   },
+   {
+    "id": "Quantize_B",
+    "type": "int"
+   },
+   {
+    "id": "Quantize_A",
+    "type": "int"
    }
   ]
  },
@@ -12977,6 +25966,40 @@ export const LIBRARY = {
     "id": "palette_color_amount",
     "type": "value"
    }
+  ],
+  "parameters": [
+   {
+    "id": "color_amount",
+    "type": "int"
+   },
+   {
+    "id": "contour_smoothing",
+    "type": "float"
+   },
+   {
+    "id": "dithering",
+    "type": "float"
+   },
+   {
+    "id": "dithering_pattern",
+    "type": "int"
+   },
+   {
+    "id": "ignore_alpha",
+    "type": "bool"
+   },
+   {
+    "id": "distance_color_space",
+    "type": "int"
+   },
+   {
+    "id": "id_sort_mode",
+    "type": "int"
+   },
+   {
+    "id": "downscale_filtering",
+    "type": "int"
+   }
   ]
  },
  "quantize_grayscale": {
@@ -12999,6 +26022,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "steps",
+    "type": "int"
+   },
+   {
+    "id": "offset",
+    "type": "float"
+   },
+   {
+    "id": "slope",
+    "type": "float"
+   },
+   {
+    "id": "slope_curve",
+    "type": "int"
+   }
   ]
  },
  "radial_blur": {
@@ -13015,6 +26056,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "samples",
+    "type": "int"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "center_position",
+    "type": "float2"
    }
   ]
  },
@@ -13033,6 +26088,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "samples",
+    "type": "int"
+   },
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "center_position",
+    "type": "float2"
+   }
   ]
  },
  "reaction_diffusion": {
@@ -13049,6 +26118,16 @@ export const LIBRARY = {
    {
     "id": "Output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
    }
   ]
  },
@@ -13067,6 +26146,16 @@ export const LIBRARY = {
     "id": "ToTargetColor",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "SourceColor",
+    "type": "float3"
+   },
+   {
+    "id": "TargetColor",
+    "type": "float3"
+   }
   ]
  },
  "replace_color_range": {
@@ -13083,6 +26172,24 @@ export const LIBRARY = {
    {
     "id": "ToTargetColorRange",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "SourceColor",
+    "type": "float3"
+   },
+   {
+    "id": "TargetColor",
+    "type": "float3"
+   },
+   {
+    "id": "SourceRange",
+    "type": "float"
+   },
+   {
+    "id": "threshold",
+    "type": "float"
    }
   ]
  },
@@ -13106,7 +26213,8 @@ export const LIBRARY = {
     "id": "RGB-A_Merge",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "rgb-a_split": {
   "package": "rgb-a_split",
@@ -13127,7 +26235,8 @@ export const LIBRARY = {
     "id": "A",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "rgba_merge": {
   "package": "rgba_merge",
@@ -13159,7 +26268,8 @@ export const LIBRARY = {
     "id": "RGBA_Merge",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "rgba_split": {
   "package": "rgba_split",
@@ -13188,7 +26298,8 @@ export const LIBRARY = {
     "id": "A",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "rock_weathering": {
   "package": "rock_weathering_material",
@@ -13297,6 +26408,132 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "mask",
+    "type": "bool"
+   },
+   {
+    "id": "dust",
+    "type": "float"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "edges_wearing",
+    "type": "float"
+   },
+   {
+    "id": "used_rock",
+    "type": "float"
+   },
+   {
+    "id": "cracks_scale",
+    "type": "float"
+   },
+   {
+    "id": "cracks_intensity",
+    "type": "float"
+   },
+   {
+    "id": "age",
+    "type": "float"
+   },
+   {
+    "id": "age_threshlod",
+    "type": "float"
+   },
+   {
+    "id": "sharp_edges_scratches_scale",
+    "type": "float"
+   },
+   {
+    "id": "sharp_edges_scratches_warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "used_rock_desaturation",
+    "type": "float"
+   },
+   {
+    "id": "used_rock_brightness",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_intensity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_intensity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_intensity",
+    "type": "float"
+   }
   ]
  },
  "rough_concrete_with_lines": {
@@ -13340,6 +26577,92 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "age",
+    "type": "float"
+   },
+   {
+    "id": "joints",
+    "type": "int"
+   },
+   {
+    "id": "concrete_color",
+    "type": "float3"
+   }
   ]
  },
  "rt_ao": {
@@ -13356,6 +26679,36 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "use_physical_size",
+    "type": "bool"
+   },
+   {
+    "id": "physical_size",
+    "type": "float3"
+   },
+   {
+    "id": "samples",
+    "type": "int"
+   },
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "distribution",
+    "type": "int"
+   },
+   {
+    "id": "max_distance",
+    "type": "float"
+   },
+   {
+    "id": "spread_angle",
+    "type": "float"
    }
   ]
  },
@@ -13374,6 +26727,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "use_physical_size",
+    "type": "bool"
+   },
+   {
+    "id": "physical_size",
+    "type": "float3"
+   },
+   {
+    "id": "samples",
+    "type": "int"
+   },
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "distribution",
+    "type": "int"
+   },
+   {
+    "id": "max_distance",
+    "type": "float"
+   },
+   {
+    "id": "spread_angle",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   }
   ]
  },
  "rt_caustics_color": {
@@ -13391,6 +26778,52 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "output_color_space",
+    "type": "int"
+   },
+   {
+    "id": "photon_grid_size",
+    "type": "int"
+   },
+   {
+    "id": "surface_height_scale",
+    "type": "float"
+   },
+   {
+    "id": "surface_height_position",
+    "type": "float"
+   },
+   {
+    "id": "surface_ior",
+    "type": "float"
+   },
+   {
+    "id": "photon_size",
+    "type": "float"
+   },
+   {
+    "id": "dispersion",
+    "type": "float"
+   },
+   {
+    "id": "jittering",
+    "type": "float"
+   },
+   {
+    "id": "light_position",
+    "type": "float2"
+   },
+   {
+    "id": "background_color",
+    "type": "float3"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "rt_caustics_grayscale": {
@@ -13407,6 +26840,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "output_color_space",
+    "type": "int"
+   },
+   {
+    "id": "photon_grid_size",
+    "type": "int"
+   },
+   {
+    "id": "surface_height_scale",
+    "type": "float"
+   },
+   {
+    "id": "surface_height_position",
+    "type": "float"
+   },
+   {
+    "id": "surface_ior",
+    "type": "float"
+   },
+   {
+    "id": "photon_size",
+    "type": "float"
+   },
+   {
+    "id": "jittering",
+    "type": "float"
+   },
+   {
+    "id": "light_position",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -13449,6 +26920,44 @@ export const LIBRARY = {
     "id": "raw_irradiance",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "quality",
+    "type": "int"
+   },
+   {
+    "id": "compute_bounces",
+    "type": "bool"
+   },
+   {
+    "id": "environment_rotation",
+    "type": "float"
+   },
+   {
+    "id": "environment_exposure",
+    "type": "float"
+   },
+   {
+    "id": "emissive_intensity",
+    "type": "float"
+   },
+   {
+    "id": "emissive_color_space",
+    "type": "int"
+   },
+   {
+    "id": "ibl_shadows_in_raw_irradiance_alpha",
+    "type": "bool"
+   },
+   {
+    "id": "emissive_lod_bias",
+    "type": "float"
+   }
   ]
  },
  "rt_shadows": {
@@ -13465,6 +26974,56 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "samples",
+    "type": "int"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "light_position",
+    "type": "float2"
+   },
+   {
+    "id": "light_intensity",
+    "type": "float"
+   },
+   {
+    "id": "light_size",
+    "type": "float2"
+   },
+   {
+    "id": "light_scale",
+    "type": "float"
+   },
+   {
+    "id": "keep_light_above_horizon",
+    "type": "bool"
+   },
+   {
+    "id": "shadows_opacity",
+    "type": "float"
+   },
+   {
+    "id": "shadows_attenuation",
+    "type": "float"
+   },
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "max_shadow_length",
+    "type": "float"
    }
   ]
  },
@@ -13575,6 +27134,112 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "mask",
+    "type": "bool"
+   },
+   {
+    "id": "rust_spreading",
+    "type": "float"
+   },
+   {
+    "id": "spreading_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "vernish_damage_scale",
+    "type": "float"
+   },
+   {
+    "id": "drips_intensity",
+    "type": "float"
+   },
+   {
+    "id": "drips_samples_amount",
+    "type": "int"
+   },
+   {
+    "id": "drips_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "diffuse_intensity",
+    "type": "float"
+   },
+   {
+    "id": "basecolor_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "specular_intensity",
+    "type": "float"
+   },
+   {
+    "id": "glossiness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "roughness_intensity",
+    "type": "float"
+   },
+   {
+    "id": "metallic_intensity",
+    "type": "float"
+   },
+   {
+    "id": "height_intensity",
+    "type": "float"
+   },
+   {
+    "id": "ambient_occlusion_intensity",
+    "type": "float"
+   }
   ]
  },
  "safe_transform": {
@@ -13592,6 +27257,44 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "tile",
+    "type": "int"
+   },
+   {
+    "id": "offset_mode",
+    "type": "int"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "tile_safe_rotation",
+    "type": "bool"
+   },
+   {
+    "id": "symmetry",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "mipmapmode",
+    "type": "int"
+   },
+   {
+    "id": "manualmiplevel",
+    "type": "int"
+   }
   ]
  },
  "safe_transform_grayscale": {
@@ -13608,6 +27311,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "tile",
+    "type": "int"
+   },
+   {
+    "id": "offset_mode",
+    "type": "int"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "tile_safe_rotation",
+    "type": "bool"
+   },
+   {
+    "id": "symmetry",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "mipmapmode",
+    "type": "int"
+   },
+   {
+    "id": "manualmiplevel",
+    "type": "int"
    }
   ]
  },
@@ -13691,6 +27432,320 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "spline_input",
+    "type": "int"
+   },
+   {
+    "id": "spline_index",
+    "type": "int"
+   },
+   {
+    "id": "sline_range",
+    "type": "int2"
+   },
+   {
+    "id": "scatter_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_amount",
+    "type": "int"
+   },
+   {
+    "id": "shape_distribution_along_spline",
+    "type": "int"
+   },
+   {
+    "id": "shape_spacing",
+    "type": "float"
+   },
+   {
+    "id": "start",
+    "type": "float"
+   },
+   {
+    "id": "end",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "shape_pivot",
+    "type": "float2"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_variation",
+    "type": "float"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_alpha_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_jiterring",
+    "type": "float"
+   },
+   {
+    "id": "override_first_pattern",
+    "type": "bool"
+   },
+   {
+    "id": "first_pattern_input_index",
+    "type": "int"
+   },
+   {
+    "id": "override_last_pattern",
+    "type": "bool"
+   },
+   {
+    "id": "last_pattern_input_index",
+    "type": "int"
+   },
+   {
+    "id": "duplicates_distribution_mode",
+    "type": "int"
+   },
+   {
+    "id": "duplicates_amount",
+    "type": "int"
+   },
+   {
+    "id": "duplicates_local_offset",
+    "type": "float2"
+   },
+   {
+    "id": "duplicates_offset_center",
+    "type": "float2"
+   },
+   {
+    "id": "duplicates_spread_angle",
+    "type": "float"
+   },
+   {
+    "id": "duplicates_offset_distance",
+    "type": "float"
+   },
+   {
+    "id": "duplicates_rotation",
+    "type": "float"
+   },
+   {
+    "id": "duplicates_offset_start_end_attenuation",
+    "type": "float2"
+   },
+   {
+    "id": "offset_attenuation_by_thickness",
+    "type": "float"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "size_thickness_affects",
+    "type": "int"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "size_random",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "float"
+   },
+   {
+    "id": "thickness_scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_scale_start_end_attenuation",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_random",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_random_center",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_start_end_attenuation",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_attenuation_by_thickness",
+    "type": "float"
+   },
+   {
+    "id": "offset_on_spline",
+    "type": "float"
+   },
+   {
+    "id": "random_offset_on_spline",
+    "type": "float"
+   },
+   {
+    "id": "rotation_align_with_tangent",
+    "type": "bool"
+   },
+   {
+    "id": "rotation_around_pivot",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_pivot_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_pivot_random_center",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_center",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_center_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_center_random_center",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_base_color",
+    "type": "float4"
+   },
+   {
+    "id": "color_map_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "color_map_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_color",
+    "type": "float4"
+   },
+   {
+    "id": "random_color_center",
+    "type": "float4"
+   },
+   {
+    "id": "spline_thickness_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_index_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "spline_height_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_color_luminance",
+    "type": "float"
+   },
+   {
+    "id": "spline_thickness_alpha_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_alpha_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_index_alpha_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "spline_height_alpha_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_alpha_luminance",
+    "type": "float"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_threshold",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "invert_mask_map",
+    "type": "bool"
+   },
+   {
+    "id": "mask_invert",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   }
   ]
  },
  "scatter_on_spline_grayscale": {
@@ -13773,6 +27828,288 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "spline_input",
+    "type": "int"
+   },
+   {
+    "id": "spline_index",
+    "type": "int"
+   },
+   {
+    "id": "sline_range",
+    "type": "int2"
+   },
+   {
+    "id": "scatter_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_amount",
+    "type": "int"
+   },
+   {
+    "id": "shape_distribution_along_spline",
+    "type": "int"
+   },
+   {
+    "id": "shape_spacing",
+    "type": "float"
+   },
+   {
+    "id": "start",
+    "type": "float"
+   },
+   {
+    "id": "end",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "shape_pivot",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_variation",
+    "type": "float"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_jiterring",
+    "type": "float"
+   },
+   {
+    "id": "override_first_pattern",
+    "type": "bool"
+   },
+   {
+    "id": "first_pattern_input_index",
+    "type": "int"
+   },
+   {
+    "id": "override_last_pattern",
+    "type": "bool"
+   },
+   {
+    "id": "last_pattern_input_index",
+    "type": "int"
+   },
+   {
+    "id": "duplicates_distribution_mode",
+    "type": "int"
+   },
+   {
+    "id": "duplicates_amount",
+    "type": "int"
+   },
+   {
+    "id": "duplicates_local_offset",
+    "type": "float2"
+   },
+   {
+    "id": "duplicates_offset_center",
+    "type": "float2"
+   },
+   {
+    "id": "duplicates_spread_angle",
+    "type": "float"
+   },
+   {
+    "id": "duplicates_offset_distance",
+    "type": "float"
+   },
+   {
+    "id": "duplicates_rotation",
+    "type": "float"
+   },
+   {
+    "id": "duplicates_offset_start_end_attenuation",
+    "type": "float2"
+   },
+   {
+    "id": "offset_attenuation_by_thickness",
+    "type": "float"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "size_thickness_affects",
+    "type": "int"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "size_random",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "float"
+   },
+   {
+    "id": "thickness_scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_scale_start_end_attenuation",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_random",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_random_center",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_start_end_attenuation",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset_attenuation_by_thickness",
+    "type": "float"
+   },
+   {
+    "id": "offset_on_spline",
+    "type": "float"
+   },
+   {
+    "id": "random_offset_on_spline",
+    "type": "float"
+   },
+   {
+    "id": "rotation_align_with_tangent",
+    "type": "bool"
+   },
+   {
+    "id": "rotation_around_pivot",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_pivot_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_pivot_random_center",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_center",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_center_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_around_center_random_center",
+    "type": "float"
+   },
+   {
+    "id": "blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "shape_base_color",
+    "type": "float"
+   },
+   {
+    "id": "shape_base_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "spline_thickness_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_index_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_luminance",
+    "type": "float"
+   },
+   {
+    "id": "hemisphere_height_mode",
+    "type": "int"
+   },
+   {
+    "id": "spline_height_color_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_map_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_map_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_threshold",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "invert_mask_map",
+    "type": "bool"
+   },
+   {
+    "id": "mask_invert",
+    "type": "bool"
+   }
   ]
  },
  "scatter_splines_on_splines": {
@@ -13832,6 +28169,240 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "side",
+    "type": "int"
+   },
+   {
+    "id": "amount_mode",
+    "type": "int"
+   },
+   {
+    "id": "spline_amount_per_spline",
+    "type": "int"
+   },
+   {
+    "id": "spline_spacing",
+    "type": "float"
+   },
+   {
+    "id": "spline_type",
+    "type": "int"
+   },
+   {
+    "id": "custom_spline_selection",
+    "type": "int"
+   },
+   {
+    "id": "start",
+    "type": "float"
+   },
+   {
+    "id": "end",
+    "type": "float"
+   },
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "left_right_symmetry_mode",
+    "type": "int"
+   },
+   {
+    "id": "left_right_random_link",
+    "type": "bool"
+   },
+   {
+    "id": "spline_pivot_mode",
+    "type": "int"
+   },
+   {
+    "id": "pivot_position_along_spline",
+    "type": "float"
+   },
+   {
+    "id": "pivot_absolute_position",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "scale_start_end_attenuation",
+    "type": "float2"
+   },
+   {
+    "id": "local_offset",
+    "type": "float2"
+   },
+   {
+    "id": "offset_on_spline_range",
+    "type": "int"
+   },
+   {
+    "id": "offset_on_spline",
+    "type": "float"
+   },
+   {
+    "id": "random_offset_range",
+    "type": "int"
+   },
+   {
+    "id": "random_offset_on_spline",
+    "type": "float"
+   },
+   {
+    "id": "offset_by_thickness",
+    "type": "float"
+   },
+   {
+    "id": "custom_spline_alignment",
+    "type": "int"
+   },
+   {
+    "id": "rotation_mode",
+    "type": "int"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "left_right_angle",
+    "type": "float"
+   },
+   {
+    "id": "left_right_angle_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_map_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rotation_map_input_sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "rotation_map_input_affects",
+    "type": "int"
+   },
+   {
+    "id": "start_height_mode",
+    "type": "int"
+   },
+   {
+    "id": "start_height_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "start_height_offset",
+    "type": "float"
+   },
+   {
+    "id": "start_height",
+    "type": "float"
+   },
+   {
+    "id": "end_height_mode",
+    "type": "int"
+   },
+   {
+    "id": "end_height_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "end_height_offset",
+    "type": "float"
+   },
+   {
+    "id": "end_height",
+    "type": "float"
+   },
+   {
+    "id": "start_thickness_mode",
+    "type": "int"
+   },
+   {
+    "id": "start_thickness_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "start_thickness_offset",
+    "type": "float"
+   },
+   {
+    "id": "start_thickness",
+    "type": "float"
+   },
+   {
+    "id": "end_thickness_mode",
+    "type": "int"
+   },
+   {
+    "id": "end_thickness_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "end_thickness_offset",
+    "type": "float"
+   },
+   {
+    "id": "end_thickness",
+    "type": "float"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "background_intensity",
+    "type": "float"
+   },
+   {
+    "id": "custom_spline_amount",
+    "type": "int"
+   }
   ]
  },
  "scratches_generator": {
@@ -13842,6 +28413,76 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "spline_number",
+    "type": "int"
+   },
+   {
+    "id": "max_segments_per_spline",
+    "type": "int"
+   },
+   {
+    "id": "spline_rotation",
+    "type": "float"
+   },
+   {
+    "id": "spline_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_scale",
+    "type": "float"
+   },
+   {
+    "id": "spline_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_distortion",
+    "type": "float"
+   },
+   {
+    "id": "spline_distortion_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_distortion_frequency",
+    "type": "float"
+   },
+   {
+    "id": "spline_width",
+    "type": "float"
+   },
+   {
+    "id": "spline_width_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_position_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_width_in_pixel",
+    "type": "bool"
+   },
+   {
+    "id": "luminance_random",
+    "type": "float"
+   },
+   {
+    "id": "fade_mode",
+    "type": "int"
+   },
+   {
+    "id": "fade_length",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -13857,6 +28498,84 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "spline_number",
+    "type": "int"
+   },
+   {
+    "id": "max_segments_per_spline",
+    "type": "int"
+   },
+   {
+    "id": "spline_rotation",
+    "type": "float"
+   },
+   {
+    "id": "spline_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_scale",
+    "type": "float"
+   },
+   {
+    "id": "spline_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_distortion",
+    "type": "float"
+   },
+   {
+    "id": "spline_distortion_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_distortion_frequency",
+    "type": "float"
+   },
+   {
+    "id": "spline_width",
+    "type": "float"
+   },
+   {
+    "id": "spline_width_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_position_random",
+    "type": "float"
+   },
+   {
+    "id": "spline_width_in_pixel",
+    "type": "bool"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity_random",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "fade_mode",
+    "type": "int"
+   },
+   {
+    "id": "fade_length",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -13875,6 +28594,24 @@ export const LIBRARY = {
     "id": "paths",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "path_id",
+    "type": "float"
+   },
+   {
+    "id": "greater",
+    "type": "bool"
+   },
+   {
+    "id": "length",
+    "type": "float"
+   }
   ]
  },
  "shadows": {
@@ -13892,6 +28629,24 @@ export const LIBRARY = {
     "id": "shadows",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "shadow_distance",
+    "type": "float"
+   },
+   {
+    "id": "light_angle",
+    "type": "float"
+   },
+   {
+    "id": "edges_softness",
+    "type": "float"
+   },
+   {
+    "id": "Samples",
+    "type": "int"
+   }
   ]
  },
  "shape": {
@@ -13902,6 +28657,44 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "Pattern",
+    "type": "int"
+   },
+   {
+    "id": "Pattern_Specific",
+    "type": "float"
+   },
+   {
+    "id": "Size",
+    "type": "float"
+   },
+   {
+    "id": "Size_xy",
+    "type": "float2"
+   },
+   {
+    "id": "Angle",
+    "type": "float"
+   },
+   {
+    "id": "Rotation",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_tiling",
+    "type": "bool"
    }
   ]
  },
@@ -13924,6 +28717,40 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "distance",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float"
+   },
+   {
+    "id": "spread",
+    "type": "float"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "glow_color",
+    "type": "float3"
+   },
+   {
+    "id": "input_is_premult",
+    "type": "bool"
+   },
+   {
+    "id": "pre_multiply_output",
+    "type": "bool"
+   }
   ]
  },
  "shape_drop_shadow_grayscale": {
@@ -13944,6 +28771,40 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "angle",
+    "type": "float"
+   },
+   {
+    "id": "distance",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float"
+   },
+   {
+    "id": "spread",
+    "type": "float"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "shadow_color",
+    "type": "float3"
+   },
+   {
+    "id": "mask_color",
+    "type": "float3"
+   },
+   {
+    "id": "pre_multiply_output",
+    "type": "bool"
    }
   ]
  },
@@ -13972,6 +28833,60 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "extrude_height",
+    "type": "float"
+   },
+   {
+    "id": "extrude_depth",
+    "type": "float"
+   },
+   {
+    "id": "extrude_shape",
+    "type": "int"
+   },
+   {
+    "id": "extrude_shape_size",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "profile_type",
+    "type": "int"
+   },
+   {
+    "id": "bevel_height",
+    "type": "float"
+   },
+   {
+    "id": "bevel_intensity",
+    "type": "float"
+   },
+   {
+    "id": "bevel_curve",
+    "type": "float"
+   },
+   {
+    "id": "mirror_bevel",
+    "type": "bool"
+   },
+   {
+    "id": "downscale",
+    "type": "int"
+   },
+   {
+    "id": "position",
+    "type": "float2"
+   },
+   {
+    "id": "output_range",
+    "type": "int"
+   }
   ]
  },
  "shape_glow_color": {
@@ -13992,6 +28907,36 @@ export const LIBRARY = {
    {
     "id": "mask",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "width",
+    "type": "float"
+   },
+   {
+    "id": "spread",
+    "type": "float"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "glow_color",
+    "type": "float3"
+   },
+   {
+    "id": "input_is_premult",
+    "type": "bool"
+   },
+   {
+    "id": "pre_multiply_output",
+    "type": "bool"
    }
   ]
  },
@@ -14014,6 +28959,36 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "width",
+    "type": "float"
+   },
+   {
+    "id": "spread",
+    "type": "float"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "glow_color",
+    "type": "float3"
+   },
+   {
+    "id": "mask_color",
+    "type": "float3"
+   },
+   {
+    "id": "pre_multiply_output",
+    "type": "bool"
+   }
   ]
  },
  "shape_mapper": {
@@ -14030,6 +29005,48 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "pattern_amount",
+    "type": "int"
+   },
+   {
+    "id": "link_segments_pattern_amount",
+    "type": "bool"
+   },
+   {
+    "id": "segments",
+    "type": "int"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "width",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "flip_1on_2",
+    "type": "bool"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -14136,6 +29153,176 @@ export const LIBRARY = {
     "id": "splatter_data_2",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_mode",
+    "type": "int"
+   },
+   {
+    "id": "pattern_distribution_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_no_overlap",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_size",
+    "type": "float2"
+   },
+   {
+    "id": "shape_size_ratio_from_background_slope",
+    "type": "float"
+   },
+   {
+    "id": "shape_size_by_xy_amount_ratio",
+    "type": "float"
+   },
+   {
+    "id": "position_random",
+    "type": "float"
+   },
+   {
+    "id": "position_random_distribution",
+    "type": "int"
+   },
+   {
+    "id": "position_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_horizontal",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_vertical",
+    "type": "float"
+   },
+   {
+    "id": "avoid_previous_splatter_overlap",
+    "type": "float"
+   },
+   {
+    "id": "out_of_bounds_option",
+    "type": "int"
+   },
+   {
+    "id": "shape_rotation",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_from_background_slope",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_scale_auto_adjust",
+    "type": "bool"
+   },
+   {
+    "id": "height_offset",
+    "type": "float"
+   },
+   {
+    "id": "height_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "height_offset_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_scale",
+    "type": "float"
+   },
+   {
+    "id": "height_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "height_scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_conform_to_background",
+    "type": "float"
+   },
+   {
+    "id": "height_smooth_conformed_background",
+    "type": "float"
+   },
+   {
+    "id": "height_skew",
+    "type": "float"
+   },
+   {
+    "id": "height_background_slope_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "height_cutout_black_pixels",
+    "type": "bool"
+   },
+   {
+    "id": "height_flatten_pattern_base",
+    "type": "bool"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_random_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "mask_from_background_slope",
+    "type": "float"
+   }
   ]
  },
  "shape_splatter_blend": {
@@ -14207,6 +29394,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "pattern_number",
+    "type": "int"
+   },
+   {
+    "id": "luminance_adjustement",
+    "type": "float"
+   },
+   {
+    "id": "luminance_random",
+    "type": "float"
+   },
+   {
+    "id": "color_input_opacity",
+    "type": "float"
    }
   ]
  },
@@ -14280,6 +29485,40 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "pattern_number",
+    "type": "int"
+   },
+   {
+    "id": "random_pattern_assignment",
+    "type": "float"
+   },
+   {
+    "id": "is_normal",
+    "type": "bool"
+   },
+   {
+    "id": "input_normal_format",
+    "type": "int"
+   },
+   {
+    "id": "hsl_adjustement",
+    "type": "float3"
+   },
+   {
+    "id": "hsl_random",
+    "type": "float3"
+   },
+   {
+    "id": "normal_angle_random",
+    "type": "float"
+   },
+   {
+    "id": "color_input_opacity",
+    "type": "float"
+   }
   ]
  },
  "shape_splatter_data_extract": {
@@ -14326,7 +29565,8 @@ export const LIBRARY = {
     "id": "shape_angle",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "shape_splatter_to_mask": {
   "package": "shape_splatter",
@@ -14342,6 +29582,24 @@ export const LIBRARY = {
    {
     "id": "position",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "id_range_start",
+    "type": "int"
+   },
+   {
+    "id": "id_range_end",
+    "type": "int"
+   },
+   {
+    "id": "random_mask",
+    "type": "float"
+   },
+   {
+    "id": "output",
+    "type": "int"
    }
   ]
  },
@@ -14364,6 +29622,28 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "width",
+    "type": "float"
+   },
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "outline_color",
+    "type": "float3"
+   },
+   {
+    "id": "input_is_premult",
+    "type": "bool"
+   },
+   {
+    "id": "premult_output",
+    "type": "bool"
+   }
   ]
  },
  "shape_stroke_grayscale": {
@@ -14385,6 +29665,28 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "width",
+    "type": "float"
+   },
+   {
+    "id": "Opacity",
+    "type": "float"
+   },
+   {
+    "id": "outline_color",
+    "type": "float3"
+   },
+   {
+    "id": "mask_color",
+    "type": "float3"
+   },
+   {
+    "id": "premult_output",
+    "type": "bool"
+   }
   ]
  },
  "skew": {
@@ -14402,6 +29704,20 @@ export const LIBRARY = {
     "id": "Skew",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Axis",
+    "type": "int"
+   },
+   {
+    "id": "Amount",
+    "type": "float"
+   },
+   {
+    "id": "Align",
+    "type": "int"
+   }
   ]
  },
  "skew_grayscale": {
@@ -14418,6 +29734,20 @@ export const LIBRARY = {
    {
     "id": "Skew",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Axis",
+    "type": "int"
+   },
+   {
+    "id": "Amount",
+    "type": "float"
+   },
+   {
+    "id": "Align",
+    "type": "int"
    }
   ]
  },
@@ -14441,6 +29771,20 @@ export const LIBRARY = {
     "id": "Slope_Blur",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Samples",
+    "type": "int"
+   },
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   }
   ]
  },
  "slope_blur_grayscale_2": {
@@ -14462,6 +29806,20 @@ export const LIBRARY = {
    {
     "id": "Slope_Blur",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Samples",
+    "type": "int"
+   },
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "mode",
+    "type": "int"
    }
   ]
  },
@@ -14506,6 +29864,76 @@ export const LIBRARY = {
    {
     "id": "pattern",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "crop_input_size",
+    "type": "int2"
+   },
+   {
+    "id": "crop_matrix",
+    "type": "float4"
+   },
+   {
+    "id": "crop_offset",
+    "type": "float2"
+   },
+   {
+    "id": "detect_edges",
+    "type": "bool"
+   },
+   {
+    "id": "edge_use_threshold_per_channel",
+    "type": "bool"
+   },
+   {
+    "id": "edge_threshold",
+    "type": "float"
+   },
+   {
+    "id": "edge_threshold_baseColor",
+    "type": "float"
+   },
+   {
+    "id": "edge_threshold_normal",
+    "type": "float"
+   },
+   {
+    "id": "edge_threshold_height",
+    "type": "float"
+   },
+   {
+    "id": "edge_cut_offset",
+    "type": "float2"
+   },
+   {
+    "id": "edge_blur",
+    "type": "float"
+   },
+   {
+    "id": "edge_smoothness",
+    "type": "float"
+   },
+   {
+    "id": "grid_resolution",
+    "type": "int"
+   },
+   {
+    "id": "edge_use_baseColor",
+    "type": "bool"
+   },
+   {
+    "id": "edge_use_normal",
+    "type": "bool"
+   },
+   {
+    "id": "edge_use_height",
+    "type": "bool"
+   },
+   {
+    "id": "edge_use_mask",
+    "type": "bool"
    }
   ]
  },
@@ -14601,6 +30029,52 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "channel_basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "channel_diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "channel_roughness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "channel_metallic",
+    "type": "bool"
+   },
+   {
+    "id": "channel_specular",
+    "type": "bool"
+   },
+   {
+    "id": "fresh_snow",
+    "type": "float"
+   },
+   {
+    "id": "melted_snow",
+    "type": "float"
+   },
+   {
+    "id": "buildup",
+    "type": "float"
+   },
+   {
+    "id": "smoothness",
+    "type": "float"
+   },
+   {
+    "id": "flakes_intensity",
+    "type": "float"
+   }
   ]
  },
  "sort_by_blue": {
@@ -14618,6 +30092,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "count",
+    "type": "float"
+   },
+   {
+    "id": "passthrough",
+    "type": "bool"
+   }
   ]
  },
  "splatter": {
@@ -14634,6 +30118,84 @@ export const LIBRARY = {
    {
     "id": "Splatter_Grayscale",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Pattern_size_width",
+    "type": "float"
+   },
+   {
+    "id": "Pattern_size_height",
+    "type": "float"
+   },
+   {
+    "id": "Rotation",
+    "type": "float"
+   },
+   {
+    "id": "Rotation_Var",
+    "type": "float"
+   },
+   {
+    "id": "Zoom",
+    "type": "float"
+   },
+   {
+    "id": "Gain",
+    "type": "float"
+   },
+   {
+    "id": "Pan_X",
+    "type": "float"
+   },
+   {
+    "id": "Pan_Y",
+    "type": "float"
+   },
+   {
+    "id": "Disorder",
+    "type": "float"
+   },
+   {
+    "id": "Grid_Number",
+    "type": "int"
+   },
+   {
+    "id": "Disorder_Angle",
+    "type": "float"
+   },
+   {
+    "id": "Disorder_Random",
+    "type": "bool"
+   },
+   {
+    "id": "PatternSize",
+    "type": "int"
+   },
+   {
+    "id": "Size_Var",
+    "type": "float"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "Output_Min",
+    "type": "float"
+   },
+   {
+    "id": "Output_Max",
+    "type": "float"
+   },
+   {
+    "id": "Background_color",
+    "type": "float"
+   },
+   {
+    "id": "Lum_Var",
+    "type": "float"
    }
   ]
  },
@@ -14682,6 +30244,200 @@ export const LIBRARY = {
     "id": "Splatter_Circular",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "pattern_amount",
+    "type": "int"
+   },
+   {
+    "id": "pattern_amount_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_amount_random_min",
+    "type": "int"
+   },
+   {
+    "id": "ring_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "Pattern_Specific",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "radius_random",
+    "type": "float"
+   },
+   {
+    "id": "ring_radius_mutliplier",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "spiral_factor",
+    "type": "float"
+   },
+   {
+    "id": "spread",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_direction",
+    "type": "float"
+   },
+   {
+    "id": "global_offset",
+    "type": "float2"
+   },
+   {
+    "id": "connect_patterns",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_size_connected",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_random",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_by_pattern_number",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_by_pattern_number_invert",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_scale_by_ring_number",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_by_ring_number_invert",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation_pivot",
+    "type": "int"
+   },
+   {
+    "id": "center_orientation",
+    "type": "bool"
+   },
+   {
+    "id": "ring_rotation",
+    "type": "float"
+   },
+   {
+    "id": "ring_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "ring_rotation_offset",
+    "type": "float"
+   },
+   {
+    "id": "pattern_color",
+    "type": "float"
+   },
+   {
+    "id": "luminance_random",
+    "type": "float"
+   },
+   {
+    "id": "luminance_by_scale",
+    "type": "float"
+   },
+   {
+    "id": "luminance_by_pattern_number",
+    "type": "float"
+   },
+   {
+    "id": "luminance_by_pattern_number_invert",
+    "type": "bool"
+   },
+   {
+    "id": "luminance_by_ring_number",
+    "type": "float"
+   },
+   {
+    "id": "luminance_by_ring_number_invert",
+    "type": "bool"
+   },
+   {
+    "id": "random_mask",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   }
   ]
  },
  "splatter_circular_color": {
@@ -14729,6 +30485,200 @@ export const LIBRARY = {
     "id": "Splatter_Circular",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "pattern_amount",
+    "type": "int"
+   },
+   {
+    "id": "pattern_amount_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_amount_random_min",
+    "type": "int"
+   },
+   {
+    "id": "ring_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "Pattern_Specific",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "radius",
+    "type": "float"
+   },
+   {
+    "id": "radius_random",
+    "type": "float"
+   },
+   {
+    "id": "ring_radius_mutliplier",
+    "type": "float"
+   },
+   {
+    "id": "angle_random",
+    "type": "float"
+   },
+   {
+    "id": "spiral_factor",
+    "type": "float"
+   },
+   {
+    "id": "spread",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_direction",
+    "type": "float"
+   },
+   {
+    "id": "global_offset",
+    "type": "float2"
+   },
+   {
+    "id": "connect_patterns",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_size_connected",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_random",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_scale",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_by_pattern_number",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_by_pattern_number_invert",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_scale_by_ring_number",
+    "type": "float"
+   },
+   {
+    "id": "pattern_scale_by_ring_number_invert",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation_pivot",
+    "type": "int"
+   },
+   {
+    "id": "center_orientation",
+    "type": "bool"
+   },
+   {
+    "id": "ring_rotation",
+    "type": "float"
+   },
+   {
+    "id": "ring_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "ring_rotation_offset",
+    "type": "float"
+   },
+   {
+    "id": "pattern_color",
+    "type": "float4"
+   },
+   {
+    "id": "pattern_color_random",
+    "type": "float4"
+   },
+   {
+    "id": "luminance_by_scale",
+    "type": "float"
+   },
+   {
+    "id": "luminance_by_pattern_number",
+    "type": "float"
+   },
+   {
+    "id": "luminance_by_pattern_number_invert",
+    "type": "bool"
+   },
+   {
+    "id": "luminance_by_ring_number",
+    "type": "float"
+   },
+   {
+    "id": "invert_ring_number",
+    "type": "bool"
+   },
+   {
+    "id": "random_mask",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   }
   ]
  },
  "splatter_color": {
@@ -14750,6 +30700,84 @@ export const LIBRARY = {
    {
     "id": "Splatter",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Pattern_size_width",
+    "type": "float"
+   },
+   {
+    "id": "Pattern_size_height",
+    "type": "float"
+   },
+   {
+    "id": "Rotation",
+    "type": "float"
+   },
+   {
+    "id": "Rotation_Var",
+    "type": "float"
+   },
+   {
+    "id": "Zoom",
+    "type": "float"
+   },
+   {
+    "id": "Gain",
+    "type": "float"
+   },
+   {
+    "id": "Pan_X",
+    "type": "float"
+   },
+   {
+    "id": "Pan_Y",
+    "type": "float"
+   },
+   {
+    "id": "Disorder",
+    "type": "float"
+   },
+   {
+    "id": "Grid_Number",
+    "type": "int"
+   },
+   {
+    "id": "Disorder_Angle",
+    "type": "float"
+   },
+   {
+    "id": "Disorder_Random",
+    "type": "bool"
+   },
+   {
+    "id": "PatternSize",
+    "type": "int"
+   },
+   {
+    "id": "Size_Var",
+    "type": "float"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "Output_Min",
+    "type": "float"
+   },
+   {
+    "id": "Output_Max",
+    "type": "float"
+   },
+   {
+    "id": "Background_Color",
+    "type": "float4"
+   },
+   {
+    "id": "Color_Var",
+    "type": "float"
    }
   ]
  },
@@ -14789,6 +30817,40 @@ export const LIBRARY = {
    {
     "id": "preview",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
    }
   ]
  },
@@ -14843,6 +30905,40 @@ export const LIBRARY = {
    {
     "id": "preview",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount_1",
+    "type": "int"
+   },
+   {
+    "id": "spline_amount_2",
+    "type": "int"
+   },
+   {
+    "id": "flip_spline_1_direction",
+    "type": "bool"
+   },
+   {
+    "id": "flip_spline_2_direction",
+    "type": "bool"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
    }
   ]
  },
@@ -14918,6 +31014,88 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "bridge_splines_amount",
+    "type": "int"
+   },
+   {
+    "id": "bridge_splines_type",
+    "type": "int"
+   },
+   {
+    "id": "spline_1_start",
+    "type": "float"
+   },
+   {
+    "id": "spline_2_start",
+    "type": "float"
+   },
+   {
+    "id": "spline_1_end",
+    "type": "float"
+   },
+   {
+    "id": "spline_2_end",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount_1",
+    "type": "int"
+   },
+   {
+    "id": "spline_amount_2",
+    "type": "int"
+   },
+   {
+    "id": "spline_1_offset",
+    "type": "float"
+   },
+   {
+    "id": "spline_2_offset",
+    "type": "float"
+   },
+   {
+    "id": "start_random_offset",
+    "type": "float"
+   },
+   {
+    "id": "end_random_offset",
+    "type": "float"
+   },
+   {
+    "id": "start_tangent_length",
+    "type": "float"
+   },
+   {
+    "id": "end_tangent_length",
+    "type": "float"
+   },
+   {
+    "id": "start_tangent_rotation",
+    "type": "float"
+   },
+   {
+    "id": "end_tangent_rotation",
+    "type": "float"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   }
   ]
  },
  "spline_bridge_list_v2": {
@@ -14956,6 +31134,112 @@ export const LIBRARY = {
    {
     "id": "preview",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "bridge_spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "bridge_splines_type",
+    "type": "int"
+   },
+   {
+    "id": "input_spline_are_closed",
+    "type": "bool"
+   },
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "close_bridge_spline",
+    "type": "bool"
+   },
+   {
+    "id": "first_bridge_spline_offset",
+    "type": "float2"
+   },
+   {
+    "id": "last_bridge_spline_offset",
+    "type": "float2"
+   },
+   {
+    "id": "random_offset_range",
+    "type": "int"
+   },
+   {
+    "id": "start_random_offset",
+    "type": "float"
+   },
+   {
+    "id": "end_random_offset",
+    "type": "float"
+   },
+   {
+    "id": "global_random_offset",
+    "type": "float"
+   },
+   {
+    "id": "uniform_distribution",
+    "type": "bool"
+   },
+   {
+    "id": "thickness_mode",
+    "type": "int"
+   },
+   {
+    "id": "thickness",
+    "type": "float"
+   },
+   {
+    "id": "thickness_random",
+    "type": "float"
+   },
+   {
+    "id": "height_mode",
+    "type": "int"
+   },
+   {
+    "id": "height_offset",
+    "type": "float"
+   },
+   {
+    "id": "height",
+    "type": "float"
+   },
+   {
+    "id": "height_random",
+    "type": "float"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   },
+   {
+    "id": "preview_background_intensity",
+    "type": "float"
    }
   ]
  },
@@ -15001,6 +31285,32 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "reduce_uv_stretching",
+    "type": "bool"
+   },
+   {
+    "id": "manual_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "uv_rotation",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   }
   ]
  },
  "spline_bridge_mapper_grayscale": {
@@ -15045,6 +31355,28 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "reduce_uv_stretching",
+    "type": "bool"
+   },
+   {
+    "id": "manual_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "uv_rotation",
+    "type": "float"
+   }
   ]
  },
  "spline_circle": {
@@ -15083,6 +31415,96 @@ export const LIBRARY = {
    {
     "id": "preview",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "circle_radius",
+    "type": "float"
+   },
+   {
+    "id": "circle_pre_rotation",
+    "type": "float"
+   },
+   {
+    "id": "circle_size",
+    "type": "float2"
+   },
+   {
+    "id": "circle_post_rotation",
+    "type": "float"
+   },
+   {
+    "id": "circle_position",
+    "type": "float2"
+   },
+   {
+    "id": "start_height",
+    "type": "float"
+   },
+   {
+    "id": "end_height",
+    "type": "float"
+   },
+   {
+    "id": "start_thickness",
+    "type": "float"
+   },
+   {
+    "id": "end_thickness",
+    "type": "float"
+   },
+   {
+    "id": "trim",
+    "type": "float2"
+   },
+   {
+    "id": "spiral",
+    "type": "float"
+   },
+   {
+    "id": "spiral_turns",
+    "type": "float"
+   },
+   {
+    "id": "spiral_power",
+    "type": "float"
+   },
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "uniform_distribution",
+    "type": "bool"
+   },
+   {
+    "id": "append_input_spline",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
    }
   ]
  },
@@ -15123,6 +31545,104 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "uniform_distribution",
+    "type": "bool"
+   },
+   {
+    "id": "append_input_spline",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "start_height",
+    "type": "float"
+   },
+   {
+    "id": "end_height",
+    "type": "float"
+   },
+   {
+    "id": "auto_tangent_height",
+    "type": "bool"
+   },
+   {
+    "id": "p1_height",
+    "type": "float"
+   },
+   {
+    "id": "p2_height",
+    "type": "float"
+   },
+   {
+    "id": "start_thickness",
+    "type": "float"
+   },
+   {
+    "id": "end_thickness",
+    "type": "float"
+   },
+   {
+    "id": "auto_tangent_thickness",
+    "type": "bool"
+   },
+   {
+    "id": "p1_thickness",
+    "type": "float"
+   },
+   {
+    "id": "p2_thickness",
+    "type": "float"
+   },
+   {
+    "id": "p1",
+    "type": "float2"
+   },
+   {
+    "id": "p1_tangent",
+    "type": "float2"
+   },
+   {
+    "id": "p2",
+    "type": "float2"
+   },
+   {
+    "id": "p2_tangent",
+    "type": "float2"
+   },
+   {
+    "id": "show_tangents",
+    "type": "bool"
+   },
+   {
+    "id": "show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   }
   ]
  },
  "spline_fill": {
@@ -15149,6 +31669,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "output",
+    "type": "int"
    }
   ]
  },
@@ -15181,6 +31711,68 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "draw_spline_index",
+    "type": "int"
+   },
+   {
+    "id": "draw_spline_range",
+    "type": "int2"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_mode",
+    "type": "int"
+   },
+   {
+    "id": "thickness",
+    "type": "float"
+   },
+   {
+    "id": "thickness_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "direction",
+    "type": "int"
+   },
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "attenuation_profile",
+    "type": "int"
+   },
+   {
+    "id": "start_attenuation",
+    "type": "bool"
+   },
+   {
+    "id": "end_attenuation",
+    "type": "bool"
+   },
+   {
+    "id": "spline_height_attenuation",
+    "type": "float"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
    }
   ]
  },
@@ -15236,6 +31828,100 @@ export const LIBRARY = {
     "id": "id",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "auto_scale_uvs",
+    "type": "bool"
+   },
+   {
+    "id": "manual_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "auto_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "draw_spline_index",
+    "type": "int"
+   },
+   {
+    "id": "draw_spline_range",
+    "type": "int2"
+   },
+   {
+    "id": "start",
+    "type": "float"
+   },
+   {
+    "id": "end",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_mode",
+    "type": "int"
+   },
+   {
+    "id": "thickness",
+    "type": "float"
+   },
+   {
+    "id": "thickness_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "cylinder_height_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "cylinder_height_offset",
+    "type": "float"
+   },
+   {
+    "id": "twist_uvs_intensity",
+    "type": "float"
+   },
+   {
+    "id": "twist_uvs_curve_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "twist_uvs_curve_offset",
+    "type": "float"
+   },
+   {
+    "id": "spline_height_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "input_map_height_multplier",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   }
   ]
  },
  "spline_mapper_grayscale": {
@@ -15290,6 +31976,100 @@ export const LIBRARY = {
     "id": "id",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "auto_scale_uvs",
+    "type": "bool"
+   },
+   {
+    "id": "manual_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "auto_uv_scale",
+    "type": "float2"
+   },
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "draw_spline_index",
+    "type": "int"
+   },
+   {
+    "id": "draw_spline_range",
+    "type": "int2"
+   },
+   {
+    "id": "start",
+    "type": "float"
+   },
+   {
+    "id": "end",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_mode",
+    "type": "int"
+   },
+   {
+    "id": "thickness",
+    "type": "float"
+   },
+   {
+    "id": "thickness_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape",
+    "type": "int"
+   },
+   {
+    "id": "cylinder_height_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "cylinder_height_offset",
+    "type": "float"
+   },
+   {
+    "id": "twist_uvs_intensity",
+    "type": "float"
+   },
+   {
+    "id": "twist_uvs_curve_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "twist_uvs_curve_offset",
+    "type": "float"
+   },
+   {
+    "id": "spline_height_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "input_map_height_multplier",
+    "type": "float"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   }
   ]
  },
  "spline_merge_list": {
@@ -15328,6 +32108,32 @@ export const LIBRARY = {
    {
     "id": "preview",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "closed_spline_distance_threshold",
+    "type": "float"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
    }
   ]
  },
@@ -15378,6 +32184,192 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "point_amount",
+    "type": "int"
+   },
+   {
+    "id": "input_spline_connection_mode",
+    "type": "int"
+   },
+   {
+    "id": "close_spline",
+    "type": "bool"
+   },
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "use_input_point_list",
+    "type": "bool"
+   },
+   {
+    "id": "connect_start_to_input_spline",
+    "type": "bool"
+   },
+   {
+    "id": "start_connection_spline_index",
+    "type": "int"
+   },
+   {
+    "id": "start_connection_position",
+    "type": "float"
+   },
+   {
+    "id": "connect_end_to_input_spline",
+    "type": "bool"
+   },
+   {
+    "id": "end_connection_spline_index",
+    "type": "int"
+   },
+   {
+    "id": "end_connection_position",
+    "type": "float"
+   },
+   {
+    "id": "uniform_distribution",
+    "type": "bool"
+   },
+   {
+    "id": "append_input_spline",
+    "type": "bool"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "point_number_input",
+    "type": "int"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "global_smoothness_adjustment",
+    "type": "float"
+   },
+   {
+    "id": "p1_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p2_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p3_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p4_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p5_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p6_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p7_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p8_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p9_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p10_properties",
+    "type": "float3"
+   },
+   {
+    "id": "p1",
+    "type": "float2"
+   },
+   {
+    "id": "p2",
+    "type": "float2"
+   },
+   {
+    "id": "p3",
+    "type": "float2"
+   },
+   {
+    "id": "p4",
+    "type": "float2"
+   },
+   {
+    "id": "p5",
+    "type": "float2"
+   },
+   {
+    "id": "p6",
+    "type": "float2"
+   },
+   {
+    "id": "p7",
+    "type": "float2"
+   },
+   {
+    "id": "p8",
+    "type": "float2"
+   },
+   {
+    "id": "p9",
+    "type": "float2"
+   },
+   {
+    "id": "p10",
+    "type": "float2"
+   },
+   {
+    "id": "show_tangents",
+    "type": "bool"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "show_points_label",
+    "type": "bool"
+   },
+   {
+    "id": "points_label_size",
+    "type": "float"
+   },
+   {
+    "id": "show_points",
+    "type": "bool"
+   },
+   {
+    "id": "points_size",
+    "type": "float"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   }
   ]
  },
  "spline_quadratic": {
@@ -15417,6 +32409,96 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "flip_direction",
+    "type": "bool"
+   },
+   {
+    "id": "uniform_distribution",
+    "type": "bool"
+   },
+   {
+    "id": "append_input_spline",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "smoothness",
+    "type": "float"
+   },
+   {
+    "id": "start_height",
+    "type": "float"
+   },
+   {
+    "id": "end_height",
+    "type": "float"
+   },
+   {
+    "id": "auto_tangent_height",
+    "type": "bool"
+   },
+   {
+    "id": "tangent_height",
+    "type": "float"
+   },
+   {
+    "id": "start_thickness",
+    "type": "float"
+   },
+   {
+    "id": "end_thickness",
+    "type": "float"
+   },
+   {
+    "id": "auto_tangent_thickness",
+    "type": "bool"
+   },
+   {
+    "id": "tangent_thickness",
+    "type": "float"
+   },
+   {
+    "id": "p1",
+    "type": "float2"
+   },
+   {
+    "id": "p2",
+    "type": "float2"
+   },
+   {
+    "id": "p3",
+    "type": "float2"
+   },
+   {
+    "id": "show_tangents",
+    "type": "bool"
+   },
+   {
+    "id": "show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   }
   ]
  },
  "spline_render": {
@@ -15443,6 +32525,100 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "mode",
+    "type": "int"
+   },
+   {
+    "id": "show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "draw_spline_index",
+    "type": "int"
+   },
+   {
+    "id": "draw_spline_range",
+    "type": "int2"
+   },
+   {
+    "id": "segments_amount",
+    "type": "int"
+   },
+   {
+    "id": "envelope_spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "start",
+    "type": "float"
+   },
+   {
+    "id": "end",
+    "type": "float"
+   },
+   {
+    "id": "thickness_size_mode",
+    "type": "int"
+   },
+   {
+    "id": "thickness_image",
+    "type": "float"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   },
+   {
+    "id": "enable_joints",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_correction",
+    "type": "bool"
+   },
+   {
+    "id": "background_intensity",
+    "type": "float"
+   },
+   {
+    "id": "spline_style",
+    "type": "int"
+   },
+   {
+    "id": "spline_color",
+    "type": "float"
+   },
+   {
+    "id": "random_luminance",
+    "type": "float"
+   },
+   {
+    "id": "blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_segments_start",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "random_segments_end",
+    "type": "float"
+   },
+   {
+    "id": "random_segments_random_offset",
+    "type": "float"
+   },
+   {
+    "id": "random_segments_random_offset_center",
+    "type": "float"
    }
   ]
  },
@@ -15488,6 +32664,40 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   }
   ]
  },
  "spline_sample_thickness": {
@@ -15532,6 +32742,40 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "opacity",
+    "type": "float"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   }
   ]
  },
  "spline_select": {
@@ -15570,6 +32814,52 @@ export const LIBRARY = {
    {
     "id": "preview",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "selection_mode",
+    "type": "int"
+   },
+   {
+    "id": "spline_index",
+    "type": "int"
+   },
+   {
+    "id": "range_start",
+    "type": "int"
+   },
+   {
+    "id": "range_end",
+    "type": "int"
+   },
+   {
+    "id": "start",
+    "type": "float"
+   },
+   {
+    "id": "end",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
    }
   ]
  },
@@ -15625,6 +32915,68 @@ export const LIBRARY = {
     "id": "preview",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "warp_intensity",
+    "type": "float"
+   },
+   {
+    "id": "spline_amount",
+    "type": "int"
+   },
+   {
+    "id": "warp_center",
+    "type": "float"
+   },
+   {
+    "id": "sampling_mode",
+    "type": "int"
+   },
+   {
+    "id": "use_vector_map",
+    "type": "bool"
+   },
+   {
+    "id": "use_attenuation_curve",
+    "type": "bool"
+   },
+   {
+    "id": "intensity_map_tiling",
+    "type": "float"
+   },
+   {
+    "id": "start_attenuation",
+    "type": "float"
+   },
+   {
+    "id": "end_attenuation",
+    "type": "float"
+   },
+   {
+    "id": "recompute_tangents",
+    "type": "bool"
+   },
+   {
+    "id": "preview_show_direction_helper",
+    "type": "bool"
+   },
+   {
+    "id": "show_thickness_envelope",
+    "type": "bool"
+   },
+   {
+    "id": "preview_segment_amount",
+    "type": "int"
+   },
+   {
+    "id": "thickness_px",
+    "type": "float"
+   },
+   {
+    "id": "background_intensity",
+    "type": "float"
+   }
   ]
  },
  "spot_emboss": {
@@ -15647,6 +32999,28 @@ export const LIBRARY = {
     "id": "Spot_Emboss",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Light_Position_X",
+    "type": "float"
+   },
+   {
+    "id": "Light_Position_Y",
+    "type": "float"
+   },
+   {
+    "id": "Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Highlight_Color",
+    "type": "float4"
+   },
+   {
+    "id": "Shadow_Color",
+    "type": "float4"
+   }
   ]
  },
  "srgb_to_acescg": {
@@ -15664,7 +33038,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "srgb_to_linear_srgb": {
   "package": "color_space_conversion",
@@ -15681,7 +33056,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "srgb_to_linear_srgb_grayscale": {
   "package": "color_space_conversion",
@@ -15698,7 +33074,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "star": {
   "package": "pattern_star",
@@ -15708,6 +33085,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -15719,6 +33106,36 @@ export const LIBRARY = {
    {
     "id": "Starburst",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Branches",
+    "type": "int"
+   },
+   {
+    "id": "BlurAmount",
+    "type": "float"
+   },
+   {
+    "id": "Randomness",
+    "type": "float"
+   },
+   {
+    "id": "SizeMin",
+    "type": "float"
+   },
+   {
+    "id": "SizeMax",
+    "type": "float"
+   },
+   {
+    "id": "SizeVariation",
+    "type": "float"
+   },
+   {
+    "id": "Tiling",
+    "type": "int"
    }
   ]
  },
@@ -15737,7 +33154,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
-  ]
+  ],
+  "parameters": []
  },
  "stripes": {
   "package": "pattern_stripes",
@@ -15747,6 +33165,36 @@ export const LIBRARY = {
    {
     "id": "Stripes",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Stripes",
+    "type": "int"
+   },
+   {
+    "id": "Width",
+    "type": "float"
+   },
+   {
+    "id": "Softness",
+    "type": "float"
+   },
+   {
+    "id": "Shift",
+    "type": "int"
+   },
+   {
+    "id": "Align",
+    "type": "int"
+   },
+   {
+    "id": "Filtering",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -15765,7 +33213,8 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
-  ]
+  ],
+  "parameters": []
  },
  "swirl": {
   "package": "swirl",
@@ -15781,6 +33230,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "amount",
+    "type": "float"
    }
   ]
  },
@@ -15798,6 +33261,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "matrix22",
+    "type": "float4"
+   },
+   {
+    "id": "offset",
+    "type": "float2"
+   },
+   {
+    "id": "amount",
+    "type": "float"
    }
   ]
  },
@@ -15821,6 +33298,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "switch",
+    "type": "bool"
+   }
   ]
  },
  "switch_grayscale": {
@@ -15843,6 +33326,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "switch",
+    "type": "bool"
+   }
   ]
  },
  "symmetry": {
@@ -15859,6 +33348,16 @@ export const LIBRARY = {
    {
     "id": "Symmetry",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Symmetry_Mode",
+    "type": "int"
+   },
+   {
+    "id": "Transfer_Mode",
+    "type": "int"
    }
   ]
  },
@@ -15877,6 +33376,28 @@ export const LIBRARY = {
     "id": "Symmetry_Slice",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Symmetry_Mode",
+    "type": "int"
+   },
+   {
+    "id": "Transfer_Mode",
+    "type": "int"
+   },
+   {
+    "id": "Blend",
+    "type": "float"
+   },
+   {
+    "id": "Flip_Side",
+    "type": "bool"
+   },
+   {
+    "id": "Flip_Side2",
+    "type": "bool"
+   }
   ]
  },
  "threshold": {
@@ -15893,6 +33414,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "threshold",
+    "type": "float"
+   },
+   {
+    "id": "mode",
+    "type": "int"
    }
   ]
  },
@@ -15941,6 +33472,184 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "pattern_specific",
+    "type": "float2"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_quincunx_flip",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "middle_size",
+    "type": "float2"
+   },
+   {
+    "id": "interstice",
+    "type": "float4"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_absolute",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_pixel",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_random",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "scale_random_Seed",
+    "type": "int"
+   },
+   {
+    "id": "position_offset",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "offset_random_seed",
+    "type": "int"
+   },
+   {
+    "id": "vertical_offset",
+    "type": "bool"
+   },
+   {
+    "id": "position_random",
+    "type": "float2"
+   },
+   {
+    "id": "global_offset",
+    "type": "float2"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_color",
+    "type": "float"
+   },
+   {
+    "id": "luminance_random",
+    "type": "float"
+   },
+   {
+    "id": "luminance_by_number",
+    "type": "bool"
+   },
+   {
+    "id": "luminance_by_scale",
+    "type": "bool"
+   },
+   {
+    "id": "checker_mask",
+    "type": "bool"
+   },
+   {
+    "id": "horizontal_mask",
+    "type": "bool"
+   },
+   {
+    "id": "vertical_mask",
+    "type": "bool"
+   },
+   {
+    "id": "random_mask",
+    "type": "float"
+   },
+   {
+    "id": "invert_mask",
+    "type": "bool"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "reverse_rendering_order",
+    "type": "bool"
+   }
   ]
  },
  "tile_generator_color": {
@@ -15988,6 +33697,192 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "pattern_specific",
+    "type": "float2"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_quincunx_flip",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "middle_size",
+    "type": "float2"
+   },
+   {
+    "id": "interstice",
+    "type": "float4"
+   },
+   {
+    "id": "pattern_size",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_absolute",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_pixel",
+    "type": "float2"
+   },
+   {
+    "id": "pattern_size_random",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "scale_random_Seed",
+    "type": "int"
+   },
+   {
+    "id": "position_offset",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "offset_random_seed",
+    "type": "int"
+   },
+   {
+    "id": "vertical_offset",
+    "type": "bool"
+   },
+   {
+    "id": "position_random",
+    "type": "float2"
+   },
+   {
+    "id": "global_offset",
+    "type": "float2"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_color",
+    "type": "float4"
+   },
+   {
+    "id": "pattern_color_random",
+    "type": "float4"
+   },
+   {
+    "id": "luminance_by_number",
+    "type": "bool"
+   },
+   {
+    "id": "luminance_by_scale",
+    "type": "bool"
+   },
+   {
+    "id": "checker_mask",
+    "type": "bool"
+   },
+   {
+    "id": "horizontal_mask",
+    "type": "bool"
+   },
+   {
+    "id": "vertical_mask",
+    "type": "bool"
+   },
+   {
+    "id": "random_mask",
+    "type": "float"
+   },
+   {
+    "id": "invert_mask",
+    "type": "bool"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "reverse_rendering_order",
+    "type": "bool"
+   },
+   {
+    "id": "by_number_parametrisation",
+    "type": "int"
+   },
+   {
+    "id": "by_scale_parametrisation",
+    "type": "int"
+   }
   ]
  },
  "tile_random": {
@@ -16009,6 +33904,148 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "pattern_specific",
+    "type": "float"
+   },
+   {
+    "id": "pattern_specific_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "split_mode",
+    "type": "int"
+   },
+   {
+    "id": "split_threshold",
+    "type": "float"
+   },
+   {
+    "id": "split_multiplier",
+    "type": "int"
+   },
+   {
+    "id": "size_random_x",
+    "type": "float"
+   },
+   {
+    "id": "size_random_y",
+    "type": "float"
+   },
+   {
+    "id": "interstice_mode",
+    "type": "int"
+   },
+   {
+    "id": "interstice_amount",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_constraint",
+    "type": "bool"
+   },
+   {
+    "id": "position_offset",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "position_random",
+    "type": "float"
+   },
+   {
+    "id": "position_random_constraints",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_color",
+    "type": "float"
+   },
+   {
+    "id": "pattern_color_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_color_parametrisation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_color_parametrisation_intensity",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_invert",
+    "type": "bool"
    }
   ]
  },
@@ -16051,6 +34088,156 @@ export const LIBRARY = {
     "id": "flood_fill_data1",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "amount_x",
+    "type": "int"
+   },
+   {
+    "id": "amount_y",
+    "type": "int"
+   },
+   {
+    "id": "random_size_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_size_input_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_size_x",
+    "type": "float"
+   },
+   {
+    "id": "random_size_y",
+    "type": "float"
+   },
+   {
+    "id": "random_size_distribution",
+    "type": "int"
+   },
+   {
+    "id": "interstice_thickness",
+    "type": "float"
+   },
+   {
+    "id": "random_position_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "round_corners_radius",
+    "type": "float"
+   },
+   {
+    "id": "round_corners_radius_input_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_random_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_corners_position_random",
+    "type": "float"
+   },
+   {
+    "id": "random_slant_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_slant_input_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_slant_x",
+    "type": "float"
+   },
+   {
+    "id": "random_slant_y",
+    "type": "float"
+   },
+   {
+    "id": "random_slant_distribution",
+    "type": "int"
+   },
+   {
+    "id": "bevel_distance_mode",
+    "type": "int"
+   },
+   {
+    "id": "bevel_distance_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "bevel_distance_input_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "bevel_rounded_curve",
+    "type": "float"
+   },
+   {
+    "id": "enable_per_axis_bevel_control",
+    "type": "bool"
+   },
+   {
+    "id": "bevel_distance_x",
+    "type": "float"
+   },
+   {
+    "id": "bevel_distance_y",
+    "type": "float"
+   },
+   {
+    "id": "mask_random_invert",
+    "type": "bool"
+   },
+   {
+    "id": "mask_random_start",
+    "type": "float"
+   },
+   {
+    "id": "mask_random_end",
+    "type": "float"
+   },
+   {
+    "id": "mask_by_cell_area_invert",
+    "type": "bool"
+   },
+   {
+    "id": "mask_by_cell_area_start",
+    "type": "float"
+   },
+   {
+    "id": "mask_by_cell_area_end",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_input_invert",
+    "type": "bool"
+   },
+   {
+    "id": "mask_map_input_start",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_input_end",
+    "type": "float"
+   }
   ]
  },
  "tile_random_color": {
@@ -16072,6 +34259,152 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "image_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "pattern_specific",
+    "type": "float"
+   },
+   {
+    "id": "pattern_specific_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "split_mode",
+    "type": "int"
+   },
+   {
+    "id": "split_threshold",
+    "type": "float"
+   },
+   {
+    "id": "split_multiplier",
+    "type": "int"
+   },
+   {
+    "id": "size_random_x",
+    "type": "float"
+   },
+   {
+    "id": "size_random_y",
+    "type": "float"
+   },
+   {
+    "id": "interstice_mode",
+    "type": "int"
+   },
+   {
+    "id": "interstice_amount",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale",
+    "type": "float"
+   },
+   {
+    "id": "shape_scale_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "shape_rotation_constraint",
+    "type": "bool"
+   },
+   {
+    "id": "position_offset",
+    "type": "float"
+   },
+   {
+    "id": "position_offset_random",
+    "type": "float"
+   },
+   {
+    "id": "position_random",
+    "type": "float"
+   },
+   {
+    "id": "position_random_constraints",
+    "type": "bool"
+   },
+   {
+    "id": "pattern_color",
+    "type": "float4"
+   },
+   {
+    "id": "pattern_color_random",
+    "type": "float4"
+   },
+   {
+    "id": "pattern_color_parametrisation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_color_parametrisation_intensity",
+    "type": "float"
+   },
+   {
+    "id": "color_parametrization_affect",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_invert",
+    "type": "bool"
    }
   ]
  },
@@ -16155,6 +34488,196 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "pattern_specific",
+    "type": "float"
+   },
+   {
+    "id": "pattern_specific_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "size",
+    "type": "float2"
+   },
+   {
+    "id": "size_absolute",
+    "type": "float2"
+   },
+   {
+    "id": "size_pixel",
+    "type": "float2"
+   },
+   {
+    "id": "size_random",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_parametrization_affect",
+    "type": "int"
+   },
+   {
+    "id": "position_random",
+    "type": "float"
+   },
+   {
+    "id": "offset",
+    "type": "float"
+   },
+   {
+    "id": "offset_type",
+    "type": "int"
+   },
+   {
+    "id": "global_offset",
+    "type": "float2"
+   },
+   {
+    "id": "displacement_map_intensity",
+    "type": "float"
+   },
+   {
+    "id": "displacement_angle",
+    "type": "float"
+   },
+   {
+    "id": "vector_map_displacement",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rotation_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_threshold",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_invert",
+    "type": "bool"
+   },
+   {
+    "id": "mask_map_sampling_technique",
+    "type": "int"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_invert",
+    "type": "bool"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "color",
+    "type": "float"
+   },
+   {
+    "id": "color_random",
+    "type": "float"
+   },
+   {
+    "id": "color_parametrization_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_parametrization_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "reverse_rendering_order",
+    "type": "bool"
+   }
   ]
  },
  "tile_sampler_color": {
@@ -16237,6 +34760,196 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_number",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_distribution",
+    "type": "int"
+   },
+   {
+    "id": "pattern_input_filtering",
+    "type": "int"
+   },
+   {
+    "id": "pattern_specific",
+    "type": "float"
+   },
+   {
+    "id": "pattern_specific_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_rotation",
+    "type": "int"
+   },
+   {
+    "id": "pattern_rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random",
+    "type": "float"
+   },
+   {
+    "id": "pattern_symmetry_random_mode",
+    "type": "int"
+   },
+   {
+    "id": "size_mode",
+    "type": "int"
+   },
+   {
+    "id": "size",
+    "type": "float2"
+   },
+   {
+    "id": "size_absolute",
+    "type": "float2"
+   },
+   {
+    "id": "size_pixel",
+    "type": "float2"
+   },
+   {
+    "id": "size_random",
+    "type": "float2"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "scale_random",
+    "type": "float"
+   },
+   {
+    "id": "scale_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "scale_parametrization_affect",
+    "type": "int"
+   },
+   {
+    "id": "position_random",
+    "type": "float"
+   },
+   {
+    "id": "offset",
+    "type": "float"
+   },
+   {
+    "id": "offset_type",
+    "type": "int"
+   },
+   {
+    "id": "global_offset",
+    "type": "float2"
+   },
+   {
+    "id": "displacement_map_intensity",
+    "type": "float"
+   },
+   {
+    "id": "displacement_angle",
+    "type": "float"
+   },
+   {
+    "id": "vector_map_displacement",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_random",
+    "type": "float"
+   },
+   {
+    "id": "rotation_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rotation_vector_map_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_threshold",
+    "type": "float"
+   },
+   {
+    "id": "mask_map_invert",
+    "type": "bool"
+   },
+   {
+    "id": "mask_map_sampling_technique",
+    "type": "int"
+   },
+   {
+    "id": "mask_random",
+    "type": "float"
+   },
+   {
+    "id": "mask_invert",
+    "type": "bool"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "color",
+    "type": "float4"
+   },
+   {
+    "id": "color_random",
+    "type": "float4"
+   },
+   {
+    "id": "color_parametrization_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_parametrization_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "color_parametrization_affect",
+    "type": "int"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "reverse_rendering_order",
+    "type": "bool"
+   }
   ]
  },
  "tileable_material_to_mesh_material": {
@@ -16277,6 +34990,24 @@ export const LIBRARY = {
    {
     "id": "Specular",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Pre_Lighting_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "AO_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Edges_Sharpness_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "AO_Intensity_Specular",
+    "type": "float"
    }
   ]
  },
@@ -16321,6 +35052,100 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "tiles_amount",
+    "type": "int"
+   },
+   {
+    "id": "age",
+    "type": "float"
+   },
+   {
+    "id": "dust",
+    "type": "float"
+   },
+   {
+    "id": "tiles_01_color",
+    "type": "float3"
+   },
+   {
+    "id": "tiles_02_color",
+    "type": "float3"
+   }
   ]
  },
  "tiles_008": {
@@ -16363,6 +35188,116 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "tiles_amount_x",
+    "type": "int"
+   },
+   {
+    "id": "tiles_amount_y",
+    "type": "int"
+   },
+   {
+    "id": "age",
+    "type": "float"
+   },
+   {
+    "id": "weathering",
+    "type": "float"
+   },
+   {
+    "id": "dust",
+    "type": "float"
+   },
+   {
+    "id": "tiles_01_color",
+    "type": "float3"
+   },
+   {
+    "id": "tiles_02_color",
+    "type": "float3"
+   },
+   {
+    "id": "tiles_03_color",
+    "type": "float3"
+   },
+   {
+    "id": "tiles_04_color",
+    "type": "float3"
    }
   ]
  },
@@ -16407,6 +35342,100 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "tiles_amount",
+    "type": "int"
+   },
+   {
+    "id": "dirtiness",
+    "type": "float"
+   },
+   {
+    "id": "Color_1",
+    "type": "float3"
+   },
+   {
+    "id": "Color_2",
+    "type": "float3"
+   },
+   {
+    "id": "Mortar_Color",
+    "type": "float3"
+   }
   ]
  },
  "tiles_025": {
@@ -16450,6 +35479,108 @@ export const LIBRARY = {
     "id": "ambient_occlusion",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "tiles_amount",
+    "type": "int2"
+   },
+   {
+    "id": "bevel_size",
+    "type": "float"
+   },
+   {
+    "id": "moss",
+    "type": "float"
+   },
+   {
+    "id": "cracks",
+    "type": "float"
+   },
+   {
+    "id": "color_variation",
+    "type": "float"
+   },
+   {
+    "id": "tiles_color",
+    "type": "float3"
+   },
+   {
+    "id": "moss_color",
+    "type": "float3"
+   }
   ]
  },
  "trapezoid_transform": {
@@ -16467,6 +35598,24 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "top_stretch",
+    "type": "float"
+   },
+   {
+    "id": "bottom_stretch",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "sampling",
+    "type": "int"
+   }
   ]
  },
  "trapezoid_transform_grayscale": {
@@ -16483,6 +35632,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "top_stretch",
+    "type": "float"
+   },
+   {
+    "id": "bottom_stretch",
+    "type": "float"
+   },
+   {
+    "id": "background_color",
+    "type": "float"
+   },
+   {
+    "id": "sampling",
+    "type": "int"
    }
   ]
  },
@@ -16511,6 +35678,104 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "color_output",
+    "type": "int"
+   },
+   {
+    "id": "triangulation",
+    "type": "int"
+   },
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "random_position_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_position",
+    "type": "float2"
+   },
+   {
+    "id": "vector_map_displacement",
+    "type": "float"
+   },
+   {
+    "id": "quincunx_offset_x",
+    "type": "float"
+   },
+   {
+    "id": "quincunx_offset_y",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_disorder",
+    "type": "float"
+   },
+   {
+    "id": "height_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_random",
+    "type": "float"
+   },
+   {
+    "id": "blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "thin_line_blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "distance_blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_source",
+    "type": "int"
+   },
+   {
+    "id": "color_source_opacity",
+    "type": "float"
+   },
+   {
+    "id": "distance_to_edge_thickness",
+    "type": "float"
+   },
+   {
+    "id": "thin_line_color",
+    "type": "float4"
+   },
+   {
+    "id": "thin_line_background",
+    "type": "float4"
+   },
+   {
+    "id": "random_color_seed_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_color_seed",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "triangle_grid_grayscale": {
@@ -16537,6 +35802,104 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "color_output",
+    "type": "int"
+   },
+   {
+    "id": "triangulation",
+    "type": "int"
+   },
+   {
+    "id": "x_amount",
+    "type": "int"
+   },
+   {
+    "id": "y_amount",
+    "type": "int"
+   },
+   {
+    "id": "random_position_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "random_position",
+    "type": "float2"
+   },
+   {
+    "id": "vector_map_displacement",
+    "type": "float"
+   },
+   {
+    "id": "quincunx_offset_x",
+    "type": "float"
+   },
+   {
+    "id": "quincunx_offset_y",
+    "type": "float"
+   },
+   {
+    "id": "rotation",
+    "type": "float"
+   },
+   {
+    "id": "rotation_disorder",
+    "type": "float"
+   },
+   {
+    "id": "height_input_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "height_random",
+    "type": "float"
+   },
+   {
+    "id": "blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "thin_line_blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "distance_blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "color_source",
+    "type": "int"
+   },
+   {
+    "id": "color_source_opacity",
+    "type": "float"
+   },
+   {
+    "id": "distance_to_edge_thickness",
+    "type": "float"
+   },
+   {
+    "id": "thin_line_color",
+    "type": "float"
+   },
+   {
+    "id": "thin_line_background",
+    "type": "float"
+   },
+   {
+    "id": "random_color_seed_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_color_seed",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -16575,6 +35938,76 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "projection",
+    "type": "int"
+   },
+   {
+    "id": "image_inputs",
+    "type": "int"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "blending_contrast",
+    "type": "float"
+   },
+   {
+    "id": "normalization_factor",
+    "type": "float"
+   },
+   {
+    "id": "texture_tiling",
+    "type": "float"
+   },
+   {
+    "id": "global_rotation",
+    "type": "float3"
+   },
+   {
+    "id": "fix_mirrored_projection",
+    "type": "bool"
+   },
+   {
+    "id": "rotation_x",
+    "type": "float"
+   },
+   {
+    "id": "rotation_y",
+    "type": "float"
+   },
+   {
+    "id": "rotation_z",
+    "type": "float"
+   },
+   {
+    "id": "offset_x",
+    "type": "float2"
+   },
+   {
+    "id": "random_offset_x",
+    "type": "float"
+   },
+   {
+    "id": "offset_y",
+    "type": "float2"
+   },
+   {
+    "id": "random_offset_y",
+    "type": "float"
+   },
+   {
+    "id": "offset_z",
+    "type": "float2"
+   },
+   {
+    "id": "random_offset_z",
+    "type": "float"
+   }
   ]
  },
  "triplanar_grayscale_3": {
@@ -16612,6 +36045,76 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "projection",
+    "type": "int"
+   },
+   {
+    "id": "image_inputs",
+    "type": "int"
+   },
+   {
+    "id": "blending_mode",
+    "type": "int"
+   },
+   {
+    "id": "blending_contrast",
+    "type": "float"
+   },
+   {
+    "id": "normalization_factor",
+    "type": "float"
+   },
+   {
+    "id": "texture_tiling",
+    "type": "float"
+   },
+   {
+    "id": "global_rotation",
+    "type": "float3"
+   },
+   {
+    "id": "fix_mirrored_projection",
+    "type": "bool"
+   },
+   {
+    "id": "rotation_x",
+    "type": "float"
+   },
+   {
+    "id": "rotation_y",
+    "type": "float"
+   },
+   {
+    "id": "rotation_z",
+    "type": "float"
+   },
+   {
+    "id": "offset_x",
+    "type": "float2"
+   },
+   {
+    "id": "random_offset_x",
+    "type": "float"
+   },
+   {
+    "id": "offset_y",
+    "type": "float2"
+   },
+   {
+    "id": "random_offset_y",
+    "type": "float"
+   },
+   {
+    "id": "offset_z",
+    "type": "float2"
+   },
+   {
+    "id": "random_offset_z",
+    "type": "float"
+   }
   ]
  },
  "uber_emboss": {
@@ -16633,6 +36136,44 @@ export const LIBRARY = {
    {
     "id": "Uber_Emboss",
     "type": "color"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "Ambient_Color",
+    "type": "float4"
+   },
+   {
+    "id": "Diffuse_Color",
+    "type": "float4"
+   },
+   {
+    "id": "Specular_Color",
+    "type": "float4"
+   },
+   {
+    "id": "Light_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Light_Angle",
+    "type": "float"
+   },
+   {
+    "id": "Specular_Intensity",
+    "type": "float"
+   },
+   {
+    "id": "Specular_Glossiness",
+    "type": "float"
+   },
+   {
+    "id": "Diffuse_Roughness",
+    "type": "float"
+   },
+   {
+    "id": "Shadows_Opacity",
+    "type": "float"
    }
   ]
  },
@@ -16656,6 +36197,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "background_color",
+    "type": "float4"
+   },
+   {
+    "id": "filtering_mode",
+    "type": "int"
+   }
   ]
  },
  "uv_mapper_grayscale": {
@@ -16677,6 +36228,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "filtering_mode",
+    "type": "int"
    }
   ]
  },
@@ -16700,6 +36257,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "amount",
+    "type": "float"
+   }
   ]
  },
  "vector_morph_grayscale": {
@@ -16721,6 +36284,12 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "amount",
+    "type": "float"
    }
   ]
  },
@@ -16744,6 +36313,16 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "vector_format",
+    "type": "int"
+   }
   ]
  },
  "vector_warp_grayscale": {
@@ -16765,6 +36344,16 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "intensity",
+    "type": "float"
+   },
+   {
+    "id": "vector_format",
+    "type": "int"
    }
   ]
  },
@@ -16823,6 +36412,24 @@ export const LIBRARY = {
     "id": "paths",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "fetchPrevCount",
+    "type": "int"
+   },
+   {
+    "id": "fetchNextCount",
+    "type": "int"
+   },
+   {
+    "id": "imageInputCount",
+    "type": "int"
+   },
+   {
+    "id": "perVertex",
+    "type": "float2"
+   }
   ]
  },
  "vertex_processor_simple": {
@@ -16860,6 +36467,16 @@ export const LIBRARY = {
     "id": "paths",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "imageInputCount",
+    "type": "int"
+   },
+   {
+    "id": "perVertex",
+    "type": "float2"
+   }
   ]
  },
  "view_color_palette": {
@@ -16882,6 +36499,12 @@ export const LIBRARY = {
     "id": "output",
     "type": "color"
    }
+  ],
+  "parameters": [
+   {
+    "id": "palette_color_amount",
+    "type": "int"
+   }
   ]
  },
  "voronoi": {
@@ -16893,6 +36516,72 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "disorder",
+    "type": "float3"
+   },
+   {
+    "id": "distortion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "distortion_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "rounded_curve",
+    "type": "float"
+   },
+   {
+    "id": "distance_scale",
+    "type": "float"
+   },
+   {
+    "id": "distance_mode",
+    "type": "int"
+   },
+   {
+    "id": "minkowski_number",
+    "type": "float"
+   },
+   {
+    "id": "style",
+    "type": "int"
+   },
+   {
+    "id": "edge_thickness",
+    "type": "float"
+   },
+   {
+    "id": "random_color_seed_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_color_seed",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "voronoi_fractal": {
@@ -16903,6 +36592,96 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "invert",
+    "type": "bool"
+   },
+   {
+    "id": "scale",
+    "type": "float"
+   },
+   {
+    "id": "size",
+    "type": "float3"
+   },
+   {
+    "id": "offset",
+    "type": "float3"
+   },
+   {
+    "id": "disorder",
+    "type": "float3"
+   },
+   {
+    "id": "distortion_intensity",
+    "type": "float"
+   },
+   {
+    "id": "distortion_scale_multiplier",
+    "type": "float"
+   },
+   {
+    "id": "min_level",
+    "type": "int"
+   },
+   {
+    "id": "max_level",
+    "type": "int"
+   },
+   {
+    "id": "roughness",
+    "type": "float"
+   },
+   {
+    "id": "lacunarity",
+    "type": "float"
+   },
+   {
+    "id": "global_opacity",
+    "type": "float"
+   },
+   {
+    "id": "rounded_curve",
+    "type": "float"
+   },
+   {
+    "id": "distance_scale",
+    "type": "float"
+   },
+   {
+    "id": "distance_mode",
+    "type": "int"
+   },
+   {
+    "id": "minkowski_number",
+    "type": "float"
+   },
+   {
+    "id": "blend_mode",
+    "type": "int"
+   },
+   {
+    "id": "style",
+    "type": "int"
+   },
+   {
+    "id": "edge_thickness",
+    "type": "float"
+   },
+   {
+    "id": "random_color_seed_mode",
+    "type": "int"
+   },
+   {
+    "id": "random_color_seed",
+    "type": "int"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -17002,6 +36781,84 @@ export const LIBRARY = {
     "id": "mask",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "basecolor_on",
+    "type": "bool"
+   },
+   {
+    "id": "diffuse_on",
+    "type": "bool"
+   },
+   {
+    "id": "roughness_on",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness_on",
+    "type": "bool"
+   },
+   {
+    "id": "metallic_on",
+    "type": "bool"
+   },
+   {
+    "id": "specular_on",
+    "type": "bool"
+   },
+   {
+    "id": "water_level",
+    "type": "float"
+   },
+   {
+    "id": "water_darkness",
+    "type": "float"
+   },
+   {
+    "id": "edges_wetness",
+    "type": "float"
+   },
+   {
+    "id": "edges_wetness_distance",
+    "type": "float"
+   },
+   {
+    "id": "depth_blur_amount",
+    "type": "float"
+   },
+   {
+    "id": "depth_blur_opacity",
+    "type": "float"
+   },
+   {
+    "id": "sludge_color",
+    "type": "float3"
+   },
+   {
+    "id": "sludge_depth",
+    "type": "float"
+   },
+   {
+    "id": "sludge_opacity",
+    "type": "float"
+   },
+   {
+    "id": "frost",
+    "type": "float"
+   },
+   {
+    "id": "frost_intensity",
+    "type": "float"
+   },
+   {
+    "id": "frost_cracks",
+    "type": "float"
+   },
+   {
+    "id": "frost_normal_format",
+    "type": "bool"
+   }
   ]
  },
  "waveform_01_v2": {
@@ -17012,6 +36869,60 @@ export const LIBRARY = {
    {
     "id": "Waveform",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "samples",
+    "type": "int"
+   },
+   {
+    "id": "function",
+    "type": "int"
+   },
+   {
+    "id": "custom_function",
+    "type": "float"
+   },
+   {
+    "id": "roughness",
+    "type": "float"
+   },
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "amplitude_min",
+    "type": "float"
+   },
+   {
+    "id": "amplitude_max",
+    "type": "float"
+   },
+   {
+    "id": "noise",
+    "type": "float"
+   },
+   {
+    "id": "position",
+    "type": "int"
+   },
+   {
+    "id": "pattern",
+    "type": "int"
+   },
+   {
+    "id": "pattern_variation",
+    "type": "float"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
    }
   ]
  },
@@ -17024,6 +36935,20 @@ export const LIBRARY = {
     "id": "output",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "Tiling",
+    "type": "int"
+   },
+   {
+    "id": "rotate_45_degrees",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "weave_2": {
@@ -17034,6 +36959,24 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "scale",
+    "type": "int"
+   },
+   {
+    "id": "Disorder",
+    "type": "float"
+   },
+   {
+    "id": "rotate_45_degrees",
+    "type": "bool"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
    }
   ]
  },
@@ -17058,6 +37001,32 @@ export const LIBRARY = {
     "id": "Mask_2",
     "type": "gray"
    }
+  ],
+  "parameters": [
+   {
+    "id": "tile_x",
+    "type": "int"
+   },
+   {
+    "id": "tile_y",
+    "type": "int"
+   },
+   {
+    "id": "shape",
+    "type": "float"
+   },
+   {
+    "id": "weave",
+    "type": "int"
+   },
+   {
+    "id": "gap",
+    "type": "float2"
+   },
+   {
+    "id": "non_square_expansion",
+    "type": "bool"
+   }
   ]
  },
  "white_noise_v2": {
@@ -17068,6 +37037,20 @@ export const LIBRARY = {
    {
     "id": "output",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "noise_distribution",
+    "type": "int"
+   },
+   {
+    "id": "disorder",
+    "type": "float"
+   },
+   {
+    "id": "disorder_speed",
+    "type": "float"
    }
   ]
  },
@@ -17111,6 +37094,96 @@ export const LIBRARY = {
    {
     "id": "ambient_occlusion",
     "type": "gray"
+   }
+  ],
+  "parameters": [
+   {
+    "id": "diffuse",
+    "type": "bool"
+   },
+   {
+    "id": "basecolor",
+    "type": "bool"
+   },
+   {
+    "id": "normal",
+    "type": "bool"
+   },
+   {
+    "id": "specular",
+    "type": "bool"
+   },
+   {
+    "id": "glossiness",
+    "type": "bool"
+   },
+   {
+    "id": "roughness",
+    "type": "bool"
+   },
+   {
+    "id": "metallic",
+    "type": "bool"
+   },
+   {
+    "id": "height",
+    "type": "bool"
+   },
+   {
+    "id": "ambient_occlusion",
+    "type": "bool"
+   },
+   {
+    "id": "luminosity",
+    "type": "float"
+   },
+   {
+    "id": "contrast",
+    "type": "float"
+   },
+   {
+    "id": "hue_shift",
+    "type": "float"
+   },
+   {
+    "id": "saturation",
+    "type": "float"
+   },
+   {
+    "id": "normal_intensity",
+    "type": "float"
+   },
+   {
+    "id": "normal_format",
+    "type": "int"
+   },
+   {
+    "id": "height_range",
+    "type": "float"
+   },
+   {
+    "id": "height_position",
+    "type": "float"
+   },
+   {
+    "id": "ao_spreading",
+    "type": "float"
+   },
+   {
+    "id": "knots",
+    "type": "float"
+   },
+   {
+    "id": "fibers",
+    "type": "float"
+   },
+   {
+    "id": "color",
+    "type": "float3"
+   },
+   {
+    "id": "base_roughness",
+    "type": "float"
    }
   ]
  }

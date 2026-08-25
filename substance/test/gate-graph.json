@@ -1,0 +1,350 @@
+{
+ "graph": {
+  "className": "SDSBSCompGraph",
+  "identifier": "Substance_graph",
+  "nodes": [
+   {
+    "uid": "1579713303",
+    "definitionId": "sbs::compositing::sbscompgraph_instance",
+    "definitionLabel": "Perlin noise",
+    "position": {
+     "x": 304.0,
+     "y": 272.0
+    },
+    "referencedResource": {
+     "identifier": "perlin_noise",
+     "url": "pkg:///perlin_noise?dependency=1579710318",
+     "type": "SDSBSCompGraph",
+     "packageFilePath": "C:/Program Files/Adobe/Adobe Substance 3D Designer/resources/packages/noise_perlin_noise_v2.sbs"
+    },
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     },
+     {
+      "id": "$format",
+      "value": {
+       "class": "SDValueEnum",
+       "typeId": "sbs::compositing::format",
+       "components": [
+        1
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "output",
+      "toNode": "1579714114",
+      "toProperty": "Source"
+     }
+    ]
+   },
+   {
+    "uid": "1579713305",
+    "definitionId": "sbs::compositing::uniform",
+    "definitionLabel": "Uniform color",
+    "position": {
+     "x": 496.0,
+     "y": 415.0
+    },
+    "referencedResource": null,
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     },
+     {
+      "id": "colorswitch",
+      "value": {
+       "class": "SDValueBool",
+       "components": [
+        false
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "unique_filter_output",
+      "toNode": "1579713309",
+      "toProperty": "destination"
+     }
+    ]
+   },
+   {
+    "uid": "1579713307",
+    "definitionId": "sbs::compositing::transformation",
+    "definitionLabel": "Transformation 2D",
+    "position": {
+     "x": 496.0,
+     "y": 560.0
+    },
+    "referencedResource": null,
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "unique_filter_output",
+      "toNode": "1579713309",
+      "toProperty": "opacity"
+     }
+    ]
+   },
+   {
+    "uid": "1579713309",
+    "definitionId": "sbs::compositing::blend",
+    "definitionLabel": "Blend",
+    "position": {
+     "x": 720.0,
+     "y": 400.0
+    },
+    "referencedResource": null,
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "unique_filter_output",
+      "toNode": "1579713311",
+      "toProperty": "input1"
+     }
+    ]
+   },
+   {
+    "uid": "1579713311",
+    "definitionId": "sbs::compositing::normal",
+    "definitionLabel": "Normal",
+    "position": {
+     "x": 880.0,
+     "y": 400.0
+    },
+    "referencedResource": null,
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     },
+     {
+      "id": "input2alpha",
+      "value": {
+       "class": "SDValueBool",
+       "components": [
+        false
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "unique_filter_output",
+      "toNode": "1579714144",
+      "toProperty": "inputNodeOutput"
+     }
+    ]
+   },
+   {
+    "uid": "1579714033",
+    "definitionId": "sbs::compositing::sbscompgraph_instance",
+    "definitionLabel": "Clouds 2",
+    "position": {
+     "x": 880.0,
+     "y": 240.0
+    },
+    "referencedResource": {
+     "identifier": "clouds_2",
+     "url": "pkg:///clouds_2?dependency=1579713313",
+     "type": "SDSBSCompGraph",
+     "packageFilePath": "C:/Program Files/Adobe/Adobe Substance 3D Designer/resources/packages/noise_clouds_2_v2.sbs"
+    },
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     },
+     {
+      "id": "$format",
+      "value": {
+       "class": "SDValueEnum",
+       "typeId": "sbs::compositing::format",
+       "components": [
+        1
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "output",
+      "toNode": "1579714035",
+      "toProperty": "input1"
+     }
+    ]
+   },
+   {
+    "uid": "1579714035",
+    "definitionId": "sbs::compositing::levels",
+    "definitionLabel": "Levels",
+    "position": {
+     "x": 1040.0,
+     "y": 240.0
+    },
+    "referencedResource": null,
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "unique_filter_output",
+      "toNode": "1579714037",
+      "toProperty": "input"
+     }
+    ]
+   },
+   {
+    "uid": "1579714037",
+    "definitionId": "sbs::compositing::passthrough",
+    "definitionLabel": "Dot",
+    "position": {
+     "x": 1189.3333740234375,
+     "y": 240.0
+    },
+    "referencedResource": null,
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     }
+    ],
+    "connections": []
+   },
+   {
+    "uid": "1579714114",
+    "definitionId": "sbs::compositing::sbscompgraph_instance",
+    "definitionLabel": "Blur HQ grayscale",
+    "position": {
+     "x": 496.0,
+     "y": 272.0
+    },
+    "referencedResource": {
+     "identifier": "blur_hq_grayscale",
+     "url": "pkg:///blur_hq_grayscale?dependency=1579714039",
+     "type": "SDSBSCompGraph",
+     "packageFilePath": "C:/Program Files/Adobe/Adobe Substance 3D Designer/resources/packages/blur_hq.sbs"
+    },
+    "values": [
+     {
+      "id": "$outputsize",
+      "value": {
+       "class": "SDValueInt2",
+       "components": [
+        0,
+        0
+       ]
+      }
+     }
+    ],
+    "connections": [
+     {
+      "fromProperty": "Blur_HQ",
+      "toNode": "1579713309",
+      "toProperty": "source"
+     }
+    ]
+   },
+   {
+    "uid": "1579714144",
+    "definitionId": "sbs::compositing::output",
+    "definitionLabel": "",
+    "position": {
+     "x": 1040.0,
+     "y": 400.0
+    },
+    "referencedResource": null,
+    "values": [],
+    "connections": []
+   }
+  ]
+ },
+ "packages": [
+  {
+   "filePath": "",
+   "resourceCount": 1
+  },
+  {
+   "filePath": "C:/Program Files/Adobe/Adobe Substance 3D Designer/resources/packages/functions.sbs",
+   "resourceCount": 200
+  },
+  {
+   "filePath": "C:/Program Files/Adobe/Adobe Substance 3D Designer/resources/packages/noise_perlin_noise_v2.sbs",
+   "resourceCount": 1
+  },
+  {
+   "filePath": "C:/Program Files/Adobe/Adobe Substance 3D Designer/resources/packages/noise_clouds_2_v2.sbs",
+   "resourceCount": 1
+  },
+  {
+   "filePath": "C:/Program Files/Adobe/Adobe Substance 3D Designer/resources/packages/blur_hq.sbs",
+   "resourceCount": 2
+  }
+ ]
+}
