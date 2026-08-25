@@ -30,7 +30,7 @@ chip       blend                   opacitymult=0.75
 paint      uniform                 colorswitch=true outputcolor=[0.09,0.25,0.28,1]
 steel      uniform                 colorswitch=true outputcolor=[0.44,0.42,0.40,1]
 albedo     blend
-basecolor  output      usage=baseColor:RGBA:sRGB
+basecolor  output      usage=baseColor
 
 # -- roughness: paint is smoother than the steel it has come off ----------------------
 roughbase  levels                  levelinlow=[0.3,0.3,0.3,0] levelinhigh=[0.75,0.75,0.75,1]

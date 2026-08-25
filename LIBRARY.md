@@ -70,29 +70,44 @@ Why it earns enforcement, from `sbsrender render --help`:
 So the identifier and the usage are not cosmetic metadata. They are the interface between the
 material and everything downstream of it.
 
-### Channel vocabulary
+### The vocabulary, and why it has to be ours
 
-Candidate set, extracted from Designer's own PBR material definition — the `Input` properties of
-`alg::materials::designer::pbr` in
-`resources/documentation/pythonapi/.../mdl_alg_materials_designer_pbr.rst.txt`, 29 of them.
-The map-carrying subset:
+`node substance/tools/dump-usages.mjs` reads every graph template Designer ships -- they are
+plain `.sbs` files under `resources/templates` -- and reports the usage each output declares.
+**54 usages across 27 templates**, and the answer is not a table to inherit:
 
-```
-baseColor  normal  roughness  metallic  height  ambientOcclusion  opacity
-specular  specularLevel  glossiness  emissiveColor  scattering
-anisotropyLevel  anisotropyAngle  coatColor  coatNormal  coatRoughness
-coatSpecularLevel  coatWeight  absorptionColor  refractionColor
-```
+- Base colour is called four things: `baseColor`, `diffuseColor`, `DiffuseColor`, `diffuse`.
+- **30 of the 54** have an identifier that is not simply the usage lowercased. `ambientOcclusion`
+  is written out as `ambientocclusion` in one template and `occlusion` in another; `height`
+  appears as both `height` and `displacement`.
+- `specularLevel` ships with the identifier **`speclar_level`** -- a typo, in the box, in a
+  shipped template.
+- **Every one of the 54 leaves the colour space unset.** Not one template writes `sRGB`.
 
-The rest of the 29 are scalars and settings rather than channels: `heightScale`, `tiling`,
-`scalarZeroValue`, `emissiveIntensity`, `refractionIOR`, `coatInheritNormal`, `absorption`,
-`refraction`, `diffuse`.
+So there is no coherent Adobe convention to adopt, which is the argument for defining ours. Two
+halves, and they are not the same decision:
 
-**This is a candidate, not a settled table.** An MDL material's input names are the channels a
-Substance material feeds, which is strong evidence, but they are not proven to be the same
-strings as Designer's own usage list — `emissiveColor` against `emissive` is exactly where the
-two could differ. One look at the usage dropdown, or one usage set by hand and read back, settles
-it. Until then nothing is enforced against it.
+| | What it is | Whose vocabulary |
+|---|---|---|
+| **usage** | the semantic tag | **Adobe's.** `sbsrender --input-graph-output-usage` selects by it, and Painter, Sampler and the engine plugins match on these exact strings. Renaming it to something engine-flavoured throws all of that away. Pick from what the tools recognise -- the metallic-roughness set is the one to pick from -- rather than inventing strings |
+| **identifier** | the name, and `{outputNodeName}` in the exported filename | **ours.** Nothing inside Substance matches on it, so this is where a project's naming lands, whatever the engine's import rules want |
+
+Colour space: the emitter leaves it empty, which is what all 27 templates do. The
+`name:components:colourspace` form stays available, but writing a colour space is departing from
+what Designer itself does, not conforming to it.
+
+### A Designer template is not needed
+
+- A graph built from a spec has its outputs **created by the build**, identifier and usage
+  included. A template contributes nothing to that path, which is the path the architecture is
+  built around.
+- A template would put the convention in a second place the build cannot check. That is the
+  failure mode already rejected under "enforced, not documented and hoped for" -- and it is not
+  hypothetical, since Adobe's own templates disagree with each other and ship a typo.
+- The stock templates cannot stand in as ours either, for the same reason.
+- The one path a template would help is an artist starting a graph by hand and never running a
+  spec. That is covered, later and with rework, by `dump` bringing the graph into the system and
+  the build then judging it. If that path stops being the exception, revisit this.
 
 ## What has to change
 
@@ -123,6 +138,5 @@ In dependency order. Nothing here is started.
 
 - Whether the emitted `identifier` and `usages` actually land in Designer. The syntax is
   Designer's own, from its documentation and its shipped sample, but it has not been run.
-- Whether the channel vocabulary above matches Designer's usage list.
 - Where a project's manifest lives and how a build finds it.
 - Whether `.sbsar` publishing belongs in this repo or in the project's own CI.
