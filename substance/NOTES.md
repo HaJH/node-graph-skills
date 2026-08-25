@@ -30,6 +30,27 @@ the open graph rather than in a new package.
 
 Worked example shipped with Designer: `resources/python/samples/sample_sbs_graph.py`.
 
+## A catalogue already exists — do not re-extract
+
+`~/.claude/skills/procedural-texture-advisor/` holds two tables pulled out of the same install,
+with the scripts that made them:
+
+| File | What |
+|---|---|
+| `node-index.txt` | 24 atomic filter types, 28 Library-panel names, 779 library node names |
+| `io-index.txt` | every library node's image inputs and outputs, each tagged colour / gray / either |
+| `tools/generate-node-index.sh` | regenerates the first from `resources/packages` and `resources/tooltips` |
+| `tools/generate-io-index.py` | regenerates the second by parsing the shipped `.sbs` packages |
+
+That covers leg C for this domain. What the emitter still needs and those tables do not carry is
+the mapping from a library node name to the identifier `newInstanceNode` wants, and the atomic
+node ids the API uses (`sbs::compositing::blend` form) — `dump-catalog.py` is what answers both.
+
+Useful facts already settled by those tables: the atomic set is 24 `compFilter` types plus the
+input/output bridges and `svg`; library nodes split into colour and grayscale variants with no
+consistent rule about which one the bare name is; and a package filename is not a node name
+(`blend_switch.sbs` contains `switch` and `multi_switch`, and no `blend_switch`).
+
 ## Catalogue sources
 
 `SDDefinition` carries a node's id, label and properties;
