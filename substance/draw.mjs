@@ -4,6 +4,8 @@
 // drawn graph shows every pin the node actually has, not only the ones the spec wired up. That
 // is most of the point -- "which pins does a Map Get need" is the question prose answers worst.
 
+import path from 'node:path'
+
 import { render } from '../lib/render.mjs'
 import { page } from '../lib/page.mjs'
 import { emitPython } from './emit.mjs'
@@ -50,7 +52,51 @@ function showValue (value) {
   return '[' + value.components.join(', ') + ']'
 }
 
-export function draw (spec) {
+// A spec on its own is a network to paste. A spec inside a library is one asset among many, and
+// then where the .sbs goes and what other graphs will call it matter more than the picture does.
+// The library's own .sbsprj is what knows those, so the page repeats them rather than leaving
+// the reader to find the folder.
+function guideFor (spec, project) {
+  if (!project) return null
+  const code = text => `<code>${escape(text)}</code>`
+  const name = spec.name ?? 'this_graph'
+
+  const rows = [
+    ['Library', code(project.root)],
+    ['Declared by', code(project.file.slice(project.root.length + 1))],
+  ]
+  if (project.alias) {
+    const folder = project.alias.path
+      ? project.alias.path.slice(project.root.length + 1).split(path.sep).join('/')
+      : project.alias.url
+    rows.push(['Save the graph as', code(`${folder}/${name}.sbs`)])
+    rows.push(['Other graphs reference it as', code(`${project.alias.name}://${name}.sbs`)])
+  }
+  rows.push(['Outputs', spec.nodes.filter(n => n.type === 'output')
+    .map(n => code(n.annotations.find(a => a.id === 'identifier')?.value.components[0] ?? n.name)).join(' ') || '&mdash;'])
+
+  const registered = project.alias
+    ? `Nothing here resolves until <code>${escape(project.name)}.sbsprj</code> is registered in Designer &mdash; ` +
+      '<code>Edit &rsaquo; Preferences &rsaquo; Projects</code>, add the file, restart. ' +
+      'It is the one step a pasted script cannot take: the Python API has no alias management. ' +
+      (project.watchesAlias
+        ? `Once it is, <code>${escape(project.alias.name)}://</code> is a watched path, so graphs saved there appear in the Library panel beside Designer&rsquo;s own.`
+        : `The project declares no watched path for <code>${escape(project.alias.name)}://</code>, so graphs saved there will not appear in the Library panel.`)
+    : `<code>${escape(project.name)}.sbsprj</code> declares no alias, so a reference to this graph will be stored as a path and will not survive a different checkout.`
+
+  return {
+    heading: 'Where this graph belongs',
+    blurb: 'This spec is part of a library, not a one-off network. Saving the graph under the ' +
+      'alias below is what lets the next spec name it as a node instead of rebuilding it.',
+    rows,
+    todo: registered,
+  }
+}
+
+const escape = s => String(s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+export function draw (spec, project = null) {
   const nodes = spec.nodes.map(shapeOf)
   const graph = render(nodes, spec.wires, theme)
 
@@ -68,6 +114,7 @@ export function draw (spec) {
       subtitle: 'Open the graph you want it in, then Windows › Python Editor, paste, Run.',
       text: emitPython(spec),
     },
+    guide: guideFor(spec, project),
     legend: [
       { colour: theme.types.color, label: 'colour' },
       { colour: theme.types.gray, label: 'grayscale' },

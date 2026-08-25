@@ -141,6 +141,33 @@ permission, so the button tries that first -- synchronously, because awaiting th
 promise ahead of it would spend the activation -- and the async API second. Whichever runs, the
 payload is left selected, so a browser that refuses both still leaves the reader one Ctrl+C away.
 
+## A spec inside a library
+
+A spec on its own is a network someone pastes. A spec inside a **library** -- a folder of
+Substance assets with a committed `.sbsprj` next to them -- is one asset among many, and the
+page says so: where the `.sbs` goes, what alias other graphs will name it by, and the one setup
+step no script can take.
+
+The build walks up from the spec looking for a `.sbsprj`, so nothing has to be passed:
+
+```
+node <plugin>/substance/build.mjs Resources/Substance/specs/materials/rough_metal.spec
+  ...
+  library: F:\...\Resources\Substance
+     save the graph as hb://rough_metal.sbs
+```
+
+**Why `.sbsprj` and not a manifest of our own:** Designer stores a reference from one package to
+another as an alias URL, not a path -- 2018 of the install's 2021 dependencies are written
+`sbs://something.sbs` and 3 are a plain path. The alias is what makes a reference survive a
+different checkout, and `.sbsprj` is where an alias is declared, so the build reads it rather
+than repeating it. `.sbsprj` also declares the **watched paths** that put a folder's graphs in
+Designer's Library panel.
+
+**Registering the project is the human step.** The `sd` API exposes nothing for aliases, so no
+payload can do it: `Edit > Preferences > Projects`, add the `.sbsprj`, restart. The page says so
+whenever it finds a library.
+
 ## How it goes back into Designer
 
 **Python, not the clipboard.** Designer has no equivalent of Unreal's T3D — copying nodes puts
@@ -180,6 +207,7 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/spec.mjs` | the spec parser and its error messages |
 | `substance/emit.mjs` | spec → the Designer Python payload |
 | `substance/draw.mjs` | spec → the page |
+| `substance/project.mjs` | finds the library a spec sits in, and reads its aliases and watched paths |
 | `substance/theme.mjs` | colours and metrics |
 | `substance/catalogue.generated.mjs` | 29 built-in and 501 library nodes, with pins and types |
 | `substance/tools/generate-catalogue.mjs` | regenerates that from an installed Designer |

@@ -15,6 +15,8 @@ import * as catalogue from '../catalogue.generated.mjs'
 import { parseSpec, SpecError } from '../spec.mjs'
 import { emitPython } from '../emit.mjs'
 import { draw } from '../draw.mjs'
+import { findProject } from '../project.mjs'
+import os from 'node:os'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const failures = []
@@ -371,6 +373,47 @@ check('enums are written by name, and annotations come from the catalogue', () =
   // mipmaps is an int annotation, so it exercises the non-string path for free.
   if (!emitPython(parseSpec('graph t\no output mipmaps=3', catalogue)).includes("setAnnotationPropertyValueFromId('mipmaps', SDValueInt.sNew(3))")) {
     problems.push('a non-string annotation is not written')
+  }
+  return problems
+})
+
+check('a spec inside a library is told where the graph belongs', () => {
+  // A one-off network needs no guidance. One that is part of a library needs to say where the
+  // .sbs goes and what alias the next spec will name it by, or the library never compounds.
+  const problems = []
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sbslib-'))
+  try {
+    fs.mkdirSync(path.join(root, 'packages'))
+    fs.mkdirSync(path.join(root, 'specs'), { recursive: true })
+    const aliasPath = 'file:///' + path.join(root, 'packages').split(path.sep).join('/')
+    fs.writeFileSync(path.join(root, 'Team.sbsprj'),
+      '<root><preferences><resources><urlaliases><size>1</size>' +
+      `<_1 prefix="_"><path>${aliasPath}</path><name>team</name></_1>` +
+      '</urlaliases></resources><library><watchedpaths><size>1</size>' +
+      '<_1 prefix="_"><url>team://</url><isrecursive>true</isrecursive><isenabled>true</isenabled></_1>' +
+      '</watchedpaths></library></preferences></root>')
+
+    const specPath = path.join(root, 'specs', 'panel.spec')
+    fs.writeFileSync(specPath, 'graph panel_base\nn perlin_noise\no output usage=height\nn -> o\n')
+
+    const project = findProject(specPath)
+    if (!project) return ['the .sbsprj above the spec was not found']
+    if (project.root !== root) problems.push('the library root is wrong: ' + project.root)
+    if (project.alias?.name !== 'team') problems.push('the alias was not read')
+    if (!project.watchesAlias) problems.push('the watched path was not matched to the alias')
+
+    const spec = parseSpec(fs.readFileSync(specPath, 'utf8'), catalogue)
+    const page = draw(spec, project)
+    for (const wanted of ['Where this graph belongs', 'team://panel_base.sbs', 'packages/panel_base.sbs', 'Preferences']) {
+      if (!page.includes(wanted)) problems.push(`the guide does not mention ${wanted}`)
+    }
+    // The one manual step has to be stated, since no payload can take it.
+    if (!page.includes('Team.sbsprj')) problems.push('the guide does not name the project file to register')
+
+    // A spec with no library above it gets no guidance, and must not gain an empty section.
+    if (draw(spec, null).includes('Where this graph belongs')) problems.push('a one-off spec is given library guidance')
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
   }
   return problems
 })
