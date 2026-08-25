@@ -227,7 +227,7 @@ need.
 
 ## The round-trip gate
 
-`tools/` holds probes and nothing else until the gate passes.
+Passed on Designer 15.1.0 — see below. `tools/` holds the probes it was run with.
 
 | Script | Does |
 |---|---|
@@ -253,22 +253,30 @@ perlin_noise ─── blur_hq ─┐                clouds_2 ─── levels �
        transformation ────┘
 ```
 
-**The `"dump"` leg is proven.** Nine nodes, seven wires, three instance nodes — one of them
-`blur_hq_grayscale`, which carries an image input and answered the pin-id question. Values come
-back structurally as `SDValueInt2`, `SDValueBool` and `SDValueEnum`, none unsupported, none
-function-driven.
+## The gate passed
 
-Still open:
+Ten nodes, eight wires, three instance nodes — `perlin_noise`, `clouds_2` and
+`blur_hq_grayscale`, the last carrying an image input — a `blend` with `source` / `destination` /
+`opacity` all wired, three parameters off their defaults, and an `output` bridge. Dumped,
+rebuilt into a new empty graph, dumped again. The two files match on every node, position,
+value, wire and loaded package.
 
-- **`newNode('sbs::compositing::output')`** — the hand-built network has no output bridge, so
-  whether one can be created this way, or whether a graph output has to be declared first, is
-  untested.
-- **`loadUserPackage` against the read-only install directory.** Rebuilding in the session that
-  built the network will not exercise it: those packages are already loaded, so `find_resource`
-  matches them in `getPackages()` and never calls it. Testing it for real means **restarting
-  Designer** before the rebuild run, which is also the situation a shipped payload script meets.
-- whether a `float2` position round-trips exactly — an earlier hand-built graph had a node at
-  `1053.7752685546875`, so the canvas does not snap.
+What that settled on top of the sections above:
+
+- **`newNode('sbs::compositing::output')` works.** An output bridge is created like any other
+  node; no graph output has to be declared first. Its `getDefinition().getLabel()` on a created
+  node is the empty string, where the catalogue reports `Input` — one more reason not to name
+  anything off a label.
+- **Positions are exact.** `1189.3333740234375` came back bit for bit, so the canvas does not
+  snap and a float is the right thing to store.
+- Node uids are reassigned on create and carry no meaning across a round trip. Identity for any
+  comparison has to be built from what a node *is* — definition or resource identifier plus
+  position.
+
+Not yet proven: whether `loadUserPackage` was actually exercised. If the rebuild ran in the
+session that built the network, the three library packages were already loaded and
+`find_resource` matched them in `getPackages()` without ever calling it. A shipped payload
+script meets a Designer that has none of them open, so this wants one clean run after a restart.
 
 ## What is not covered
 
