@@ -19,6 +19,13 @@ const quote = s => "'" + String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'") +
 
 const number = n => (Number.isInteger(n) ? n.toFixed(1) : String(n))
 
+// The sdbasetypes struct behind each multi-component value class.
+const STRUCTS = {
+  SDValueInt2: 'int2', SDValueInt3: 'int3', SDValueInt4: 'int4',
+  SDValueFloat2: 'float2', SDValueFloat3: 'float3', SDValueFloat4: 'float4',
+  SDValueColorRGB: 'ColorRGB', SDValueColorRGBA: 'ColorRGBA',
+}
+
 function valueExpression (value) {
   if (value.class === 'SDValueEnum') {
     return `SDValueEnum.sFromValue(${quote(value.typeId)}, ${value.components[0]})`
@@ -28,11 +35,7 @@ function valueExpression (value) {
   if (value.class === 'SDValueInt') return `SDValueInt.sNew(${value.components[0]})`
   if (value.class === 'SDValueFloat') return `SDValueFloat.sNew(${number(value.components[0])})`
 
-  const struct = {
-    SDValueInt2: 'int2', SDValueInt3: 'int3', SDValueInt4: 'int4',
-    SDValueFloat2: 'float2', SDValueFloat3: 'float3', SDValueFloat4: 'float4',
-    SDValueColorRGB: 'ColorRGB', SDValueColorRGBA: 'ColorRGBA',
-  }[value.class]
+  const struct = STRUCTS[value.class]
   if (!struct) throw new Error(`${value.class} is not something the emitter can write yet`)
   const isInt = struct.startsWith('int')
   const args = value.components.map(c => (isInt ? String(c) : number(c))).join(', ')
@@ -42,27 +45,24 @@ function valueExpression (value) {
 function imports (spec, target = null) {
   const classes = new Set()
   const structs = new Set(['float2']) // setPosition always needs it
+  for (const described of Object.values(target?.describe ?? {})) {
+    const value = described.type === 'string' ? { class: 'SDValueString' } : described.value
+    classes.add(value.class)
+    const struct = STRUCTS[value.class]
+    if (struct) structs.add(struct)
+  }
   for (const node of spec.nodes) {
     for (const { value } of node.annotations) classes.add(value.class)
     for (const { value } of node.values) {
       classes.add(value.class)
-      const struct = {
-        SDValueInt2: 'int2', SDValueInt3: 'int3', SDValueInt4: 'int4',
-        SDValueFloat2: 'float2', SDValueFloat3: 'float3', SDValueFloat4: 'float4',
-        SDValueColorRGB: 'ColorRGB', SDValueColorRGBA: 'ColorRGBA',
-      }[value.class]
+      const struct = STRUCTS[value.class]
       if (struct) structs.add(struct)
     }
   }
   const lines = ['import os', '', 'import sd', `from sd.api.sdbasetypes import ${[...structs].sort().join(', ')}`]
   lines.push('from sd.api.sdapplication import SDApplicationPath')
   // Only the package mode creates a graph, and only it needs the class that makes one.
-  if (target) {
-    lines.push('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')
-    if (Object.keys(target.describe ?? {}).length && !classes.has('SDValueString')) {
-      lines.push('from sd.api.sdvaluestring import SDValueString')
-    }
-  }
+  if (target) lines.push('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')
   for (const c of [...classes].sort()) lines.push(`from sd.api.${c.toLowerCase()} import ${c}`)
   // A usage is an array value of a type with no SDValue class of its own, so these four come in
   // together or not at all. Shape taken from Designer's own sample_sbs_graph.py.
@@ -216,8 +216,11 @@ export function emitPython (spec, target = null) {
     lines.push(`    graph, existed = target_graph(package, ${quote(target.graph)})`)
     // Described before it is emptied: an annotation id the API does not have raises here, and a
     // graph that has not been cleared yet is a graph nothing has been done to.
-    for (const [id, text] of Object.entries(target.describe ?? {})) {
-      lines.push(`    graph.setAnnotationPropertyValueFromId(${quote(id)}, SDValueString.sNew(${quote(text)}))`)
+    for (const [id, described] of Object.entries(target.describe ?? {})) {
+      const value = described.type === 'string'
+        ? { class: 'SDValueString', components: [described.text] }
+        : described.value
+      lines.push(`    graph.setAnnotationPropertyValueFromId(${quote(id)}, ${valueExpression(value)})`)
     }
     lines.push('    clear_graph(graph)')
     lines.push('    offset = 0.0')

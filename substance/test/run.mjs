@@ -558,7 +558,15 @@ check('a spec in a library builds into its package, and a re-run converges', () 
   // A graph with no category is indexed by the Library panel but has no place in its tree, so
   // it only turns up in search. Described before it is emptied: a wrong annotation id raises
   // then, and a graph that has not been cleared yet is a graph nothing has happened to.
-  const described = emitPython(spec, { ...target, describe: { category: 'HB/Bases', label: 'Panel Base' } })
+  const described = emitPython(spec, {
+    ...target,
+    describe: {
+      category: { type: 'string', text: 'HB/Bases' },
+      label: { type: 'string', text: 'Panel Base' },
+      show_in_library: { type: 'bool', value: { class: 'SDValueBool', components: [true] } },
+      physical_size: { type: 'float3', value: { class: 'SDValueFloat3', components: [10, 10, 0] } },
+    },
+  })
   const at = fragment => described.indexOf(fragment)
   if (at("setAnnotationPropertyValueFromId('category'") === -1) problems.push('the graph category is not set')
   if (at("SDValueString.sNew('Panel Base')") === -1) problems.push('the graph label is not set')
@@ -567,8 +575,12 @@ check('a spec in a library builds into its package, and a re-run converges', () 
   if (clearsAt !== -1 && at("setAnnotationPropertyValueFromId('category'") > clearsAt) {
     problems.push('the graph is emptied before it is described, so a bad annotation id destroys it first')
   }
-  if (!described.includes('from sd.api.sdvaluestring import SDValueString')) {
-    problems.push('SDValueString is not imported for the graph description')
+  // The ids and their types came off a live graph, and three of them are not what the file
+  // format calls them: author_url, show_in_library, physical_size. So a typed one is worth
+  // checking, not just the strings.
+  if (!described.includes('SDValueFloat3.sNew(float3(10.0, 10.0, 0.0))')) problems.push('a typed graph annotation is not written')
+  for (const needed of ['from sd.api.sdvaluestring import SDValueString', 'from sd.api.sdvaluebool import SDValueBool', 'float3']) {
+    if (!described.includes(needed)) problems.push(`the graph description is missing the import for ${needed}`)
   }
 
   // Outside a library nothing is saved and nothing existing is touched.

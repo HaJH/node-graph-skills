@@ -512,12 +512,34 @@ Adobe's own carry both: `3d_perlin_noise` is `category = Generator`, `label = 3D
 "slash separated strings", which is how the tree nests.
 
 `SDGraph` extends `SDResource`, which has `setAnnotationPropertyValueFromId`, so these are
-settable the same way a node's are. **The annotation ids are taken from the format reference and
-not yet confirmed against the API** -- for an output node the two used the same words, but that
-is one data point. `tools/dump-graph-annotations.py` lists what a graph really carries.
+settable the same way a node's are. `tools/dump-graph-annotations.py` read them off a live graph
+-- **12, and three are not what the file format calls them**:
 
-Until it is confirmed, the payload sets the description **before it empties the graph**, so an id
-the API does not have raises on a graph nothing has been done to yet.
+| Id | Type | The format reference calls it |
+|---|---|---|
+| `category` | string | same. Slash separated, and this is the tree path |
+| `label`, `description`, `author`, `tags` | string | same |
+| `userdata` | string | `usertags` |
+| `author_url` | string | `authorURL` |
+| `show_in_library` | bool | `hideInLibrary` -- **and the sense is inverted** |
+| `physical_size` | float3 | `physicalSize` |
+| `identifier` | string | same. Also reachable as `setIdentifier` |
+| `icon` | `SDTypeTexture` | same |
+| `outputs_computation` | bool | not in the reference |
+
+So the two vocabularies agree less than they did for output nodes, where every id was the format's
+own word. Worth remembering the next time a name looks obvious enough to skip the probe.
+
+There is no offline source for this table the way `sbs_compositing.rst.txt` is one for node
+definitions, so it lives in `spec.mjs` with this note rather than being generated.
+
+The payload sets the description **before it empties the graph**: a bad id then raises on a graph
+nothing has been done to yet.
+
+One thing the probe also showed and this has not chased: `graph.getProperties(Output)` came back
+**empty** on a graph with four output bridges. `SDSBSCompGraph.getOutputIdentifiers()` is the
+accessor meant for graph outputs, so the probe most likely asked the wrong question -- but it is
+unchecked, and it would matter to `sbsrender`, which selects outputs by name and usage.
 
 ## The Copy button
 

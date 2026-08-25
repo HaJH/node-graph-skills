@@ -199,6 +199,11 @@ category HB/Bases
 label "Panel Base"
 ```
 
+The graph itself takes ten described values, all optional: `category`, `label`, `description`,
+`author`, `author_url`, `tags`, `userdata` (strings), `show_in_library`, `outputs_computation`
+(true/false) and `physical_size` (three numbers). Their ids came off a live graph, and three are
+not what the `.sbs` format calls them -- `author_url`, `show_in_library` and `physical_size`.
+
 **`category` is what puts a graph in the Library panel's tree.** Without one Designer still
 indexes the graph -- search finds it -- but there is nowhere for it to sit, so it looks missing.
 Slash separated for nesting. Inside a library it defaults to the alias name, so the library's

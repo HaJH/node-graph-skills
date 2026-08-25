@@ -66,6 +66,32 @@ function parseUsage (text) {
   return { name: parts[0], components: parts[1] ?? 'RGBA', colorSpace: parts[2] ?? '' }
 }
 
+// What a compositing graph itself carries, as opposed to a node. Read out of a live graph by
+// tools/dump-graph-annotations.py -- there is no offline source for these, the way
+// sbs_compositing.rst.txt is the source for node definitions.
+//
+// The format reference calls three of them something else: authorURL, hideInLibrary and
+// physicalSize. The API says author_url, show_in_library and physical_size, and show_in_library
+// is the inverse of the file's flag. So the two vocabularies agree less than they did for output
+// nodes, which is why this was probed rather than assumed.
+//
+// identifier is left out on purpose -- the graph line already names the graph, and two ways to
+// set it is one too many. icon is an SDTypeTexture and out of reach of a spec literal.
+const GRAPH_ANNOTATIONS = {
+  category: 'string',
+  label: 'string',
+  description: 'string',
+  author: 'string',
+  author_url: 'string',
+  tags: 'string',
+  userdata: 'string',
+  show_in_library: 'bool',
+  outputs_computation: 'bool',
+  physical_size: 'float3',
+}
+
+const DESCRIBE_LINE = new RegExp('^(' + Object.keys(GRAPH_ANNOTATIONS).join('|') + ')(?:\\s+(.*))?$')
+
 const isEnum = type => type.includes('::')
 
 import { LANGUAGES } from './strings.mjs'
@@ -239,15 +265,21 @@ export function parseSpec (text, catalogue) {
     // Which .sbs the graph is built into. Optional, because one graph per package is the
     // common case -- but a package holds many graphs and Adobe's own do, so a spec has to be
     // able to say. blur_hq.sbs holds blur_hq and blur_hq_grayscale.
-    // A graph with no category is indexed by the Library panel but has nowhere to sit in its
-    // tree, so it looks missing until you search for it. Slash separated for nesting.
-    const described = /^(category|label|description)(?:\s+(.*))?$/.exec(line)
+    const described = DESCRIBE_LINE.exec(line)
     if (described) {
       const [, key, raw] = described
-      const literal = (raw ?? '').trim().replace(/^["']|["']$/g, '')
-      if (!literal) problems.push({ line: at, message: `${key} needs a value` })
-      else if (describe[key]) problems.push({ line: at, message: `the ${key} is already set` })
-      else describe[key] = literal
+      const type = GRAPH_ANNOTATIONS[key]
+      if (describe[key]) {
+        problems.push({ line: at, message: `the ${key} is already set` })
+      } else if (!(raw ?? '').trim()) {
+        problems.push({ line: at, message: `${key} needs a value` })
+      } else if (type === 'string') {
+        describe[key] = { type, text: raw.trim().replace(/^["']|["']$/g, '') }
+      } else {
+        const { value, error } = coerce(parseLiteral(raw), type, key)
+        if (error) problems.push({ line: at, message: error })
+        else describe[key] = { type, value }
+      }
       return
     }
 
