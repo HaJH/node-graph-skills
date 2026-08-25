@@ -533,6 +533,26 @@ own word. Worth remembering the next time a name looks obvious enough to skip th
 There is no offline source for this table the way `sbs_compositing.rst.txt` is one for node
 definitions, so it lives in `spec.mjs` with this note rather than being generated.
 
+### The panel builds from an index, and only at startup
+
+`%LOCALAPPDATA%/Adobe/Adobe Substance 3D Designer/<version>/databases/resources.json` is what the
+Library panel draws. Each graph is an entry with `extension: "graph"`, a url of
+`<package>.sbs/<graph identifier>`, `is_listable`, and a `metadata` block carrying `category`,
+`label`, `description` and `tags`. That metadata is the graph's attributes, so the category set
+by the payload is exactly what files it in the tree.
+
+Note the version folder: `<install>/databases/resources.json` also exists and is stale by a year.
+Reading that one says the packages are missing when they are not.
+
+**Indexing is automatic and quick; the tree is not.** Measured: the payload saved the package at
+08:25:37 and the index carried it, category and all, at 08:26:04 -- 27 seconds later, with no
+prompting. But a Designer already running went on showing the tree it built at startup, which is
+why a newly categorised graph is searchable and invisible at the same time. **Restart Designer to
+see it in the tree.** Nothing about the graph or the watched path is wrong when that happens.
+
+A graph with no category is indexed too -- `hbtest`, saved by hand, is in there with a `metadata`
+block holding nothing but `plugindesc`. Searchable, and nowhere to sit.
+
 The payload sets the description **before it empties the graph**: a bad id then raises on a graph
 nothing has been done to yet.
 
