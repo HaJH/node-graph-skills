@@ -195,7 +195,15 @@ graphs and Adobe's own do -- `blur_hq.sbs` holds `blur_hq` and `blur_hq_grayscal
 ```
 graph panel_base
 package HBNoises
+category HB/Bases
+label "Panel Base"
 ```
+
+**`category` is what puts a graph in the Library panel's tree.** Without one Designer still
+indexes the graph -- search finds it -- but there is nowhere for it to sit, so it looks missing.
+Slash separated for nesting. Inside a library it defaults to the alias name, so the library's
+graphs land under one heading; a spec can override. `label` and `description` are the other two
+worth setting, and they are what a person browsing reads.
 
 Outside a library nothing changes: the payload is still a network to paste into whatever is open,
 nothing is saved, and it offsets itself clear of what is already there.

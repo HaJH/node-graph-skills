@@ -57,7 +57,12 @@ function imports (spec, target = null) {
   const lines = ['import os', '', 'import sd', `from sd.api.sdbasetypes import ${[...structs].sort().join(', ')}`]
   lines.push('from sd.api.sdapplication import SDApplicationPath')
   // Only the package mode creates a graph, and only it needs the class that makes one.
-  if (target) lines.push('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')
+  if (target) {
+    lines.push('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')
+    if (Object.keys(target.describe ?? {}).length && !classes.has('SDValueString')) {
+      lines.push('from sd.api.sdvaluestring import SDValueString')
+    }
+  }
   for (const c of [...classes].sort()) lines.push(`from sd.api.${c.toLowerCase()} import ${c}`)
   // A usage is an array value of a type with no SDValue class of its own, so these four come in
   // together or not at all. Shape taken from Designer's own sample_sbs_graph.py.
@@ -99,7 +104,7 @@ def open_package(app, package_path):
 
 
 def target_graph(package, identifier):
-    """The graph this spec builds, emptied if it is already there.
+    """The graph this spec builds. Found or created, not yet emptied.
 
     Emptied rather than deleted and remade: another package that instances this graph points at
     the resource, and replacing the resource would break that reference. Replacing its contents
@@ -111,13 +116,20 @@ def target_graph(package, identifier):
             continue
         if getattr(resource, 'getNodes', None) is None:
             continue
-        for node in list(resource.getNodes()):
-            resource.deleteNode(node)
         return resource, True
 
     graph = SDSBSCompGraph.sNew(package)
     graph.setIdentifier(identifier)
     return graph, False
+
+
+def clear_graph(graph):
+    """Empty the graph, rather than deleting and remaking it.
+
+    Another package that instances this graph points at the resource. Replacing the resource
+    would break that reference; replacing its contents keeps every dependant working."""
+    for node in list(graph.getNodes()):
+        graph.deleteNode(node)
 `
 
 const FIND_RESOURCE = `
@@ -202,6 +214,12 @@ export function emitPython (spec, target = null) {
     lines.push(`    package_path = ${quote(target.packagePath)}`)
     lines.push('    package = open_package(app, package_path)')
     lines.push(`    graph, existed = target_graph(package, ${quote(target.graph)})`)
+    // Described before it is emptied: an annotation id the API does not have raises here, and a
+    // graph that has not been cleared yet is a graph nothing has been done to.
+    for (const [id, text] of Object.entries(target.describe ?? {})) {
+      lines.push(`    graph.setAnnotationPropertyValueFromId(${quote(id)}, SDValueString.sNew(${quote(text)}))`)
+    }
+    lines.push('    clear_graph(graph)')
     lines.push('    offset = 0.0')
   } else {
     lines.push('    graph = app.getUIMgr().getCurrentGraph()')

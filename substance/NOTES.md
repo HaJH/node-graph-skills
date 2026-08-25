@@ -239,6 +239,7 @@ Passed on Designer 15.1.0 — see below. `tools/` holds the probes it was run wi
 |---|---|
 | `dump-catalog.py` | reads the four definition sources — done, see above. No longer needed to build the catalogue |
 | `dump-usages.mjs` | reports the usages and output identifiers Designer's own templates declare |
+| `dump-graph-annotations.py` | lists what annotations a compositing graph itself carries |
 | `generate-catalogue.mjs` | writes `catalogue.generated.mjs` from that dump plus the shipped `.sbs` packages, offline |
 | `roundtrip.py` | both legs. `MODE = "dump"` reads the open graph to `sd-graph.json`; `MODE = "rebuild"` builds that file into a new empty graph and reads the result back to `sd-graph-rebuilt.json` |
 
@@ -497,6 +498,26 @@ alias points inside the project's own folder makes Designer rewrite it:
 `file:packages`, relative to the `.sbsprj`. The same file also came back carrying
 `<dependencies><path_storage_methods>` set to `relative` both ways. So a committed project file
 is portable without a trick, and `project.mjs` resolves both forms.
+
+## A graph needs a category or the Library panel hides it
+
+Built into a package and saved, a graph turned up in the Library panel's **search** but not in
+its **tree**, and the alias heading did not appear at all. The panel files a graph under its
+`category` attribute, and a graph built by the payload had none -- so it was indexed with nowhere
+to sit.
+
+Adobe's own carry both: `3d_perlin_noise` is `category = Generator`, `label = 3D Perlin noise`;
+`blur_hq` is `Filter` / `Blur HQ color`. The format reference lists a graph's attributes as
+`category`, `label`, `author`, `tags`, `description`, `usertags`, `physicalSize`, and category is
+"slash separated strings", which is how the tree nests.
+
+`SDGraph` extends `SDResource`, which has `setAnnotationPropertyValueFromId`, so these are
+settable the same way a node's are. **The annotation ids are taken from the format reference and
+not yet confirmed against the API** -- for an output node the two used the same words, but that
+is one data point. `tools/dump-graph-annotations.py` lists what a graph really carries.
+
+Until it is confirmed, the payload sets the description **before it empties the graph**, so an id
+the API does not have raises on a graph nothing has been done to yet.
 
 ## The Copy button
 

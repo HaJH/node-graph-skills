@@ -63,7 +63,13 @@ const target = project?.alias?.path
       packagePath: '',
     }
   : null
-if (target) target.packagePath = path.join(project.alias.path, target.packageName + '.sbs')
+if (target) {
+  target.packagePath = path.join(project.alias.path, target.packageName + '.sbs')
+  // A graph with no category is indexed by the Library panel but has no place in its tree, so
+  // it only turns up in search. Defaulting to the alias puts the library's graphs under one
+  // heading, which is where somebody browsing expects to find them.
+  target.describe = { category: project.alias.name, ...spec.describe }
+}
 
 fs.writeFileSync(pythonAt, emitPython(spec, target))
 fs.writeFileSync(htmlAt, draw(spec, { project, target, lang: arg('lang') ?? spec.lang ?? 'en' }))

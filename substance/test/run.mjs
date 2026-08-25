@@ -555,6 +555,22 @@ check('a spec in a library builds into its package, and a re-run converges', () 
   if (!built.includes('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')) problems.push('the graph class is not imported')
   if (built.includes('free_offset')) problems.push('the package payload still offsets itself, which only makes sense when appending')
 
+  // A graph with no category is indexed by the Library panel but has no place in its tree, so
+  // it only turns up in search. Described before it is emptied: a wrong annotation id raises
+  // then, and a graph that has not been cleared yet is a graph nothing has happened to.
+  const described = emitPython(spec, { ...target, describe: { category: 'HB/Bases', label: 'Panel Base' } })
+  const at = fragment => described.indexOf(fragment)
+  if (at("setAnnotationPropertyValueFromId('category'") === -1) problems.push('the graph category is not set')
+  if (at("SDValueString.sNew('Panel Base')") === -1) problems.push('the graph label is not set')
+  // The call site, not the def -- the helper is defined above main() either way.
+  const clearsAt = described.indexOf('    clear_graph(graph)')
+  if (clearsAt !== -1 && at("setAnnotationPropertyValueFromId('category'") > clearsAt) {
+    problems.push('the graph is emptied before it is described, so a bad annotation id destroys it first')
+  }
+  if (!described.includes('from sd.api.sdvaluestring import SDValueString')) {
+    problems.push('SDValueString is not imported for the graph description')
+  }
+
   // Outside a library nothing is saved and nothing existing is touched.
   const loose = emitPython(spec)
   if (!loose.includes('free_offset')) problems.push('the loose payload no longer offsets itself')

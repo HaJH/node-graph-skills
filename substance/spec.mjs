@@ -217,6 +217,7 @@ export function parseSpec (text, catalogue) {
   let name = null
   let lang = null
   let pkg = null
+  const describe = {}
 
   const lines = text.split(/\r?\n/)
   lines.forEach((raw, i) => {
@@ -238,6 +239,18 @@ export function parseSpec (text, catalogue) {
     // Which .sbs the graph is built into. Optional, because one graph per package is the
     // common case -- but a package holds many graphs and Adobe's own do, so a spec has to be
     // able to say. blur_hq.sbs holds blur_hq and blur_hq_grayscale.
+    // A graph with no category is indexed by the Library panel but has nowhere to sit in its
+    // tree, so it looks missing until you search for it. Slash separated for nesting.
+    const described = /^(category|label|description)(?:\s+(.*))?$/.exec(line)
+    if (described) {
+      const [, key, raw] = described
+      const literal = (raw ?? '').trim().replace(/^["']|["']$/g, '')
+      if (!literal) problems.push({ line: at, message: `${key} needs a value` })
+      else if (describe[key]) problems.push({ line: at, message: `the ${key} is already set` })
+      else describe[key] = literal
+      return
+    }
+
     if (/^package\s/.test(line)) {
       const value = line.slice(7).trim()
       if (!IDENTIFIER.test(value)) problems.push({ line: at, message: `"${value}" is not a usable package name` })
@@ -371,7 +384,7 @@ export function parseSpec (text, catalogue) {
   resolvePins(nodes, wires, problems)
 
   if (problems.length) throw new SpecError(problems.sort((a, b) => a.line - b.line))
-  return { name, lang, package: pkg, nodes: [...nodes.values()], wires }
+  return { name, lang, package: pkg, describe, nodes: [...nodes.values()], wires }
 }
 
 function resolvePins (nodes, wires, problems) {
