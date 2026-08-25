@@ -278,6 +278,25 @@ session that built the network, the three library packages were already loaded a
 `find_resource` matched them in `getPackages()` without ever calling it. A shipped payload
 script meets a Designer that has none of them open, so this wants one clean run after a restart.
 
+## Next — decided, not yet built
+
+Order: **spec schema, then the emitter, then the renderer.** The emitter goes first because the
+gate left a ready-made answer key behind. `~/node-graph-harvest/sd-graph.json` is the ten-node
+network; writing that same network as a spec, emitting a payload, running it and dumping again
+should reproduce that file. The renderer has no such automatic check.
+
+The catalogue is **regenerated from the installed Designer**, inside `substance/tools/`, rather
+than copied from `procedural-texture-advisor` or read out of it at build time. That keeps this
+repo standing on its own and follows the "catalogues are generated, never transcribed" rule.
+`map-library-packages.mjs` is roughly half of it already — it walks the 541 packages and applies
+the `hideInLibrary` rule. What has to be added is each library graph's image inputs and outputs,
+with pin ids and colour / grayscale typing, plus the atomic set read out of `sd-catalog.json`.
+
+Open where that work stopped: **how a `.sbs` graph declares an image input.** `<paraminputs>` is
+parameters only — `scale` with `<type v="16"/>` is an int, not a texture. `blur_hq.sbs` declares
+`Source` somewhere else, and finding that structure is the first thing the generator needs.
+`resources/documentation/sbs_reference.md` has the DTD.
+
 ## What is not covered
 
 `v1` draws Substance compositing graphs only. Function graphs (Pixel Processor, Value Processor,
