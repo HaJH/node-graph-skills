@@ -52,14 +52,22 @@ with the scripts that made them:
 | File | What |
 |---|---|
 | `node-index.txt` | 24 atomic filter types, 28 Library-panel names, 779 library node names |
-| `io-index.txt` | every library node's image inputs and outputs, each tagged colour / gray / either |
+| `io-index.txt` | 779 rows: every library node's image inputs and outputs, each tagged colour / gray / either, **and the `.sbs` package it lives in** |
 | `tools/generate-node-index.sh` | regenerates the first from `resources/packages` and `resources/tooltips` |
 | `tools/generate-io-index.py` | regenerates the second by parsing the shipped `.sbs` packages |
 
-That covers leg C for this domain. Two things the emitter needs that those tables do not carry:
-the atomic node ids the API uses (`sbs::compositing::blend` form), and the mapping from a library
-node name to the resource `newInstanceNode` wants. `dump-catalog.py` was pointed at both and
-answered the first only — see below.
+That covers leg C for this domain, and more of it than it looked. `io-index.txt` is four columns,
+not three — `name`, `inputs`, `outputs`, **`package`** — and that fourth column is the `.sbs`
+filename the node lives in, already disambiguated: `perlin_noise` resolves to
+`noise_perlin_noise`, not to any of `noise_perlin_noise_v2`, `perlin_noise_1`, `perlin_noise_2`
+or `perlin_noise_zoom`. All 779 names are unique, so it is a complete 1:1 node → package map.
+
+That is the hard half of what `newInstanceNode` needs, and it already exists. Only the last hop is
+open — whether `loadUserPackage(<package>.sbs)` plus `findResourceFromUrl('pkg:///<name>')`
+resolves, and what the url actually looks like.
+
+The other thing the emitter needed was the atomic node ids the API uses (`sbs::compositing::blend`
+form). `dump-catalog.py` answered that outright — see below.
 
 Useful facts already settled by those tables: library nodes split into colour and grayscale
 variants with no consistent rule about which one the bare name is, and a package filename is not a
@@ -153,12 +161,26 @@ describe), a `blend` with all three of `source` / `destination` / `opacity` wire
 parameter moved off its default, and an `output`. Anything less does not exercise the parts that
 are still guesses.
 
+A concrete network that covers all four, and nothing in it is exotic:
+
+```
+perlin_noise ─┐                     clouds_2 ─── levels ─── Dot
+              ├─ blend ── normal ── output
+              │  (opacity from a grayscale uniform)
+transformation ┘
+```
+
 Open questions `dump-graph.py` is pointed at:
 
 - what an instance node reports as its `definitionId`, and whether the resource `url`
-  (`pkg:///name?dependency=NNNN` form) survives a reload or is per-session
+  (`pkg:///name?dependency=NNNN` form) is stable or per-session. If the dependency number is
+  per-session, `findResourceFromUrl` cannot be fed a stored string and `getChildrenResources`
+  plus an identifier match is the only route.
 - whether `getPropertyConnections` populates from the output side, the input side, or both
 - whether a `float2` position round-trips exactly
+- what a library node's pin ids are. `io-index.txt` has the pin *names*, but whether those are
+  the ids `newPropertyConnectionFromId` takes is an assumption until an instance node is read
+  back.
 
 ## What is not covered
 
