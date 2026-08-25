@@ -109,6 +109,50 @@ what Designer itself does, not conforming to it.
   spec. That is covered, later and with rework, by `dump` bringing the graph into the system and
   the build then judging it. If that path stops being the exception, revisit this.
 
+## Where a library lives
+
+The root is **the folder holding the library**, not the game project's top directory --
+`<Project>/Resource/Substance` is exactly the shape. A build finds it by walking up from the spec
+it was given, so one repository can hold several libraries and each spec resolves against its own.
+
+**Designer already has the file that describes one, so do not invent another.** `.sbsprj` is its
+project file, and the one it writes for itself
+(`%LOCALAPPDATA%/Adobe/Adobe Substance 3D Designer/<version>/default_project.sbsprj`) carries the
+two things a shared library needs:
+
+```xml
+<resources><urlaliases>
+  <_4><path>file:///.../resources/packages</path><name>sbs</name></_4>
+</urlaliases></resources>
+
+<library><watchedpaths>
+  <_2><url>sbs://</url><isrecursive>true</isrecursive><isenabled>true</isenabled></_2>
+</watchedpaths></library>
+```
+
+- **An alias is how one package references another.** Across the whole install, 2018 dependencies
+  are written `sbs://functions.sbs` and only 3 are a plain path. A team that declares
+  `mylib -> <Project>/Resource/Substance` gets `mylib://panel_base.sbs` in every `.sbs` that
+  instances it, which resolves on any machine. Without an alias the reference is a path, and a
+  path is a different string on every checkout.
+- **A watched path is how a graph reaches the Library panel.** `sbs://` is watched recursively,
+  which is why Designer's own 501 nodes appear there. Add the library root and the team's graphs
+  appear beside them, which is the same "it became a node" event the project catalogue produces
+  for a spec -- one for the person browsing, one for the build.
+
+So the split is: **`.sbsprj`, committed, holds what Designer has to know** -- the alias and the
+watched path. Anything our build needs and Designer does not (which spec directory to read, where
+to write the project catalogue) is ours, and it should read the alias out of the `.sbsprj` rather
+than repeat it, so the mapping is declared once.
+
+The Python API has no alias management -- `sd` exposes none -- so the `.sbsprj` is edited as a
+file or through Designer's preferences, never by a payload.
+
+**Unverified:** the aliases Designer writes are absolute (`file:///C:/...`), which a committed
+file cannot be. A `url` of the form `environment:SBS_DESIGNER_PYTHON_PATH` does appear in the
+same file, so an indirection exists; whether an alias path accepts it, or a relative URL, has not
+been tested.
+
 ## What has to change
 
 In dependency order.
@@ -136,5 +180,4 @@ In dependency order.
 
 ## Not settled
 
-- Where a project's manifest lives and how a build finds it.
 - Whether `.sbsar` publishing belongs in this repo or in the project's own CI.
