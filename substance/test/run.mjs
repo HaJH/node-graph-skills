@@ -18,6 +18,7 @@ import { draw } from '../draw.mjs'
 import { findProject, projectNodes, mergeCatalogue } from '../project.mjs'
 import { LANGUAGES } from '../strings.mjs'
 import os from 'node:os'
+import { spawnSync } from 'node:child_process'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const failures = []
@@ -35,6 +36,11 @@ function check (name, fn) {
 }
 
 const BASE_PARAMETERS = ['$outputsize', '$format', '$pixelsize', '$pixelratio', '$tiling', '$randomseed']
+
+// The same six as objects, for the fake graph the dump test builds.
+const BASE_PROPERTIES = () => catalogue.ATOMIC.blend.parameters
+  .filter(p => p.id.startsWith('$'))
+  .map(p => ({ id: p.id, connectable: false, default: p.default }))
 
 const entryFor = node => node.referencedResource
   ? { kind: 'library', name: node.referencedResource.identifier, def: catalogue.LIBRARY[node.referencedResource.identifier] }
@@ -620,6 +626,116 @@ check('the shelf categories are read off the install, and entities are decoded',
   if (CATEGORIES.some(c => /&[a-z]+;/.test(c))) problems.push('an undecoded entity is left in a category')
   if (Object.values(catalogue.LIBRARY).some(e => e.label && /&[a-z]+;/.test(e.label))) {
     problems.push('an undecoded entity is left in a library label')
+  }
+  return problems
+})
+
+check('a graph dumps back to a spec that parses', () => {
+  // graph-to-spec.py only runs inside Designer, which makes every mistake in it cost a round
+  // trip through a person. test/fake-designer.py stands up enough of the sd API to run it here,
+  // against the network that cleared the round-trip gate, and the spec it writes is handed back
+  // to the parser. What that cannot check is whether Designer's getters behave as the fake
+  // pretends -- the gate and the probes settled that; this checks the tool's own reasoning.
+  const python = ['python', 'python3', 'py'].find(exe =>
+    spawnSync(exe, ['--version'], { encoding: 'utf8' }).status === 0)
+  if (!python) {
+    console.log('        (skipped: no python on PATH)')
+    return []
+  }
+
+  const dump = JSON.parse(fs.readFileSync(path.join(HERE, 'gate-graph.json'), 'utf8')).graph
+  const enumIdFor = (typeId, n) => catalogue.ENUMS?.[typeId]?.find(v => v.value === n)?.id
+
+  // The catalogue writes a definition default as the text Designer printed for it.
+  const parseDefault = text => {
+    if (!text) return null
+    const cls = text.slice(0, text.indexOf('('))
+    const numbers = [...text.matchAll(/-?\d+(?:\.\d+)?/g)].map(m => Number(m[0]))
+    return { class: cls, components: numbers }
+  }
+
+  const nodes = dump.nodes.map(node => {
+    const entry = entryFor(node)
+    const values = {}
+    const absolute = []
+    for (const { id, value } of node.values) {
+      if (id === '$format') absolute.push(id)
+      values[id] = value.class === 'SDValueEnum'
+        ? { ...value, valueId: enumIdFor(value.typeId, value.components[0]) }
+        : value
+      // NOT every base parameter in the dump: a definition's default is not the value a placed
+      // node has -- $outputsize reads int2(0,0) on every node against a default of int2(8,8) --
+      // so calling them all set would test nothing. $format is the one the gate really set, and
+      // leaving the rest inherited is what the tool has to notice and skip.
+    }
+    return {
+      uid: node.uid,
+      definitionId: node.definitionId,
+      resource: node.referencedResource?.identifier ?? null,
+      inputs: [
+        ...entry.def.inputs.map(p => ({ id: p.id, connectable: true, primary: !!p.primary })),
+        ...(entry.def.parameters ?? []).map(p => ({ id: p.id, connectable: false, default: parseDefault(p.default) })),
+        // Designer offers the six base parameters on every node, instance nodes included. The
+        // catalogue leaves them off a library entry on purpose -- they are not in a library
+        // graph's paraminputs -- so the fixture has to put them back or the fake graph is
+        // missing properties a real one has.
+        ...(entry.kind === 'library' ? BASE_PROPERTIES().map(p => ({ ...p, default: parseDefault(p.default) })) : []),
+      ],
+      outputs: entry.def.outputs.map(p => ({ id: p.id })),
+      values,
+      absolute,
+      wires: node.connections.map(w => ({ to: w.toNode, fromProperty: w.fromProperty, toProperty: w.toProperty })),
+    }
+  })
+
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'sbsdump-'))
+  const problems = []
+  try {
+    const fixturePath = path.join(scratch, 'fixture.json')
+    const specPath = path.join(scratch, 'out.spec')
+    fs.writeFileSync(fixturePath, JSON.stringify({
+      graph: { identifier: 'gate_network', packagePath: path.join(scratch, 'GateNetwork.sbs'), annotations: {} },
+      nodes,
+    }))
+
+    const run = spawnSync(python, [path.join(HERE, 'fake-designer.py'), fixturePath, specPath], { encoding: 'utf8' })
+    if (run.status !== 0) return ['the dump tool failed to run:\n' + (run.stderr || run.stdout)]
+    if (!fs.existsSync(specPath)) return ['the dump tool wrote no spec:\n' + run.stdout]
+
+    const text = fs.readFileSync(specPath, 'utf8')
+    let spec
+    try {
+      spec = parseSpec(text, catalogue)
+    } catch (error) {
+      return ['the dumped spec does not parse:\n' + error.message + '\n--- spec ---\n' + text]
+    }
+
+    if (spec.nodes.length !== dump.nodes.length) {
+      problems.push(`${spec.nodes.length} nodes dumped for ${dump.nodes.length}`)
+    }
+    const wires = dump.nodes.reduce((n, node) => n + node.connections.length, 0)
+    if (spec.wires.length !== wires) problems.push(`${spec.wires.length} wires dumped for ${wires}`)
+    if (spec.name !== 'gate_network') problems.push('the graph name was not carried')
+    if (spec.package !== 'GateNetwork') problems.push('the package name was not carried')
+
+    // An enum has to come back as its value id. A number would be unreadable and Designer's
+    // spelling is not guessable.
+    // Spelled out rather than pattern-matched: "16_bits_per_channel" starts with a digit, so
+    // asking whether the value looks numeric says yes about a perfectly good value id.
+    if (!text.includes('$format=16_bits_per_channel')) {
+      problems.push('an enum was not dumped as its value id -- ' + (/[$]format=[^\s]*/.exec(text)?.[0] ?? 'it is missing'))
+    }
+    // The inheritance filter is the whole reason $outputsize is not on every line.
+    if (text.includes('$outputsize')) problems.push('an inherited base parameter was dumped as if it were set')
+
+    // It has to build, not merely parse.
+    try {
+      emitPython(spec)
+    } catch (error) {
+      problems.push('the dumped spec parses but does not build: ' + error.message)
+    }
+  } finally {
+    fs.rmSync(scratch, { recursive: true, force: true })
   }
   return problems
 })
