@@ -244,13 +244,15 @@ check('the spec in SKILL.md is one that builds', () => {
   // Documentation drifts the moment nothing checks it, and this example is the first thing
   // anyone copies.
   const skill = fs.readFileSync(path.join(HERE, '..', '..', 'skills', 'substance-graph', 'SKILL.md'), 'utf8')
-  const block = skill.match(/```\n(graph [\s\S]*?)```/)
+  // The first fenced block starting with "graph" is not necessarily the example -- short
+  // snippets illustrate single lines too. The example is the one that wires something up.
+  const block = [...skill.matchAll(/```\n(graph [\s\S]*?)```/g)].map(m => m[1]).find(b => b.includes('->'))
   if (!block) return ['SKILL.md has no spec example to check']
 
   const problems = []
   let spec
   try {
-    spec = parseSpec(block[1], catalogue)
+    spec = parseSpec(block, catalogue)
   } catch (error) {
     return ['the documented spec does not parse:\n' + error.message]
   }
