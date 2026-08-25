@@ -237,7 +237,8 @@ Passed on Designer 15.1.0 — see below. `tools/` holds the probes it was run wi
 
 | Script | Does |
 |---|---|
-| `dump-catalog.py` | reads the four definition sources — done, see above |
+| `dump-catalog.py` | reads the four definition sources — done, see above. No longer needed to build the catalogue |
+| `dump-usages.mjs` | reports the usages and output identifiers Designer's own templates declare |
 | `generate-catalogue.mjs` | writes `catalogue.generated.mjs` from that dump plus the shipped `.sbs` packages, offline |
 | `roundtrip.py` | both legs. `MODE = "dump"` reads the open graph to `sd-graph.json`; `MODE = "rebuild"` builds that file into a new empty graph and reads the result back to `sd-graph-rebuilt.json` |
 
@@ -315,7 +316,10 @@ and `output` falls back to being the only input rather than the primary one, whi
 Values are written as bare literals — `6`, `2.5`, `false`, `[0,0,0,1]`, `"text"` — and the
 catalogue's declared type decides the `SDValue` class. That is why the catalogue carries library
 parameter types: `scale=6` on `perlin_noise` is an `int`, and nothing about the literal says so.
-A type containing `::` is an enum and gets `SDValueEnum.sFromValue`.
+A type containing `::` is an enum and is written by **value id** -- `blendingmode=substract`, not
+`blendingmode=2` -- because nothing about the integer says which mode it is and Designer's own
+spelling is not guessable. The integer still parses, since a graph read back out of Designer only
+knows the number.
 
 Every problem in a spec is reported at once, with line numbers and the pins or parameters that do
 exist, rather than one per run.
@@ -390,10 +394,6 @@ right one, that `height_blend` has two outputs and the wire had to say which.
 
 Two gaps it did surface, neither blocking:
 
-- **Enum parameters are unwritable in practice.** `blendingmode` on a `blend` is
-  `sbs::compositing::blendingmode` and the spec takes a whole number, but the catalogue carries
-  the enum's type name and not its value labels, so nothing says which integer is Subtract. The
-  example leaves every blending mode at its default for that reason.
 - A 21-node graph draws 3062 px wide. The frame scrolls, so nothing breaks, but the layout has no
   notion of a page width to fold against.
 
@@ -427,15 +427,16 @@ usages.pushBack(SDValueUsage.sNew(SDUsage.sNew('baseColor', 'RGBA', 'sRGB')))
 node.setAnnotationPropertyValueFromId('usages', usages)
 ```
 
+**Run in Designer, and it works**: the worked example's four outputs arrive called `height`,
+`normal`, `basecolor` and `roughness` with their usages on them, instead of `output_1`. So the
+annotation route is settled, not just documented.
+
 `SDUsage.sNew(name, components, colorSpace)`. **No shipped file says what an unset colour space
 should be** -- 541 packages carry no `<usages>` block at all, because filter graphs have no
 material outputs to tag. So the emitter defaults components to `RGBA` and leaves the colour space
 empty rather than inventing one; a spec that cares writes `name:components:colourspace`.
 
-That file is also the answer to the enum gap recorded under the worked example: it lists every
-`SDTypeEnum`'s **value ids and labels**, and `SDValueEnum.sFromValueId(typeId, 'multiply')` takes
-an id. Regenerating the catalogue from that file instead of from a Designer run would make
-`blendingmode=multiply` writable and drop the dependency on `dump-catalog.py`. Not done.
+That file is now the catalogue's source for the atomic half -- see below.
 
 ## What a reusable asset needs, and what is missing
 
@@ -456,6 +457,32 @@ reuse these".
 
 `SDGraph` extends `SDResource`, not `SDNode`, so `newProperty` is not on it: a graph's inputs
 come from bridge nodes, which is why naming a bridge is the whole mechanism.
+
+## The catalogue's atomic half comes from the install's documentation
+
+`resources/documentation/pythonapi/html/_sources/pythonapi/modules/sbs_compositing.rst.txt`
+lists all 29 compositing definitions with their Input, Output and Annotation properties -- ids,
+flags (`CONNECTABLE`, `PRIMARY`, `VARIADIC`, `FUNCTION_ONLY`, `READ_ONLY`), types and defaults --
+and then every `SDTypeEnum` with its **value ids and the integers behind them**.
+
+`generate-catalogue.mjs` reads it instead of `dump-catalog.py`'s json, which means the whole
+catalogue is now generated **offline**: nothing has to be run inside Designer to rebuild it.
+
+**Proved equivalent, not assumed.** Regenerating from the documentation and comparing against the
+committed table read out of a running Designer: `ATOMIC` identical, `LIBRARY` identical. The only
+difference was a parameter with no default, which the dump wrote as `null` and the parser was
+omitting. So the documentation reproduces the API exactly, and carries two things the dump never
+collected:
+
+- **Annotations**, which is how a graph input or output is named. Only the four bridges have any,
+  so the parser no longer needs a hardcoded list of which nodes they apply to -- the catalogue
+  says.
+- **15 enum types, 72 values.** `blendingmode` runs `copy add substract multiply addsub max min
+  switch divide overlay screen softlight` -- note `substract`, which is Adobe's spelling and the
+  reason writing these by name matters.
+
+`dump-catalog.py` is kept because it is the record of how the four definition sources were
+compared, but nothing needs it to build.
 
 ## The Copy button
 

@@ -342,6 +342,39 @@ check('an output node is named and carries its usage', () => {
   return problems
 })
 
+check('enums are written by name, and annotations come from the catalogue', () => {
+  const problems = []
+
+  // The reason this matters: nothing about the integer says which mode it is, and Designer
+  // spells the one between add and multiply "substract".
+  const spec = parseSpec('graph t\na blend blendingmode=substract\nb blend blendingmode=5', catalogue)
+  const python = emitPython(spec)
+  if (!python.includes("sFromValue('sbs::compositing::blendingmode', 2)")) problems.push('a named enum value is not resolved')
+  if (!python.includes("sFromValue('sbs::compositing::blendingmode', 5)")) problems.push('a numeric enum value no longer works')
+  if (!draw(spec).includes('substract')) problems.push('the page shows the number rather than the name')
+
+  const rejects = source => {
+    try { parseSpec(source, catalogue); return null } catch (error) { return error.message }
+  }
+  const wrong = rejects('graph t\na blend blendingmode=subtract')
+  if (!wrong) problems.push('a misspelled enum value is accepted')
+  else if (!wrong.includes('substract')) problems.push('a rejected enum value does not list the ones that exist')
+
+  // Annotations are whatever the catalogue says the definition has -- no hardcoded list.
+  const bridges = Object.entries(catalogue.ATOMIC).filter(([, d]) => d.annotations?.length).map(([n]) => n).sort()
+  if (bridges.join() !== 'input_color,input_grayscale,input_value,output') {
+    problems.push('the definitions carrying annotations are no longer the four bridges: ' + bridges.join(', '))
+  }
+  if (!catalogue.ATOMIC.output.annotations.some(a => a.id === 'usages')) problems.push('output lost its usages annotation')
+  if (!rejects('graph t\na blend identifier=x')) problems.push('an annotation is accepted on a node that has none')
+
+  // mipmaps is an int annotation, so it exercises the non-string path for free.
+  if (!emitPython(parseSpec('graph t\no output mipmaps=3', catalogue)).includes("setAnnotationPropertyValueFromId('mipmaps', SDValueInt.sNew(3))")) {
+    problems.push('a non-string annotation is not written')
+  }
+  return problems
+})
+
 check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
   // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
   // route that can survive that, so it has to be tried first and synchronously -- awaiting the

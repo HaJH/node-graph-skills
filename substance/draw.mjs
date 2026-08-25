@@ -41,6 +41,9 @@ const showUsage = usage =>
   usage.name + (usage.colorSpace ? ` (${usage.components}, ${usage.colorSpace})` : ` (${usage.components})`)
 
 function showValue (value) {
+  // An enum reads as its value id where the catalogue knows one. "blendingmode = substract"
+  // tells a reader something; "blendingmode = 2" does not.
+  if (value.class === 'SDValueEnum') return value.id ?? String(value.components[0])
   if (value.class === 'SDValueBool') return value.components[0] ? 'true' : 'false'
   if (value.class === 'SDValueString') return JSON.stringify(value.components[0])
   if (value.components.length === 1) return String(value.components[0])

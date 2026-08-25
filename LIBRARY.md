@@ -111,13 +111,13 @@ what Designer itself does, not conforming to it.
 
 ## What has to change
 
-In dependency order. Nothing here is started.
+In dependency order.
 
-1. **Regenerate the catalogue from the install's own API documentation.**
-   `sbs_compositing.rst.txt` carries all 29 definitions with their annotations, and every enum's
-   value ids and labels. That makes `blendingmode=multiply` writable, removes the hardcoded
-   annotation table, and drops the need to run `dump-catalog.py` inside Designer. Everything
-   below sits on the catalogue, so it goes first.
+1. ~~**Regenerate the catalogue from the install's own API documentation.**~~ **Done.**
+   `generate-catalogue.mjs` reads `sbs_compositing.rst.txt`, so the whole catalogue is generated
+   offline and carries annotations and 15 enum types besides. Verified by regenerating and
+   diffing against the table that came out of a running Designer: identical. `blendingmode=substract`
+   is writable and the hardcoded annotation list is gone.
 2. **A project catalogue.** Scan a project's `.sbs` files with the same parser that reads the
    install, and merge the result with the shipped catalogue. A team graph becomes a node name.
    This is the arrow that makes the library compound, and it replaces the `use <path>` declaration
@@ -136,7 +136,5 @@ In dependency order. Nothing here is started.
 
 ## Not settled
 
-- Whether the emitted `identifier` and `usages` actually land in Designer. The syntax is
-  Designer's own, from its documentation and its shipped sample, but it has not been run.
 - Where a project's manifest lives and how a build finds it.
 - Whether `.sbsar` publishing belongs in this repo or in the project's own CI.

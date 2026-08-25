@@ -2,8 +2,8 @@
 //
 //   node substance/tools/generate-catalogue.mjs
 //
-// Read out of Adobe Substance 3D Designer 15.1.0.
-// ATOMIC comes from the API via tools/dump-catalog.py; LIBRARY from the shipped .sbs packages.
+// Read out of Adobe Substance 3D Designer 15.1.0, offline.
+// ATOMIC and ENUMS come from the API reference the install ships; LIBRARY from its .sbs packages.
 // Pin types are Substance Type Codes: color, gray, either. An output typed "value" is a
 // number, not an image, and cannot take an image wire.
 //
@@ -68,7 +68,8 @@ export const ATOMIC = {
     "type": "sbs::compositing::resizemethod",
     "default": "SDValueEnum(\"sbs::compositing::resizemethod\",0)"
    }
-  ]
+  ],
+  "annotations": []
  },
  "blend": {
   "id": "sbs::compositing::blend",
@@ -146,7 +147,8 @@ export const ATOMIC = {
     "type": "float4",
     "default": "SDValueFloat4(float4(0,1,0,1))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "blur": {
   "id": "sbs::compositing::blur",
@@ -199,7 +201,8 @@ export const ATOMIC = {
     "type": "float",
     "default": "SDValueFloat(float(10))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "curve": {
   "id": "sbs::compositing::curve",
@@ -282,7 +285,8 @@ export const ATOMIC = {
     "type": "SDTypeArray<sbs::compositing::curve_key>",
     "default": null
    }
-  ]
+  ],
+  "annotations": []
  },
  "directionalwarp": {
   "id": "sbs::compositing::directionalwarp",
@@ -355,7 +359,8 @@ export const ATOMIC = {
     "type": "float",
     "default": "SDValueFloat(float(0))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "dirmotionblur": {
   "id": "sbs::compositing::dirmotionblur",
@@ -413,7 +418,8 @@ export const ATOMIC = {
     "type": "float",
     "default": "SDValueFloat(float(0))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "distance": {
   "id": "sbs::compositing::distance",
@@ -486,7 +492,8 @@ export const ATOMIC = {
     "type": "sbs::compositing::distancemode",
     "default": "SDValueInt(int(0))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "dyngradient": {
   "id": "sbs::compositing::dyngradient",
@@ -554,7 +561,8 @@ export const ATOMIC = {
     "type": "float",
     "default": "SDValueFloat(float(0))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "emboss": {
   "id": "sbs::compositing::emboss",
@@ -627,7 +635,8 @@ export const ATOMIC = {
     "type": "ColorRGBA",
     "default": "SDValueFloat4(float4(0,0,0,0))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "fxmaps": {
   "id": "sbs::compositing::fxmaps",
@@ -710,7 +719,8 @@ export const ATOMIC = {
     "type": "float",
     "default": "SDValueFloat(float(1))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "gradient": {
   "id": "sbs::compositing::gradient",
@@ -773,7 +783,8 @@ export const ATOMIC = {
     "type": "SDTypeArray<sbs::compositing::gradient_key_rgba>",
     "default": null
    }
-  ]
+  ],
+  "annotations": []
  },
  "grayscaleconversion": {
   "id": "sbs::compositing::grayscaleconversion",
@@ -836,7 +847,8 @@ export const ATOMIC = {
     "type": "float",
     "default": "SDValueFloat(float(1))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "hsl": {
   "id": "sbs::compositing::hsl",
@@ -899,7 +911,8 @@ export const ATOMIC = {
     "type": "float",
     "default": "SDValueFloat(float(0.5))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "input_color": {
   "id": "sbs::compositing::input_color",
@@ -945,6 +958,36 @@ export const ATOMIC = {
     "id": "bitmapresourcepath",
     "type": "string",
     "default": "SDValueString(string())"
+   }
+  ],
+  "annotations": [
+   {
+    "id": "label",
+    "type": "string"
+   },
+   {
+    "id": "description",
+    "type": "string"
+   },
+   {
+    "id": "identifier",
+    "type": "string"
+   },
+   {
+    "id": "userdata",
+    "type": "string"
+   },
+   {
+    "id": "group",
+    "type": "string"
+   },
+   {
+    "id": "visible_if",
+    "type": "string"
+   },
+   {
+    "id": "usages",
+    "type": "SDTypeArray<SDTypeUsage>"
    }
   ]
  },
@@ -993,6 +1036,36 @@ export const ATOMIC = {
     "type": "string",
     "default": "SDValueString(string())"
    }
+  ],
+  "annotations": [
+   {
+    "id": "label",
+    "type": "string"
+   },
+   {
+    "id": "description",
+    "type": "string"
+   },
+   {
+    "id": "identifier",
+    "type": "string"
+   },
+   {
+    "id": "userdata",
+    "type": "string"
+   },
+   {
+    "id": "group",
+    "type": "string"
+   },
+   {
+    "id": "visible_if",
+    "type": "string"
+   },
+   {
+    "id": "usages",
+    "type": "SDTypeArray<SDTypeUsage>"
+   }
   ]
  },
  "input_value": {
@@ -1034,6 +1107,36 @@ export const ATOMIC = {
     "id": "$randomseed",
     "type": "int",
     "default": "SDValueInt(int(0))"
+   }
+  ],
+  "annotations": [
+   {
+    "id": "label",
+    "type": "string"
+   },
+   {
+    "id": "description",
+    "type": "string"
+   },
+   {
+    "id": "identifier",
+    "type": "string"
+   },
+   {
+    "id": "userdata",
+    "type": "string"
+   },
+   {
+    "id": "group",
+    "type": "string"
+   },
+   {
+    "id": "visible_if",
+    "type": "string"
+   },
+   {
+    "id": "usages",
+    "type": "SDTypeArray<SDTypeUsage>"
    }
   ]
  },
@@ -1113,7 +1216,8 @@ export const ATOMIC = {
     "type": "bool",
     "default": "SDValueBool(bool(true))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "normal": {
   "id": "sbs::compositing::normal",
@@ -1176,7 +1280,8 @@ export const ATOMIC = {
     "type": "bool",
     "default": "SDValueBool(bool(true))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "output": {
   "id": "sbs::compositing::output",
@@ -1193,7 +1298,45 @@ export const ATOMIC = {
     "id": "unique_filter_output"
    }
   ],
-  "parameters": []
+  "parameters": [],
+  "annotations": [
+   {
+    "id": "label",
+    "type": "string"
+   },
+   {
+    "id": "description",
+    "type": "string"
+   },
+   {
+    "id": "identifier",
+    "type": "string"
+   },
+   {
+    "id": "userdata",
+    "type": "string"
+   },
+   {
+    "id": "group",
+    "type": "string"
+   },
+   {
+    "id": "visible_if",
+    "type": "string"
+   },
+   {
+    "id": "usages",
+    "type": "SDTypeArray<SDTypeUsage>"
+   },
+   {
+    "id": "mipmaps",
+    "type": "int"
+   },
+   {
+    "id": "format",
+    "type": "int"
+   }
+  ]
  },
  "passthrough": {
   "id": "sbs::compositing::passthrough",
@@ -1241,7 +1384,8 @@ export const ATOMIC = {
     "type": "int",
     "default": "SDValueInt(int(0))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "pixelprocessor": {
   "id": "sbs::compositing::pixelprocessor",
@@ -1299,7 +1443,8 @@ export const ATOMIC = {
     "type": "float4",
     "default": "SDValueFloat4(float4(0,0,0,1))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "sharpen": {
   "id": "sbs::compositing::sharpen",
@@ -1357,7 +1502,8 @@ export const ATOMIC = {
     "type": "bool",
     "default": "SDValueBool(bool(false))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "shuffle": {
   "id": "sbs::compositing::shuffle",
@@ -1430,7 +1576,8 @@ export const ATOMIC = {
     "type": "sbs::compositing::channelalpha",
     "default": "SDValueEnum(\"sbs::compositing::channelalpha\",3)"
    }
-  ]
+  ],
+  "annotations": []
  },
  "svg": {
   "id": "sbs::compositing::svg",
@@ -1488,7 +1635,8 @@ export const ATOMIC = {
     "type": "string",
     "default": "SDValueString(string())"
    }
-  ]
+  ],
+  "annotations": []
  },
  "text": {
   "id": "sbs::compositing::text",
@@ -1576,7 +1724,8 @@ export const ATOMIC = {
     "type": "ColorRGBA",
     "default": "SDValueFloat4(float4(1,1,1,1))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "transformation": {
   "id": "sbs::compositing::transformation",
@@ -1654,7 +1803,8 @@ export const ATOMIC = {
     "type": "sbs::compositing::filtering",
     "default": "SDValueEnum(\"sbs::compositing::filtering\",0)"
    }
-  ]
+  ],
+  "annotations": []
  },
  "uniform": {
   "id": "sbs::compositing::uniform",
@@ -1706,7 +1856,8 @@ export const ATOMIC = {
     "type": "ColorRGBA",
     "default": "SDValueFloat4(float4(0,0,0,1))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "valueprocessor": {
   "id": "sbs::compositing::valueprocessor",
@@ -1759,7 +1910,8 @@ export const ATOMIC = {
     "type": "bool",
     "default": "SDValueBool(bool(false))"
    }
-  ]
+  ],
+  "annotations": []
  },
  "warp": {
   "id": "sbs::compositing::warp",
@@ -1822,7 +1974,8 @@ export const ATOMIC = {
     "type": "bool",
     "default": "SDValueBool(bool(false))"
    }
-  ]
+  ],
+  "annotations": []
  }
 }
 
@@ -37187,4 +37340,399 @@ export const LIBRARY = {
    }
   ]
  }
+}
+
+// Enum parameters take a value id, not the integer behind it: blendingmode=multiply rather than
+// blendingmode=5. The integer is here because SDValueEnum.sFromValue wants it.
+export const ENUMS = {
+ "sbs::compositing::alignment": [
+  {
+   "id": "left",
+   "value": 0,
+   "label": "Left"
+  },
+  {
+   "id": "center",
+   "value": 1,
+   "label": "Center"
+  },
+  {
+   "id": "right",
+   "value": 2,
+   "label": "Right"
+  }
+ ],
+ "sbs::compositing::blendingmode": [
+  {
+   "id": "copy",
+   "value": 0,
+   "label": "Copy"
+  },
+  {
+   "id": "add",
+   "value": 1,
+   "label": "Add (linear dodge)"
+  },
+  {
+   "id": "substract",
+   "value": 2,
+   "label": "Subtract"
+  },
+  {
+   "id": "multiply",
+   "value": 3,
+   "label": "Multiply"
+  },
+  {
+   "id": "addsub",
+   "value": 4,
+   "label": "Add sub"
+  },
+  {
+   "id": "max",
+   "value": 5,
+   "label": "Max (lighten)"
+  },
+  {
+   "id": "min",
+   "value": 6,
+   "label": "Min (darken)"
+  },
+  {
+   "id": "switch",
+   "value": 7,
+   "label": "Switch"
+  },
+  {
+   "id": "divide",
+   "value": 8,
+   "label": "Divide"
+  },
+  {
+   "id": "overlay",
+   "value": 9,
+   "label": "Overlay"
+  },
+  {
+   "id": "screen",
+   "value": 10,
+   "label": "Screen"
+  },
+  {
+   "id": "softlight",
+   "value": 11,
+   "label": "Soft light"
+  }
+ ],
+ "sbs::compositing::channelalpha": [
+  {
+   "id": "input1red",
+   "value": 0,
+   "label": "Input 1 red channel"
+  },
+  {
+   "id": "input1green",
+   "value": 1,
+   "label": "Input 1 green channel"
+  },
+  {
+   "id": "input1blue",
+   "value": 2,
+   "label": "Input 1 blue channel"
+  },
+  {
+   "id": "input1alpha",
+   "value": 3,
+   "label": "Input 1 alpha channel"
+  },
+  {
+   "id": "input2red",
+   "value": 4,
+   "label": "Input 2 red channel"
+  },
+  {
+   "id": "input2green",
+   "value": 5,
+   "label": "Input 2 green channel"
+  },
+  {
+   "id": "input2blue",
+   "value": 6,
+   "label": "Input 2 blue channel"
+  },
+  {
+   "id": "input2alpha",
+   "value": 7,
+   "label": "Input 2 alpha channel"
+  }
+ ],
+ "sbs::compositing::channelblue": [
+  {
+   "id": "input1red",
+   "value": 0,
+   "label": "Input 1 red channel"
+  },
+  {
+   "id": "input1green",
+   "value": 1,
+   "label": "Input 1 green channel"
+  },
+  {
+   "id": "input1blue",
+   "value": 2,
+   "label": "Input 1 blue channel"
+  },
+  {
+   "id": "input1alpha",
+   "value": 3,
+   "label": "Input 1 alpha channel"
+  },
+  {
+   "id": "input2red",
+   "value": 4,
+   "label": "Input 2 red channel"
+  },
+  {
+   "id": "input2green",
+   "value": 5,
+   "label": "Input 2 green channel"
+  },
+  {
+   "id": "input2blue",
+   "value": 6,
+   "label": "Input 2 blue channel"
+  },
+  {
+   "id": "input2alpha",
+   "value": 7,
+   "label": "Input 2 alpha channel"
+  }
+ ],
+ "sbs::compositing::channelgreen": [
+  {
+   "id": "input1red",
+   "value": 0,
+   "label": "Input 1 red channel"
+  },
+  {
+   "id": "input1green",
+   "value": 1,
+   "label": "Input 1 green channel"
+  },
+  {
+   "id": "input1blue",
+   "value": 2,
+   "label": "Input 1 blue channel"
+  },
+  {
+   "id": "input1alpha",
+   "value": 3,
+   "label": "Input 1 alpha channel"
+  },
+  {
+   "id": "input2red",
+   "value": 4,
+   "label": "Input 2 red channel"
+  },
+  {
+   "id": "input2green",
+   "value": 5,
+   "label": "Input 2 green channel"
+  },
+  {
+   "id": "input2blue",
+   "value": 6,
+   "label": "Input 2 blue channel"
+  },
+  {
+   "id": "input2alpha",
+   "value": 7,
+   "label": "Input 2 alpha channel"
+  }
+ ],
+ "sbs::compositing::channelred": [
+  {
+   "id": "input1red",
+   "value": 0,
+   "label": "Input 1 red channel"
+  },
+  {
+   "id": "input1green",
+   "value": 1,
+   "label": "Input 1 green channel"
+  },
+  {
+   "id": "input1blue",
+   "value": 2,
+   "label": "Input 1 blue channel"
+  },
+  {
+   "id": "input1alpha",
+   "value": 3,
+   "label": "Input 1 alpha channel"
+  },
+  {
+   "id": "input2red",
+   "value": 4,
+   "label": "Input 2 red channel"
+  },
+  {
+   "id": "input2green",
+   "value": 5,
+   "label": "Input 2 green channel"
+  },
+  {
+   "id": "input2blue",
+   "value": 6,
+   "label": "Input 2 blue channel"
+  },
+  {
+   "id": "input2alpha",
+   "value": 7,
+   "label": "Input 2 alpha channel"
+  }
+ ],
+ "sbs::compositing::colorblending": [
+  {
+   "id": "usesourcealpha",
+   "value": 0,
+   "label": "Use source alpha"
+  },
+  {
+   "id": "ignorealpha",
+   "value": 1,
+   "label": "Ignore alpha"
+  },
+  {
+   "id": "straight",
+   "value": 2,
+   "label": "Straight alpha blending"
+  },
+  {
+   "id": "premul",
+   "value": 3,
+   "label": "Premultiplied alpha blending (copy only)"
+  }
+ ],
+ "sbs::compositing::distancemode": [
+  {
+   "id": "euclidean",
+   "value": 0,
+   "label": "Euclidean distance"
+  },
+  {
+   "id": "manhattan",
+   "value": 1,
+   "label": "Manhattan distance"
+  },
+  {
+   "id": "chebyshev",
+   "value": 2,
+   "label": "Chebyshev distance"
+  }
+ ],
+ "sbs::compositing::filtering": [
+  {
+   "id": "bilinear",
+   "value": 0,
+   "label": "Bilinear"
+  },
+  {
+   "id": "nearest",
+   "value": 1,
+   "label": "Nearest"
+  }
+ ],
+ "sbs::compositing::format": [
+  {
+   "id": "8_bits_per_channel",
+   "value": 0,
+   "label": "8 bits per channel"
+  },
+  {
+   "id": "16_bits_per_channel",
+   "value": 1,
+   "label": "16 bits per channel"
+  },
+  {
+   "id": "hdr_low_precision",
+   "value": 2,
+   "label": "HDR low precision (16F)"
+  },
+  {
+   "id": "hdr_high_precision",
+   "value": 3,
+   "label": "HDR high precision (32F)"
+  }
+ ],
+ "sbs::compositing::mipmapmode": [
+  {
+   "id": "automatic",
+   "value": 0,
+   "label": "Automatic"
+  },
+  {
+   "id": "manual",
+   "value": 1,
+   "label": "Manual"
+  }
+ ],
+ "sbs::compositing::pixelratio": [
+  {
+   "id": "stretch",
+   "value": 0,
+   "label": "Stretch"
+  },
+  {
+   "id": "square",
+   "value": 1,
+   "label": "Square"
+  }
+ ],
+ "sbs::compositing::resizemethod": [
+  {
+   "id": "stretchbilinear",
+   "value": 0,
+   "label": "Smooth stretch"
+  },
+  {
+   "id": "stretchnearest",
+   "value": 1,
+   "label": "Nearest stretch"
+  }
+ ],
+ "sbs::compositing::tiling": [
+  {
+   "id": "no_tiling",
+   "value": 0,
+   "label": "No tiling"
+  },
+  {
+   "id": "horizontal_tiling",
+   "value": 1,
+   "label": "Horizontal tiling"
+  },
+  {
+   "id": "vertical_tiling",
+   "value": 2,
+   "label": "Vertical tiling"
+  },
+  {
+   "id": "h_and_v_tiling",
+   "value": 3,
+   "label": "H and V tiling"
+  }
+ ],
+ "sbs::compositing::uvselector": [
+  {
+   "id": "u",
+   "value": 0,
+   "label": "Horizontal"
+  },
+  {
+   "id": "v",
+   "value": 1,
+   "label": "Vertical"
+  }
+ ]
 }

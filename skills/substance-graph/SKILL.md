@@ -70,6 +70,10 @@ No section headers and no indentation rules. `graph <name>` is optional and titl
 - **Values are bare literals**: `6`, `2.5`, `false`, `[0,0,0,1]`, `"text"`. The catalogue knows
   each parameter's type, so `scale=6` becomes an int and `disorder=0.35` a float; getting it the
   wrong way round is an error rather than a surprise inside Designer.
+- **A dropdown parameter takes its value by name**: `blendingmode=substract`, `$tiling=no_tiling`,
+  `$format=hdr_high_precision`. Get it wrong and the build lists the values that exist -- worth
+  leaning on, because Designer spells the mode between `add` and `multiply` **`substract`**. The
+  integer is still accepted, since a graph read back out of Designer only knows the number.
 - **Base parameters work on every node**: `$outputsize`, `$format`, `$pixelsize`, `$pixelratio`,
   `$tiling`, `$randomseed`. They are not in a library node's own parameter list but they are
   settable on one.
@@ -179,14 +183,15 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/theme.mjs` | colours and metrics |
 | `substance/catalogue.generated.mjs` | 29 built-in and 501 library nodes, with pins and types |
 | `substance/tools/generate-catalogue.mjs` | regenerates that from an installed Designer |
-| `substance/tools/dump-catalog.py` | reads the built-in definitions out of a running Designer |
+| `substance/tools/dump-catalog.py` | reads the built-in definitions out of a running Designer -- how the catalogue's source was settled, not needed to build it |
+| `substance/tools/dump-usages.mjs` | reports the usages Designer's own graph templates declare |
 | `substance/tools/roundtrip.py` | reads a graph out of Designer and builds one back in |
 | `substance/example/worn_painted_metal.spec` | the worked example -- 21 nodes, four outputs, one wear mask driving basecolor and roughness |
 | `substance/test/run.mjs` | checks the catalogue, parser, emitter, page and this file against a graph that made the trip for real |
 | `substance/NOTES.md` | what is verified about Designer, and how |
 | `lib/` | `layout.mjs`, `render.mjs`, `page.mjs` — shared with the other domains |
 
-**Regenerating the catalogue:** run `tools/dump-catalog.py` inside Designer with a compositing
-graph open, then `node substance/tools/generate-catalogue.mjs`. Do that when moving to a new
+**Regenerating the catalogue:** `node substance/tools/generate-catalogue.mjs`. It reads the
+install and nothing else -- Designer does not have to be running. Do that when moving to a new
 Designer version; library packages get replaced between releases and the node a name resolves to
 can change with them.

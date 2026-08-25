@@ -12,7 +12,7 @@ seams      height_blend            height_position=0.5 contrast=0.4 opacity=0.65
 
 # -- scratches carved into that height ------------------------------------------------
 scratch    scratches_generator     spline_number=48 spline_width=0.1 spline_distortion=0.3
-carve      blend                   opacitymult=0.3
+carve      blend                   blendingmode=substract opacitymult=0.3
 erode      slope_blur_grayscale_2  Samples=16 Intensity=0.35
 
 # -- height and normal out ------------------------------------------------------------
@@ -24,7 +24,7 @@ normal     output      usage=normal
 curv       curvature_smooth_v2     radius=1.5
 edges      histogram_scan          Position=0.62 Contrast=0.8
 grunge     grunge_scratches_rough  scratch_quantity=0.45 Contrast=0.3
-chip       blend                   opacitymult=0.75
+chip       blend                   blendingmode=max opacitymult=0.75
 
 # -- basecolor: bare steel showing through the paint ----------------------------------
 paint      uniform                 colorswitch=true outputcolor=[0.09,0.25,0.28,1]
