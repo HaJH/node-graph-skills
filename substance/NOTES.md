@@ -28,6 +28,20 @@ src.newPropertyConnectionFromId('unique_filter_output', node, 'source')
 `app.getUIMgr().getCurrentGraph()` returns the graph the user is looking at, so a payload lands in
 the open graph rather than in a new package.
 
+An atomic node takes a definition id; a library node does not. `SDGraph.newInstanceNode` takes an
+`SDResource`, so the emitter has to produce an object, not a string, and the only routes to one are
+
+```python
+package  = packageMgr.loadUserPackage(r'...\resources\packages\perlin_noise.sbs')
+resource = package.findResourceFromUrl('pkg:///perlin_noise')     # or getChildrenResources(True)
+node     = graph.newInstanceNode(resource)
+```
+
+or `SDPackage.getDependencies()` on the open package, when the node is already referenced there.
+Whether `loadUserPackage` against the install directory is safe to lean on — and what the url
+actually looks like, since the one resource seen so far came back as
+`pkg:///Substance_graph?dependency=1579702555` — is what the round-trip gate has to answer.
+
 Worked example shipped with Designer: `resources/python/samples/sample_sbs_graph.py`.
 
 ## A catalogue already exists — do not re-extract
@@ -42,14 +56,14 @@ with the scripts that made them:
 | `tools/generate-node-index.sh` | regenerates the first from `resources/packages` and `resources/tooltips` |
 | `tools/generate-io-index.py` | regenerates the second by parsing the shipped `.sbs` packages |
 
-That covers leg C for this domain. What the emitter still needs and those tables do not carry is
-the mapping from a library node name to the identifier `newInstanceNode` wants, and the atomic
-node ids the API uses (`sbs::compositing::blend` form) — `dump-catalog.py` is what answers both.
+That covers leg C for this domain. Two things the emitter needs that those tables do not carry:
+the atomic node ids the API uses (`sbs::compositing::blend` form), and the mapping from a library
+node name to the resource `newInstanceNode` wants. `dump-catalog.py` was pointed at both and
+answered the first only — see below.
 
-Useful facts already settled by those tables: the atomic set is 24 `compFilter` types plus the
-input/output bridges and `svg`; library nodes split into colour and grayscale variants with no
-consistent rule about which one the bare name is; and a package filename is not a node name
-(`blend_switch.sbs` contains `switch` and `multi_switch`, and no `blend_switch`).
+Useful facts already settled by those tables: library nodes split into colour and grayscale
+variants with no consistent rule about which one the bare name is, and a package filename is not a
+node name (`blend_switch.sbs` contains `switch` and `multi_switch`, and no `blend_switch`).
 
 ## Catalogue sources
 
@@ -58,15 +72,58 @@ consistent rule about which one the bare name is; and a package filename is not 
 / `isReadOnly` / `isFunctionOnly` plus a default value. `SDValueSerializer.sToString` renders a
 value as text. `SDArray` is iterable and has `__len__`.
 
-Four places definitions can come from, dumped together by `tools/dump-catalog.py` because which one
-carries the library nodes is not yet settled:
+Four places definitions can come from. `tools/dump-catalog.py` read all four against Designer
+15.1.0 with an empty new document open, and the run settled which is worth keeping:
 
-- `SDGraph.getNodeDefinitions()` — what the open graph can create
-- `SDApplication.getModuleMgr().getModules()` → `SDModule.getDefinitions()`
-- `SDApplication.getSDGraphDefinitionMgr().getGraphDefinitions()`
-- `SDApplication.getPackageMgr().getPackages()` → `SDPackage.getChildrenResources(True)`
+| Source | Came back with |
+|---|---|
+| `SDGraph.getNodeDefinitions()` | 29, all `sbs::compositing` |
+| `getModuleMgr().getModules()` | 37 modules; `sbs::compositing` holds the **same 29**, `sbs::function` 85, `sbs::fxmap` 4, the other 34 are MDL and irrelevant here |
+| `getSDGraphDefinitionMgr().getGraphDefinitions()` | 0 — empty, and stayed empty |
+| `getPackageMgr().getPackages()` | 1, the open document itself |
 
-Library nodes themselves ship as 513 `.sbs` packages under `resources/packages/`.
+So it is one source, not four: the open graph and the `sbs::compositing` module return an
+identical id list, and the emitter can read either.
+
+**Library nodes are in none of them.** `perlin_noise` and the rest ship as `.sbs` files under
+`resources/packages/` — 511 at the top level, 541 counting subdirectories — and they are not
+definitions at all. They are graph resources inside those files, and nothing enumerates them until
+their package is loaded. `getPackages()` lists only what is open. Placing a library node makes its
+package a dependency of the open one, which is the lever `tools/dump-graph.py` pulls: build a
+network by hand, read it back, and the resource url an instance node points at comes out with it.
+
+## The atomic set — settled
+
+29 definitions, `sbs::compositing::<id>`: 24 filters, `passthrough` (the Dot), and four bridges
+(`input_color`, `input_grayscale`, `input_value`, `output`). The 24 agrees with the 24
+`compFilter` types already in `node-index.txt`.
+
+- **Every output pin is `unique_filter_output`.** One output, one name, no exceptions —
+  including on `output`, where it is not connectable.
+- **The output bridge's input pin is `inputNodeOutput`**, and it is that node's only property.
+  Every other node carries six base parameters: `$outputsize`, `$format`, `$pixelsize`,
+  `$pixelratio`, `$tiling`, `$randomseed`.
+- **Labels are not names.** `sbs::compositing::output` is labelled `Input`, same as the three
+  input bridges. Drive naming off the id.
+- Connectable inputs, `*` marking `isPrimary`:
+
+  | Node | Inputs | Node | Inputs |
+  |---|---|---|---|
+  | `blend` | `source`, `destination*`, `opacity` | `emboss` | `input1*`, `inputgradient` |
+  | `distance` | `mask*`, `source` | `warp` | `input1*`, `inputgradient` |
+  | `dyngradient` | `input1*`, `input2` | `directionalwarp` | `input1*`, `inputintensity` |
+  | `shuffle` | `input1*`, `input2` | `fxmaps` | `background*`, `inputpattern` |
+  | `text`, `svg` | `background*` | `passthrough` | `input*` |
+  | `valueprocessor`, `pixelprocessor` | `input` | `output` | `inputNodeOutput` |
+  | `uniform`, `bitmap`, the three input bridges | none | everything else | `input1*` |
+
+- Three inputs are variadic, and only three: `fxmaps.inputpattern`, `valueprocessor.input`,
+  `pixelprocessor.input`.
+- `passthrough` types its pins `bool` rather than `SDTypeTexture` — a Dot takes whatever is
+  wired into it, so pin type cannot be read off the definition for that one node.
+
+`sbs::function` (85) and `sbs::fxmap` (4 — Quadrant, Switch, Iterate, Dot) enumerate the same
+way when those graphs come into scope. They are out of `v1`.
 
 ## The format, if it is ever needed
 
@@ -80,6 +137,28 @@ networks live under `graph/compNodes/compNode`, each with a `uid`, a `connection
 Designer's Python Editor: `Windows > Python Editor`, paste, Run. `sd.getContext()` is the entry
 point. Plugins can also be dropped in `sdplugins` / `sduserplugins`, which the round-trip does not
 need.
+
+## The round-trip gate
+
+`tools/` holds the two halves of the "out" leg and nothing else until the gate passes.
+
+| Script | Reads | Writes |
+|---|---|---|
+| `dump-catalog.py` | the four definition sources | `~/node-graph-harvest/sd-catalog.json` — done, see above |
+| `dump-graph.py` | the open graph's nodes, wires, positions, non-default values | `~/node-graph-harvest/sd-graph.json` |
+
+The network the gate is measured against is hand-built in Designer and has to contain, in about
+ten nodes: at least two library nodes (an instance node is the one thing the catalogue cannot
+describe), a `blend` with all three of `source` / `destination` / `opacity` wired, a node with a
+parameter moved off its default, and an `output`. Anything less does not exercise the parts that
+are still guesses.
+
+Open questions `dump-graph.py` is pointed at:
+
+- what an instance node reports as its `definitionId`, and whether the resource `url`
+  (`pkg:///name?dependency=NNNN` form) survives a reload or is per-session
+- whether `getPropertyConnections` populates from the output side, the input side, or both
+- whether a `float2` position round-trips exactly
 
 ## What is not covered
 

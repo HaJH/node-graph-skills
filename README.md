@@ -19,10 +19,11 @@ Blender Geometry Nodes, Houdini and ComfyUI are the next domains.
 
 Early. Nothing builds yet.
 
-Substance is at the round-trip gate: `substance/tools/dump-catalog.py` reads the node catalogue out
-of a running Designer, and a hand-built network has to survive a trip out and back before the
-emitter and renderer get written. What is known about Designer so far is in
-[`substance/NOTES.md`](substance/NOTES.md).
+Substance is at the round-trip gate. `substance/tools/dump-catalog.py` has run: the 29 atomic
+compositing nodes and their pins are settled, and it also showed that the 500-odd library nodes are
+in none of the API's definition sources. `substance/tools/dump-graph.py` reads a hand-built network
+back out, which is what has to survive a trip out and back before the emitter and renderer get
+written. What is known about Designer so far is in [`substance/NOTES.md`](substance/NOTES.md).
 
 ## Licence
 
