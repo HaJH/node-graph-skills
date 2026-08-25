@@ -17,8 +17,8 @@ erode      slope_blur_grayscale_2  Samples=16 Intensity=0.35
 
 # -- height and normal out ------------------------------------------------------------
 tonormal   normal                  intensity=6
-height     output
-normalmap  output
+height     output      usage=height
+normal     output      usage=normal
 
 # -- wear mask: curvature of that normal, scanned to the exposed edges ----------------
 curv       curvature_smooth_v2     radius=1.5
@@ -30,12 +30,12 @@ chip       blend                   opacitymult=0.75
 paint      uniform                 colorswitch=true outputcolor=[0.09,0.25,0.28,1]
 steel      uniform                 colorswitch=true outputcolor=[0.44,0.42,0.40,1]
 albedo     blend
-basecolor  output
+basecolor  output      usage=baseColor:RGBA:sRGB
 
 # -- roughness: paint is smoother than the steel it has come off ----------------------
 roughbase  levels                  levelinlow=[0.3,0.3,0.3,0] levelinhigh=[0.75,0.75,0.75,1]
-roughness  blend                   opacitymult=0.9
-rough      output
+roughmix   blend                   opacitymult=0.9
+roughness  output      usage=roughness
 
 # -- wires ----------------------------------------------------------------------------
 panels        -> plate.input
@@ -49,7 +49,7 @@ scratch       -> erode.Effect
 
 erode         -> height
 erode         -> tonormal
-tonormal      -> normalmap
+tonormal      -> normal
 
 tonormal      -> curv.input
 curv.curvature -> edges.Input_1
@@ -62,7 +62,7 @@ chip          -> albedo.opacity
 albedo        -> basecolor
 
 erode         -> roughbase
-roughbase     -> roughness.destination
-grunge        -> roughness.source
-chip          -> roughness.opacity
-roughness     -> rough
+roughbase     -> roughmix.destination
+grunge        -> roughmix.source
+chip          -> roughmix.opacity
+roughmix      -> roughness

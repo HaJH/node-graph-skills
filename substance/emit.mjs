@@ -43,6 +43,7 @@ function imports (spec) {
   const classes = new Set()
   const structs = new Set(['float2']) // setPosition always needs it
   for (const node of spec.nodes) {
+    for (const { value } of node.annotations) classes.add(value.class)
     for (const { value } of node.values) {
       classes.add(value.class)
       const struct = {
@@ -56,6 +57,14 @@ function imports (spec) {
   const lines = ['import os', '', 'import sd', `from sd.api.sdbasetypes import ${[...structs].sort().join(', ')}`]
   lines.push('from sd.api.sdapplication import SDApplicationPath')
   for (const c of [...classes].sort()) lines.push(`from sd.api.${c.toLowerCase()} import ${c}`)
+  // A usage is an array value of a type with no SDValue class of its own, so these four come in
+  // together or not at all. Shape taken from Designer's own sample_sbs_graph.py.
+  if (spec.nodes.some(node => node.usages.length)) {
+    lines.push('from sd.api.sdvaluearray import SDValueArray')
+    lines.push('from sd.api.sdtypeusage import SDTypeUsage')
+    lines.push('from sd.api.sdusage import SDUsage')
+    lines.push('from sd.api.sdvalueusage import SDValueUsage')
+  }
   return lines.join('\n')
 }
 
@@ -144,6 +153,19 @@ export function emitPython (spec) {
     // grayscale, and a wire into the wrong type is refused.
     for (const { id, value } of node.values) {
       lines.push(`    ${variable}.setInputPropertyValueFromId(${quote(id)}, ${valueExpression(value)})`)
+    }
+    // What a graph input or output is called, and what it carries, are annotations rather than
+    // input properties. Without them an output pastes as output_1 with no usage on it, and no
+    // export preset can pick it up.
+    for (const { id, value } of node.annotations) {
+      lines.push(`    ${variable}.setAnnotationPropertyValueFromId(${quote(id)}, ${valueExpression(value)})`)
+    }
+    if (node.usages.length) {
+      lines.push('    usages = SDValueArray.sNew(SDTypeUsage.sNew(), 0)')
+      for (const usage of node.usages) {
+        lines.push(`    usages.pushBack(SDValueUsage.sNew(SDUsage.sNew(${quote(usage.name)}, ${quote(usage.components)}, ${quote(usage.colorSpace)})))`)
+      }
+      lines.push(`    ${variable}.setAnnotationPropertyValueFromId('usages', usages)`)
     }
     lines.push('')
   }

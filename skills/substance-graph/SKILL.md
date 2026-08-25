@@ -74,6 +74,27 @@ No section headers and no indentation rules. `graph <name>` is optional and titl
   `$tiling`, `$randomseed`. They are not in a library node's own parameter list but they are
   settable on one.
 
+## Naming a graph output
+
+An `output` node stands for one of the graph's outputs, and what names it is an annotation rather
+than a parameter. **The node's spec name becomes its identifier**, so `height output` arrives in
+Designer called `height` instead of `output_1`. The same holds for the three input bridges.
+
+```
+height     output   usage=height
+basecolor  output   usage=baseColor:RGBA:sRGB label="Base Color"
+mask       output   identifier=opacity_mask usage=opacity group=Masks
+```
+
+- `usage=` is what an export preset and a material slot match on. Write the name alone and the
+  components default to `RGBA` with the colour space left unset; write `name:components:colourspace`
+  to set all three. **The colour space is deliberately not guessed** -- nothing shipped with
+  Designer says what an unset one should be, and calling a height map sRGB would be worse than
+  saying nothing. Repeat `usage=` for a second usage on the same output.
+- `identifier=`, `label=`, `description=` and `group=` are the other annotations worth setting.
+  They only apply to `output` and the three `input_*` bridges; anywhere else the build says so.
+- Two outputs may not claim the same identifier, and the build refuses the spec if they do.
+
 ## Node names
 
 **29 built-in filters and 501 library nodes, generated from an installed Designer.**

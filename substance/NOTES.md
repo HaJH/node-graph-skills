@@ -397,6 +397,66 @@ Two gaps it did surface, neither blocking:
 - A 21-node graph draws 3062 px wide. The frame scrolls, so nothing breaks, but the layout has no
   notion of a page width to fold against.
 
+## Naming graph inputs and outputs -- settled, offline
+
+A pasted `output` node arrives as `output_1` with no usage on it, which makes the graph useless
+downstream: no export preset and no material slot can find it. The fix is annotations, not input
+properties.
+
+**The install documents every definition's annotations, and nothing had to be probed for this.**
+`resources/documentation/pythonapi/html/_sources/pythonapi/modules/sbs_compositing.rst.txt`
+lists all 29 compositing definitions with their Input, Output **and Annotation** properties.
+`sbs::compositing::output` carries nine annotations:
+
+| Id | Type |
+|---|---|
+| `identifier` | `string` -- the name, the thing that is otherwise `output_1` |
+| `label`, `description`, `userdata`, `group`, `visible_if` | `string` |
+| `usages` | `SDTypeArray<SDTypeUsage>` |
+| `mipmaps`, `format` | `int` |
+
+The three input bridges carry the same set minus `mipmaps` and `format`, so a graph input is
+named exactly the same way.
+
+Usages are an array value, and the shape comes from Designer's own
+`resources/python/samples/sample_sbs_graph.py`:
+
+```python
+usages = SDValueArray.sNew(SDTypeUsage.sNew(), 0)
+usages.pushBack(SDValueUsage.sNew(SDUsage.sNew('baseColor', 'RGBA', 'sRGB')))
+node.setAnnotationPropertyValueFromId('usages', usages)
+```
+
+`SDUsage.sNew(name, components, colorSpace)`. **No shipped file says what an unset colour space
+should be** -- 541 packages carry no `<usages>` block at all, because filter graphs have no
+material outputs to tag. So the emitter defaults components to `RGBA` and leaves the colour space
+empty rather than inventing one; a spec that cares writes `name:components:colourspace`.
+
+That file is also the answer to the enum gap recorded under the worked example: it lists every
+`SDTypeEnum`'s **value ids and labels**, and `SDValueEnum.sFromValueId(typeId, 'multiply')` takes
+an id. Regenerating the catalogue from that file instead of from a Designer run would make
+`blendingmode=multiply` writable and drop the dependency on `dump-catalog.py`. Not done.
+
+## What a reusable asset needs, and what is missing
+
+Everything below was read out of the shipped `sd` package source, offline. The API supports all
+of it; the skill supports none of it, which is the honest answer to "can a team distribute and
+reuse these".
+
+| Wanted | API | In the skill |
+|---|---|---|
+| Name an output, tag its usage | annotations, above | **yes, now** |
+| Another graph used as a node | `SDGraph.newInstanceNode(resource)` -- the same call library nodes already use | no: the catalogue holds shipped nodes only, so a spec cannot name your graph |
+| A new graph to put in a package | `SDSBSCompGraph.sNew(package)`, then `SDResource.setIdentifier` | no: the payload appends to the open graph and never makes one |
+| Exposed input parameters | an `input_value` bridge whose `identifier` annotation names it | partly: the bridge can be placed and named, but nothing types or defaults it |
+| Graph input images | `input_color` / `input_grayscale`, named the same way | same |
+| Presets | `graph.newPreset(label)`, `preset.addInput(identifier, value)` | no |
+| Input and output order | `reorderGraphInput` / `reorderGraphOutput` | no |
+| Published `.sbsar` | outside the API surface read so far | no |
+
+`SDGraph` extends `SDResource`, not `SDNode`, so `newProperty` is not on it: a graph's inputs
+come from bridge nodes, which is why naming a bridge is the whole mechanism.
+
 ## The Copy button
 
 `lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting
@@ -415,8 +475,9 @@ into Designer settles it.
 
 ## Next
 
-Substance has one open question — whether the artifact Copy button reaches the system clipboard,
-above. Beyond that, nothing is outstanding. The remaining work in this repo is other domains — Blender
+Two open questions, both above: whether the artifact Copy button reaches the system clipboard,
+and whether the emitted `identifier` and `usages` land as intended in Designer. Beyond that the
+outstanding work is the reuse table above -- subgraphs, exposed parameters, presets. The remaining work in this repo is other domains — Blender
 Geometry Nodes, Houdini, ComfyUI — each of which starts at its own round-trip gate.
 
 Worth doing here eventually, none of it blocking:

@@ -26,9 +26,19 @@ function shapeOf (node) {
     kind: node.kind,
     inputs,
     outputs,
-    values: node.values.map(v => ({ id: v.id, text: showValue(v.value) })),
+    // Annotations sit in the same list as parameter values. On an output node they are the
+    // whole point of the node -- what the graph output is called and what it carries -- so a
+    // page that hid them would leave out the part a reader is looking for.
+    values: [
+      ...node.annotations.map(a => ({ id: a.id, text: showValue(a.value) })),
+      ...node.usages.map(u => ({ id: 'usage', text: showUsage(u) })),
+      ...node.values.map(v => ({ id: v.id, text: showValue(v.value) })),
+    ],
   }
 }
+
+const showUsage = usage =>
+  usage.name + (usage.colorSpace ? ` (${usage.components}, ${usage.colorSpace})` : ` (${usage.components})`)
 
 function showValue (value) {
   if (value.class === 'SDValueBool') return value.components[0] ? 'true' : 'false'

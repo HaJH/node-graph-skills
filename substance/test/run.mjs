@@ -307,6 +307,41 @@ check('the shipped example builds, and is worth shipping', () => {
   return problems
 })
 
+check('an output node is named and carries its usage', () => {
+  // Without this a pasted output lands as output_1 with no usage, which is what a graph is
+  // useless for: no export preset, no material slot, nothing downstream can find it.
+  const spec = parseSpec([
+    'graph t',
+    'noise  perlin_noise',
+    'h      output  usage=height',
+    'c      output  identifier=basecolor usage=baseColor:RGBA:sRGB label="Base Color"',
+    'noise -> h',
+    'noise -> c',
+  ].join('\n'), catalogue)
+
+  const problems = []
+  const python = emitPython(spec)
+
+  // The name written in the spec is the identifier unless the spec overrides it.
+  if (!python.includes("setAnnotationPropertyValueFromId('identifier', SDValueString.sNew('h'))")) {
+    problems.push('the output is not named after the node')
+  }
+  if (!python.includes("SDValueString.sNew('basecolor')")) problems.push('an explicit identifier is ignored')
+  if (!python.includes("SDUsage.sNew('height', 'RGBA', '')")) problems.push('a bare usage does not default its components')
+  if (!python.includes("SDUsage.sNew('baseColor', 'RGBA', 'sRGB')")) problems.push('a three-part usage is not carried')
+  if (!python.includes('from sd.api.sdusage import SDUsage')) problems.push('the usage imports are missing')
+  if (!draw(spec).includes('usage')) problems.push('the page does not show the usage')
+
+  const rejects = source => {
+    try { parseSpec(source, catalogue); return null } catch (error) { return error.message }
+  }
+  if (!rejects('graph t\na blend usage=height')) problems.push('usage is accepted on a node that has no such thing')
+  if (!rejects('graph t\na output identifier=x\nb output identifier=x')) {
+    problems.push('two graph outputs are allowed the same identifier')
+  }
+  return problems
+})
+
 check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
   // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
   // route that can survive that, so it has to be tried first and synchronously -- awaiting the

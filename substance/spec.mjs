@@ -46,6 +46,33 @@ const ARITY = {
   ColorRGB: 3, ColorRGBA: 4,
 }
 
+// The four bridge nodes stand for a graph's own inputs and outputs, and what names them is not
+// a parameter but an annotation. Ids and types below are Designer's own, read out of the
+// install's own API documentation -- resources/documentation/pythonapi, sbs_compositing.rst.txt,
+// which lists every definition's Annotation properties. Without one of these a pasted output
+// lands as output_1 with no usage on it, which no export preset can pick up.
+const BRIDGES = new Set(['output', 'input_color', 'input_grayscale', 'input_value'])
+
+const ANNOTATIONS = {
+  identifier: 'string',
+  label: 'string',
+  description: 'string',
+  group: 'string',
+}
+
+// A usage is a name plus the components it covers plus a colour space, and a bridge can carry
+// several. Components default to RGBA; the colour space is deliberately left empty rather than
+// guessed, because nothing shipped with Designer says what an unset one should be and calling a
+// height map sRGB would be worse than saying nothing. Write name:components:colourspace to set
+// all three.
+function parseUsage (text) {
+  const t = text.trim().replace(/^["']|["']$/g, '')
+  const parts = t.split(':')
+  if (parts.length > 3 || parts.some(part => part === '')) return null
+  if (!IDENTIFIER.test(parts[0])) return null
+  return { name: parts[0], components: parts[1] ?? 'RGBA', colorSpace: parts[2] ?? '' }
+}
+
 const isEnum = type => type.includes('::')
 
 export class SpecError extends Error {
@@ -225,6 +252,8 @@ export function parseSpec (text, catalogue) {
     }
 
     const values = []
+    const annotations = []
+    const usages = []
     for (const token of rest) {
       const eq = token.indexOf('=')
       if (eq === -1) {
@@ -232,6 +261,29 @@ export function parseSpec (text, catalogue) {
         continue
       }
       const id = token.slice(0, eq)
+      const raw = token.slice(eq + 1)
+
+      if (id === 'usage' || ANNOTATIONS[id]) {
+        if (!BRIDGES.has(type)) {
+          problems.push({ line: at, message: `"${id}" only means something on an output or input node, and ${type} is neither` })
+          continue
+        }
+        if (id === 'usage') {
+          const usage = parseUsage(raw)
+          if (!usage) problems.push({ line: at, message: `"${raw}" is not a usage -- write a name, or name:components:colourspace` })
+          else usages.push(usage)
+          continue
+        }
+        const literal = parseLiteral(raw)
+        const text = literal?.kind === 'string' ? literal.values[0] : raw
+        if (id === 'identifier' && !IDENTIFIER.test(text)) {
+          problems.push({ line: at, message: `"${text}" is not a usable identifier` })
+          continue
+        }
+        annotations.push({ id, value: { class: 'SDValueString', components: [text] } })
+        continue
+      }
+
       const declared = parameterType(entry, id)
       if (!declared) {
         const known = [...(entry.def.parameters || []).map(p => p.id), ...Object.keys(BASE_PARAMETERS)]
@@ -243,8 +295,23 @@ export function parseSpec (text, catalogue) {
       else values.push({ id, value })
     }
 
-    nodes.set(nodeName, { name: nodeName, type, kind: entry.kind, def: entry.def, values, line: at })
+    // The name written in the spec is already a good graph output name, so it becomes the
+    // identifier unless the spec says otherwise. Nothing to write, and no output_1.
+    if (BRIDGES.has(type) && !annotations.some(a => a.id === 'identifier')) {
+      annotations.unshift({ id: 'identifier', value: { class: 'SDValueString', components: [nodeName] } })
+    }
+
+    nodes.set(nodeName, { name: nodeName, type, kind: entry.kind, def: entry.def, values, annotations, usages, line: at })
   })
+
+  const seen = new Map()
+  for (const node of nodes.values()) {
+    const identifier = node.annotations.find(a => a.id === 'identifier')?.value.components[0]
+    if (!identifier) continue
+    if (seen.has(identifier)) {
+      problems.push({ line: node.line, message: `two nodes both name a graph input or output "${identifier}" -- ${seen.get(identifier)} has it already` })
+    } else seen.set(identifier, node.name)
+  }
 
   resolvePins(nodes, wires, problems)
 
