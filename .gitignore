@@ -1,0 +1,8 @@
+# Built pages and the specs that produce them are per-use, not part of the skill.
+*.html
+!page.template.html
+_site/
+node_modules/
+
+# Catalogue dumps land here on their way from a running tool into a generated table.
+harvest/

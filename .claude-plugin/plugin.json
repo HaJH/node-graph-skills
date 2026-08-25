@@ -1,0 +1,11 @@
+{
+  "name": "node-graph",
+  "description": "Draw a DCC or procedural tool's node graph as a real graph on the web, and emit the payload that puts it back into the tool it came from.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jeonghyeon Ha"
+  },
+  "homepage": "https://github.com/HaJH/node-graph-skills",
+  "repository": "https://github.com/HaJH/node-graph-skills",
+  "license": "MIT"
+}
