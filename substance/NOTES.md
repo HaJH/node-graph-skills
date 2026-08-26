@@ -691,10 +691,20 @@ parameters *through that node*. Rebuilding the graph replaces what the panel is 
 fits every observation, including the earlier "moved a slider first" -- the slider was on the
 instance.
 
-Two guesses have already been refuted by measurement, so this one is counted rather than acted
-on: the payload reports how many instances of the target are open and how many are selected, and
-says which state it thinks is dangerous. If a run with `selected 0` never crashes and a run with
-`selected 1` always does, the guard writes itself.
+**Reproduced, and the report settles it:**
+
+```
+state: 0 view(s) showing it, 1 instance(s) of it open, 1 selected
+```
+
+Zero views showing the graph. It was not open at all. One selected instance was the entire
+condition, which is as clean an isolation as this is going to get.
+
+So the payload refuses now, **before it opens or creates anything**, and says what to click. A
+refusal that happened after `target_graph` would leave a graph half-built, which is worse than
+the crash it is avoiding. There is no API to clear a graph view's selection --
+`setExplorerSelection` is the explorer, not the view -- so refusing is the whole of what can be
+done from a script.
 
 Two guesses have been refuted by measurement, so this one is reported rather than acted on. The
 payload counts the graph views showing the target -- `getGraphViewIDCount` and

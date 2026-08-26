@@ -363,13 +363,25 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
   lines.push('def main():')
   lines.push('    app = sd.getContext().getSDApplication()')
   if (target) {
+    // Before anything is opened or created. An instance of this graph selected in a graph view
+    // means the parameter panel is drawing this graph's exposed parameters through that node,
+    // and rebuilding underneath it takes Designer down. Reproduced with the graph itself open in
+    // no view at all, so the selected instance is the whole condition.
+    lines.push(say('instances_of'))
+    lines.push(`    used, selected = instances_of(app, ${quote(target.graph)})`)
+    lines.push('    if selected:')
+    lines.push("        print('refusing to build: an instance of this graph is selected in a graph view.')")
+    lines.push("        print('The parameter panel draws this graph through that node, and rebuilding')")
+    lines.push("        print('underneath it takes Designer down. Click an empty part of that graph to')")
+    lines.push("        print('deselect, then run this again. Nothing has been changed.')")
+    lines.push('        return')
+    lines.push('')
     lines.push(`    package_path = ${quote(target.packagePath)}`)
     lines.push(say('open_package'))
     lines.push('    package = open_package(app, package_path)')
     lines.push(say('target_graph'))
     lines.push(`    graph, existed = target_graph(package, ${quote(target.graph)})`)
     lines.push(`    open_views = views_showing(app, ${quote(target.graph)})`)
-    lines.push(`    used, selected = instances_of(app, ${quote(target.graph)})`)
     // Described before it is emptied: an annotation id the API does not have raises here, and a
     // graph that has not been cleared yet is a graph nothing has been done to.
     for (const [id, described] of Object.entries(target.describe ?? {})) {

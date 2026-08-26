@@ -873,6 +873,20 @@ check('a graph exposes parameters, and something inside follows them', () => {
   ]) {
     if (!python.includes(wanted)) problems.push(`the payload is missing ${wanted}`)
   }
+  // Reproduced: rebuilding a graph while an instance of it is selected in some graph view takes
+  // Designer down, because the parameter panel is drawing the graph through that node. The
+  // refusal has to come before anything is opened or created, or a refused run leaves the graph
+  // half-built.
+  // Inside main() only: every one of these is also defined above it, and searching the whole
+  // file finds the def rather than the call.
+  const body = python.slice(python.indexOf('def main():'))
+  const refusalAt = body.indexOf('refusing to build')
+  if (refusalAt === -1) problems.push('the payload does not refuse to build under a selected instance')
+  for (const mutation of ['open_package(app, package_path)', 'target_graph(package', 'clear_graph(graph']) {
+    const at = body.indexOf(mutation)
+    if (at !== -1 && at < refusalAt) problems.push(`${mutation} happens before the refusal`)
+  }
+
   // A parameter and a preset are named, so a rebuild that left them would stack or collide.
   if (python.includes("newPropertyGraph(prop, 'sbs::function')")) {
     problems.push("the function graph type is the module name, which newPropertyGraph answers with None")

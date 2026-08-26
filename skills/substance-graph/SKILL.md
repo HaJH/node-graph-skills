@@ -311,6 +311,17 @@ It **adds to whatever graph is open** rather than making its own, and offsets it
 anything already there, so it is safe to drop into work in progress. Library nodes load their
 `.sbs` package from the install if it is not already open, so nothing has to be set up first.
 
+## Rebuilding while an instance is selected
+
+**The payload refuses to build a graph while an instance of it is selected in a graph view**, and
+says to click an empty part of that graph first. Selecting an instance makes the parameter panel
+draw the instanced graph's exposed parameters through that node; rebuilding underneath it takes
+Designer down. Reproduced with the graph itself open in no view at all, so the selected instance
+is the whole condition.
+
+The refusal comes before anything is opened or created, so a refused run changes nothing. There
+is no API to clear a graph view's selection, so this is as far as a script can go.
+
 ## Known limits
 
 - **Function graphs and FX-Maps are out of scope.** Pixel Processor, Value Processor, dynamic
