@@ -95,10 +95,20 @@ def same(a, b):
     y = safe(lambda: b.get(), None)
     if x is None or y is None:
         return False
-    if isinstance(x, (int, float)) or isinstance(y, (int, float)):
+    if isinstance(x, (int, float, bool)) or isinstance(y, (int, float, bool)):
         return x == y
+
+    # Same trap as writing one: a struct indexes but does not measure, so len() raises here and
+    # every multi-component value reads as different from its default. That puts maskrectangle
+    # on every blend and three untouched levels on every levels node.
+    #
+    # The count comes off the class, and either class will do -- ColorRGBA and float4 overlap,
+    # which is the reason this compares components rather than text in the first place.
+    count = ARITY.get(safe(lambda: a.getClassName(), '')) or ARITY.get(safe(lambda: b.getClassName(), ''))
+    if count is None:
+        return False
     try:
-        return len(x) == len(y) and all(x[i] == y[i] for i in range(len(x)))
+        return all(x[i] == y[i] for i in range(count))
     except Exception:
         return False
 

@@ -765,9 +765,15 @@ check('the dump carries the values and names a real graph has', () => {
         inputs: [
           { id: 'input1', connectable: true, primary: true },
           { id: 'levelinlow', connectable: false, default: { class: 'SDValueFloat4', components: [0, 0, 0, 0] } },
+          // Left at its default. Comparing against it needs the same arity table writing does,
+          // and without it this lands on the line as if somebody had set it.
+          { id: 'levelinmid', connectable: false, default: { class: 'SDValueFloat4', components: [0.5, 0.5, 0.5, 0.5] } },
         ],
         outputs: [{ id: 'unique_filter_output' }],
-        values: { levelinlow: { class: 'SDValueFloat4', components: [0.25, 0.25, 0.25, 0] } },
+        values: {
+          levelinlow: { class: 'SDValueFloat4', components: [0.25, 0.25, 0.25, 0] },
+          levelinmid: { class: 'SDValueFloat4', components: [0.5, 0.5, 0.5, 0.5] },
+        },
         wires: [],
       },
       {
@@ -798,6 +804,9 @@ check('the dump carries the values and names a real graph has', () => {
     // A struct indexes but does not measure, so a tool that asks len() drops every one of these.
     if (!text.includes('levelinlow=[0.25,0.25,0.25,0]')) {
       problems.push('a multi-component value was not written: ' + (text.match(/levels.*/)?.[0] ?? 'no levels line'))
+    }
+    if (text.includes('levelinmid')) {
+      problems.push('a value left at its default was written, so the default comparison is not comparing')
     }
     // The output is called normal and so is the filter. The one that means something wins.
     if (!/^normal output/m.test(text)) problems.push('the output did not get the name its identifier gives it')

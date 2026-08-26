@@ -591,6 +591,12 @@ you did not ask:
   `normal` filter and an output identified `normal` gave the filter the name, in node order, and
   left the output as `output_1` -- which is the name the dump exists to remove.
 
+The same trap bit twice. Writing a value was one place; **comparing one against its default was
+the other**, and that one is quieter -- nothing is dropped, values are added. Every `blend` came
+back carrying `maskrectangle=[0,1,0,1]` and every `levels` three untouched levels, all of them
+exactly the definition default, because `len()` raised and the comparison fell through to "these
+differ". A dump that adds noise reads as a graph somebody configured.
+
 `test/fake-designer.py` now refuses `len()` on its own struct for that reason: a fake more
 generous than the tool it stands in for lets the offline run pass while the real one drops
 everything.
