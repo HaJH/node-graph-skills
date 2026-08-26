@@ -384,7 +384,14 @@ export function parseSpec (text, catalogue) {
 
       const declared = parameterType(entry, id)
       if (!declared) {
-        const known = [...(entry.def.parameters || []).map(p => p.id), ...annotationIds(entry), ...Object.keys(BASE_PARAMETERS)]
+        // An atomic definition already carries the base parameters, a library one does not, so
+        // the two lists overlap for half the catalogue. Listing $outputsize twice in the message
+        // that is meant to help reads as a bug in the thing doing the telling.
+        const known = [...new Set([
+          ...(entry.def.parameters || []).map(p => p.id),
+          ...annotationIds(entry),
+          ...Object.keys(BASE_PARAMETERS),
+        ])]
         problems.push({ line: at, message: `${type} has no parameter "${id}"${known.length ? ` -- it has ${known.join(', ')}` : ''}` })
         continue
       }

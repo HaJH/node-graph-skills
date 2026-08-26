@@ -591,11 +591,16 @@ you did not ask:
   `normal` filter and an output identified `normal` gave the filter the name, in node order, and
   left the output as `output_1` -- which is the name the dump exists to remove.
 
-The same trap bit twice. Writing a value was one place; **comparing one against its default was
-the other**, and that one is quieter -- nothing is dropped, values are added. Every `blend` came
+The same trap bit three times, each quieter than the last. Writing a value was the loud one.
+**Comparing one against its default** was the second, and that one adds rather than drops. Every `blend` came
 back carrying `maskrectangle=[0,1,0,1]` and every `levels` three untouched levels, all of them
 exactly the definition default, because `len()` raised and the comparison fell through to "these
 differ". A dump that adds noise reads as a graph somebody configured.
+
+The third was the same comparison meeting a value that is not a struct at all. With no arity to
+look up it fell through to "these differ", so every `blend` came back with
+`maskvectorresourcepath=""`. The fix is not another case: anything the arity table has nothing to
+say about compares directly, which is what a bool, an int, a float and a string all want.
 
 `test/fake-designer.py` now refuses `len()` on its own struct for that reason: a fake more
 generous than the tool it stands in for lets the offline run pass while the real one drops
