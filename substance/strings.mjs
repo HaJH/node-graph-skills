@@ -41,6 +41,9 @@ const en = {
     'so their pins are drawn as <code>either</code> rather than guessed at.',
   ],
 
+  paramsHeading: 'What this graph exposes',
+  presetTerm: 'Preset',
+  paramsBlurb: 'Whoever uses this graph sets these without opening it. A node parameter written @name follows one.',
   guideHeading: 'Where this graph belongs',
   guideBlurb: 'This spec is part of a library, not a one-off network. It builds into a package ' +
     'rather than into whatever is open, and the next spec can name the result as a node instead ' +
@@ -97,6 +100,9 @@ const ko = {
     '<code>둘 다</code>로 그린다.',
   ],
 
+  paramsHeading: '이 그래프가 노출하는 것',
+  presetTerm: '프리셋',
+  paramsBlurb: '이 그래프를 쓰는 사람은 열어보지 않고 이 값들을 조절한다. 노드 파라미터에 @이름 을 쓰면 그 값을 따라간다.',
   guideHeading: '이 그래프가 속한 곳',
   guideBlurb: '이 스펙은 일회성 네트워크가 아니라 라이브러리의 일부다. 열려 있는 그래프가 ' +
     '아니라 패키지 안으로 빌드되고, 그 결과를 다음 스펙이 다시 만들지 않고 노드 이름으로 부를 수 있다.',

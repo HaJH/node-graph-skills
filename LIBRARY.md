@@ -179,9 +179,10 @@ In dependency order.
    parameter and an inherited base parameter, and says which. `test/fake-designer.py` stands up
    enough of the `sd` API to run it against the gate network offline, so a mistake in it costs a
    test rather than a round trip through a person.
-5. **Exposed parameters and presets.** `input_value` bridges typed and defaulted, and
-   `graph.newPreset` / `preset.addInput`. This is what turns a graph from a network into
-   something another person can use without opening it.
+5. ~~**Exposed parameters and presets.**~~ **Done**, and not through `input_value` bridges as
+   sketched here: a parameter is `graph.newProperty(id, type, Input)` plus a one-node function
+   graph on each node parameter that follows it. `param` and `preset` lines, typed both ends, and
+   both cleared with the graph so a re-run converges.
 6. **The convention, enforced**, once its vocabulary is confirmed.
 7. **Publish and bake**, if it belongs here at all: `sbscooker` and `sbsrender` wrapped so a
    project can go from specs to texture maps without Designer.

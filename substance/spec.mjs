@@ -92,6 +92,42 @@ const GRAPH_ANNOTATIONS = {
 
 const DESCRIBE_LINE = new RegExp('^(' + Object.keys(GRAPH_ANNOTATIONS).join('|') + ')(?:\\s+(.*))?$')
 
+// An exposed parameter is a property on the graph, and what a person can say about it was read
+// off a graph where three were exposed by hand -- see NOTES, "Exposing a parameter". The
+// annotation set depends on the type: min/max/step/clamp on a number, label_true/label_false on
+// a bool, the rest on everything.
+//
+// The getter is the other half. Nothing inside the graph reads the parameter until a node
+// parameter goes under a one-node function graph holding one of these, and which one is decided
+// by the type -- get_integer1 for a scalar int, not get_integer.
+const EXPOSED_TYPES = {
+  float: 'sbs::function::get_float1',
+  float2: 'sbs::function::get_float2',
+  float3: 'sbs::function::get_float3',
+  float4: 'sbs::function::get_float4',
+  int: 'sbs::function::get_integer1',
+  int2: 'sbs::function::get_integer2',
+  int3: 'sbs::function::get_integer3',
+  int4: 'sbs::function::get_integer4',
+  bool: 'sbs::function::get_bool',
+  string: 'sbs::function::get_string',
+}
+
+export const SD_TYPE_CLASS = {
+  float: 'SDTypeFloat', float2: 'SDTypeFloat2', float3: 'SDTypeFloat3', float4: 'SDTypeFloat4',
+  int: 'SDTypeInt', int2: 'SDTypeInt2', int3: 'SDTypeInt3', int4: 'SDTypeInt4',
+  bool: 'SDTypeBool', string: 'SDTypeString',
+}
+
+// Value is the parameter's own type; the rest are fixed.
+const EXPOSED_ANNOTATIONS = {
+  label: 'string', description: 'string', group: 'string', userdata: 'string',
+  visible_if: 'string', editor: 'string',
+  label_true: 'string', label_false: 'string',
+  clamp: 'bool', randomizable: 'bool',
+  min: null, max: null, step: null,
+}
+
 const isEnum = type => type.includes('::')
 
 import { LANGUAGES } from './strings.mjs'
@@ -234,6 +270,96 @@ function parameterType (entry, id) {
   return found?.type
 }
 
+// -- exposed parameters -------------------------------------------------------------------
+
+// A `param` line is one parameter the graph offers to whoever uses it:
+//
+//   param scratch_amount float default=0.3 min=0 max=1 label="Scratch amount" group="Wear"
+//
+// It carries more shape than any other line -- a type that picks both an SDType class and a
+// getter, a default in that type, and an annotation set that depends on the type. The other half
+// is a node parameter written @scratch_amount, which the emitter puts under a one-node function
+// graph; see resolveReferences below.
+
+const NUMERIC = new Set(['float', 'float2', 'float3', 'float4', 'int', 'int2', 'int3', 'int4'])
+const SCALAR = new Set(['float', 'int'])
+
+function readParam (rest, line, params, problems) {
+  const parts = splitParameters(rest)
+  const [id, type, ...settings] = parts
+  const fail = message => problems.push({ line, message })
+
+  if (!id) return fail('param needs a name and a type')
+  if (!IDENTIFIER.test(id)) return fail(`"${id}" is not a usable parameter name`)
+  if (params.has(id)) return fail(`the parameter "${id}" is already declared`)
+  if (!type) return fail(`param ${id} needs a type -- one of ${Object.keys(EXPOSED_TYPES).join(', ')}`)
+  if (!EXPOSED_TYPES[type]) {
+    return fail(`"${type}" is not a type a parameter can have -- it is one of ${Object.keys(EXPOSED_TYPES).join(', ')}`)
+  }
+
+  const param = { id, type, getter: EXPOSED_TYPES[type], value: null, annotations: [] }
+
+  for (const setting of settings) {
+    const eq = setting.indexOf('=')
+    if (eq === -1) {
+      fail(`"${setting}" is not a setting -- write it as name=value`)
+      continue
+    }
+    const key = setting.slice(0, eq)
+    const raw = setting.slice(eq + 1)
+
+    if (key === 'default') {
+      const { value, error } = coerce(parseLiteral(raw), type, `${id} default`)
+      if (error) fail(error)
+      else param.value = value
+      continue
+    }
+
+    if (!(key in EXPOSED_ANNOTATIONS)) {
+      fail(`${id} has no setting "${key}" -- it takes default, ${Object.keys(EXPOSED_ANNOTATIONS).join(', ')}`)
+      continue
+    }
+
+    // min, max and step are in the parameter's own type. Designer reports them as ints on an int
+    // parameter, so they are not floats that happen to hold whole numbers.
+    const declared = EXPOSED_ANNOTATIONS[key] ?? type
+    if (declared === type && !NUMERIC.has(type)) {
+      fail(`${key} only means something on a number, and ${id} is ${type}`)
+      continue
+    }
+    if (declared === type && !SCALAR.has(type)) {
+      // A vector's min/max was not read off a live graph, so the spec does not pretend to know
+      // whether it is one number or one per component.
+      fail(`${key} on a ${type} is untested, so the spec will not write it -- set it in Designer`)
+      continue
+    }
+    if ((key === 'label_true' || key === 'label_false') && type !== 'bool') {
+      fail(`${key} only means something on a bool, and ${id} is ${type}`)
+      continue
+    }
+
+    // A string setting takes bare text as readily as quoted -- editor=slider reads better than
+    // editor="slider", and the graph's own category line already works that way.
+    if (declared === 'string') {
+      const literal = parseLiteral(raw)
+      const text = literal?.kind === 'string' ? literal.values[0] : raw
+      param.annotations.push({ id: key, value: { class: 'SDValueString', components: [text] } })
+      continue
+    }
+
+    const { value, error } = coerce(parseLiteral(raw), declared, `${id} ${key}`)
+    if (error) fail(error)
+    else param.annotations.push({ id: key, value })
+  }
+
+  // Designer writes both when a person exposes a parameter, and they are not free text: the
+  // identifier is how a getter names it and the type is how the interface draws it.
+  param.annotations.unshift({ id: 'type', value: { class: 'SDValueString', components: [type] } })
+  param.annotations.unshift({ id: 'identifier', value: { class: 'SDValueString', components: [id] } })
+
+  params.set(id, param)
+}
+
 // -- the parser --------------------------------------------------------------------------
 
 export function parseSpec (text, catalogue) {
@@ -244,6 +370,8 @@ export function parseSpec (text, catalogue) {
   let lang = null
   let pkg = null
   const describe = {}
+  const params = new Map()
+  const presets = []
 
   const lines = text.split(/\r?\n/)
   lines.forEach((raw, i) => {
@@ -265,6 +393,18 @@ export function parseSpec (text, catalogue) {
     // Which .sbs the graph is built into. Optional, because one graph per package is the
     // common case -- but a package holds many graphs and Adobe's own do, so a spec has to be
     // able to say. blur_hq.sbs holds blur_hq and blur_hq_grayscale.
+    // preset "<label>" <param>=<value> ...
+    if (/^preset(\s|$)/.test(line)) {
+      presets.push({ line: at, rest: line.slice(6) })
+      return
+    }
+
+    // param <id> <type> [default=... label="..." min=... ...]
+    if (/^param(\s|$)/.test(line)) {
+      readParam(line.slice(5), at, params, problems)
+      return
+    }
+
     const described = DESCRIBE_LINE.exec(line)
     if (described) {
       const [, key, raw] = described
@@ -343,6 +483,7 @@ export function parseSpec (text, catalogue) {
     const values = []
     const annotations = []
     const usages = []
+    const bindings = []
     for (const token of rest) {
       const eq = token.indexOf('=')
       if (eq === -1) {
@@ -382,6 +523,14 @@ export function parseSpec (text, catalogue) {
         continue
       }
 
+      // @name makes this parameter follow an exposed one instead of holding a constant. The
+      // parameter it names may be declared further down, so it is checked after the whole spec
+      // has been read.
+      if (raw.startsWith('@')) {
+        bindings.push({ id, param: raw.slice(1), line: at })
+        continue
+      }
+
       const declared = parameterType(entry, id)
       if (!declared) {
         // An atomic definition already carries the base parameters, a library one does not, so
@@ -408,7 +557,7 @@ export function parseSpec (text, catalogue) {
       annotations.unshift({ id: 'identifier', value: { class: 'SDValueString', components: [nodeName] } })
     }
 
-    nodes.set(nodeName, { name: nodeName, type, kind: entry.kind, def: entry.def, values, annotations, usages, line: at })
+    nodes.set(nodeName, { name: nodeName, type, kind: entry.kind, def: entry.def, values, annotations, usages, bindings, line: at })
   })
 
   const seen = new Map()
@@ -420,10 +569,103 @@ export function parseSpec (text, catalogue) {
     } else seen.set(identifier, node.name)
   }
 
+  const resolvedPresets = resolvePresets(presets, params, problems)
+  resolveBindings(nodes, params, problems)
   resolvePins(nodes, wires, problems)
 
   if (problems.length) throw new SpecError(problems.sort((a, b) => a.line - b.line))
-  return { name, lang, package: pkg, describe, nodes: [...nodes.values()], wires }
+  return { name, lang, package: pkg, describe, params: [...params.values()], presets: resolvedPresets, nodes: [...nodes.values()], wires }
+}
+
+// A preset is a named set of values for the parameters the graph exposes -- the thing that lets
+// somebody pick "Rough" instead of learning what six numbers do. It can only name parameters the
+// graph actually has, so a typo is caught here rather than showing up as a preset that changes
+// nothing.
+function resolvePresets (presets, params, problems) {
+  const out = []
+  for (const { line, rest } of presets) {
+    const parts = splitParameters(rest)
+    const [rawLabel, ...settings] = parts
+    const label = (rawLabel ?? '').replace(/^["']|["']$/g, '')
+    if (!label) {
+      problems.push({ line, message: 'preset needs a name -- preset "Rough" amount=0.8' })
+      continue
+    }
+    if (out.some(p => p.label === label)) {
+      problems.push({ line, message: `the preset "${label}" is already declared` })
+      continue
+    }
+    const inputs = []
+    for (const setting of settings) {
+      const eq = setting.indexOf('=')
+      if (eq === -1) {
+        problems.push({ line, message: `"${setting}" is not a value -- write it as parameter=value` })
+        continue
+      }
+      const id = setting.slice(0, eq)
+      const param = params.get(id)
+      if (!param) {
+        const known = [...params.keys()]
+        problems.push({
+          line,
+          message: known.length
+            ? `"${id}" is not a parameter this graph exposes -- it exposes ${known.join(', ')}`
+            : `"${id}" is not a parameter this graph exposes, and it exposes none`,
+        })
+        continue
+      }
+      const { value, error } = coerce(parseLiteral(setting.slice(eq + 1)), param.type, `${label}: ${id}`)
+      if (error) problems.push({ line, message: error })
+      else inputs.push({ id, value })
+    }
+    if (!inputs.length && settings.length === 0) {
+      problems.push({ line, message: `the preset "${label}" sets nothing` })
+      continue
+    }
+    out.push({ label, inputs })
+  }
+  return out
+}
+
+// A node parameter written @name follows an exposed parameter. Both ends have to agree on the
+// type: the getter that reads a float cannot drive an int, and Designer would take the wiring
+// without complaint and compute something else.
+function resolveBindings (nodes, params, problems) {
+  for (const node of nodes.values()) {
+    for (const binding of node.bindings) {
+      const param = params.get(binding.param)
+      if (!param) {
+        const known = [...params.keys()]
+        problems.push({
+          line: binding.line,
+          message: known.length
+            ? `"${binding.param}" is not a parameter this graph exposes -- it exposes ${known.join(', ')}`
+            : `"${binding.param}" is not a parameter this graph exposes, and it exposes none. Declare one with a param line`,
+        })
+        continue
+      }
+      const declared = parameterType({ def: node.def }, binding.id)
+      if (!declared) {
+        problems.push({ line: binding.line, message: `${node.type} has no parameter "${binding.id}"` })
+        continue
+      }
+      if (isEnum(declared)) {
+        problems.push({
+          line: binding.line,
+          message: `${binding.id} is the enum ${declared}, and driving one from an exposed parameter is untested -- set it in Designer`,
+        })
+        continue
+      }
+      if (declared !== param.type) {
+        problems.push({
+          line: binding.line,
+          message: `${binding.id} is ${declared} but "${param.id}" is ${param.type}`,
+        })
+        continue
+      }
+      binding.getter = param.getter
+    }
+  }
 }
 
 function resolvePins (nodes, wires, problems) {

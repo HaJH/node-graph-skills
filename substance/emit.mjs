@@ -10,6 +10,7 @@
 // already there so nothing lands on top of existing nodes.
 
 import { layout } from '../lib/layout.mjs'
+import { SD_TYPE_CLASS } from './spec.mjs'
 
 // Designer's canvas steps in multiples of 32 and a node tile is about 96 across, so this reads
 // at the same density as a hand-built graph.
@@ -44,6 +45,17 @@ function valueExpression (value) {
 
 function imports (spec, target = null) {
   const classes = new Set()
+  // A parameter's default and its annotations are values like any other, and a binding writes a
+  // string, so both decide what has to be imported.
+  if (exposes(spec)) classes.add('SDValueString')
+  for (const param of spec.params ?? []) {
+    for (const { value } of [{ value: param.value }, ...param.annotations]) {
+      if (!value) continue
+      classes.add(value.class)
+      const struct = STRUCTS[value.class]
+      if (struct) structs.add(struct)
+    }
+  }
   const structs = new Set(['float2']) // setPosition always needs it
   for (const described of Object.values(target?.describe ?? {})) {
     const value = described.type === 'string' ? { class: 'SDValueString' } : described.value
@@ -63,6 +75,11 @@ function imports (spec, target = null) {
   lines.push('from sd.api.sdapplication import SDApplicationPath')
   // Only the package mode creates a graph, and only it needs the class that makes one.
   if (target) lines.push('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')
+  // clear_graph reaches for the graph's input properties, and expose/bind both name the category.
+  if (target || exposes(spec)) lines.push('from sd.api.sdproperty import SDPropertyCategory')
+  for (const type of new Set((spec.params ?? []).map(p => SD_TYPE_CLASS[p.type]))) {
+    lines.push(`from sd.api.${type.toLowerCase()} import ${type}`)
+  }
   for (const c of [...classes].sort()) lines.push(`from sd.api.${c.toLowerCase()} import ${c}`)
   // A usage is an array value of a type with no SDValue class of its own, so these four come in
   // together or not at all. Shape taken from Designer's own sample_sbs_graph.py.
@@ -130,6 +147,46 @@ def clear_graph(graph):
     would break that reference; replacing its contents keeps every dependant working."""
     for node in list(graph.getNodes()):
         graph.deleteNode(node)
+
+    # Exposed parameters are properties on the graph rather than nodes, so emptying the
+    # nodes leaves them behind and the rebuild would try to create ones already there. The
+    # six base parameters are not ours: they are the only graph inputs whose id starts with
+    # a $, and the only ones carrying no annotations.
+    for prop in list(graph.getProperties(SDPropertyCategory.Input)):
+        if not prop.getId().startswith('$'):
+            graph.deleteProperty(prop)
+
+    # And the presets, for the same reason: they are named, so a rebuild would either stack a
+    # second one or fail on the name.
+    for preset in list(graph.getPresets()):
+        graph.deletePreset(preset.getLabel())
+`
+
+const EXPOSE = `
+
+def expose(graph, identifier, sd_type, value, annotations):
+    """One parameter the graph offers to whoever uses it.
+
+    The property is the visible half. It drives nothing on its own -- a node parameter only
+    follows it once bind() has put that parameter under a function graph."""
+    prop = graph.newProperty(identifier, sd_type, SDPropertyCategory.Input)
+    if value is not None:
+        graph.setPropertyValue(prop, value)
+    for key, annotation in annotations:
+        graph.setPropertyAnnotationValueFromId(prop, key, annotation)
+
+
+def bind(node, property_id, getter_id, input_id):
+    """Make a node parameter follow a graph input.
+
+    The parameter goes under a function graph holding exactly one node, a getter, whose
+    __constant__ names the input to read. That is what Designer builds when a person exposes a
+    parameter by hand, read back off a graph where they had."""
+    prop = node.getPropertyFromId(property_id, SDPropertyCategory.Input)
+    function = node.newPropertyGraph(prop, 'sbs::function')
+    getter = function.newNode(getter_id)
+    getter.setInputPropertyValueFromId('__constant__', SDValueString.sNew(input_id))
+    function.setOutputNode(getter, True)
 `
 
 const FIND_RESOURCE = `
@@ -186,6 +243,13 @@ def find_resource(app, package_name, identifier, explicit_path=None):
 //                    nothing existing is touched; it offsets itself clear of what is there.
 //
 // A spec inside a library gets the first, because a library is the thing being accumulated.
+// A spec exposes something if it declares a parameter or binds one. Either way the payload needs
+// the helpers and SDPropertyCategory; a payload that does neither should not carry them.
+const exposes = spec => (spec.params?.length ?? 0) > 0 || spec.nodes.some(n => n.bindings?.length)
+
+// Presets are values for exposed parameters, so a spec with presets always has parameters too.
+const hasPresets = spec => (spec.presets?.length ?? 0) > 0
+
 export function emitPython (spec, target = null) {
   const { positions } = layout(spec.nodes, spec.wires, LAYOUT)
   const graphName = spec.name ?? 'this_graph'
@@ -207,6 +271,7 @@ export function emitPython (spec, target = null) {
   lines.push(imports(spec, target))
   lines.push(FIND_RESOURCE)
   lines.push(target ? PACKAGE : FREE_OFFSET)
+  if (exposes(spec)) lines.push(EXPOSE)
   lines.push('')
   lines.push('def main():')
   lines.push('    app = sd.getContext().getSDApplication()')
@@ -235,6 +300,24 @@ export function emitPython (spec, target = null) {
   lines.push('    nodes = {}')
   lines.push('')
 
+  // Before the nodes: a binding names an input, and the input has to be there to be named.
+  for (const param of spec.params ?? []) {
+    const annotations = param.annotations
+      .map(a => `(${quote(a.id)}, ${valueExpression(a.value)})`)
+      .join(', ')
+    lines.push(`    # ${param.id} -- ${param.type}, exposed`)
+    lines.push(`    expose(graph, ${quote(param.id)}, ${SD_TYPE_CLASS[param.type]}.sNew(),`)
+    lines.push(`           ${param.value ? valueExpression(param.value) : 'None'},`)
+    lines.push(`           [${annotations}])`)
+  }
+  for (const preset of spec.presets ?? []) {
+    lines.push(`    preset = graph.newPreset(${quote(preset.label)})`)
+    for (const { id, value } of preset.inputs) {
+      lines.push(`    preset.addInput(${quote(id)}, ${valueExpression(value)})`)
+    }
+  }
+  if (spec.params?.length || hasPresets(spec)) lines.push('')
+
   for (const node of spec.nodes) {
     const variable = `nodes[${quote(node.name)}]`
     lines.push(`    # ${node.name} -- ${node.type}`)
@@ -258,6 +341,10 @@ export function emitPython (spec, target = null) {
     // export preset can pick it up.
     for (const { id, value } of node.annotations) {
       lines.push(`    ${variable}.setAnnotationPropertyValueFromId(${quote(id)}, ${valueExpression(value)})`)
+    }
+    // A bound parameter holds no constant: it follows the graph input instead.
+    for (const binding of node.bindings ?? []) {
+      lines.push(`    bind(${variable}, ${quote(binding.id)}, ${quote(binding.getter)}, ${quote(binding.param)})`)
     }
     if (node.usages.length) {
       lines.push('    usages = SDValueArray.sNew(SDTypeUsage.sNew(), 0)')

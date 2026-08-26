@@ -835,6 +835,72 @@ check('the dump carries the values and names a real graph has', () => {
   return problems
 })
 
+check('a graph exposes parameters, and something inside follows them', () => {
+  // The step that turns a network into something another person can use without opening it.
+  // Exposing is two moves and only the first is visible: the property on the graph, and a node
+  // parameter put under a one-node function graph whose getter names it.
+  const problems = []
+  const source = [
+    'graph g',
+    'param amount float default=0.1 min=0 max=1 label="Amount" editor=slider group="Wear"',
+    'param flip bool default=false label_true="Yes" label_false="No"',
+    'preset "Rough" amount=0.8 flip=true',
+    'sc scratches_generator spline_width=@amount',
+    'no anisotropic_noise_v2 rotate=@flip',
+    'o output usage=height',
+    'sc -> o',
+  ].join('\n')
+
+  const spec = parseSpec(source, catalogue)
+  if (spec.params.length !== 2) problems.push(`${spec.params.length} parameters read for 2`)
+  if (spec.presets.length !== 1) problems.push(`${spec.presets.length} presets read for 1`)
+
+  const python = emitPython(spec, { graph: 'g', packageName: 'P', packagePath: 'C:/p/P.sbs' })
+  for (const wanted of [
+    "expose(graph, 'amount', SDTypeFloat.sNew()",
+    "expose(graph, 'flip', SDTypeBool.sNew()",
+    // The getter is chosen by type -- get_integer1 for a scalar int, not get_integer -- and its
+    // __constant__ is what names the input.
+    "bind(nodes['sc'], 'spline_width', 'sbs::function::get_float1', 'amount')",
+    "bind(nodes['no'], 'rotate', 'sbs::function::get_bool', 'flip')",
+    "newPreset('Rough')",
+    "addInput('amount'",
+    'from sd.api.sdproperty import SDPropertyCategory',
+  ]) {
+    if (!python.includes(wanted)) problems.push(`the payload is missing ${wanted}`)
+  }
+  // A parameter and a preset are named, so a rebuild that left them would stack or collide.
+  if (!python.includes('deleteProperty')) problems.push('a rebuild would leave the old parameters behind')
+  if (!python.includes('deletePreset')) problems.push('a rebuild would leave the old presets behind')
+  // Designer writes both when a person exposes one by hand.
+  for (const annotation of ["'identifier'", "'type'", "'editor'", "'label_true'"]) {
+    if (!python.includes(annotation)) problems.push(`the payload does not write the ${annotation} annotation`)
+  }
+
+  const page = draw(spec)
+  if (!page.includes('@amount')) problems.push('the page does not show that a parameter is bound')
+  if (!page.includes(LANGUAGES.en.paramsHeading)) problems.push('the page does not show what the graph exposes')
+  if (!page.includes('Rough')) problems.push('the page does not show the presets')
+
+  const rejects = source => {
+    try { parseSpec(source, catalogue); return null } catch (error) { return error.message }
+  }
+  // Both ends have to agree, or Designer computes something else without complaining.
+  if (!rejects('graph g\nparam a int\nsc scratches_generator spline_width=@a')) {
+    problems.push('a parameter of the wrong type is allowed to drive one')
+  }
+  if (!rejects('graph g\nsc scratches_generator spline_width=@nope')) {
+    problems.push('a binding to a parameter that does not exist is accepted')
+  }
+  if (!rejects('graph g\nparam a float\npreset "R" nope=1')) {
+    problems.push('a preset may set a parameter the graph does not expose')
+  }
+  // A payload that exposes nothing should not carry the machinery.
+  const plain = emitPython(parseSpec('graph g\nn perlin_noise\no output\nn -> o', catalogue))
+  if (plain.includes('def expose')) problems.push('a spec that exposes nothing still carries the helpers')
+  return problems
+})
+
 check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
   // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
   // route that can survive that, so it has to be tried first and synchronously -- awaiting the

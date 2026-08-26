@@ -34,6 +34,8 @@ function shapeOf (node) {
     // page that hid them would leave out the part a reader is looking for.
     values: [
       ...node.annotations.map(a => ({ id: a.id, text: showValue(a.value) })),
+      // A bound parameter holds no constant, so showing @name is showing what it really is.
+      ...(node.bindings ?? []).map(b => ({ id: b.id, text: '@' + b.param })),
       ...node.usages.map(u => ({ id: 'usage', text: showUsage(u) })),
       ...node.values.map(v => ({ id: v.id, text: showValue(v.value) })),
     ],
@@ -85,6 +87,31 @@ function guideFor (spec, project, words, target) {
 const escape = s => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
+// What a person using this graph can set without opening it. Reading the annotations back out
+// rather than keeping a parallel copy: they are what actually reaches Designer.
+function interfaceFor (spec, words) {
+  const annotation = (param, id) => param.annotations.find(a => a.id === id)?.value.components[0]
+  const rows = (spec.params ?? []).map(param => {
+    const bits = [`<code>${escape(param.type)}</code>`]
+    if (param.value) bits.push('= <code>' + escape(showValue(param.value)) + '</code>')
+    const min = annotation(param, 'min')
+    const max = annotation(param, 'max')
+    if (min !== undefined && max !== undefined) bits.push(`(${escape(String(min))}&thinsp;&ndash;&thinsp;${escape(String(max))})`)
+    const group = annotation(param, 'group')
+    if (group) bits.push('&middot; ' + escape(String(group)))
+    return [annotation(param, 'label') || param.id, bits.join(' ')]
+  })
+  // A preset is part of the same interface: it is how somebody picks "Rough" instead of learning
+  // what six numbers do.
+  for (const preset of spec.presets ?? []) {
+    rows.push([
+      `${words.presetTerm} · ${preset.label}`,
+      preset.inputs.map(i => `<code>${escape(i.id)}</code> = <code>${escape(showValue(i.value))}</code>`).join(', '),
+    ])
+  }
+  return { heading: words.paramsHeading, blurb: words.paramsBlurb, rows }
+}
+
 export function draw (spec, options) {
   const { project = null, lang = spec.lang ?? 'en', target = null } = options ?? {}
   const words = stringsFor(lang)
@@ -106,6 +133,7 @@ export function draw (spec, options) {
       subtitle: words.payloadSubtitle,
       text: emitPython(spec, target),
     },
+    params: interfaceFor(spec, words),
     guide: guideFor(spec, project, words, target),
     legend: [
       { colour: theme.types.color, label: words.legend.color },

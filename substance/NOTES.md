@@ -618,6 +618,46 @@ say about compares directly, which is what a bool, an int, a float and a string 
 generous than the tool it stands in for lets the offline run pass while the real one drops
 everything.
 
+## Exposing a parameter -- settled
+
+Read off a graph where three were exposed by hand: `X_Amount` and `Y_Amount` (int) and `rotate`
+(bool) on an `anisotropic_noise_v2`.
+
+**The graph's input properties are the exposed parameters, plus the six base ones.**
+`graph.getProperties(Input)` returned nine: `$outputsize` and its five siblings carrying **zero
+annotations**, and the three real ones carrying ten to fourteen. So the base parameters are
+distinguishable without a name test -- they have no annotations -- though the `$` prefix says it
+just as well.
+
+**The annotation set depends on the type.**
+
+| | |
+|---|---|
+| every type | `identifier`, `type`, `editor`, `label`, `description`, `group`, `userdata`, `visible_if` |
+| numeric | `min`, `max`, `step`, `clamp`, `randomizable`, `label_0` |
+| bool | `label_true`, `label_false` |
+
+`type` is the type spelled as a string (`int`, `bool`). `editor` is the widget -- `slider` for the
+ints, `buttons` for the bool. `label_0` on a scalar suggests per-component labels on a vector,
+untested. `graph.getPropertyValue(prop)` and `prop.getDefaultValue()` agreed on all three, so the
+graph's value for the property is the default a user of the graph sees.
+
+**Nothing inside reads the parameter until a node parameter is put under a function graph.** For
+each exposed one there was a `SDSBSFunctionGraph` on the node parameter that follows it,
+containing exactly **one node**:
+
+```
+anisotropic_noise_v2.X_Amount   get_integer1   __constant__ = "X_Amount"
+anisotropic_noise_v2.rotate     get_bool       __constant__ = "rotate"
+```
+
+So the getter is chosen by the parameter's type -- `get_integer1` for a scalar int, not
+`get_integer` -- and `__constant__` names the graph input to read. `getDefinition().getId()` on a
+function graph comes back **empty**, so a function graph is not identified the way a node is.
+
+That is the whole mechanism, and it is small: one property, its annotations, and a one-node
+function graph per parameter that follows it.
+
 ## The Copy button
 
 `lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting

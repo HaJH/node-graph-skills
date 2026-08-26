@@ -114,6 +114,46 @@ mask       output   identifier=opacity_mask usage=opacity group=Masks
   They only apply to `output` and the three `input_*` bridges; anywhere else the build says so.
 - Two outputs may not claim the same identifier, and the build refuses the spec if they do.
 
+## Exposing a parameter
+
+What turns a graph from a network into something another person can use without opening it.
+
+```
+graph panel_base
+param amount float default=0.1 min=0 max=1 label="Scratch amount" group="Wear" editor=slider
+param flip   bool  default=false label_true="Yes" label_false="No"
+
+preset "Rough"  amount=0.8 flip=true
+preset "Smooth" amount=0.05
+
+scratch scratches_generator spline_width=@amount
+noise   anisotropic_noise_v2 rotate=@flip
+```
+
+**It is two things, and only the first is visible.** `param` makes a property on the graph with a
+default and the annotations that decide how it is drawn. Nothing inside reads it until a node
+parameter is written `@name`, which puts that parameter under a one-node function graph holding a
+getter -- `get_float1` for a float, `get_bool` for a bool -- whose `__constant__` names the input.
+That is what Designer builds when a person exposes a parameter by hand; it was read back off a
+graph where they had.
+
+- **Types**: `float` `float2` `float3` `float4` `int` `int2` `int3` `int4` `bool` `string`.
+- **Settings**: `default` in the parameter's own type, then `label`, `description`, `group`,
+  `editor`, `visible_if`, `userdata` as text; `min`, `max`, `step` in the parameter's type on a
+  `float` or an `int`; `clamp` and `randomizable` as true/false; `label_true` and `label_false`
+  on a `bool`.
+- **Both ends have to agree on the type.** A float getter cannot drive an int parameter, and
+  Designer would take the wiring and quietly compute something else, so the build refuses it.
+- **`min`/`max` on a vector is refused rather than guessed** -- whether Designer wants one number
+  or one per component was not read off a live graph.
+- An enum parameter cannot be bound yet, for the same reason.
+
+`preset` is a named set of values for those parameters -- how somebody picks "Rough" instead of
+learning what six numbers do. It can only name parameters the graph exposes.
+
+Both are cleared and rebuilt with the graph, so a re-run converges rather than stacking a second
+copy.
+
 ## Node names
 
 **29 built-in filters and 501 library nodes, generated from an installed Designer.**
