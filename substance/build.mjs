@@ -1,4 +1,4 @@
-// node substance/build.mjs <spec file> [--py <path>] [--html <path>] [--lang <code>]
+// node substance/build.mjs <spec file> [--py <path>] [--html <path>] [--lang <code>] [--trace]
 //
 // Reads a spec, reports anything wrong with it, and writes both halves: the Designer payload
 // and the page that draws the same network.
@@ -19,7 +19,7 @@ function arg (name) {
 
 const input = process.argv[2]
 if (!input || input.startsWith('--')) {
-  console.error('usage: node substance/build.mjs <spec file> [--py <path>] [--html <path>] [--lang <code>]')
+  console.error('usage: node substance/build.mjs <spec file> [--py <path>] [--html <path>] [--lang <code>] [--trace]')
   process.exit(2)
 }
 
@@ -68,7 +68,10 @@ if (target) {
   target.describe = { ...spec.describe }
 }
 
-fs.writeFileSync(pythonAt, emitPython(spec, target))
+// --trace makes the payload log every step to a file and flush, for when Designer goes down
+// without printing anything. Tracing the payload itself, not a stand-in: a probe that drifts
+// from the real thing measures the wrong graph.
+fs.writeFileSync(pythonAt, emitPython(spec, target, { trace: process.argv.includes('--trace') }))
 fs.writeFileSync(htmlAt, draw(spec, { project, target, lang: arg('lang') ?? spec.lang ?? 'en' }))
 
 console.log(`${spec.nodes.length} nodes, ${spec.wires.length} wires`)

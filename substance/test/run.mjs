@@ -920,6 +920,54 @@ check('a graph exposes parameters, and something inside follows them', () => {
   return problems
 })
 
+check('--trace instruments the payload without changing it', () => {
+  // Designer can go down without printing anything, and the console goes with it. Tracing the
+  // payload itself rather than a stand-in: a probe that drifts from the real thing measures the
+  // wrong graph, which is exactly how two runs of the crash probe read the wrong one.
+  const problems = []
+  const spec = parseSpec([
+    'graph g',
+    'param amount float default=0.1',
+    'preset "R" amount=0.8',
+    'sc scratches_generator spline_width=@amount',
+    'o output usage=height',
+    'sc -> o',
+  ].join('\n'), catalogue)
+  const target = { graph: 'g', packageName: 'P', packagePath: 'C:/p/P.sbs' }
+
+  const plain = emitPython(spec, target)
+  const traced = emitPython(spec, target, { trace: true })
+
+  if (plain.includes('step(')) problems.push('an untraced payload carries the tracing')
+
+  for (const wanted of ["step('clear_graph')", "step('expose amount')", "step('newPreset R')",
+    "step('bind sc.spline_width -> amount')", "step('savePackageAs')", "step('done')"]) {
+    if (!traced.includes(wanted)) problems.push(`the traced payload is missing ${wanted}`)
+  }
+  // Flushed, or a crash takes the log with the console.
+  if (!traced.includes('_trace.flush()') || !traced.includes('os.fsync')) {
+    problems.push('the trace is not flushed, so a crash would take it too')
+  }
+  // The invariant that matters: take the tracing back out and what is left is the payload that
+  // runs untraced, line for line. Otherwise the thing being measured is not the thing that runs,
+  // which is the whole failure mode this exists to avoid.
+  const withoutTrace = text => {
+    const start = text.indexOf('# Built with --trace')
+    const marker = 'os.fsync(_trace.fileno())'
+    const end = text.indexOf(marker)
+    const body = start === -1 ? text : text.slice(0, start) + text.slice(end + marker.length)
+    return body.split('\n').map(line => line.trimEnd())
+      .filter(line => line !== '' && !line.trimStart().startsWith('step('))
+  }
+  const before = withoutTrace(plain)
+  const after = withoutTrace(traced)
+  if (before.join('|') !== after.join('|')) {
+    const at = before.findIndex((line, i) => line !== after[i])
+    problems.push(`tracing changed the payload, first at ${at}: ${before[at]} / ${after[at]}`)
+  }
+  return problems
+})
+
 check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
   // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
   // route that can survive that, so it has to be tried first and synchronously -- awaiting the

@@ -679,10 +679,18 @@ input properties out from under an open editor was what did it. Run against `hbt
 three exposed parameters, the graph open -- every node and every property went away and the log
 ended `finished without crashing`. Deleting is not the cause.
 
-What that run did not test is the thing `panel_base` has and `hbtest` does not: `presets: 0`.
-Presets are the untested delta, and their labels here are not ASCII, which crosses the C API as
-utf-8 and is the sort of mismatch that takes a process down rather than raising. Unproven; the
-probe now reports when a graph has no presets so a run cannot look conclusive when it is not.
+The second guess was wrong too. That first run was against `hbtest`, which has no presets, so
+presets looked like the untested delta -- non-ASCII labels crossing the C API. Run again against
+`panel_base` itself: `presets: 2`, both labels Korean, both deleted, four nodes and four exposed
+properties deleted, `finished without crashing`.
+
+**So the clearing half is innocent, all of it.** The crash is in the rebuilding half, and two
+guesses have now cost two round trips through a person.
+
+The instrument for the third is not another probe. `build.mjs --trace` emits the payload itself
+with a `step()` before every call and a flush after -- the real payload, not a stand-in. That
+matters: both wrong guesses came from a probe that was measuring a graph nobody was asking about,
+and a test now checks that taking the tracing back out gives the untraced payload line for line.
 
 The clearing was made restrained anyway, and it is worth keeping on its own merits -- a rebuild
 should not churn what it does not need to:

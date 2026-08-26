@@ -206,6 +206,23 @@ def bind(node, property_id, getter_id, input_id):
     function.setOutputNode(getter, True)
 `
 
+const TRACE = `
+
+# Built with --trace. Every step writes a line to this file and flushes, so if Designer goes
+# down the last line names the call that did not return -- a crash takes the console with it,
+# not a flushed file. Tracing the payload itself rather than a stand-in, because a probe that
+# drifts from the real thing measures the wrong graph.
+TRACE_LOG = os.path.join(os.path.expanduser('~'), 'substance-build-trace.txt')
+_trace = open(TRACE_LOG, 'w', encoding='utf-8')
+
+
+def step(message):
+    _trace.write(message + '
+')
+    _trace.flush()
+    os.fsync(_trace.fileno())
+`
+
 const FIND_RESOURCE = `
 
 def resources_dir(app):
@@ -267,7 +284,8 @@ const exposes = spec => (spec.params?.length ?? 0) > 0 || spec.nodes.some(n => n
 // Presets are values for exposed parameters, so a spec with presets always has parameters too.
 const hasPresets = spec => (spec.presets?.length ?? 0) > 0
 
-export function emitPython (spec, target = null) {
+export function emitPython (spec, target = null, { trace = false } = {}) {
+  const say = trace ? (message) => `    step(${quote(message)})` : () => null
   const { positions } = layout(spec.nodes, spec.wires, LAYOUT)
   const graphName = spec.name ?? 'this_graph'
 
@@ -286,6 +304,7 @@ export function emitPython (spec, target = null) {
   }
   lines.push('')
   lines.push(imports(spec, target))
+  if (trace) lines.push(TRACE)
   lines.push(FIND_RESOURCE)
   lines.push(target ? PACKAGE : FREE_OFFSET)
   if (exposes(spec)) lines.push(EXPOSE)
@@ -294,7 +313,9 @@ export function emitPython (spec, target = null) {
   lines.push('    app = sd.getContext().getSDApplication()')
   if (target) {
     lines.push(`    package_path = ${quote(target.packagePath)}`)
+    lines.push(say('open_package'))
     lines.push('    package = open_package(app, package_path)')
+    lines.push(say('target_graph'))
     lines.push(`    graph, existed = target_graph(package, ${quote(target.graph)})`)
     // Described before it is emptied: an annotation id the API does not have raises here, and a
     // graph that has not been cleared yet is a graph nothing has been done to.
@@ -304,6 +325,7 @@ export function emitPython (spec, target = null) {
         : described.value
       lines.push(`    graph.setAnnotationPropertyValueFromId(${quote(id)}, ${valueExpression(value)})`)
     }
+    lines.push(say('clear_graph'))
     lines.push(`    clear_graph(graph, ${JSON.stringify((spec.params ?? []).map(p => p.id))})`)
     lines.push('    offset = 0.0')
   } else {
@@ -323,11 +345,13 @@ export function emitPython (spec, target = null) {
       .map(a => `(${quote(a.id)}, ${valueExpression(a.value)})`)
       .join(', ')
     lines.push(`    # ${param.id} -- ${param.type}, exposed`)
+    lines.push(say('expose ' + param.id))
     lines.push(`    expose(graph, ${quote(param.id)}, ${SD_TYPE_CLASS[param.type]}.sNew(),`)
     lines.push(`           ${param.value ? valueExpression(param.value) : 'None'},`)
     lines.push(`           [${annotations}])`)
   }
   for (const preset of spec.presets ?? []) {
+    lines.push(say('newPreset ' + preset.label))
     lines.push(`    preset = graph.newPreset(${quote(preset.label)})`)
     for (const { id, value } of preset.inputs) {
       lines.push(`    preset.addInput(${quote(id)}, ${valueExpression(value)})`)
@@ -338,6 +362,7 @@ export function emitPython (spec, target = null) {
   for (const node of spec.nodes) {
     const variable = `nodes[${quote(node.name)}]`
     lines.push(`    # ${node.name} -- ${node.type}`)
+    lines.push(say('node ' + node.name + ' -- ' + node.type))
     if (node.kind !== 'atomic') {
       // A graph the project owns is found by path; one Designer ships is found by name in the
       // install. Same call either way -- only where to look differs.
@@ -361,6 +386,7 @@ export function emitPython (spec, target = null) {
     }
     // A bound parameter holds no constant: it follows the graph input instead.
     for (const binding of node.bindings ?? []) {
+      lines.push(say('bind ' + node.name + '.' + binding.id + ' -> ' + binding.param))
       lines.push(`    bind(${variable}, ${quote(binding.id)}, ${quote(binding.getter)}, ${quote(binding.param)})`)
     }
     if (node.usages.length) {
@@ -373,13 +399,16 @@ export function emitPython (spec, target = null) {
     lines.push('')
   }
 
+  lines.push(say('wires'))
   for (const wire of spec.wires) {
     lines.push(`    nodes[${quote(wire.from)}].newPropertyConnectionFromId(${quote(wire.fromPin)}, nodes[${quote(wire.to)}], ${quote(wire.toPin)})`)
   }
 
   lines.push('')
   if (target) {
+    lines.push(say('savePackageAs'))
     lines.push('    app.getPackageMgr().savePackageAs(package, package_path)')
+    lines.push(say('done'))
     lines.push(`    print('{0} {1} in {2} -- ${spec.nodes.length} nodes, ${spec.wires.length} wires'.format(`)
     lines.push(`        'rebuilt' if existed else 'created', ${quote(target.graph)}, os.path.basename(package_path)))`)
   } else {
@@ -389,5 +418,6 @@ export function emitPython (spec, target = null) {
   lines.push('')
   lines.push('main()')
   lines.push('')
-  return lines.join('\n')
+  // say() gives null when tracing is off, and a null must not become a blank line.
+  return lines.filter(line => line !== null).join('\n')
 }
