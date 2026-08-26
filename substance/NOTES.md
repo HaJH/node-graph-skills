@@ -241,6 +241,7 @@ Passed on Designer 15.1.0 — see below. `tools/` holds the probes it was run wi
 | `dump-usages.mjs` | reports the usages and output identifiers Designer's own templates declare |
 | `dump-graph-annotations.py` | lists what annotations a compositing graph itself carries |
 | `graph-to-spec.py` | reads the open graph and writes the spec that rebuilds it |
+| `dump-exposed.py` | reads what Designer makes when a parameter is exposed by hand |
 | `generate-catalogue.mjs` | writes `catalogue.generated.mjs` from that dump plus the shipped `.sbs` packages, offline |
 | `roundtrip.py` | both legs. `MODE = "dump"` reads the open graph to `sd-graph.json`; `MODE = "rebuild"` builds that file into a new empty graph and reads the result back to `sd-graph-rebuilt.json` |
 
@@ -457,8 +458,19 @@ reuse these".
 | Input and output order | `reorderGraphInput` / `reorderGraphOutput` | no |
 | Published `.sbsar` | outside the API surface read so far | no |
 
-`SDGraph` extends `SDResource`, not `SDNode`, so `newProperty` is not on it: a graph's inputs
-come from bridge nodes, which is why naming a bridge is the whole mechanism.
+**This said a graph cannot have properties of its own, and it was wrong.** `newProperty` is on
+`SDNode`, yes -- and also on `SDResource`, which `SDGraph` extends. So `newProperty(id, type,
+Input)` on a graph is exactly what an exposed parameter is.
+
+What the mistake hid is the more interesting half. The parameter alone drives nothing: nothing
+inside the graph reads it until a node parameter is put under a function graph,
+`SDNode.newPropertyGraph(prop, 'sbs::function')`, holding a getter -- `sbs::function::get_float1`
+and its nine siblings, whose `__constant__` string names the graph input to read. Exposing a
+parameter is two moves and the second one is a function graph, which `v1` put out of scope.
+
+The rest is there: `SDResource.setPropertyValue` for the default, `setPropertyAnnotationValueFromId`
+for its label and group, `getPropertyAnnotations` to find out what those are called, and
+`SDGraph.setOutputNode` to mark the getter as what the function returns.
 
 ## The catalogue's atomic half comes from the install's documentation
 
