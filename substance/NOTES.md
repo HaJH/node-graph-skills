@@ -674,20 +674,29 @@ First build works: the parameters come up as sliders in their groups, moving one
 graph, the presets apply. **Building the same graph a second time takes Designer down** -- not a
 traceback, an immediate crash, so the Python Editor prints nothing.
 
-Not diagnosed. What `clear_graph` was doing that a rebuild without parameters never did is delete
-the graph's input properties, while the editor was open on that graph and drawing a widget for
-each of them. That is the shape of a native crash, so the clearing was made restrained rather
-than reordered:
+**The first guess was wrong and the probe said so.** The suspicion was that deleting the graph's
+input properties out from under an open editor was what did it. Run against `hbtest` -- 23 nodes,
+three exposed parameters, the graph open -- every node and every property went away and the log
+ended `finished without crashing`. Deleting is not the cause.
+
+What that run did not test is the thing `panel_base` has and `hbtest` does not: `presets: 0`.
+Presets are the untested delta, and their labels here are not ASCII, which crosses the C API as
+utf-8 and is the sort of mismatch that takes a process down rather than raising. Unproven; the
+probe now reports when a graph has no presets so a run cannot look conclusive when it is not.
+
+The clearing was made restrained anyway, and it is worth keeping on its own merits -- a rebuild
+should not churn what it does not need to:
 
 - **presets first.** A preset holds values for the graph's inputs, so removing an input while a
   preset still names it leaves a dangling reference.
 - **an input the spec still declares is left alone** and rewritten in place. A re-run of an
   unchanged spec now deletes no properties at all. Only ones the spec has dropped are removed.
 
-Whether that is the cause is unproven. `tools/probe-rebuild.py` settles it if it recurs: it does
-the clearing one call at a time and flushes a line to a file after each, so the last line in the
-file names the call that did not return. A crash takes the console with it; it does not take a
-flushed file.
+`tools/probe-rebuild.py` is how it gets settled: it does the clearing one call at a time and
+flushes a line to a file after each, so the last line names the call that did not return. A crash
+takes the console with it; it does not take a flushed file. **Point it at the graph that actually
+crashes** -- the first run of it proved something true about a graph that was not the one in
+question.
 
 ## The Copy button
 

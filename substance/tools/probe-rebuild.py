@@ -40,9 +40,15 @@ def main():
 
     presets = list(graph.getPresets())
     step('presets: %d' % len(presets))
+    if not presets:
+        step('  NOTE: this graph has no presets, so preset handling is not being tested here.')
+        step('  Open one that has some if that is what you are chasing.')
     for preset in presets:
         label = preset.getLabel()
-        step('  about to delete preset %r' % label)
+        # The bytes as well as the text: a label that is not ASCII crosses the C API as utf-8,
+        # and an encoding mismatch is the kind of thing that takes a process down rather than
+        # raising.
+        step('  about to delete preset %r (utf-8: %r)' % (label, label.encode('utf-8')))
         graph.deletePreset(label)
         step('  deleted preset %r' % label)
 
