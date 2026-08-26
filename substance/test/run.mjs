@@ -740,6 +740,85 @@ check('a graph dumps back to a spec that parses', () => {
   return problems
 })
 
+check('the dump carries the values and names a real graph has', () => {
+  // The gate network is faithful but tame: nothing in it survives the inheritance filter with
+  // more than one component, and its output bridge is unnamed. Running the tool on a real graph
+  // turned up four things at once, and this is the fixture that fails on each of them.
+  const python = ['python', 'python3', 'py'].find(exe =>
+    spawnSync(exe, ['--version'], { encoding: 'utf8' }).status === 0)
+  if (!python) {
+    console.log('        (skipped: no python on PATH)')
+    return []
+  }
+
+  const HELP = 'Provides an exit point for an image or raw value out of a graph.'
+  const fixture = {
+    graph: { identifier: 'edges', packagePath: '', annotations: {} },
+    nodes: [
+      {
+        uid: 'a', definitionId: 'sbs::compositing::normal', definitionLabel: 'Normal',
+        inputs: [{ id: 'input1', connectable: true, primary: true }],
+        outputs: [{ id: 'unique_filter_output' }], values: {}, wires: [],
+      },
+      {
+        uid: 'b', definitionId: 'sbs::compositing::levels', definitionLabel: 'Levels',
+        inputs: [
+          { id: 'input1', connectable: true, primary: true },
+          { id: 'levelinlow', connectable: false, default: { class: 'SDValueFloat4', components: [0, 0, 0, 0] } },
+        ],
+        outputs: [{ id: 'unique_filter_output' }],
+        values: { levelinlow: { class: 'SDValueFloat4', components: [0.25, 0.25, 0.25, 0] } },
+        wires: [],
+      },
+      {
+        uid: 'c', definitionId: 'sbs::compositing::output', definitionLabel: 'Input',
+        definitionDescription: HELP,
+        inputs: [{ id: 'inputNodeOutput', connectable: true, primary: false }],
+        outputs: [{ id: 'unique_filter_output' }], values: {},
+        annotations: {
+          identifier: { class: 'SDValueString', components: ['normal'] },
+          description: { class: 'SDValueString', components: [HELP] },
+          usages: { class: 'SDValueArray', usages: [{ name: 'normal', components: 'RGBA', colorSpace: '' }] },
+        },
+        wires: [],
+      },
+    ],
+  }
+
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'sbsedge-'))
+  const problems = []
+  try {
+    const fixturePath = path.join(scratch, 'fixture.json')
+    const specPath = path.join(scratch, 'out.spec')
+    fs.writeFileSync(fixturePath, JSON.stringify(fixture))
+    const run = spawnSync(python, [path.join(HERE, 'fake-designer.py'), fixturePath, specPath], { encoding: 'utf8' })
+    if (run.status !== 0) return ['the dump tool failed to run:\n' + (run.stderr || run.stdout)]
+    const text = fs.readFileSync(specPath, 'utf8')
+
+    // A struct indexes but does not measure, so a tool that asks len() drops every one of these.
+    if (!text.includes('levelinlow=[0.25,0.25,0.25,0]')) {
+      problems.push('a multi-component value was not written: ' + (text.match(/levels.*/)?.[0] ?? 'no levels line'))
+    }
+    // The output is called normal and so is the filter. The one that means something wins.
+    if (!/^normal output/m.test(text)) problems.push('the output did not get the name its identifier gives it')
+    if (/^normal normal/m.test(text)) problems.push('a filter took the name the output needed')
+    // An annotation nobody set reads back as the definition's own paragraph of help text.
+    if (text.includes('exit point')) problems.push("the definition's own description was written as if someone had set it")
+    // RGBA is what the spec assumes, so a dump that says it differs from the hand written spec.
+    if (text.includes('usage=normal:RGBA')) problems.push('the default usage components were written out')
+    if (!text.includes('usage=normal')) problems.push('the usage was not carried')
+
+    try {
+      parseSpec(text, catalogue)
+    } catch (error) {
+      problems.push('the dumped spec does not parse:\n' + error.message + '\n--- spec ---\n' + text)
+    }
+  } finally {
+    fs.rmSync(scratch, { recursive: true, force: true })
+  }
+  return problems
+})
+
 check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
   // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
   // route that can survive that, so it has to be tried first and synchronously -- awaiting the

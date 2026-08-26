@@ -19,13 +19,15 @@ import types
 
 
 class Struct:
-    """A multi-component value. Every sdbasetypes struct supports len() and indexing."""
+    """A multi-component value.
+
+    Deliberately NOT sized. An sdbasetypes struct supports __getitem__ and nothing else, so code
+    that reaches for len() to find out how many components there are gets an exception rather
+    than an answer -- and if this fake were more generous than Designer, the offline run would
+    pass while the real one silently dropped every float2, float4 and colour."""
 
     def __init__(self, components):
         self._components = list(components)
-
-    def __len__(self):
-        return len(self._components)
 
     def __getitem__(self, index):
         return self._components[index]
@@ -99,6 +101,8 @@ class Property:
 class Definition:
     def __init__(self, spec):
         self._id = spec['definitionId']
+        self._label = spec.get('definitionLabel', '')
+        self._description = spec.get('definitionDescription', '')
         self._properties = {
             'Input': [Property(p) for p in spec.get('inputs', [])],
             'Output': [Property(p) for p in spec.get('outputs', [])],
@@ -107,6 +111,12 @@ class Definition:
 
     def getId(self):
         return self._id
+
+    def getLabel(self):
+        return self._label
+
+    def getDescription(self):
+        return self._description
 
     def getProperties(self, category):
         return self._properties[category]

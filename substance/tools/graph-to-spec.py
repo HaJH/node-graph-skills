@@ -38,6 +38,17 @@ def safe(fn, default=None):
 
 # -- values ------------------------------------------------------------------------------
 
+# How many components each value class carries. Same table the round-trip gate uses, and for the
+# same reason: sdbasetypes structs index but do not measure.
+ARITY = {
+    'SDValueBool2': 2, 'SDValueBool3': 3, 'SDValueBool4': 4,
+    'SDValueInt2': 2, 'SDValueInt3': 3, 'SDValueInt4': 4,
+    'SDValueFloat2': 2, 'SDValueFloat3': 3, 'SDValueFloat4': 4,
+    'SDValueDouble2': 2, 'SDValueDouble3': 3, 'SDValueDouble4': 4,
+    'SDValueColorRGB': 3, 'SDValueColorRGBA': 4,
+}
+
+
 def literal(value):
     """An SDValue as the spec would write it, or None when the spec cannot say it."""
     class_name = safe(lambda: value.getClassName(), '')
@@ -57,12 +68,15 @@ def literal(value):
     if isinstance(raw, (int, float)):
         return number(raw)
 
-    # Everything else is a struct of components, and every one supports __getitem__.
+    # A struct supports __getitem__ but NOT len(), so how many components it has has to be known
+    # rather than asked. Getting this wrong drops every float2, float4 and colour silently.
+    arity = ARITY.get(class_name)
+    if arity is None:
+        return None
     try:
-        parts = [number(raw[i]) for i in range(len(raw))]
+        return '[' + ','.join(number(raw[i]) for i in range(arity)) + ']'
     except Exception:
         return None
-    return '[' + ','.join(parts) + ']'
 
 
 def number(n):
@@ -151,10 +165,18 @@ def read_bridge(node, dropped):
     identifier = safe(lambda: node.getAnnotationPropertyValueFromId('identifier'), None)
     identifier = safe(lambda: identifier.get(), '') if identifier is not None else ''
 
+    # An annotation nobody set reads back as the definition's own. Designer's description for an
+    # output node is a paragraph of help text, and writing that into every spec is noise that
+    # looks like content.
+    definition = definition_of(node)
+    inherited = {
+        'description': safe(lambda: definition.getDescription(), ''),
+        'label': safe(lambda: definition.getLabel(), ''),
+    }
     for key in ('label', 'description', 'group'):
         value = safe(lambda: node.getAnnotationPropertyValueFromId(key), None)
         text = safe(lambda: value.get(), '') if value is not None else ''
-        if text:
+        if text and text != inherited.get(key, ''):
             lines.append('%s="%s"' % (key, text))
 
     usages = safe(lambda: node.getAnnotationPropertyValueFromId('usages'), None)
@@ -166,6 +188,10 @@ def read_bridge(node, dropped):
                  safe(lambda: usage.getComponents(), ''),
                  safe(lambda: usage.getColorSpace(), '')]
         while len(parts) > 1 and not parts[-1]:
+            parts.pop()
+        # RGBA is what the spec assumes, so writing it makes a dumped spec differ from the hand
+        # written one that means the same thing.
+        if parts[1:] == ['RGBA']:
             parts.pop()
         if parts[0]:
             lines.append('usage=' + ':'.join(parts))
@@ -224,24 +250,35 @@ def is_primary(node, pin):
 
 
 def unique_names(nodes):
-    """Spec names. A bridge is named by the graph input or output it stands for, which is the
-    name a person already thinks in; everything else by its type, numbered when it repeats."""
-    counts = {}
+    """Spec names, in two passes.
+
+    A bridge is named by the graph input or output it stands for, which is the name a person
+    already thinks in. It has to claim that name before anything else does: in a graph with a
+    normal filter and an output called normal, one pass in node order lets the filter take it and
+    the output ends up as output_1, which is the name the dump exists to get rid of."""
+    names, taken = {}, set()
+    bridges = ('output', 'input_color', 'input_grayscale', 'input_value')
+
     for node in nodes:
+        kind, _ = type_name(node)
+        if kind not in bridges:
+            continue
+        identifier, _ = read_bridge(node, [])
+        if identifier and identifier not in taken:
+            taken.add(identifier)
+            names[safe(lambda: node.getIdentifier(), None)] = identifier
+
+    rest = [node for node in nodes if safe(lambda: node.getIdentifier(), None) not in names]
+    counts = {}
+    for node in rest:
         kind, _ = type_name(node)
         counts[kind] = counts.get(kind, 0) + 1
 
-    seen, names, taken = {}, {}, set()
-    for node in nodes:
+    seen = {}
+    for node in rest:
         kind, _ = type_name(node)
-        chosen = None
-        if kind in ('output', 'input_color', 'input_grayscale', 'input_value'):
-            identifier, _ = read_bridge(node, [])
-            if identifier:
-                chosen = identifier
-        if chosen is None or chosen in taken:
-            seen[kind] = seen.get(kind, 0) + 1
-            chosen = kind if counts[kind] == 1 else '%s_%d' % (kind, seen[kind])
+        seen[kind] = seen.get(kind, 0) + 1
+        chosen = kind if counts[kind] == 1 else '%s_%d' % (kind, seen[kind])
         while chosen in taken:
             chosen = chosen + '_'
         taken.add(chosen)
@@ -320,7 +357,7 @@ def main():
     if destination:
         with open(destination, 'w', encoding='utf-8', newline='\n') as handle:
             handle.write(text)
-        print('written: ' + destination)
+        print('written: ' + os.path.normpath(destination))
     else:
         print('the graph has no package on disk, so nothing was written -- copy the spec above')
 

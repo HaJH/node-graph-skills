@@ -573,6 +573,28 @@ One thing the probe also showed and this has not chased: `graph.getProperties(Ou
 accessor meant for graph outputs, so the probe most likely asked the wrong question -- but it is
 unchecked, and it would matter to `sbsrender`, which selects outputs by name and usage.
 
+## A struct indexes but does not measure
+
+`roundtrip.py` carries an arity table with the comment "every struct here supports
+`__getitem__`", and the reason it is a table rather than a `len()` call is the part the comment
+leaves out: **`len()` on an sdbasetypes struct raises.** The dump tool was written with `len()`
+and it cost twenty values in its first real run -- every `float2`, `float4` and `ColorRGBA` in
+the graph, dropped, each with a note saying the spec could not write it.
+
+Two more things that first run settled, both of the same shape -- an API that answers a question
+you did not ask:
+
+- **An annotation nobody set reads back as the definition's own.** Asking an output node for its
+  `description` returns Designer's paragraph of help text for output nodes, so a dump wrote that
+  into every bridge as if a person had. Compare against `getDefinition().getDescription()`.
+- **A name that means something has to be claimed before a name that does not.** A graph with a
+  `normal` filter and an output identified `normal` gave the filter the name, in node order, and
+  left the output as `output_1` -- which is the name the dump exists to remove.
+
+`test/fake-designer.py` now refuses `len()` on its own struct for that reason: a fake more
+generous than the tool it stands in for lets the offline run pass while the real one drops
+everything.
+
 ## The Copy button
 
 `lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting
