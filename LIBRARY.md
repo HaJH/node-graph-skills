@@ -190,6 +190,46 @@ In dependency order.
 7. **Publish and bake**, if it belongs here at all: `sbscooker` and `sbsrender` wrapped so a
    project can go from specs to texture maps without Designer.
 
+## Next, and what is already known about it
+
+**Make the payload's refusal impossible to miss.** It refuses to rebuild a graph while a view is
+open on a consumer, and that refusal currently prints as ordinary `[MSG]` lines in the Python
+Editor, where it reads like any other output and gets missed. Two routes, both checked in the
+install, neither written yet:
+
+- **A modal dialog.** PySide6 is bundled -- `pyside6.cp311-win_amd64.dll` and
+  `shiboken6.cp311-win_amd64.dll` sit beside the executable -- and
+  `sd/api/qtforpythonuimgrwrapper.py` wraps `SDUIMgr.getMainWindowPtr()` into a
+  `QtWidgets.QMainWindow` with `shiboken6.wrapInstance`. So a `QMessageBox` parented to
+  Designer's main window is available from a pasted script.
+- **`[ERR]` instead of `[MSG]`.** The Python Editor tags stderr differently -- the crash
+  tracebacks came through as `[ERR]` -- so `sys.stderr` alone makes the refusal stand out with no
+  dependency at all.
+
+Do both: try the dialog, fall back to stderr. A payload that cannot raise a window should still
+leave a line nobody can scroll past.
+
+## Picking this up again
+
+Steps 1 to 5 are done and each was proved inside Designer, not just in tests. What is left is
+step 6, step 7, and the refusal above.
+
+- **The roadmap and every decision behind it** are in this file.
+- **What is known about Designer, and how each thing was learned**, is in
+  [`substance/NOTES.md`](substance/NOTES.md) -- including five refuted crash hypotheses, kept
+  because every one of them would have shipped as a fix if it had not been run.
+- **How to use the skill** is in `skills/substance-graph/SKILL.md`.
+- `node substance/test/run.mjs` -- 22 checks, all offline.
+- `node substance/build.mjs <spec>` -- add `--trace` when Designer goes down without printing.
+
+The live library this was built against is `F:\Workspaces\main\HB\Resources\Substance`, with its
+own README covering the Designer-side setup. Its `specs/nodes/panel_base.spec` is the one that
+exercises exposed parameters and presets end to end.
+
+**The one workflow rule that is not obvious:** do not have a graph that instances the target open
+in a tab when rebuilding it. The payload refuses in that case and names the graph to switch away
+from.
+
 ## Not settled
 
 - Whether `.sbsar` publishing belongs in this repo or in the project's own CI.

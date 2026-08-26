@@ -17,9 +17,14 @@ Blender Geometry Nodes, Houdini and ComfyUI are the next domains.
 
 ## Status
 
-**`substance-graph` works end to end.** A ten-node network went out of Designer 15.1.0, back into
-an empty graph and out again matching on every node, position, value and wire — and a spec run
-back through the emitter rebuilt it in Designer for real.
+**`substance-graph` works end to end**, and every step of it has been run inside Designer rather
+than only tested. A spec builds a named graph into a package and a re-run converges on it; a
+graph with no spec dumps back out into one; a graph the project owns is a node the next spec can
+name; and a graph can expose parameters and presets so somebody else can use it without opening
+it.
+
+Where that is going, what is left, and the reasoning behind each decision are in
+[`LIBRARY.md`](LIBRARY.md).
 
 ```
 node substance/build.mjs substance/example/worn_painted_metal.spec
