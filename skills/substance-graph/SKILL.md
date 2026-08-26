@@ -313,14 +313,13 @@ anything already there, so it is safe to drop into work in progress. Library nod
 
 ## Rebuilding while an instance is selected
 
-**The payload refuses to build a graph while an instance of it is selected in a graph view**, and
-says to click an empty part of that graph first. Selecting an instance makes the parameter panel
-draw the instanced graph's exposed parameters through that node; rebuilding underneath it takes
-Designer down. Reproduced with the graph itself open in no view at all, so the selected instance
-is the whole condition.
+**The payload refuses to build a graph while any open package instances it**, and names which
+graph and which package. An instance node holds the interface of the graph it points at, and a
+rebuild deletes the output bridges and makes them again underneath it, which takes Designer down.
+Close the consuming graphs and run again.
 
-The refusal comes before anything is opened or created, so a refused run changes nothing. There
-is no API to clear a graph view's selection, so this is as far as a script can go.
+Deselecting the instance is not enough -- that was tried and it still went down. The refusal
+comes before anything is opened or created, so a refused run changes nothing.
 
 ## Known limits
 

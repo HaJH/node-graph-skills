@@ -700,11 +700,21 @@ state: 0 view(s) showing it, 1 instance(s) of it open, 1 selected
 Zero views showing the graph. It was not open at all. One selected instance was the entire
 condition, which is as clean an isolation as this is going to get.
 
-So the payload refuses now, **before it opens or creates anything**, and says what to click. A
-refusal that happened after `target_graph` would leave a graph half-built, which is worse than
-the crash it is avoiding. There is no API to clear a graph view's selection --
-`setExplorerSelection` is the explorer, not the view -- so refusing is the whole of what can be
-done from a script.
+**And selection was wrong too.** Refusing while an instance was selected worked; clicking empty
+space to deselect and building again went down anyway. Four guesses, four refutations.
+
+What both crashing runs actually had in common is simpler and was in the report all along:
+`1 instance(s) of it open`. An instance node holds the interface of the graph it points at -- its
+inputs, its outputs, its exposed parameters -- and a rebuild deletes the output bridges and makes
+them again underneath it. Whether that instance is selected only decides whether a panel is
+drawing it too.
+
+So the refusal keys on an instance being open at all, names the graph and package holding it, and
+still comes **before anything is opened or created** -- a refusal after `target_graph` would
+leave a graph half-built, which is worse than the crash it avoids.
+
+Still unconfirmed in the negative direction: nobody has yet closed the consuming package and
+rebuilt. That is the run that would settle it, and it is the one this guard now forces.
 
 Two guesses have been refuted by measurement, so this one is reported rather than acted on. The
 payload counts the graph views showing the target -- `getGraphViewIDCount` and

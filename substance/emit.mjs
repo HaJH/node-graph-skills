@@ -140,35 +140,34 @@ def views_showing(app, identifier):
 
 
 def instances_of(app, identifier):
-    """Where else this graph is used, and whether one of those uses is selected.
+    """Where this graph is instanced, among the packages Designer has open.
 
-    Selecting an instance node makes the parameter panel draw the instanced graph's exposed
-    parameters through it. Rebuilding the graph then replaces what that panel is holding, and
-    the reported crash follows exactly that: rebuilding with the graph itself open is fine,
-    rebuilding with an instance of it selected in another graph is not.
+    An instance node holds the interface of the graph it points at -- its inputs, its
+    outputs, its exposed parameters. Rebuilding that graph deletes the output bridges and
+    makes them again, and an open instance is left holding what was there before.
 
-    Returns (how many instances exist, how many are selected)."""
-    total = 0
-    selected = 0
+    Selection was the first suspicion and it was wrong: deselecting the instance and
+    building again still went down. What both crashing runs had in common was an instance
+    being open at all.
+
+    Returns a list of (graph identifier, package file name)."""
+    found = []
     try:
         for package in app.getPackageMgr().getPackages():
+            filename = os.path.basename(package.getFilePath() or '(unsaved)')
             for resource in package.getChildrenResources(True):
                 if getattr(resource, 'getNodes', None) is None:
+                    continue
+                if resource.getIdentifier() == identifier:
                     continue
                 for node in resource.getNodes():
                     referenced = node.getReferencedResource()
                     if referenced is not None and referenced.getIdentifier() == identifier:
-                        total += 1
-        ui = app.getUIMgr()
-        for index in range(ui.getGraphViewIDCount()):
-            view = ui.getGraphViewIDAt(index)
-            for node in (ui.getGraphSelectedNodesFromGraphViewID(view) or []):
-                referenced = node.getReferencedResource()
-                if referenced is not None and referenced.getIdentifier() == identifier:
-                    selected += 1
+                        found.append((resource.getIdentifier(), filename))
+                        break
     except Exception:
-        return (-1, -1)
-    return (total, selected)
+        pass
+    return found
 
 
 def target_graph(package, identifier):
@@ -368,12 +367,13 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     // and rebuilding underneath it takes Designer down. Reproduced with the graph itself open in
     // no view at all, so the selected instance is the whole condition.
     lines.push(say('instances_of'))
-    lines.push(`    used, selected = instances_of(app, ${quote(target.graph)})`)
-    lines.push('    if selected:')
-    lines.push("        print('refusing to build: an instance of this graph is selected in a graph view.')")
-    lines.push("        print('The parameter panel draws this graph through that node, and rebuilding')")
-    lines.push("        print('underneath it takes Designer down. Click an empty part of that graph to')")
-    lines.push("        print('deselect, then run this again. Nothing has been changed.')")
+    lines.push(`    used = instances_of(app, ${quote(target.graph)})`)
+    lines.push('    if used:')
+    lines.push("        print('refusing to build: this graph is instanced by ' + ', '.join(")
+    lines.push("            '{0} ({1})'.format(name, where) for name, where in used))")
+    lines.push("        print('An instance holds the interface of the graph it points at, and rebuilding')")
+    lines.push("        print('replaces that underneath it, which takes Designer down. Close those and run')")
+    lines.push("        print('again. Nothing has been changed.')")
     lines.push('        return')
     lines.push('')
     lines.push(`    package_path = ${quote(target.packagePath)}`)
@@ -476,12 +476,7 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     lines.push(say('done'))
     lines.push(`    print('{0} {1} in {2} -- ${spec.nodes.length} nodes, ${spec.wires.length} wires'.format(`)
     lines.push(`        'rebuilt' if existed else 'created', ${quote(target.graph)}, os.path.basename(package_path)))`)
-    lines.push("    print('state: {0} view(s) showing it, {1} instance(s) of it open, {2} selected'")
-    lines.push("          .format(open_views, used, selected))")
-    lines.push('    if selected:')
-    lines.push("        print('note: an instance of this graph is SELECTED. The parameter panel is drawing'")
-    lines.push("              ' this graph through it, and rebuilding underneath that is the current suspect'")
-    lines.push("              ' for the crash. Deselect it and run again -- the package is already saved.')")
+    lines.push("    print('state: {0} view(s) showing it'.format(open_views))")
     lines.push('    if open_views:')
     lines.push("        print('note: this graph is open in {0} view(s). If Designer goes down just after'")
     lines.push("              ' this line, close that tab and run again -- the package is already saved.'")
