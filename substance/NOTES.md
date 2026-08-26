@@ -733,6 +733,24 @@ takes the console with it; it does not take a flushed file. **Point it at the gr
 crashes** -- the first run of it proved something true about a graph that was not the one in
 question.
 
+## The shipped API reference is behind the binary
+
+`blend` has a parameter called `maskvectorresourcepath`. It is in the executable and a live node
+reports it; `sbs_compositing.rst.txt` does not mention it at all, and neither did the
+`dump-catalog.py` harvest that the reference replaced -- the two matched byte for byte, so both
+are missing it together.
+
+Which means the catalogue can be missing a parameter the installed Designer really has, and a
+spec dumped out of a live graph can name one the catalogue will refuse. That is what happened:
+the first dump of `hbtest` carried `maskvectorresourcepath=""` on four blends and the spec would
+not build.
+
+Largely moot going forward -- the value equalled its default, and the fixed comparison drops it
+before it is written -- but the gap is real and worth knowing when a spec is refused for naming a
+parameter that visibly exists in Designer. Generating from the reference is still the right
+trade: it is offline, it carries annotations and enum value ids, and it was proved equal to what
+a running Designer reported.
+
 ## The Copy button
 
 `lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting
