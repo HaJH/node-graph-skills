@@ -676,9 +676,25 @@ package on disk carries both graphs, all four exposed parameters and both preset
 down **after** the script returned.
 
 So it is not a call in the payload -- three probes and a traced payload have now walked every
-call in it. It is Designer reacting to the rebuilt graph once the script hands control back, and
-what makes the difference is that the graph is **open in a view** with a parameter panel bound to
-it. The reported sequence: build, move a slider, build again, crash.
+call in it. It is Designer reacting to the rebuilt graph once the script hands control back.
+
+**The condition, narrowed by three runs:**
+
+| | |
+|---|---|
+| another graph open, build twice | fine |
+| the graph itself open, build twice | **fine** -- which the restrained clearing bought |
+| an **instance node** of it selected in another graph, then build | **crash** |
+
+Selecting an instance node makes the parameter panel draw the instanced graph's exposed
+parameters *through that node*. Rebuilding the graph replaces what the panel is holding. That
+fits every observation, including the earlier "moved a slider first" -- the slider was on the
+instance.
+
+Two guesses have already been refuted by measurement, so this one is counted rather than acted
+on: the payload reports how many instances of the target are open and how many are selected, and
+says which state it thinks is dangerous. If a run with `selected 0` never crashes and a run with
+`selected 1` always does, the guard writes itself.
 
 Two guesses have been refuted by measurement, so this one is reported rather than acted on. The
 payload counts the graph views showing the target -- `getGraphViewIDCount` and

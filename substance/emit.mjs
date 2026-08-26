@@ -139,6 +139,38 @@ def views_showing(app, identifier):
         return -1
 
 
+def instances_of(app, identifier):
+    """Where else this graph is used, and whether one of those uses is selected.
+
+    Selecting an instance node makes the parameter panel draw the instanced graph's exposed
+    parameters through it. Rebuilding the graph then replaces what that panel is holding, and
+    the reported crash follows exactly that: rebuilding with the graph itself open is fine,
+    rebuilding with an instance of it selected in another graph is not.
+
+    Returns (how many instances exist, how many are selected)."""
+    total = 0
+    selected = 0
+    try:
+        for package in app.getPackageMgr().getPackages():
+            for resource in package.getChildrenResources(True):
+                if getattr(resource, 'getNodes', None) is None:
+                    continue
+                for node in resource.getNodes():
+                    referenced = node.getReferencedResource()
+                    if referenced is not None and referenced.getIdentifier() == identifier:
+                        total += 1
+        ui = app.getUIMgr()
+        for index in range(ui.getGraphViewIDCount()):
+            view = ui.getGraphViewIDAt(index)
+            for node in (ui.getGraphSelectedNodesFromGraphViewID(view) or []):
+                referenced = node.getReferencedResource()
+                if referenced is not None and referenced.getIdentifier() == identifier:
+                    selected += 1
+    except Exception:
+        return (-1, -1)
+    return (total, selected)
+
+
 def target_graph(package, identifier):
     """The graph this spec builds. Found or created, not yet emptied.
 
@@ -337,6 +369,7 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     lines.push(say('target_graph'))
     lines.push(`    graph, existed = target_graph(package, ${quote(target.graph)})`)
     lines.push(`    open_views = views_showing(app, ${quote(target.graph)})`)
+    lines.push(`    used, selected = instances_of(app, ${quote(target.graph)})`)
     // Described before it is emptied: an annotation id the API does not have raises here, and a
     // graph that has not been cleared yet is a graph nothing has been done to.
     for (const [id, described] of Object.entries(target.describe ?? {})) {
@@ -431,6 +464,12 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     lines.push(say('done'))
     lines.push(`    print('{0} {1} in {2} -- ${spec.nodes.length} nodes, ${spec.wires.length} wires'.format(`)
     lines.push(`        'rebuilt' if existed else 'created', ${quote(target.graph)}, os.path.basename(package_path)))`)
+    lines.push("    print('state: {0} view(s) showing it, {1} instance(s) of it open, {2} selected'")
+    lines.push("          .format(open_views, used, selected))")
+    lines.push('    if selected:')
+    lines.push("        print('note: an instance of this graph is SELECTED. The parameter panel is drawing'")
+    lines.push("              ' this graph through it, and rebuilding underneath that is the current suspect'")
+    lines.push("              ' for the crash. Deselect it and run again -- the package is already saved.')")
     lines.push('    if open_views:')
     lines.push("        print('note: this graph is open in {0} view(s). If Designer goes down just after'")
     lines.push("              ' this line, close that tab and run again -- the package is already saved.'")
