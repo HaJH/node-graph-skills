@@ -668,73 +668,34 @@ The probe had already said so and it was read past: a function graph's
 `getDefinition().getId()` came back **empty**, which is what a graph identified by class rather
 than by definition id looks like.
 
-## Rebuilding a graph that exposes parameters
+## Rebuilding a graph that has instances -- settled
 
-**Where this stands.** The build works and the crash is not destructive. On the run that took
-Designer down, the payload reached the end, printed `rebuilt panel_base in HBNoises.sbs`, and the
-package on disk carries both graphs, all four exposed parameters and both presets. Designer went
-down **after** the script returned.
-
-So it is not a call in the payload -- three probes and a traced payload have now walked every
-call in it. It is Designer reacting to the rebuilt graph once the script hands control back.
-
-**The condition, narrowed by three runs:**
-
-| | |
-|---|---|
-| another graph open, build twice | fine |
-| the graph itself open, build twice | **fine** -- which the restrained clearing bought |
-| an **instance node** of it selected in another graph, then build | **crash** |
-
-Selecting an instance node makes the parameter panel draw the instanced graph's exposed
-parameters *through that node*. Rebuilding the graph replaces what the panel is holding. That
-fits every observation, including the earlier "moved a slider first" -- the slider was on the
-instance.
-
-**Reproduced, and the report settles it:**
-
-```
-state: 0 view(s) showing it, 1 instance(s) of it open, 1 selected
-```
-
-Zero views showing the graph. It was not open at all. One selected instance was the entire
-condition, which is as clean an isolation as this is going to get.
-
-**And selection was wrong too.** Refusing while an instance was selected worked; clicking empty
-space to deselect and building again went down anyway. Four guesses, four refutations.
-
-Then keying it on an instance being open at all refused **every** build, and refuted itself in
-the process: `hbtest` instances `panel_base` and lives in the same `.sbs`, so the package holding
-the consumer is open on every build by definition -- including the two builds that did not crash.
-A condition that is true when nothing goes wrong is not the condition.
-
-What separates the four runs is which graph a **view** is open on:
+**The condition, confirmed both ways.** A rebuild takes Designer down when a **graph view is open
+on a graph that instances the one being rebuilt**. Not otherwise.
 
 | view is on | result |
 |---|---|
-| some unrelated graph | fine |
-| the target itself | fine |
-| a graph that instances the target | **down**, selected or not |
+| an unrelated graph | fine |
+| the graph being rebuilt | **fine** -- proved by a build with `1 view(s) showing it` |
+| a graph that instances it | **down**, whether or not the instance is selected |
+| a graph that instanced it, after deleting the instance | fine |
 
-An instance node holds the interface of the graph it points at -- its inputs, its outputs, its
-exposed parameters -- and a rebuild deletes the output bridges and makes them again. Under a view
-that is drawing them, that is fatal; under no view it is survivable.
+An instance node holds the interface of the graph it points at -- inputs, outputs, exposed
+parameters. A rebuild deletes the output bridges and makes them again. Under a view drawing them
+that is fatal; with no view on the consumer it is survivable.
 
-So the refusal keys on a **graph view** being open on a consumer, names it, and still comes
-**before anything is opened or created** -- a refusal after `target_graph` would leave a graph
-half-built, which is worse than the crash it avoids. Views are the right unit here for a second
-reason: a consumer in the same package cannot be avoided, but a tab can always be switched.
+The payload refuses in that case, names the consumer, and refuses **before anything is opened or
+created**, so a refused run changes nothing. Switching the tab is enough -- the consumer does not
+have to be closed, and it cannot always be: it often lives in the same `.sbs` as the graph being
+built, which is what made "refuse if an instance is open" refuse everything.
 
-Still unconfirmed in the negative direction: nobody has yet closed the consuming package and
-rebuilt. That is the run that would settle it, and it is the one this guard now forces.
+The crash is not destructive either way: on the runs that crashed, the payload had already
+reached `savePackageAs`, and the package on disk carried both graphs, all four exposed parameters
+and both presets.
 
-Two guesses have been refuted by measurement, so this one is reported rather than acted on. The
-payload counts the graph views showing the target -- `getGraphViewIDCount` and
-`getGraphFromGraphViewID` -- and says so after it saves. If the crash follows that line, closing
-the tab is the thing to try, and nothing is lost either way because the save has already
-happened.
+### The five guesses it took, and what killed each
 
-## Rebuilding a graph that exposes parameters -- the guesses that were wrong
+Kept because every one of them would have shipped as a fix if it had not been run.
 
 First build works: the parameters come up as sliders in their groups, moving one drives the
 graph, the presets apply. **Building the same graph a second time takes Designer down** -- not a

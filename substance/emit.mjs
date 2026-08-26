@@ -120,25 +120,6 @@ def open_package(app, package_path):
     return package_mgr.newUserPackage()
 
 
-def views_showing(app, identifier):
-    """How many graph views are displaying this graph.
-
-    Rebuilding a graph the editor is showing is the standing suspect for a crash that happens
-    *after* the script has finished and saved -- the payload completes, prints, and Designer
-    goes down a moment later. Reported rather than refused, because whether it is the cause
-    is not settled and refusing on a guess would be the fourth one."""
-    try:
-        ui = app.getUIMgr()
-        count = 0
-        for index in range(ui.getGraphViewIDCount()):
-            shown = ui.getGraphFromGraphViewID(ui.getGraphViewIDAt(index))
-            if shown is not None and shown.getIdentifier() == identifier:
-                count += 1
-        return count
-    except Exception:
-        return -1
-
-
 def instances_in_view(app, identifier):
     """Open graph views showing a graph that instances this one.
 
@@ -381,7 +362,6 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     lines.push('    package = open_package(app, package_path)')
     lines.push(say('target_graph'))
     lines.push(`    graph, existed = target_graph(package, ${quote(target.graph)})`)
-    lines.push(`    open_views = views_showing(app, ${quote(target.graph)})`)
     // Described before it is emptied: an annotation id the API does not have raises here, and a
     // graph that has not been cleared yet is a graph nothing has been done to.
     for (const [id, described] of Object.entries(target.describe ?? {})) {
@@ -476,11 +456,6 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     lines.push(say('done'))
     lines.push(`    print('{0} {1} in {2} -- ${spec.nodes.length} nodes, ${spec.wires.length} wires'.format(`)
     lines.push(`        'rebuilt' if existed else 'created', ${quote(target.graph)}, os.path.basename(package_path)))`)
-    lines.push("    print('state: {0} view(s) showing it'.format(open_views))")
-    lines.push('    if open_views:')
-    lines.push("        print('note: this graph is open in {0} view(s). If Designer goes down just after'")
-    lines.push("              ' this line, close that tab and run again -- the package is already saved.'")
-    lines.push("              .format(open_views))")
   } else {
     lines.push(`    print('added {0} nodes and {1} wires'.format(${spec.nodes.length}, ${spec.wires.length}))`)
   }
