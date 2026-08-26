@@ -877,7 +877,19 @@ check('a graph exposes parameters, and something inside follows them', () => {
   if (python.includes("newPropertyGraph(prop, 'sbs::function')")) {
     problems.push("the function graph type is the module name, which newPropertyGraph answers with None")
   }
-  if (!python.includes('deleteProperty')) problems.push('a rebuild would leave the old parameters behind')
+  // A parameter the spec still declares is rewritten in place, not deleted and remade: the
+  // editor is likely to be drawing a widget for it.
+  if (!python.includes('clear_graph(graph, ["amount","flip"])')) {
+    problems.push('the rebuild does not tell clear_graph which inputs to keep')
+  }
+  if (!python.includes('getPropertyFromId(identifier, SDPropertyCategory.Input)')) {
+    problems.push('expose does not reuse an input that is already there')
+  }
+  // Presets hold values for the inputs, so they go before them.
+  if (python.indexOf('deletePreset') > python.indexOf('deleteProperty')) {
+    problems.push('inputs are deleted before the presets that name them')
+  }
+  if (!python.includes('deleteProperty')) problems.push('an input the spec dropped would be left behind')
   if (!python.includes('deletePreset')) problems.push('a rebuild would leave the old presets behind')
   // Designer writes both when a person exposes one by hand.
   for (const annotation of ["'identifier'", "'type'", "'editor'", "'label_true'"]) {

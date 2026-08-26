@@ -140,26 +140,29 @@ def target_graph(package, identifier):
     return graph, False
 
 
-def clear_graph(graph):
+def clear_graph(graph, keep_inputs):
     """Empty the graph, rather than deleting and remaking it.
 
     Another package that instances this graph points at the resource. Replacing the resource
-    would break that reference; replacing its contents keeps every dependant working."""
+    would break that reference; replacing its contents keeps every dependant working.
+
+    Order matters and so does restraint. A preset holds values for the graph's inputs, so it
+    goes before them. An input the spec still declares is left alone and rewritten in place
+    rather than deleted and remade -- the editor is likely to be showing a widget for it, and
+    pulling that out from under a running Designer is not something a rebuild should do.
+    Only inputs the spec has dropped are removed."""
+    for preset in list(graph.getPresets()):
+        graph.deletePreset(preset.getLabel())
+
     for node in list(graph.getNodes()):
         graph.deleteNode(node)
 
-    # Exposed parameters are properties on the graph rather than nodes, so emptying the
-    # nodes leaves them behind and the rebuild would try to create ones already there. The
-    # six base parameters are not ours: they are the only graph inputs whose id starts with
-    # a $, and the only ones carrying no annotations.
+    # The six base parameters are not ours: they are the only graph inputs whose id starts
+    # with a $, and the only ones carrying no annotations.
     for prop in list(graph.getProperties(SDPropertyCategory.Input)):
-        if not prop.getId().startswith('$'):
+        identifier = prop.getId()
+        if not identifier.startswith('$') and identifier not in keep_inputs:
             graph.deleteProperty(prop)
-
-    # And the presets, for the same reason: they are named, so a rebuild would either stack a
-    # second one or fail on the name.
-    for preset in list(graph.getPresets()):
-        graph.deletePreset(preset.getLabel())
 `
 
 const EXPOSE = `
@@ -167,9 +170,14 @@ const EXPOSE = `
 def expose(graph, identifier, sd_type, value, annotations):
     """One parameter the graph offers to whoever uses it.
 
+    Reused where it is already there, so a re-run of the same spec deletes nothing and the
+    editor keeps the widget it is drawing.
+
     The property is the visible half. It drives nothing on its own -- a node parameter only
     follows it once bind() has put that parameter under a function graph."""
-    prop = graph.newProperty(identifier, sd_type, SDPropertyCategory.Input)
+    prop = graph.getPropertyFromId(identifier, SDPropertyCategory.Input)
+    if prop is None:
+        prop = graph.newProperty(identifier, sd_type, SDPropertyCategory.Input)
     if value is not None:
         graph.setPropertyValue(prop, value)
     for key, annotation in annotations:
@@ -296,7 +304,7 @@ export function emitPython (spec, target = null) {
         : described.value
       lines.push(`    graph.setAnnotationPropertyValueFromId(${quote(id)}, ${valueExpression(value)})`)
     }
-    lines.push('    clear_graph(graph)')
+    lines.push(`    clear_graph(graph, ${JSON.stringify((spec.params ?? []).map(p => p.id))})`)
     lines.push('    offset = 0.0')
   } else {
     lines.push('    graph = app.getUIMgr().getCurrentGraph()')

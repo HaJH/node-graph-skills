@@ -668,6 +668,27 @@ The probe had already said so and it was read past: a function graph's
 `getDefinition().getId()` came back **empty**, which is what a graph identified by class rather
 than by definition id looks like.
 
+## Rebuilding a graph that exposes parameters
+
+First build works: the parameters come up as sliders in their groups, moving one drives the
+graph, the presets apply. **Building the same graph a second time takes Designer down** -- not a
+traceback, an immediate crash, so the Python Editor prints nothing.
+
+Not diagnosed. What `clear_graph` was doing that a rebuild without parameters never did is delete
+the graph's input properties, while the editor was open on that graph and drawing a widget for
+each of them. That is the shape of a native crash, so the clearing was made restrained rather
+than reordered:
+
+- **presets first.** A preset holds values for the graph's inputs, so removing an input while a
+  preset still names it leaves a dangling reference.
+- **an input the spec still declares is left alone** and rewritten in place. A re-run of an
+  unchanged spec now deletes no properties at all. Only ones the spec has dropped are removed.
+
+Whether that is the cause is unproven. `tools/probe-rebuild.py` settles it if it recurs: it does
+the clearing one call at a time and flushes a line to a file after each, so the last line in the
+file names the call that did not return. A crash takes the console with it; it does not take a
+flushed file.
+
 ## The Copy button
 
 `lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting
