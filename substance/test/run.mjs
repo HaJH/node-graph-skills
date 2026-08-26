@@ -863,6 +863,10 @@ check('a graph exposes parameters, and something inside follows them', () => {
     // __constant__ is what names the input.
     "bind(nodes['sc'], 'spline_width', 'sbs::function::get_float1', 'amount')",
     "bind(nodes['no'], 'rotate', 'sbs::function::get_bool', 'flip')",
+    // The graph type newPropertyGraph wants is the class name. 'sbs::function' is the module the
+    // getters live in, and passing that returns None -- which then fails as an AttributeError on
+    // the next line, three frames from the cause.
+    "newPropertyGraph(prop, 'SDSBSFunctionGraph')",
     "newPreset('Rough')",
     "addInput('amount'",
     'from sd.api.sdproperty import SDPropertyCategory',
@@ -870,6 +874,9 @@ check('a graph exposes parameters, and something inside follows them', () => {
     if (!python.includes(wanted)) problems.push(`the payload is missing ${wanted}`)
   }
   // A parameter and a preset are named, so a rebuild that left them would stack or collide.
+  if (python.includes("newPropertyGraph(prop, 'sbs::function')")) {
+    problems.push("the function graph type is the module name, which newPropertyGraph answers with None")
+  }
   if (!python.includes('deleteProperty')) problems.push('a rebuild would leave the old parameters behind')
   if (!python.includes('deletePreset')) problems.push('a rebuild would leave the old presets behind')
   // Designer writes both when a person exposes one by hand.

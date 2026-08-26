@@ -658,6 +658,16 @@ function graph comes back **empty**, so a function graph is not identified the w
 That is the whole mechanism, and it is small: one property, its annotations, and a one-node
 function graph per parameter that follows it.
 
+**The graph type `newPropertyGraph` wants is `'SDSBSFunctionGraph'` -- the class name.** Not
+`'sbs::function'`, which is the module the getter nodes live in and which reads like the obvious
+answer. Passing the module name returns **None** rather than raising, so the failure lands three
+frames later as `'NoneType' object has no attribute 'newNode'` and says nothing about the cause.
+Designer ships a sample for exactly this shape: `resources/python/samples/sample_sbs_parameter_function.py`.
+
+The probe had already said so and it was read past: a function graph's
+`getDefinition().getId()` came back **empty**, which is what a graph identified by class rather
+than by definition id looks like.
+
 ## The Copy button
 
 `lib/page.mjs`. Tries `document.execCommand('copy')` first and synchronously — awaiting

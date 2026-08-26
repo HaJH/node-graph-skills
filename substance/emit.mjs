@@ -183,7 +183,16 @@ def bind(node, property_id, getter_id, input_id):
     __constant__ names the input to read. That is what Designer builds when a person exposes a
     parameter by hand, read back off a graph where they had."""
     prop = node.getPropertyFromId(property_id, SDPropertyCategory.Input)
-    function = node.newPropertyGraph(prop, 'sbs::function')
+    if prop is None:
+        raise RuntimeError('no parameter {0} to bind'.format(property_id))
+
+    # 'SDSBSFunctionGraph', the class name -- not 'sbs::function', which is the module the getter
+    # nodes live in and which newPropertyGraph answers with None. Shape taken from Designer's own
+    # sample_sbs_parameter_function.py.
+    function = node.newPropertyGraph(prop, 'SDSBSFunctionGraph')
+    if function is None:
+        raise RuntimeError('{0} will not take a function graph'.format(property_id))
+
     getter = function.newNode(getter_id)
     getter.setInputPropertyValueFromId('__constant__', SDValueString.sNew(input_id))
     function.setOutputNode(getter, True)
