@@ -703,15 +703,27 @@ condition, which is as clean an isolation as this is going to get.
 **And selection was wrong too.** Refusing while an instance was selected worked; clicking empty
 space to deselect and building again went down anyway. Four guesses, four refutations.
 
-What both crashing runs actually had in common is simpler and was in the report all along:
-`1 instance(s) of it open`. An instance node holds the interface of the graph it points at -- its
-inputs, its outputs, its exposed parameters -- and a rebuild deletes the output bridges and makes
-them again underneath it. Whether that instance is selected only decides whether a panel is
-drawing it too.
+Then keying it on an instance being open at all refused **every** build, and refuted itself in
+the process: `hbtest` instances `panel_base` and lives in the same `.sbs`, so the package holding
+the consumer is open on every build by definition -- including the two builds that did not crash.
+A condition that is true when nothing goes wrong is not the condition.
 
-So the refusal keys on an instance being open at all, names the graph and package holding it, and
-still comes **before anything is opened or created** -- a refusal after `target_graph` would
-leave a graph half-built, which is worse than the crash it avoids.
+What separates the four runs is which graph a **view** is open on:
+
+| view is on | result |
+|---|---|
+| some unrelated graph | fine |
+| the target itself | fine |
+| a graph that instances the target | **down**, selected or not |
+
+An instance node holds the interface of the graph it points at -- its inputs, its outputs, its
+exposed parameters -- and a rebuild deletes the output bridges and makes them again. Under a view
+that is drawing them, that is fatal; under no view it is survivable.
+
+So the refusal keys on a **graph view** being open on a consumer, names it, and still comes
+**before anything is opened or created** -- a refusal after `target_graph` would leave a graph
+half-built, which is worse than the crash it avoids. Views are the right unit here for a second
+reason: a consumer in the same package cannot be avoided, but a tab can always be switched.
 
 Still unconfirmed in the negative direction: nobody has yet closed the consuming package and
 rebuilt. That is the run that would settle it, and it is the one this guard now forces.

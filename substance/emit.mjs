@@ -139,35 +139,35 @@ def views_showing(app, identifier):
         return -1
 
 
-def instances_of(app, identifier):
-    """Where this graph is instanced, among the packages Designer has open.
+def instances_in_view(app, identifier):
+    """Open graph views showing a graph that instances this one.
 
-    An instance node holds the interface of the graph it points at -- its inputs, its
-    outputs, its exposed parameters. Rebuilding that graph deletes the output bridges and
-    makes them again, and an open instance is left holding what was there before.
+    An instance node holds the interface of the graph it points at, and a rebuild deletes
+    the output bridges and makes them again underneath it. That alone is survivable: the
+    package holding the instance is open on every build, because the consumer often lives
+    in the same .sbs as the graph being built. What is not survivable is a **view** being
+    open on that consumer.
 
-    Selection was the first suspicion and it was wrong: deselecting the instance and
-    building again still went down. What both crashing runs had in common was an instance
-    being open at all.
+    Which is what the four observations say. Building with another graph in view: fine.
+    With the target itself in view: fine. With the graph that instances it in view:
+    down, selected or not.
 
-    Returns a list of (graph identifier, package file name)."""
-    found = []
+    Returns a list of graph identifiers."""
+    showing = []
     try:
-        for package in app.getPackageMgr().getPackages():
-            filename = os.path.basename(package.getFilePath() or '(unsaved)')
-            for resource in package.getChildrenResources(True):
-                if getattr(resource, 'getNodes', None) is None:
-                    continue
-                if resource.getIdentifier() == identifier:
-                    continue
-                for node in resource.getNodes():
-                    referenced = node.getReferencedResource()
-                    if referenced is not None and referenced.getIdentifier() == identifier:
-                        found.append((resource.getIdentifier(), filename))
-                        break
+        ui = app.getUIMgr()
+        for index in range(ui.getGraphViewIDCount()):
+            graph = ui.getGraphFromGraphViewID(ui.getGraphViewIDAt(index))
+            if graph is None or graph.getIdentifier() == identifier:
+                continue
+            for node in graph.getNodes():
+                referenced = node.getReferencedResource()
+                if referenced is not None and referenced.getIdentifier() == identifier:
+                    showing.append(graph.getIdentifier())
+                    break
     except Exception:
         pass
-    return found
+    return showing
 
 
 def target_graph(package, identifier):
@@ -367,12 +367,12 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     // and rebuilding underneath it takes Designer down. Reproduced with the graph itself open in
     // no view at all, so the selected instance is the whole condition.
     lines.push(say('instances_of'))
-    lines.push(`    used = instances_of(app, ${quote(target.graph)})`)
-    lines.push('    if used:')
-    lines.push("        print('refusing to build: this graph is instanced by ' + ', '.join(")
-    lines.push("            '{0} ({1})'.format(name, where) for name, where in used))")
-    lines.push("        print('An instance holds the interface of the graph it points at, and rebuilding')")
-    lines.push("        print('replaces that underneath it, which takes Designer down. Close those and run')")
+    lines.push(`    watching = instances_in_view(app, ${quote(target.graph)})`)
+    lines.push('    if watching:')
+    lines.push("        print('refusing to build: a graph view is open on ' + ', '.join(watching) + ',')")
+    lines.push("        print('which instances this graph. An instance holds the interface of what it')")
+    lines.push("        print('points at, and rebuilding replaces that under an open view, which takes')")
+    lines.push("        print('Designer down. Switch that tab to another graph, or close it, and run')")
     lines.push("        print('again. Nothing has been changed.')")
     lines.push('        return')
     lines.push('')

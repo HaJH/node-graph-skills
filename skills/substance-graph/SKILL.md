@@ -313,13 +313,15 @@ anything already there, so it is safe to drop into work in progress. Library nod
 
 ## Rebuilding while an instance is selected
 
-**The payload refuses to build a graph while any open package instances it**, and names which
-graph and which package. An instance node holds the interface of the graph it points at, and a
-rebuild deletes the output bridges and makes them again underneath it, which takes Designer down.
-Close the consuming graphs and run again.
+**The payload refuses to build a graph while a graph view is open on something that instances
+it**, and names which graph. An instance node holds the interface of the graph it points at, and
+a rebuild deletes the output bridges and makes them again underneath it; under a view drawing
+them that takes Designer down. Switch that tab to another graph, or close it, and run again.
 
-Deselecting the instance is not enough -- that was tried and it still went down. The refusal
-comes before anything is opened or created, so a refused run changes nothing.
+A *view*, not a package: a consumer often lives in the same `.sbs` as the graph being built, so
+its package is open on every build and refusing on that refuses everything. Deselecting the
+instance is not enough either -- both were tried. The refusal comes before anything is opened or
+created, so a refused run changes nothing.
 
 ## Known limits
 
