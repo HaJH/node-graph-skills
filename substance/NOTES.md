@@ -670,6 +670,24 @@ than by definition id looks like.
 
 ## Rebuilding a graph that exposes parameters
 
+**Where this stands.** The build works and the crash is not destructive. On the run that took
+Designer down, the payload reached the end, printed `rebuilt panel_base in HBNoises.sbs`, and the
+package on disk carries both graphs, all four exposed parameters and both presets. Designer went
+down **after** the script returned.
+
+So it is not a call in the payload -- three probes and a traced payload have now walked every
+call in it. It is Designer reacting to the rebuilt graph once the script hands control back, and
+what makes the difference is that the graph is **open in a view** with a parameter panel bound to
+it. The reported sequence: build, move a slider, build again, crash.
+
+Two guesses have been refuted by measurement, so this one is reported rather than acted on. The
+payload counts the graph views showing the target -- `getGraphViewIDCount` and
+`getGraphFromGraphViewID` -- and says so after it saves. If the crash follows that line, closing
+the tab is the thing to try, and nothing is lost either way because the save has already
+happened.
+
+## Rebuilding a graph that exposes parameters -- the guesses that were wrong
+
 First build works: the parameters come up as sliders in their groups, moving one drives the
 graph, the presets apply. **Building the same graph a second time takes Designer down** -- not a
 traceback, an immediate crash, so the Python Editor prints nothing.
