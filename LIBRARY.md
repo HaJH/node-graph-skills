@@ -183,7 +183,10 @@ In dependency order.
    sketched here: a parameter is `graph.newProperty(id, type, Input)` plus a one-node function
    graph on each node parameter that follows it. `param` and `preset` lines, typed both ends, and
    both cleared with the graph so a re-run converges.
-6. **The convention, enforced**, once its vocabulary is confirmed.
+6. **The convention, enforced.** The vocabulary is settled -- `CATEGORIES` comes off the install
+   and the usage names off Designer's own templates -- so what is left is refusing a spec whose
+   output names or usages fall outside it, the way an unknown node or a mistyped pin is refused
+   now.
 7. **Publish and bake**, if it belongs here at all: `sbscooker` and `sbsrender` wrapped so a
    project can go from specs to texture maps without Designer.
 

@@ -242,6 +242,7 @@ Passed on Designer 15.1.0 — see below. `tools/` holds the probes it was run wi
 | `dump-graph-annotations.py` | lists what annotations a compositing graph itself carries |
 | `graph-to-spec.py` | reads the open graph and writes the spec that rebuilds it |
 | `dump-exposed.py` | reads what Designer makes when a parameter is exposed by hand |
+| `probe-rebuild.py` | walks the clearing half one call at a time, flushing to a file |
 | `generate-catalogue.mjs` | writes `catalogue.generated.mjs` from that dump plus the shipped `.sbs` packages, offline |
 | `roundtrip.py` | both legs. `MODE = "dump"` reads the open graph to `sd-graph.json`; `MODE = "rebuild"` builds that file into a new empty graph and reads the result back to `sd-graph-rebuilt.json` |
 

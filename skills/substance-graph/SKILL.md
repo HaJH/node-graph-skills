@@ -362,6 +362,9 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/tools/dump-catalog.py` | reads the built-in definitions out of a running Designer -- how the catalogue's source was settled, not needed to build it |
 | `substance/tools/dump-usages.mjs` | reports the usages Designer's own graph templates declare |
 | `substance/tools/graph-to-spec.py` | reads the open graph and writes the spec that rebuilds it |
+| `substance/tools/dump-graph-annotations.py` | what a compositing graph itself carries -- how `category` and the rest were settled |
+| `substance/tools/dump-exposed.py` | what Designer makes when a parameter is exposed by hand |
+| `substance/tools/probe-rebuild.py` | walks the clearing half one call at a time, flushing to a file -- for a crash that prints nothing |
 | `substance/tools/roundtrip.py` | the round-trip gate, both legs -- the record of how this was proved |
 | `substance/example/worn_painted_metal.spec` | the worked example -- 21 nodes, four outputs, one wear mask driving basecolor and roughness |
 | `substance/test/fake-designer.py` | stands up enough of the `sd` API to run the dump tool offline |
