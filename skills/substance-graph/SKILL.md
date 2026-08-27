@@ -261,6 +261,34 @@ Emptied rather than deleted and remade, because another package instancing this 
 the resource. Replacing the contents keeps every dependant working. **Anything changed by hand
 in that graph is replaced** -- the page says so.
 
+### Checking the package still matches the spec
+
+A person stands in the middle of every build: the payload is pasted into Designer and Designer
+writes the file. `verify.mjs` looks at the far side of that.
+
+```
+node <plugin>/substance/verify.mjs Resources/Substance/specs/nodes/panel_base.spec
+  against F:\...\packages\HBNoises.sbs
+  panel_base: 2 outputs, 4 exposed parameters, 2 presets
+  the package matches the spec
+```
+
+It publishes the `.sbs` to a temporary `.sbsar` with `sbscooker` and reads the interface back
+with `sbsrender info` -- graph name, exposed parameters, presets, and each output's identifier
+and usage. Those are the same things a spec declares, so the two are comparable. It exits
+non-zero on any difference and names each one.
+
+This is the check worth running before a rebuild, because **a rebuild resolves the disagreement
+by deleting**: an exposed parameter the package has and the spec does not is removed. Something
+exposed by hand in Designer and never dumped back is exactly that case.
+
+Needs the installed Designer, since it cooks -- `--designer <dir>` or `SUBSTANCE_DESIGNER_DIR`
+if it is not in the default place. Nothing else in this skill needs an install.
+
+Parameter **types are not compared**: a `.sbsar` reports a bool as `INTEGER1`, the same as an
+int, so a type comparison would report differences that are not real. Names are exact, and names
+are what everything downstream matches on.
+
 `package <name>` picks which `.sbs`, defaulting to the graph's own name. A package holds many
 graphs and Adobe's own do -- `blur_hq.sbs` holds `blur_hq` and `blur_hq_grayscale`.
 
@@ -387,6 +415,9 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | | |
 |---|---|
 | `substance/build.mjs` | CLI: spec → page + payload |
+| `substance/verify.mjs` | CLI: cooks the package a spec owns and compares its interface back |
+| `substance/resolve.mjs` | what a spec resolves to -- library, catalogue, convention, target |
+| `substance/sbsar.mjs` | reads the interface out of what `sbsrender info` prints |
 | `substance/spec.mjs` | the spec parser and its error messages |
 | `substance/emit.mjs` | spec → the Designer Python payload |
 | `substance/draw.mjs` | spec → the page |

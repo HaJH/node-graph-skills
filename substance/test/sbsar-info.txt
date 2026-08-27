@@ -1,0 +1,49 @@
+GRAPH-URL pkg://hbtest
+  INPUT $outputsize INTEGER2
+  INPUT $randomseed INTEGER1
+  INPUT X_Amount INTEGER1
+  INPUT Y_Amount INTEGER1
+  INPUT rotate INTEGER1
+  OUTPUT height height
+  OUTPUT normal normal
+  OUTPUT basecolor baseColor
+  OUTPUT roughness roughness
+
+GRAPH-URL pkg://panel_base
+  INPUT $outputsize INTEGER2
+  INPUT $randomseed INTEGER1
+  INPUT columns INTEGER1
+  INPUT rows INTEGER1
+  INPUT fill FLOAT1
+  INPUT bevel_size FLOAT1
+  OUTPUT height height
+  OUTPUT normal normal
+  PRESET 타이트
+  PRESET 느슨
+
+
+GRAPH-URL pkg://worn_painted_metal
+  INPUT $outputsize INTEGER2
+  INPUT $randomseed INTEGER1
+  OUTPUT height height
+  OUTPUT normal normal
+  OUTPUT basecolor baseColor
+  OUTPUT roughness roughness
+
+
+GRAPH-URL pkg://3D_perlin_noise
+  INPUT $outputsize INTEGER2
+  INPUT $randomseed INTEGER1
+  INPUT position IMAGE
+  INPUT invert INTEGER1
+  INPUT scale FLOAT1
+  INPUT size FLOAT3
+  INPUT offset FLOAT3
+  INPUT distortion_intensity FLOAT1
+  INPUT distortion_scale_multiplier FLOAT1
+  INPUT baseline FLOAT1
+  INPUT contrast FLOAT1
+  INPUT absolute INTEGER1
+  INPUT enable_tiling INTEGER1
+  OUTPUT output 
+

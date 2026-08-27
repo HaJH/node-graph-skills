@@ -737,6 +737,52 @@ takes the console with it; it does not take a flushed file. **Point it at the gr
 crashes** -- the first run of it proved something true about a graph that was not the one in
 question.
 
+## The headless tools, run
+
+`sbscooker.exe` and `sbsrender.exe` sit beside the executable and both work with no Designer
+running. A 21-node material cooked and rendered in seconds, on the GPU (`Selected device: NVIDIA
+GeForce RTX 4090` in the render log).
+
+```
+sbscooker --inputs <pkg>.sbs --output-path <dir> [--alias name://path]
+sbsrender info   <pkg>.sbsar
+sbsrender render --inputs <pkg>.sbsar --output-path <dir> --set-value '$outputsize@7,7'
+```
+
+**`sbscooker` does not read the `.sbsprj`.** Adobe's own `sbs://` is auto-detected next to the
+executable -- `--presets-path` is deprecated and says so -- but a library's alias is not resolved
+from anywhere. It has to be passed as `--alias hb://<path>` or every `hb://` dependency in the
+package fails. That is the fact that decided who owns publishing: `project.mjs` is the only place
+that has already read the mapping.
+
+**`sbsrender info` prints the interface**, which is the same set a spec declares:
+
+```
+GRAPH-URL pkg://panel_base
+  INPUT $outputsize INTEGER2
+  INPUT position IMAGE
+  INPUT columns INTEGER1
+  OUTPUT height height
+  OUTPUT output
+  PRESET 타이트
+```
+
+- `OUTPUT <identifier> <usage>`, and **the usage half is simply absent** on an output nobody
+  tagged -- which is most of Designer's own library.
+- **A bool is reported `INTEGER1`, indistinguishable from an int.** Confirmed against
+  `3D_perlin_noise`, whose `invert`, `absolute` and `enable_tiling` the catalogue calls bools and
+  the archive calls INTEGER1. Across five cooked packages the only type tokens that appeared at
+  all were `INTEGER1`, `INTEGER2`, `FLOAT1`, `FLOAT2`, `FLOAT4` and `IMAGE` -- no BOOLEAN, no
+  STRING. So `verify.mjs` compares names and not types: comparing types would report a
+  difference that is not one.
+- A preset label is a person's text and holds spaces. The live library's two are Korean.
+- `IMAGE` is an input bridge, not an exposed parameter.
+
+**The filename rule, seen rather than read.** Rendering with defaults gave
+`worn_painted_metal_worn_painted_metal_basecolor.png` -- `{inputName}_{inputGraphUrl}_{outputNodeName}`,
+and `{outputNodeName}` is the identifier the convention enforces. The doubling is why a bake step
+wants `--output-name`; that is the project's to choose.
+
 ## The output vocabulary agrees inside a family, never across them
 
 `dump-usages.mjs` over all 27 shipped templates gives 54 usages and no adoptable convention: base
@@ -842,10 +888,14 @@ into Designer settles it.
 
 ## Next
 
-Two open questions, both above: whether the artifact Copy button reaches the system clipboard,
-and whether the emitted `identifier` and `usages` land as intended in Designer. Beyond that the
-outstanding work is the reuse table above -- subgraphs, exposed parameters, presets. The remaining work in this repo is other domains — Blender
-Geometry Nodes, Houdini, ComfyUI — each of which starts at its own round-trip gate.
+**One open question**, above: whether the artifact Copy button reaches the system clipboard. One
+human click in a published artifact followed by a paste into Designer settles it.
+
+Everything else this section used to list has since been answered. `identifier` and `usages` do
+land as intended -- see "Naming graph inputs and outputs", run in Designer. Subgraphs, exposed
+parameters and presets are all built and proved. The remaining work in this repo is other
+domains — Blender Geometry Nodes, Houdini, ComfyUI — each of which starts at its own round-trip
+gate.
 
 Worth doing here eventually, none of it blocking:
 

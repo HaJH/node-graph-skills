@@ -10,8 +10,7 @@ import * as catalogue from './catalogue.generated.mjs'
 import { parseSpec, SpecError, OUTPUTS_FILE } from './spec.mjs'
 import { emitPython } from './emit.mjs'
 import { draw } from './draw.mjs'
-import { findProject, projectNodes, mergeCatalogue, projectOutputs, mergeOutputs } from './project.mjs'
-import { OUTPUTS } from './outputs.generated.mjs'
+import { resolve, targetFor } from './resolve.mjs'
 
 function arg (name) {
   const i = process.argv.indexOf('--' + name)
@@ -27,32 +26,11 @@ if (!input || input.startsWith('--')) {
 // A spec inside a library gets the library's own guidance on the page, and the library's own
 // graphs as node names: a graph saved into the alias folder is nameable by the next spec, and
 // nothing has to be registered anywhere for it -- the folder is the registry.
-const project = findProject(input)
-let resolved = catalogue
-// Outside a library the shipped vocabulary still catches a misspelled usage; inside one it also
-// decides output identifiers and is a refusal. See parseSpec.
-let convention = { outputs: OUTPUTS, strict: false }
-if (project) {
-  const { nodes, problems } = projectNodes(project)
-  for (const problem of problems) console.error('warning:', problem)
-  try {
-    resolved = mergeCatalogue(catalogue, nodes)
-  } catch (error) {
-    console.error(`${project.file}: ${error.message}`)
-    process.exit(1)
-  }
-  project.nodeCount = Object.keys(nodes).length
-
-  // A vocabulary file that does not parse is not a reason to fall back to the shipped list --
-  // that would enforce something other than what the library declared, which is worse than
-  // stopping.
-  const own = projectOutputs(project)
-  if (own.problems.length) {
-    for (const problem of own.problems) console.error(`${project.root}: ${problem}`)
-    process.exit(1)
-  }
-  project.outputCount = Object.keys(own.outputs).length
-  convention = { outputs: mergeOutputs(OUTPUTS, own.outputs), strict: true }
+const { project, catalogue: resolved, convention, problems, warnings } = resolve(input, catalogue)
+for (const warning of warnings) console.error('warning:', warning)
+if (problems.length) {
+  for (const problem of problems) console.error(problem)
+  process.exit(1)
 }
 
 let spec
@@ -71,17 +49,7 @@ const htmlAt = arg('html') ?? base + '.html'
 
 // Inside a library the payload builds into a package and saves it, so a re-run converges. On
 // its own it stays a network to paste into whatever is open.
-const target = project?.alias?.path
-  ? {
-      graph: spec.name ?? path.basename(input, path.extname(input)),
-      packageName: spec.package ?? spec.name ?? path.basename(input, path.extname(input)),
-      packagePath: '',
-    }
-  : null
-if (target) {
-  target.packagePath = path.join(project.alias.path, target.packageName + '.sbs')
-  target.describe = { ...spec.describe }
-}
+const target = targetFor(spec, project, input)
 
 // --trace makes the payload log every step to a file and flush, for when Designer goes down
 // without printing anything. Tracing the payload itself, not a stand-in: a probe that drifts

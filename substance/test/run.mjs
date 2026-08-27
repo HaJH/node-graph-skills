@@ -17,6 +17,7 @@ import { emitPython } from '../emit.mjs'
 import { draw } from '../draw.mjs'
 import { findProject, projectNodes, mergeCatalogue, projectOutputs, mergeOutputs } from '../project.mjs'
 import { OUTPUTS } from '../outputs.generated.mjs'
+import { readInterfaces, isExposedParameter } from '../sbsar.mjs'
 import { LANGUAGES } from '../strings.mjs'
 import os from 'node:os'
 import { spawnSync } from 'node:child_process'
@@ -1110,6 +1111,55 @@ check('a library widens the vocabulary in one place, and cannot quietly ignore i
     if (!broken.every(p => /line \d+/.test(p))) problems.push('a problem in outputs.txt has no line number')
   } finally {
     fs.rmSync(root, { recursive: true, force: true })
+  }
+  return problems
+})
+
+check('a cooked package reads back as an interface a spec can be compared to', () => {
+  // sbsar-info.txt is what `sbsrender info` printed for the live library and for one of
+  // Designer's own packages -- ground truth the same way gate-graph.json is, CRLF included.
+  // Everything verify.mjs concludes rests on this parse, and the parse is the half that can be
+  // checked without an install.
+  const problems = []
+  const text = fs.readFileSync(path.join(HERE, 'sbsar-info.txt'), 'utf8')
+  const graphs = readInterfaces(text)
+  const by = name => graphs.find(g => g.graph === name)
+
+  if (graphs.length !== 4) problems.push(`${graphs.length} graphs read, expected 4`)
+
+  const panel = by('panel_base')
+  if (!panel) return ['panel_base was not read at all']
+  // A person's text, and the live library's two are Korean. Splitting on whitespace would take
+  // the first word of "Base Colour" and call it a preset.
+  if (panel.presets.join() !== '타이트,느슨') problems.push(`presets read as ${panel.presets.join()}`)
+  if (panel.outputs.map(o => o.identifier + ':' + o.usage).join() !== 'height:height,normal:normal') {
+    problems.push('panel_base outputs read as ' + JSON.stringify(panel.outputs))
+  }
+  // The base parameters are on every graph and are not the spec's.
+  if (panel.inputs.filter(isExposedParameter).map(i => i.id).join() !== 'columns,rows,fill,bevel_size') {
+    problems.push('panel_base exposes ' + panel.inputs.filter(isExposedParameter).map(i => i.id).join())
+  }
+
+  const noise = by('3D_perlin_noise')
+  if (!noise) return [...problems, '3D_perlin_noise was not read at all']
+  // An output nobody tagged prints with the usage half simply absent -- which is most of
+  // Designer's own library, and would read as a usage called undefined.
+  if (noise.outputs.length !== 1 || noise.outputs[0].usage !== '') {
+    problems.push('an untagged output did not come back with an empty usage: ' + JSON.stringify(noise.outputs))
+  }
+  // An image input is an input bridge, not a parameter, and counting it as one would make every
+  // graph that takes an image disagree with its spec.
+  if (noise.inputs.filter(isExposedParameter).some(i => i.id === 'position')) {
+    problems.push('an IMAGE input was counted as an exposed parameter')
+  }
+  // A bool is reported INTEGER1, the same as an int -- which is why verify compares names and
+  // not types. invert, absolute and enable_tiling are bools in the catalogue.
+  for (const id of ['invert', 'absolute', 'enable_tiling']) {
+    const declared = catalogue.LIBRARY['3D_perlin_noise'].parameters.find(p => p.id === id)
+    if (declared?.type !== 'bool') { problems.push(`the catalogue no longer calls ${id} a bool`); continue }
+    if (noise.inputs.find(i => i.id === id)?.type !== 'INTEGER1') {
+      problems.push(`${id} is a bool but the archive does not report it INTEGER1`)
+    }
   }
   return problems
 })

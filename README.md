@@ -23,12 +23,18 @@ graph with no spec dumps back out into one; a graph the project owns is a node t
 name; and a graph can expose parameters and presets so somebody else can use it without opening
 it.
 
+Both ends are checked. A graph output's name and usage are held to a vocabulary generated from
+Designer's own templates, and `verify.mjs` publishes the `.sbs` a spec owns and reads its
+interface back to say whether the two still agree -- the one place a person stands in the middle
+and nothing was watching.
+
 Where that is going, what is left, and the reasoning behind each decision are in
 [`LIBRARY.md`](LIBRARY.md).
 
 ```
 node substance/build.mjs substance/example/worn_painted_metal.spec
 node substance/test/run.mjs                  # checked against the graph that made the trip
+node substance/verify.mjs <spec>             # needs the install; everything else does not
 ```
 
 `substance/example/worn_painted_metal.spec` is the worked example: chipped paint over brushed

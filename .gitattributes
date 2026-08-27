@@ -1,1 +1,6 @@
 * text=auto eol=lf
+
+# Captured verbatim from sbsrender on Windows, CRLF and all. Normalising it would make the
+# fixture something the tool never printed, and the line endings are part of what the parser
+# has to survive.
+substance/test/sbsar-info.txt -text

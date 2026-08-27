@@ -204,14 +204,20 @@ In dependency order.
    that is where an identifier becomes `{outputNodeName}` in an exported filename. A library
    widens the vocabulary in one place, `outputs.txt` beside the `.sbsprj`, and there is no
    per-spec opt-out.
-7. **Publish and bake**, if it belongs here at all: `sbscooker` and `sbsrender` wrapped so a
-   project can go from specs to texture maps without Designer.
+7. **Publish and bake** — **split, and the half that belongs here is done.** `verify.mjs` cooks
+   the `.sbs` a spec owns and reads it back with `sbsrender info`, then compares the graph name,
+   exposed parameters, presets and output identifier/usage pairs against the spec. That closes
+   the one gap a person stands in the middle of: the payload is pasted by hand and Designer
+   writes the file, and until now nothing looked at the far side. The **bake** — resolution, bit
+   depth, format, which map goes to which content folder — stays with the project, because it
+   changes for reasons this repo has no view of. See "Not settled", which this settles.
 
 ## Picking this up again
 
-Steps 1 to 6 are done. Each of 1 to 5 was proved inside Designer, not just in tests; step 6 is
-offline by nature and is proved by the test suite and by every spec in the live library still
-building under it.
+Steps 1 to 6 are done, and step 7 as far as it belongs here. Each of 1 to 5 was proved inside
+Designer, not just in tests; step 6 is offline by nature and is proved by the test suite and by
+every spec in the live library still building under it; step 7's half was run against the live
+library's real packages and found a real disagreement on its first run.
 
 A refusal is now written to `sys.stderr`, which the Python Editor tags `[ERR]`, and raises a
 `QMessageBox` parented to Designer's main window on top of that -- see "Saying no where it will
@@ -222,8 +228,10 @@ be seen" in NOTES. Both halves are in, and the box was raised from a pasted payl
   [`substance/NOTES.md`](substance/NOTES.md) -- including five refuted crash hypotheses, kept
   because every one of them would have shipped as a fix if it had not been run.
 - **How to use the skill** is in `skills/substance-graph/SKILL.md`.
-- `node substance/test/run.mjs` -- 26 checks, all offline.
+- `node substance/test/run.mjs` -- 27 checks, all offline.
 - `node substance/build.mjs <spec>` -- add `--trace` when Designer goes down without printing.
+- `node substance/verify.mjs <spec>` -- does the `.sbs` on disk still say what the spec says?
+  Needs the install, since it cooks; everything else here does not.
 
 The live library this was built against is `F:\Workspaces\main\HB\Resources\Substance`, with its
 own README covering the Designer-side setup. Its `specs/nodes/panel_base.spec` is the one that
@@ -233,6 +241,20 @@ exercises exposed parameters and presets end to end.
 in a tab when rebuilding it. The payload refuses in that case and names the graph to switch away
 from.
 
+## Settled: `.sbsar` publishing is split
+
+The question was whether it belongs here or in the project's CI. It is both, along a line that
+turned out to be sharp once the tools were actually run:
+
+| | Whose | Why |
+|---|---|---|
+| **cook and read back** — is the asset still what the spec says? | **here** | `sbscooker` does not read the `.sbsprj`; it resolves Adobe's own `sbs://` and nothing else, so a library alias has to be passed as `--alias hb://<path>`. This repo is the only place that already knows that mapping, and the only place that knows what the spec claimed. |
+| **bake** — resolution, bit depth, format, which map lands in which content folder | **the project** | None of it follows from the spec. It follows from the game, and it changes on the game's schedule. |
+
+`sbsrender info` prints exactly the set a spec declares -- graph name, exposed parameters, output
+identifier with its usage, preset labels -- which is what makes the first half a comparison
+rather than a rewrite of Designer.
+
 ## Not settled
 
-- Whether `.sbsar` publishing belongs in this repo or in the project's own CI.
+- Nothing at the moment.
