@@ -13,6 +13,34 @@ Sibling repo for Unreal — material and Niagara, T3D, paste with `Ctrl+V`:
 |---|---|---|
 | `substance-graph` | Substance 3D Designer compositing graphs | a Python script run in Designer |
 
+[![Worn painted metal rendered as a Substance node graph: a bevelled panel grid and anisotropic noise into a height blend, scratches carved in, the height into normal into curvature into one wear mask that drives basecolor and roughness](https://hajh.github.io/node-graph-skills/preview.svg)](https://hajh.github.io/node-graph-skills/worn_painted_metal.html)
+
+<sub>**[Open the live graph →](https://hajh.github.io/node-graph-skills/)** — every pin named
+and typed, values under the node that holds them, and the Python under the graph copies into
+Designer's Python Editor. The still above is
+[`substance/example/worn_painted_metal.spec`](substance/example/worn_painted_metal.spec),
+rebuilt from source on every push.</sub>
+
+```
+graph rough_metal
+
+noise   perlin_noise        scale=6 disorder=0.35
+soft    blur_hq_grayscale
+base    uniform             colorswitch=false
+mix     blend
+out     output              usage=height
+
+noise -> soft.Source
+soft  -> mix.source
+base  -> mix.destination
+mix   -> out
+```
+
+```
+node substance/build.mjs rough_metal.spec
+  5 nodes, 4 wires
+```
+
 Blender Geometry Nodes, Houdini and ComfyUI are next, each starting at its own round-trip gate.
 
 ## Status
@@ -33,6 +61,7 @@ Where that is going, what is left, and the reasoning behind each decision are in
 
 ```
 node substance/build.mjs substance/example/worn_painted_metal.spec
+node substance/describe.mjs blend blur_hq_grayscale   # pins, parameters, enum values
 node substance/test/run.mjs                  # checked against the graph that made the trip
 node substance/verify.mjs <spec>             # needs the install; everything else does not
 ```
@@ -44,6 +73,23 @@ roughness both.
 The catalogue of 29 built-in and 501 library nodes is generated from an installed Designer, so
 every pin name and type is the tool's own. What is known about Designer, and how each piece of it
 was verified, is in [`substance/NOTES.md`](substance/NOTES.md).
+
+## Install
+
+Clone anywhere and point Claude Code at it:
+
+```
+git clone https://github.com/HaJH/node-graph-skills.git ~/.claude/skills/node-graph
+```
+
+A plugin under your skills directory auto-loads on the next session, as `node-graph@skills-dir`
+— no marketplace, no install step. The skill is then `/node-graph:substance-graph`, and it
+fires on its own when a Substance network of three or more connected nodes comes up.
+
+To try it without installing, `claude --plugin-dir ./node-graph-skills`.
+
+Node 18+ is the only requirement. Nothing is installed, nothing is fetched at build time.
+`verify.mjs` alone needs an installed Designer, since it cooks.
 
 ## Licence
 

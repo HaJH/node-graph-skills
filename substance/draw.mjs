@@ -111,6 +111,12 @@ function interfaceFor (spec, words) {
   return { heading: words.paramsHeading, blurb: words.paramsBlurb, rows }
 }
 
+// The graph alone, as SVG that stands on its own -- background, fonts and colours are inside
+// it. What the README's preview is made of.
+export function graphSvg (spec) {
+  return render(spec.nodes.map(shapeOf), spec.wires, theme).svg
+}
+
 export function draw (spec, options) {
   const { project = null, lang = spec.lang ?? 'en', target = null } = options ?? {}
   const words = stringsFor(lang)
