@@ -284,10 +284,10 @@ What that settled on top of the sections above:
   comparison has to be built from what a node *is* — definition or resource identifier plus
   position.
 
-Not yet proven: whether `loadUserPackage` was actually exercised. If the rebuild ran in the
-session that built the network, the three library packages were already loaded and
-`find_resource` matched them in `getPackages()` without ever calling it. A shipped payload
-script meets a Designer that has none of them open, so this wants one clean run after a restart.
+Open at the time: whether `loadUserPackage` was actually exercised, since the rebuild ran in the
+session that had built the network and the three packages may have been matched in
+`getPackages()` without it. Settled since by a clean run after a restart — see "Done, and proved
+in Designer" below.
 
 ## The spec
 
@@ -937,10 +937,11 @@ outputs carry `2` and 825 carry nothing. `blur_hq.sbs` settles it — the colour
 Some library graphs have **value outputs** rather than image ones — `min_max` returns floats,
 `value_get_size` a float2. The catalogue types those `value`; they cannot take an image wire.
 
-Library entries carry pins only, no parameters. 501 nodes with their full parameter lists would
-run to megabytes for something the emitter does not need, since
-`setInputPropertyValueFromId` takes an id and Designer validates it. The 29 atomic definitions do
-carry their parameters, defaults included — cheap, and they are what most specs are made of.
+Library entries carry their parameters as id and type and no default — 468 of the 501 have
+some — because the parser types a literal off the catalogue and cannot without them. What a
+package draws as a dropdown is an `int` there: the `<paraminputs>` type codes have no enum, so
+a library dropdown is written by number where an atomic one is written by value id. The 29
+atomic definitions carry defaults as well, and the 15 enum types with their value ids.
 
 ## What is not covered
 

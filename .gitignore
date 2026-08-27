@@ -1,7 +1,6 @@
 # Built pages and payloads are generated from a spec; the spec is the source, they are not.
 *.html
 substance/example/*.py
-!page.template.html
 _site/
 node_modules/
 

@@ -4,8 +4,8 @@ A skill that only ever pastes a fresh network into whatever is open produces wor
 Run the same spec twice and you get two copies; edit the material and the spec that made it is
 already a lie. Nothing compounds.
 
-This is the shape that compounds instead. It is a decision record, not a description: most of it
-is not built yet, and the table at the end says which parts are.
+This is the shape that compounds instead. It is a decision record as much as a description:
+every step under "What has to change" is now built, and that list says how each was settled.
 
 ```
 spec ──> payload ──> a named graph in a package        (replaced, not appended)
@@ -228,7 +228,9 @@ be seen" in NOTES. Both halves are in, and the box was raised from a pasted payl
   [`substance/NOTES.md`](substance/NOTES.md) -- including five refuted crash hypotheses, kept
   because every one of them would have shipped as a fix if it had not been run.
 - **How to use the skill** is in `skills/substance-graph/SKILL.md`.
-- `node substance/test/run.mjs` -- 27 checks, all offline.
+- `node substance/test/run.mjs` -- 29 checks, all offline.
+- `node substance/describe.mjs <node>` -- a node's pins, parameters and enum values, before
+  writing a spec line.
 - `node substance/build.mjs <spec>` -- add `--trace` when Designer goes down without printing.
 - `node substance/verify.mjs <spec>` -- does the `.sbs` on disk still say what the spec says?
   Needs the install, since it cooks; everything else here does not.
@@ -239,7 +241,7 @@ panel, a spec that instanced it, a copy of the worked example -- was scaffolding
 tool, and it was removed once it had. A project's Substance folder starts empty except for its
 `.sbsprj`; the first real spec is the project's to write.
 
-Nothing in this repo depends on that folder existing. The 27 checks are offline and self
+Nothing in this repo depends on that folder existing. The 29 checks are offline and self
 contained, and `substance/example/worn_painted_metal.spec` is the worked example that ships here.
 `verify.mjs` is the one command that needs anything outside this repo, and what it needs is the
 Designer install rather than any particular library.

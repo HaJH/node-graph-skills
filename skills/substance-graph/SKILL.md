@@ -23,7 +23,8 @@ Reaching for both in one answer is normal: work out *what* to build with the adv
 
 ## Workflow
 
-1. Write a spec to a `.spec` file — the scratchpad directory is the right home.
+1. Write a spec to a `.spec` file — the scratchpad directory is the right home. Unsure of a
+   pin or parameter id? `node <plugin>/substance/describe.mjs <node>` first — see "Node names".
 2. `node <plugin>/substance/build.mjs <spec>` — the plugin root is two levels up from this file.
    It writes `<spec>.html` and `<spec>.py` beside the spec.
 3. Publish the HTML with the Artifact tool and give the user the link.
@@ -79,9 +80,10 @@ No section headers and no indentation rules. `graph <name>` is optional and titl
 - **The first word is your name for the node**, the second is the Substance node. Names are yours
   to pick and only have to be unique within the spec.
 - **Pins may be left off either end of a wire.** The source side defaults to the node's only
-  output. The target side defaults to the primary input. Where a node has more than one output —
-  119 library nodes do, `flood_fill` and the `PBR_render` family among them — the build tells you
-  the names and asks you to pick.
+  output. The target side defaults to the primary input, or to the only input on a node that has
+  one and marks none primary — `output` is that node; its `inputNodeOutput` is not a primary.
+  Where a node has more than one output — 119 library nodes do, `flood_fill` and the
+  `PBR_render` family among them — the build tells you the names and asks you to pick.
 - **Values are bare literals**: `6`, `2.5`, `false`, `[0,0,0,1]`, `"text"`. The catalogue knows
   each parameter's type, so `scale=6` becomes an int and `disorder=0.35` a float; getting it the
   wrong way round is an error rather than a surprise inside Designer.
@@ -89,6 +91,12 @@ No section headers and no indentation rules. `graph <name>` is optional and titl
   `$format=hdr_high_precision`. Get it wrong and the build lists the values that exist -- worth
   leaning on, because Designer spells the mode between `add` and `multiply` **`substract`**. The
   integer is still accepted, since a graph read back out of Designer only knows the number.
+  **That is the built-in filters and the base parameters.** A library node's dropdown —
+  `tile_generator`'s `pattern`, `bevel`'s `bevel_mode` — is an `int` in its package, with no
+  value ids to name, and takes the number in the order the dropdown lists it.
+- **Parameter ids are the package's own, capitalisation included**: `anisotropic_noise_v2` has
+  `X_Amount`, `tile_generator` has `x_amount`, `histogram_scan` has `Position`. Worth one lookup;
+  the build lists the ids a node does have when one is wrong.
 - **Base parameters work on every node**: `$outputsize`, `$format`, `$pixelsize`, `$pixelratio`,
   `$tiling`, `$randomseed`. They are not in a library node's own parameter list but they are
   settable on one.
@@ -199,13 +207,30 @@ Built-in filters go by their short name: `blend`, `levels`, `blur`, `warp`, `dir
 
 Library nodes go by their graph identifier — `perlin_noise`, `clouds_2`, `blur_hq`,
 `blur_hq_grayscale`, `slope_blur`, `tile_sampler`, `shape`, `histogram_scan`, `flood_fill`,
-`safe_transform`, `curvature_smooth_v2`, `make_it_tile_patch`. Grep the catalogue when unsure;
-each entry lists its pins and their types verbatim.
+`safe_transform`, `curvature_smooth_v2`, `make_it_tile_patch`.
 
-**Grep rather than remember.** Designer replaces library nodes between versions and the
-replacement sometimes takes a new name: the node called Curvature Smooth is `curvature_smooth_v2`
-and the plain `curvature_smooth` is a retired graph the Library no longer offers, so it is not in
-the catalogue at all. A name that feels obvious is worth one check before it goes in a spec.
+**Look it up rather than remember.** `node <plugin>/substance/describe.mjs <node> [<node> ...]`
+prints what a spec line needs and nothing else — pins with what they carry, which input is the
+primary, parameters with their types, the value ids an enum takes:
+
+```
+blend -- built-in filter -- sbs::compositing::blend
+  inputs      source, destination*, opacity   (* is the primary, the default target of a wire)
+  outputs     unique_filter_output
+  parameters
+    opacitymult   float  (default 1)
+    blendingmode  enum: copy, add, substract, multiply, addsub, max, min, switch, ...
+```
+
+An unknown name is refused with the names that contain it, which is how `grunge` turns into
+the fifteen `grunge_map_*` and the rest of that family to choose from. `--spec <spec>` adds the
+graphs of the library the spec sits in. The catalogue file itself does not grep — every library
+node has an output called `output` — so the tool is the way in.
+
+Designer replaces library nodes between versions and the replacement sometimes takes a new
+name: the node called Curvature Smooth is `curvature_smooth_v2` and the plain `curvature_smooth`
+is a retired graph the Library no longer offers, so it is not in the catalogue at all. A name
+that feels obvious is worth one check before it goes in a spec.
 
 **Colour and grayscale variants are separate nodes**, and the bare name is usually the colour
 one: `blur_hq` takes colour, `blur_hq_grayscale` takes grayscale. Picking the wrong one is the
@@ -314,10 +339,9 @@ somewhere visible -- confirmed both ways: `PBR Materials/Metal` shows, a made-up
 `catalogue.generated.mjs` carries `CATEGORIES`, the sixteen the install's own packages use, and
 the build says so when a spec sets something outside them or nothing at all.
 
-Setting one is optional and there is no default. The graph is indexed and searchable either way;
-a spec names it regardless, so the library's
-graphs land under one heading; a spec can override. `label` and `description` are the other two
-worth setting, and they are what a person browsing reads.
+Setting one is optional and there is no default: the graph is indexed and searchable either way,
+and a spec that wants it in the tree names one of the sixteen. `label` and `description` are the
+other two worth setting, and they are what a person browsing reads.
 
 Outside a library nothing changes: the payload is still a network to paste into whatever is open,
 nothing is saved, and it offsets itself clear of what is already there.
@@ -415,6 +439,7 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | | |
 |---|---|
 | `substance/build.mjs` | CLI: spec → page + payload |
+| `substance/describe.mjs` | CLI: what a node has — pins, primary, parameters, enum value ids |
 | `substance/verify.mjs` | CLI: cooks the package a spec owns and compares its interface back |
 | `substance/resolve.mjs` | what a spec resolves to -- library, catalogue, convention, target |
 | `substance/sbsar.mjs` | reads the interface out of what `sbsrender info` prints |
