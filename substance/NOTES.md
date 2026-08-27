@@ -383,6 +383,9 @@ The payload has been run: `added 10 nodes and 9 wires`. That closes the three th
 checks could not reach — `getPath` finding the install, `loadUserPackage` against the read-only
 install directory, and `free_offset`.
 
+The refusal has been run too: pasted with no graph open, it raised the message box rather than
+building anything. See "Saying no where it will be seen".
+
 ## The worked example
 
 `example/worn_painted_metal.spec` — 21 nodes, 23 wires, nine of them library nodes. Chipped paint
@@ -777,9 +780,10 @@ that is optional and the whole attempt is guarded: PySide6, the wrapper, the win
 runs after the console line is already written, so nothing about it can take the refusal down
 with it.
 
-**Read off the install, not yet run.** The import paths, the version and the wrapper's body are
-from the files. Whether `QMessageBox.exec()` behaves from inside the Python Editor's script
-context is the one part that needs Designer to answer.
+**Confirmed in Designer.** The payload pasted into the Python Editor with no graph open raised
+the box. So `QMessageBox.exec()` does work from inside the editor's script context -- which was
+the one part of this the files could not answer, since a nested event loop inside a running
+application is exactly the kind of thing that either works or hangs. It works.
 
 ## The shipped API reference is behind the binary
 

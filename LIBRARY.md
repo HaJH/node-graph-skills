@@ -197,8 +197,7 @@ step 6 and step 7.
 
 A refusal is now written to `sys.stderr`, which the Python Editor tags `[ERR]`, and raises a
 `QMessageBox` parented to Designer's main window on top of that -- see "Saying no where it will
-be seen" in NOTES. **The dialog is the one thing here not yet run in Designer**; the console half
-carries the refusal on its own if it turns out not to work.
+be seen" in NOTES. Both halves are in, and the box was raised from a pasted payload in Designer.
 
 - **The roadmap and every decision behind it** are in this file.
 - **What is known about Designer, and how each thing was learned**, is in
