@@ -31,6 +31,11 @@ Reaching for both in one answer is normal: work out *what* to build with the adv
 2. `node <plugin>/substance/build.mjs <spec>` — the plugin root is two levels up from this file.
    It writes `<spec>.html` and `<spec>.py` beside the spec.
 3. Publish the HTML with the Artifact tool and give the user the link.
+4. To actually apply it, run the payload. **It does not have to be pasted:**
+   `Adobe Substance 3D Designer.exe --startup-script "<spec>.py" --quit` runs it and exits in
+   about ten seconds. Start it minimised — it opens Designer's window to do the work. Paste into
+   `Windows > Python Editor` instead when Designer is already open, and never start a second
+   instance on packages somebody has open. Failures come back on stderr either way.
 
 The build fails loudly, with line numbers, on an unknown node, a pin the node does not have, a
 parameter that does not exist, or a value of the wrong type — so a clean build means the graph is
@@ -103,6 +108,11 @@ No section headers and no indentation rules. `graph <name>` is optional and titl
 - **Base parameters work on every node**: `$outputsize`, `$format`, `$pixelsize`, `$pixelratio`,
   `$tiling`, `$randomseed`. They are not in a library node's own parameter list but they are
   settable on one.
+- **Do not set `$outputsize`.** It lands as a *relative* size, so `$outputsize=[10,10]` on a
+  generator renders at **16384**, not 1024, and `sbscooker` warns `Size out of bounds`. Neither
+  the graph's own exposed `$outputsize` nor `sbsrender --set-value` can override a node that
+  carries one. Leave it off every node, let them inherit, and set the resolution at bake time —
+  `sbsrender render --set-value '$outputsize@10,10'`.
 
 ## Naming a graph output
 
@@ -385,7 +395,14 @@ nothing is saved, and it offsets itself clear of what is already there.
 **The library's own graphs are node names.** Every `.sbs` under the alias folder is scanned with
 the same parser that reads Designer's install, so a graph the team saved there is named in a spec
 exactly the way `perlin_noise` is -- nothing to register, nothing to import, the folder is the
-registry. The build says how many are available:
+registry.
+
+**The folder being the registry means build order matters.** A graph is a node name only once
+Designer has written its package, so a spec that calls one fails with the ordinary unknown-node
+error until the spec that *makes* it has been through Designer and saved. Build the parts first,
+then whatever calls them.
+
+The build says how many are available:
 
 ```
   library: F:\...\Resources\Substance

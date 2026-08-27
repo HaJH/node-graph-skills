@@ -31,9 +31,12 @@ Read off the install, not assumed:
 | | |
 |---|---|
 | `sbscooker.exe`, `sbsrender.exe` | shipped — publishing `.sbs` to `.sbsar` and baking maps run headless |
-| editing a graph | **only inside Designer.** `sbsmutator` is Automation Toolkit and is not in this install, so the `sd` Python API is the one way in, and a payload someone pastes stays the delivery mechanism |
+| editing a graph | **only inside Designer, but not only by hand.** `sbsmutator` is Automation Toolkit and is not in this install, so the `sd` Python API is the one way in — and Designer runs a payload itself: `Adobe Substance 3D Designer.exe --startup-script <payload.py> --quit`, about ten seconds a run, nobody pasting anything |
 
-So the loop is half CI-able. Authoring is a human at Designer; publishing and baking are not.
+So the whole loop runs unattended on a machine that has Designer installed and a desktop session
+to start it in. What is not headless is Designer itself — it boots its UI to run the script, so
+start it minimised, and never start a second instance while someone has the same packages open.
+Pasting into `Windows > Python Editor` is still the way in when Designer is already up.
 
 ## Decisions
 
@@ -209,8 +212,8 @@ In dependency order.
 7. **Publish and bake** — **split, and the half that belongs here is done.** `verify.mjs` cooks
    the `.sbs` a spec owns and reads it back with `sbsrender info`, then compares the graph name,
    exposed parameters, presets and output identifier/usage pairs against the spec. That closes
-   the one gap a person stands in the middle of: the payload is pasted by hand and Designer
-   writes the file, and until now nothing looked at the far side. The **bake** — resolution, bit
+   the one gap this repo does not write itself: Designer runs the payload and writes the file,
+   and until now nothing looked at the far side. The **bake** — resolution, bit
    depth, format, which map goes to which content folder — stays with the project, because it
    changes for reasons this repo has no view of. See "Not settled", which this settles.
 

@@ -231,6 +231,17 @@ Designer's Python Editor: `Windows > Python Editor`, paste, Run. `sd.getContext(
 point. Plugins can also be dropped in `sdplugins` / `sduserplugins`, which the round-trip does not
 need.
 
+**Nobody has to paste it.** `Adobe Substance 3D Designer.exe --startup-script <file.py> --quit`
+runs the same script and exits; `--help` lists both switches. Run against a live library it built
+the package and saved it in about eight seconds, with the registered project's aliases resolving
+exactly as they do in the UI. Ten payloads in a row went through it with empty stderr.
+
+The process still opens Designer's window to do it, so start it minimised to keep it off the
+front. Failures arrive on the process's stderr — the same text the Python Editor would have
+tagged `[ERR]` — and that is the half that carries here, because the `QMessageBox` a refusal
+raises has nobody in front of it. Do not start a second instance while someone has the same
+packages open in Designer.
+
 ## The round-trip gate
 
 Passed on Designer 15.1.0 — see below. `tools/` holds the probes it was run with.
@@ -885,6 +896,39 @@ automation available here keeps a clipboard that does not survive a navigation o
 a copy proven to work on one page pastes empty on the next — so no cross-page check through it
 means anything, in either direction. One human click in a published artifact followed by a paste
 into Designer settles it.
+
+## `$outputsize` on a node is relative, and nothing downstream can override it
+
+A spec that writes `$outputsize=[10,10]` on a generator does not get 1024. It gets **16384** —
+the value lands as a *relative* size, so it is added to what the node would have inherited rather
+than replacing it. `sbscooker` says so on the way past:
+
+```
+[WARNING][SBSCooker]Size out of bounds:
+   Size: 262144x262144
+   From Graph: pkg:///cells_2?dependency=1579863711
+```
+
+Neither way out works. The graph exposes `$outputsize` as `INTEGER2` in the cooked `.sbsar` and
+`sbsrender render --set-value '$outputsize@10,10'` returns a byte-identical 16384 image: a node
+carrying its own size wins over the graph's. Setting the mode to absolute is not something the
+spec can say — there is no syntax for it and none was found on a live graph.
+
+**So resolution does not belong in a spec.** Leave `$outputsize` off every node, let them inherit,
+and set it at bake time with `--set-value`. Same spec, same package, `1024x1024` and a 146 KB PNG
+where the other was 8.2 MB. The other base parameters were not retested; only `$outputsize` was
+being fought over.
+
+## A spec that names a project graph needs that package on disk first
+
+"The folder is the registry" is literal: `projectNodes` scans the alias folder for `.sbs` files
+when the build resolves, so a graph exists as a node name only after Designer has written it.
+
+A spec calling `Fold_Abs` therefore fails to build with the usual unknown-node error until the
+spec that *makes* `Fold_Abs` has been through Designer and saved `NoiseNodes.sbs`. Nothing is
+wrong when this happens — the parts just have to be built in dependency order, the same way a
+`MaterialFunctionCall` needs its function to exist first. Worth knowing before writing a batch of
+specs that lean on each other.
 
 ## Next
 
