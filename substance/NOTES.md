@@ -737,6 +737,27 @@ takes the console with it; it does not take a flushed file. **Point it at the gr
 crashes** -- the first run of it proved something true about a graph that was not the one in
 question.
 
+## The output vocabulary agrees inside a family, never across them
+
+`dump-usages.mjs` over all 27 shipped templates gives 54 usages and no adoptable convention: base
+colour under four names, `specularLevel` shipping with the identifier `speclar_level`, and
+material-model flags like `models.specular.has_fresnel` sitting beside real texture channels.
+
+**Filter to one family and the disagreement vanishes.** The four metallic-roughness templates --
+`01_01_pbr`, `03_01_clo`, `08_01_axf_to_pbr`, `10_01_scan_pbr` -- declare 22 usages between them,
+agree on every one, and name every one as the usage lowercased. `baseColor` is `basecolor` in all
+four. `speclar_level` is not in any of them; it is specular-glossiness. The `mdl_` members of the
+family declare no tagged outputs at all and contribute nothing.
+
+So the vocabulary is generated (`tools/generate-outputs.mjs` -> `outputs.generated.mjs`) rather
+than chosen, and the generator **refuses to write a table** if the four ever stop agreeing --
+picking a spelling silently is how a wrong filename reaches an engine.
+
+Two usages are dropped on purpose. `scatter` and `scatteringRedShift` are tagged on outputs Adobe
+left called `output` and `output_1`: an unnamed output in a shipped file, which is the exact
+failure this repo's `identifier` annotation exists to prevent. An output nobody named says
+nothing about what its identifier should be.
+
 ## `--trace` never ran, because it was not Python
 
 The trace helper was emitted with a raw newline inside a single-quoted string:

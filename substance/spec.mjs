@@ -26,7 +26,7 @@
 // The target side defaults to the primary input, which every library node that takes an input
 // has exactly one of.
 
-const IDENTIFIER = /^[A-Za-z_][A-Za-z0-9_]*$/
+export const IDENTIFIER = /^[A-Za-z_][A-Za-z0-9_]*$/
 
 // Every compositing node carries these on top of whatever its definition declares, instance
 // nodes included -- they are not in a library graph's <paraminputs> but they are settable.
@@ -131,6 +131,13 @@ const EXPOSED_ANNOTATIONS = {
 const isEnum = type => type.includes('::')
 
 import { LANGUAGES } from './strings.mjs'
+import { OUTPUTS } from './outputs.generated.mjs'
+
+// The library's own half of the output vocabulary. Named here rather than in project.mjs, which
+// is what reads it: the parser is what refuses a spec for being outside the vocabulary, so the
+// parser is what has to be able to say where the vocabulary is widened. project.mjs imports it
+// back the other way, which keeps the dependency pointing one direction.
+export const OUTPUTS_FILE = 'outputs.txt'
 
 export class SpecError extends Error {
   constructor (problems) {
@@ -362,7 +369,22 @@ function readParam (rest, line, params, problems) {
 
 // -- the parser --------------------------------------------------------------------------
 
-export function parseSpec (text, catalogue) {
+// The output convention, and how much of it is a refusal.
+//
+// Three rules, and they do not all apply in the same places:
+//
+//   always  -- a usage that is written has to be one the vocabulary has. A typo costs nothing
+//              to catch here and is expensive to find in a bake, and the check has no opinion
+//              about anything the spec did not already say.
+//   strict  -- an output must carry a usage, and its identifier must be the one the vocabulary
+//              gives for that usage.
+//
+// strict is on inside a library and off outside one, because that is where the difference is
+// real: `sbsrender --output-name` defaults to `{outputNodeName}`, so inside a library an
+// identifier is the filename that lands in the engine's content folder and the specs around it
+// are a set somebody reads. A one-off network pasted into whatever graph is open has nothing
+// downstream of it to be consistent with.
+export function parseSpec (text, catalogue, { outputs = OUTPUTS, strict = false } = {}) {
   const problems = []
   const nodes = new Map()
   const wires = []
@@ -551,10 +573,37 @@ export function parseSpec (text, catalogue) {
       else values.push({ id, value })
     }
 
-    // The name written in the spec is already a good graph output name, so it becomes the
-    // identifier unless the spec says otherwise. Nothing to write, and no output_1.
-    if (annotationIds(entry).includes('identifier') && !annotations.some(a => a.id === 'identifier')) {
+    // A usage that is written has to be a real one, wherever this spec lives. Everything after
+    // this depends on it: an unknown usage has no identifier to give and nothing downstream can
+    // select on it.
+    const unknown = usages.filter(u => !(u.name in outputs))
+    for (const u of unknown) {
+      problems.push({ line: at, message: `"${u.name}" is not a usage the vocabulary has -- it has ${Object.keys(outputs).sort().join(', ')}` })
+    }
+
+    // An output's identifier is decided by its usage, not by the node's spec name. The name is a
+    // local handle for wiring; the identifier is the graph's public one, and it is what
+    // sbsrender writes into the exported filename -- so `o output usage=height` arriving as a
+    // file called `o` would be nobody's intent. Input bridges keep the node name, since nothing
+    // exports them and there is no vocabulary for what they carry.
+    const named = outputs[usages.find(u => u.name in outputs)?.name]
+    const explicit = annotations.find(a => a.id === 'identifier')?.value.components[0]
+    if (type === 'output' && named) {
+      if (strict && explicit && explicit !== named) {
+        problems.push({ line: at, message: `an output tagged ${usages[0].name} is called "${named}" here, not "${explicit}" -- rename it in ${OUTPUTS_FILE}, or drop the identifier and take the one it has` })
+      }
+      if (!explicit) annotations.unshift({ id: 'identifier', value: { class: 'SDValueString', components: [named] } })
+    } else if (annotationIds(entry).includes('identifier') && !explicit) {
+      // The name written in the spec is already a good name for a graph input, so it becomes the
+      // identifier unless the spec says otherwise. Nothing to write, and no output_1.
       annotations.unshift({ id: 'identifier', value: { class: 'SDValueString', components: [nodeName] } })
+    }
+
+    // Inside a library an untagged output is the one thing nothing downstream can recover from:
+    // no export preset selects it, no bake step addresses it, and the graph beside it that did
+    // tag its outputs now disagrees with this one for no stated reason.
+    if (strict && type === 'output' && !usages.length) {
+      problems.push({ line: at, message: `"${nodeName}" is a graph output and carries no usage -- add one of ${Object.keys(outputs).sort().join(', ')}, or add yours to ${OUTPUTS_FILE}` })
     }
 
     nodes.set(nodeName, { name: nodeName, type, kind: entry.kind, def: entry.def, values, annotations, usages, bindings, line: at })

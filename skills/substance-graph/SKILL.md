@@ -96,13 +96,15 @@ No section headers and no indentation rules. `graph <name>` is optional and titl
 ## Naming a graph output
 
 An `output` node stands for one of the graph's outputs, and what names it is an annotation rather
-than a parameter. **The node's spec name becomes its identifier**, so `height output` arrives in
-Designer called `height` instead of `output_1`. The same holds for the three input bridges.
+than a parameter. **Its usage decides what it is called**, so `h output usage=height` arrives in
+Designer called `height` rather than `output_1` — and rather than `h`, which is a handle for
+wiring, not a name for a texture. The three input bridges take the node's spec name instead,
+since nothing exports them.
 
 ```
 height     output   usage=height
 basecolor  output   usage=baseColor:RGBA:sRGB label="Base Color"
-mask       output   identifier=opacity_mask usage=opacity group=Masks
+mask       output   usage=opacity group=Masks
 ```
 
 - `usage=` is what an export preset and a material slot match on. Write the name alone and the
@@ -110,9 +112,39 @@ mask       output   identifier=opacity_mask usage=opacity group=Masks
   to set all three. **The colour space is deliberately not guessed** -- nothing shipped with
   Designer says what an unset one should be, and calling a height map sRGB would be worse than
   saying nothing. Repeat `usage=` for a second usage on the same output.
-- `identifier=`, `label=`, `description=` and `group=` are the other annotations worth setting.
-  They only apply to `output` and the three `input_*` bridges; anywhere else the build says so.
+- **A usage has to be one the vocabulary has**, wherever the spec lives. The vocabulary is
+  generated from Designer's own metallic-roughness templates -- `baseColor`, `normal`,
+  `roughness`, `metallic`, `height`, `ambientOcclusion`, `opacity` and 15 more -- and a
+  misspelling is refused with a line number rather than found later in a bake.
+- `label=`, `description=` and `group=` are the other annotations worth setting. They only apply
+  to `output` and the three `input_*` bridges; anywhere else the build says so.
 - Two outputs may not claim the same identifier, and the build refuses the spec if they do.
+
+### Inside a library, the naming is enforced
+
+`sbsrender --output-name` defaults to `{inputName}_{inputGraphUrl}_{outputNodeName}`, and
+`{outputNodeName}` **is the output's identifier**. So inside a library the identifier is the
+filename that lands in the engine's content folder, and two graphs disagreeing about how to spell
+it is a bug nobody sees until the import. A spec that resolved a `.sbsprj` is therefore held to
+two more rules:
+
+- **every `output` carries a usage**, and
+- **`identifier=` must be the one the vocabulary gives**, or be left off.
+
+A network pasted into whatever graph is open is not held to either -- it has nothing downstream
+to be consistent with.
+
+**Widening the vocabulary** is a library-wide declaration, in `outputs.txt` beside the `.sbsprj`:
+
+```
+# one per line
+mask                  # allowed; the identifier is the usage lowercased
+baseColor = T_BC      # allowed, and called this instead
+```
+
+The usage stays Adobe's spelling, because `sbsrender` and the engine plugins match on it; only
+the identifier is the library's to move. There is no per-spec opt-out, on purpose -- a rule every
+spec can wave away is not a rule.
 
 ## Exposing a parameter
 
@@ -365,7 +397,9 @@ Paths are relative to the **plugin root** — two levels up from this file.
 | `substance/catalogue.generated.mjs` | 29 built-in and 501 library nodes, with pins and types |
 | `substance/tools/generate-catalogue.mjs` | regenerates that from an installed Designer |
 | `substance/tools/dump-catalog.py` | reads the built-in definitions out of a running Designer -- how the catalogue's source was settled, not needed to build it |
-| `substance/tools/dump-usages.mjs` | reports the usages Designer's own graph templates declare |
+| `substance/outputs.generated.mjs` | the output vocabulary -- 22 usages and what each is called |
+| `substance/tools/generate-outputs.mjs` | regenerates that from Designer's metallic-roughness templates |
+| `substance/tools/dump-usages.mjs` | reports the usages **all** of Designer's graph templates declare -- the argument for generating from one family rather than adopting the lot |
 | `substance/tools/graph-to-spec.py` | reads the open graph and writes the spec that rebuilds it |
 | `substance/tools/dump-graph-annotations.py` | what a compositing graph itself carries -- how `category` and the rest were settled |
 | `substance/tools/dump-exposed.py` | what Designer makes when a parameter is exposed by hand |

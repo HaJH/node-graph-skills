@@ -7,10 +7,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import * as catalogue from './catalogue.generated.mjs'
-import { parseSpec, SpecError } from './spec.mjs'
+import { parseSpec, SpecError, OUTPUTS_FILE } from './spec.mjs'
 import { emitPython } from './emit.mjs'
 import { draw } from './draw.mjs'
-import { findProject, projectNodes, mergeCatalogue } from './project.mjs'
+import { findProject, projectNodes, mergeCatalogue, projectOutputs, mergeOutputs } from './project.mjs'
+import { OUTPUTS } from './outputs.generated.mjs'
 
 function arg (name) {
   const i = process.argv.indexOf('--' + name)
@@ -28,6 +29,9 @@ if (!input || input.startsWith('--')) {
 // nothing has to be registered anywhere for it -- the folder is the registry.
 const project = findProject(input)
 let resolved = catalogue
+// Outside a library the shipped vocabulary still catches a misspelled usage; inside one it also
+// decides output identifiers and is a refusal. See parseSpec.
+let convention = { outputs: OUTPUTS, strict: false }
 if (project) {
   const { nodes, problems } = projectNodes(project)
   for (const problem of problems) console.error('warning:', problem)
@@ -38,11 +42,22 @@ if (project) {
     process.exit(1)
   }
   project.nodeCount = Object.keys(nodes).length
+
+  // A vocabulary file that does not parse is not a reason to fall back to the shipped list --
+  // that would enforce something other than what the library declared, which is worse than
+  // stopping.
+  const own = projectOutputs(project)
+  if (own.problems.length) {
+    for (const problem of own.problems) console.error(`${project.root}: ${problem}`)
+    process.exit(1)
+  }
+  project.outputCount = Object.keys(own.outputs).length
+  convention = { outputs: mergeOutputs(OUTPUTS, own.outputs), strict: true }
 }
 
 let spec
 try {
-  spec = parseSpec(fs.readFileSync(input, 'utf8'), resolved)
+  spec = parseSpec(fs.readFileSync(input, 'utf8'), resolved, convention)
 } catch (error) {
   if (!(error instanceof SpecError)) throw error
   console.error(`${input}:`)
@@ -83,6 +98,10 @@ console.log('page   :', htmlAt, '-', (fs.statSync(htmlAt).size / 1024).toFixed(0
 if (project) {
   console.log('library:', project.root)
   if (project.nodeCount) console.log('  ', `${project.nodeCount} of its graphs are usable as node names`)
+  // Said out loud because the rule only bites here: outside a library the same spec builds.
+  console.log('  ', project.outputCount
+    ? `outputs must be tagged and named by the convention -- ${Object.keys(convention.outputs).length} usages, ${project.outputCount} of them from ${OUTPUTS_FILE}`
+    : `outputs must be tagged and named by the convention -- ${Object.keys(convention.outputs).length} usages, none added (no ${OUTPUTS_FILE})`)
   // The Library panel's tree is a fixed set of queries compiled into Designer, so a category of
   // your own is metadata nothing displays. Saying so beats letting somebody wonder where their
   // graph went -- it is indexed and searchable either way.

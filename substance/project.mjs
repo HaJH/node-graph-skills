@@ -19,6 +19,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { readPackages } from './sbs.mjs'
+import { IDENTIFIER, OUTPUTS_FILE } from './spec.mjs'
 
 const tag = (text, name) => text.match(new RegExp(`<${name}>([^<]*)</${name}>`))?.[1]?.trim()
 
@@ -125,6 +126,53 @@ export function projectNodes (project) {
     }
   }
   return { nodes, problems }
+}
+
+// The library's own output vocabulary, layered over the generated one.
+//
+// A file of ours rather than a section of the .sbsprj, which is the one place this repo does
+// invent a manifest -- and deliberately. Designer rewrites .sbsprj in its own format whenever it
+// touches the project, so anything of ours living in there is a thing waiting to be deleted by
+// an application that has no idea it was meant to be kept.
+//
+//   # one per line
+//   mask                 -- allow this usage; the identifier is the usage lowercased
+//   baseColor = T_BC     -- allow it, and call it this instead
+//
+// Extending is the point. The generated vocabulary is Adobe's metallic-roughness channels and
+// has no mask, no curvature, no flow -- a library that needs one says so here once, rather than
+// each spec quietly opting out of the check.
+export function projectOutputs (project) {
+  const outputs = {}
+  const problems = []
+  if (!project?.root) return { outputs, problems }
+
+  const file = path.join(project.root, OUTPUTS_FILE)
+  if (!fs.existsSync(file)) return { outputs, problems }
+
+  const lines = fs.readFileSync(file, 'utf8').split('\n')
+  lines.forEach((raw, index) => {
+    const line = raw.replace(/#.*$/, '').trim()
+    if (!line) return
+    const [usage, ...rest] = line.split('=').map(part => part.trim())
+    const where = `${OUTPUTS_FILE} line ${index + 1}`
+    if (rest.length > 1) {
+      problems.push(`${where}: write "usage" or "usage = identifier", not ${rest.length + 1} parts`)
+      return
+    }
+    const identifier = rest[0] ?? usage.toLowerCase()
+    if (!IDENTIFIER.test(usage)) { problems.push(`${where}: "${usage}" is not a usable usage name`); return }
+    if (!IDENTIFIER.test(identifier)) { problems.push(`${where}: "${identifier}" is not a usable identifier`); return }
+    if (outputs[usage]) { problems.push(`${where}: ${usage} is already set, to ${outputs[usage]}`); return }
+    outputs[usage] = identifier
+  })
+  return { outputs, problems }
+}
+
+// A usage the library renames keeps Adobe's spelling as the key -- sbsrender and the engine
+// plugins match on that -- and only the identifier, the exported filename, moves.
+export function mergeOutputs (shipped, projectOwn) {
+  return { ...shipped, ...projectOwn }
 }
 
 // A project graph that shadows one Designer ships would silently change what a spec means, so it

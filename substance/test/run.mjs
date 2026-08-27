@@ -15,7 +15,8 @@ import * as catalogue from '../catalogue.generated.mjs'
 import { parseSpec, SpecError } from '../spec.mjs'
 import { emitPython } from '../emit.mjs'
 import { draw } from '../draw.mjs'
-import { findProject, projectNodes, mergeCatalogue } from '../project.mjs'
+import { findProject, projectNodes, mergeCatalogue, projectOutputs, mergeOutputs } from '../project.mjs'
+import { OUTPUTS } from '../outputs.generated.mjs'
 import { LANGUAGES } from '../strings.mjs'
 import os from 'node:os'
 import { spawnSync } from 'node:child_process'
@@ -338,9 +339,10 @@ check('an output node is named and carries its usage', () => {
   const problems = []
   const python = emitPython(spec)
 
-  // The name written in the spec is the identifier unless the spec overrides it.
-  if (!python.includes("setAnnotationPropertyValueFromId('identifier', SDValueString.sNew('h'))")) {
-    problems.push('the output is not named after the node')
+  // The usage names the output, not the node. `h` is a handle for wiring; `height` is what
+  // sbsrender writes into the exported filename, and a texture called h.png is nobody's intent.
+  if (!python.includes("setAnnotationPropertyValueFromId('identifier', SDValueString.sNew('height'))")) {
+    problems.push('the output is not named after its usage')
   }
   if (!python.includes("SDValueString.sNew('basecolor')")) problems.push('an explicit identifier is ignored')
   if (!python.includes("SDUsage.sNew('height', 'RGBA', '')")) problems.push('a bare usage does not default its components')
@@ -978,6 +980,136 @@ check('--trace instruments the payload without changing it', () => {
   if (before.join('|') !== after.join('|')) {
     const at = before.findIndex((line, i) => line !== after[i])
     problems.push(`tracing changed the payload, first at ${at}: ${before[at]} / ${after[at]}`)
+  }
+  return problems
+})
+
+check('the output vocabulary comes off the install and agrees with itself', () => {
+  // Generated, not typed. The claim the table rests on is that Adobe's metallic-roughness
+  // templates agree with each other and name every output as its usage lowercased -- the other
+  // families do not, which is why they are not in it. If that stops being true the generator
+  // refuses to write a table rather than picking a spelling, so this checks the shape it wrote.
+  const problems = []
+  const names = Object.keys(OUTPUTS)
+  if (names.length < 20) return [`the vocabulary has ${names.length} usages, which is not the metallic-roughness set`]
+
+  for (const [usage, identifier] of Object.entries(OUTPUTS)) {
+    if (identifier !== usage.toLowerCase()) problems.push(`${usage} is called ${identifier}, not its own lowercase`)
+  }
+  // The five channels a metallic-roughness material cannot do without.
+  for (const expected of ['baseColor', 'normal', 'roughness', 'metallic', 'height']) {
+    if (!names.includes(expected)) problems.push(`the vocabulary is missing ${expected}`)
+  }
+  // Adobe's own unnamed outputs. `scatter` is tagged on a node still called `output`, which is
+  // the exact failure this repo's identifier annotation exists to prevent -- in a shipped file.
+  for (const dropped of ['scatter', 'scatteringRedShift']) {
+    if (names.includes(dropped)) problems.push(`${dropped} is tagged on an unnamed output and should not be usable`)
+  }
+  // Spellings from the families that were deliberately left out. Taking any of these would mean
+  // the generator widened its net.
+  for (const other of ['diffuseColor', 'DiffuseColor', 'glossiness', 'specularLevel_']) {
+    if (names.includes(other)) problems.push(`${other} is from another template family`)
+  }
+  return problems
+})
+
+check('a library refuses an output the convention does not allow', () => {
+  // The identifier is what sbsrender writes as {outputNodeName}, so inside a library it is the
+  // filename that lands in the engine's content folder. Documentation nobody checks rots -- this
+  // repo already shipped a SKILL.md example naming a node the Library does not offer, and only a
+  // test caught it -- so the convention is a refusal with a line number, like an unknown node.
+  const problems = []
+  const network = ['noise perlin_noise', 'noise -> out'].join('\n')
+  const rejects = (source, convention) => {
+    try { parseSpec(source, catalogue, convention); return null } catch (error) { return error.message }
+  }
+  const strict = { outputs: OUTPUTS, strict: true }
+
+  // Always, library or not: a usage that was written has to be real. Nothing else the parser
+  // does can recover from a misspelling, and a bake is an expensive place to find one.
+  const typo = 'graph t\n' + network + '\nout output usage=roughnes'
+  for (const [where, convention] of [['outside a library', undefined], ['inside one', strict]]) {
+    const said = rejects(typo, convention)
+    if (!said) problems.push(`a misspelled usage is accepted ${where}`)
+    else if (!said.includes('roughnes')) problems.push(`the refusal ${where} does not quote the usage: ${said}`)
+    else if (!said.includes('roughness')) problems.push(`the refusal ${where} does not list what is allowed: ${said}`)
+  }
+
+  // Strict only: an output with no usage at all. Outside a library the same spec builds, because
+  // a network pasted into an open graph has nothing downstream to be consistent with.
+  const bare = 'graph t\n' + network + '\nout output'
+  if (!rejects(bare, strict)) problems.push('a library allows an output carrying no usage')
+  if (rejects(bare)) problems.push('an untagged output is refused outside a library too')
+
+  // Strict only: an identifier that disagrees with the vocabulary. This is the case the whole
+  // rule exists for -- two graphs in one library exporting basecolor.png and base_color.png.
+  const renamed = 'graph t\n' + network + '\nout output identifier=base_color usage=baseColor'
+  const said = rejects(renamed, strict)
+  if (!said) problems.push('a library allows an output identifier the vocabulary does not give')
+  else if (!said.includes('outputs.txt')) problems.push(`the refusal does not say where a rename belongs: ${said}`)
+  if (rejects(renamed)) problems.push('a renamed identifier is refused outside a library too')
+
+  // And the identifier a spec does not write is the vocabulary's, in both modes -- only the
+  // refusals differ, never what gets built.
+  for (const [where, convention] of [['outside a library', undefined], ['inside one', strict]]) {
+    const spec = parseSpec('graph t\n' + network + '\nout output usage=baseColor', catalogue, convention)
+    const identifier = spec.nodes.find(n => n.name === 'out').annotations.find(a => a.id === 'identifier')
+    if (identifier?.value.components[0] !== 'basecolor') {
+      problems.push(`${where} the output is called ${identifier?.value.components[0]}, not basecolor`)
+    }
+  }
+  return problems
+})
+
+check('a library widens the vocabulary in one place, and cannot quietly ignore it', () => {
+  // The generated vocabulary is Adobe's metallic-roughness channels: no mask, no curvature, no
+  // flow. A library that needs one has to be able to say so, or enforcement is just an obstacle
+  // and the next person turns it off. It says so once, for the whole library -- not per spec,
+  // which would be the same as not having the rule.
+  const problems = []
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sbsvocab-'))
+  try {
+    fs.writeFileSync(path.join(root, 'Team.sbsprj'),
+      '<root><preferences><resources><urlaliases><size>1</size>' +
+      '<_1 prefix="_"><path>file:packages</path><name>team</name></_1>' +
+      '</urlaliases></resources></preferences></root>')
+    const project = findProject(path.join(root, 'anything.spec'))
+    if (!project) return ['the fixture library was not found']
+
+    // No file at all is a library that takes the shipped vocabulary as it is.
+    if (Object.keys(projectOutputs(project).outputs).length) problems.push('a library with no outputs.txt was given entries')
+
+    fs.writeFileSync(path.join(root, 'outputs.txt'), [
+      '# what this library exports on top of the shipped set',
+      'mask',
+      'baseColor = T_BC      # the engine importer wants this prefix',
+      '',
+    ].join('\n'))
+    const own = projectOutputs(project)
+    if (own.problems.length) problems.push('a valid outputs.txt was rejected: ' + own.problems.join('; '))
+    if (own.outputs.mask !== 'mask') problems.push('a bare line does not default the identifier to the usage lowercased')
+    if (own.outputs.baseColor !== 'T_BC') problems.push('a rename was not read')
+
+    const merged = mergeOutputs(OUTPUTS, own.outputs)
+    if (merged.baseColor !== 'T_BC') problems.push('the library rename does not win over the shipped one')
+    if (merged.roughness !== 'roughness') problems.push('the shipped vocabulary was dropped rather than layered under')
+    // Adobe's spelling stays the key: sbsrender and the engine plugins match on the usage, and
+    // only the identifier -- the filename -- is the library's to move.
+    if ('T_BC' in merged) problems.push('the rename replaced the usage rather than the identifier')
+
+    const spec = parseSpec('graph t\nn perlin_noise\nm output usage=mask\nn -> m', catalogue,
+      { outputs: merged, strict: true })
+    const identifier = spec.nodes[1].annotations.find(a => a.id === 'identifier')?.value.components[0]
+    if (identifier !== 'mask') problems.push(`the added usage names its output ${identifier}, not mask`)
+
+    // A file that does not parse stops the build. Falling back to the shipped list would enforce
+    // something other than what the library declared, which is worse than stopping.
+    fs.writeFileSync(path.join(root, 'outputs.txt'), 'mask = a = b\n9lives\n')
+    const broken = projectOutputs(project).problems
+    if (broken.length !== 2) problems.push(`a broken outputs.txt reported ${broken.length} problems, expected 2`)
+    if (!broken.every(p => /line \d+/.test(p))) problems.push('a problem in outputs.txt has no line number')
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true })
   }
   return problems
 })

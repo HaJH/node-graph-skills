@@ -84,8 +84,15 @@ plain `.sbs` files under `resources/templates` -- and reports the usage each out
   shipped template.
 - **Every one of the 54 leaves the colour space unset.** Not one template writes `sRGB`.
 
-So there is no coherent Adobe convention to adopt, which is the argument for defining ours. Two
-halves, and they are not the same decision:
+So there is no coherent Adobe convention to adopt **across the templates**. There is one inside a
+family, though, and that is what the vocabulary is generated from: the four metallic-roughness
+templates agree on all 22 of their usages and name every one of them as the usage lowercased.
+Every disagreement above is between families -- `diffuseColor` is specular-glossiness, and
+`speclar_level` is a typo in a template this repo does not target. See
+`substance/tools/generate-outputs.mjs`, which refuses to write a table if that ever stops holding
+rather than picking a spelling.
+
+Two halves, and they are not the same decision:
 
 | | What it is | Whose vocabulary |
 |---|---|---|
@@ -148,6 +155,12 @@ than repeat it, so the mapping is declared once.
 The Python API has no alias management -- `sd` exposes none -- so the `.sbsprj` is edited as a
 file or through Designer's preferences, never by a payload.
 
+**`outputs.txt` is the one file of ours beside it, and the reason is that last sentence.**
+Designer rewrites the `.sbsprj` in its own format whenever it touches the project, so anything of
+ours living in there is waiting to be deleted by an application that has no idea it was meant to
+be kept. The alias is read out of the `.sbsprj` because Designer owns it; the output vocabulary
+is a file of ours because Designer does not know it exists.
+
 **Settled, by Designer itself.** Registering a project whose alias points inside the project's
 own folder makes Designer rewrite the path as `file:packages` -- relative to the `.sbsprj`. The
 same file comes back with `<dependencies><path_storage_methods>` set to `relative` both ways. A
@@ -183,17 +196,22 @@ In dependency order.
    sketched here: a parameter is `graph.newProperty(id, type, Input)` plus a one-node function
    graph on each node parameter that follows it. `param` and `preset` lines, typed both ends, and
    both cleared with the graph so a re-run converges.
-6. **The convention, enforced.** The vocabulary is settled -- `CATEGORIES` comes off the install
-   and the usage names off Designer's own templates -- so what is left is refusing a spec whose
-   output names or usages fall outside it, the way an unknown node or a mistyped pin is refused
-   now.
+6. ~~**The convention, enforced.**~~ **Done**, and the vocabulary turned out to be generated
+   rather than picked: `substance/outputs.generated.mjs` comes off Designer's metallic-roughness
+   templates, which agree with each other on all 22 usages where the 27 templates together do
+   not. A usage that is written has to be one of them, everywhere. Inside a library two more
+   rules bite -- every output carries a usage, and its identifier is the vocabulary's -- because
+   that is where an identifier becomes `{outputNodeName}` in an exported filename. A library
+   widens the vocabulary in one place, `outputs.txt` beside the `.sbsprj`, and there is no
+   per-spec opt-out.
 7. **Publish and bake**, if it belongs here at all: `sbscooker` and `sbsrender` wrapped so a
    project can go from specs to texture maps without Designer.
 
 ## Picking this up again
 
-Steps 1 to 5 are done and each was proved inside Designer, not just in tests. What is left is
-step 6 and step 7.
+Steps 1 to 6 are done. Each of 1 to 5 was proved inside Designer, not just in tests; step 6 is
+offline by nature and is proved by the test suite and by every spec in the live library still
+building under it.
 
 A refusal is now written to `sys.stderr`, which the Python Editor tags `[ERR]`, and raises a
 `QMessageBox` parented to Designer's main window on top of that -- see "Saying no where it will
@@ -204,7 +222,7 @@ be seen" in NOTES. Both halves are in, and the box was raised from a pasted payl
   [`substance/NOTES.md`](substance/NOTES.md) -- including five refuted crash hypotheses, kept
   because every one of them would have shipped as a fix if it had not been run.
 - **How to use the skill** is in `skills/substance-graph/SKILL.md`.
-- `node substance/test/run.mjs` -- 23 checks, all offline.
+- `node substance/test/run.mjs` -- 26 checks, all offline.
 - `node substance/build.mjs <spec>` -- add `--trace` when Designer goes down without printing.
 
 The live library this was built against is `F:\Workspaces\main\HB\Resources\Substance`, with its
