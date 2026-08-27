@@ -323,6 +323,11 @@ its package is open on every build and refusing on that refuses everything. Dese
 instance is not enough either -- both were tried. The refusal comes before anything is opened or
 created, so a refused run changes nothing.
 
+Which is why it says so twice. A run that changed nothing looks the same as a script that never
+ran, so a refusal raises a message box and writes to `sys.stderr`, where the Python Editor tags
+it `[ERR]` rather than `[MSG]`. The console line is the one that always appears; the dialog is on
+top of it. The same goes for pasting a payload with no graph open.
+
 ## Known limits
 
 - **Function graphs and FX-Maps are out of scope.** Pixel Processor, Value Processor, dynamic

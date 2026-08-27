@@ -71,7 +71,8 @@ function imports (spec, target = null) {
       if (struct) structs.add(struct)
     }
   }
-  const lines = ['import os', '', 'import sd', `from sd.api.sdbasetypes import ${[...structs].sort().join(', ')}`]
+  // sys is refuse()'s, and every payload can refuse.
+  const lines = ['import os', 'import sys', '', 'import sd', `from sd.api.sdbasetypes import ${[...structs].sort().join(', ')}`]
   lines.push('from sd.api.sdapplication import SDApplicationPath')
   // Only the package mode creates a graph, and only it needs the class that makes one.
   if (target) lines.push('from sd.api.sbs.sdsbscompgraph import SDSBSCompGraph')
@@ -237,6 +238,38 @@ def bind(node, property_id, getter_id, input_id):
     function.setOutputNode(getter, True)
 `
 
+// Every refusal the payload can make ends the run having changed nothing, which is exactly the
+// outcome that looks like the script never ran. So it gets its own channel.
+const REFUSE = `
+
+def refuse(app, headline, detail):
+    """Stop, and make sure it was seen.
+
+    Two channels, because one alone is missable in a different way. stderr first and always:
+    the Python Editor tags it [ERR] rather than [MSG], which is why a crash traceback stands out
+    from ordinary output, and unlike a dialog it is still there after it has been dismissed.
+    Then a modal box, which is the half that interrupts rather than waits to be read.
+
+    The dialog is the optional half. PySide6 6.5 ships in the interpreter's own site-packages
+    and sd.api wraps Designer's main window into a QMainWindow for it, so it is available from
+    a pasted script -- but anything that goes wrong with it goes wrong after the console line
+    has already been written."""
+    sys.stderr.write(headline + '\\n' + detail + '\\n')
+    sys.stderr.flush()
+    try:
+        from PySide6 import QtWidgets
+        from sd.api.qtforpythonuimgrwrapper import QtForPythonUIMgrWrapper
+
+        box = QtWidgets.QMessageBox(QtForPythonUIMgrWrapper(app.getUIMgr()).getMainWindow())
+        box.setIcon(QtWidgets.QMessageBox.Icon.Warning)
+        box.setWindowTitle('Nothing was built')
+        box.setText(headline)
+        box.setInformativeText(detail)
+        box.exec()
+    except Exception:
+        pass
+`
+
 const TRACE = `
 
 # Built with --trace. Every step writes a line to this file and flushes, so if Designer goes
@@ -335,6 +368,7 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
   lines.push('')
   lines.push(imports(spec, target))
   if (trace) lines.push(TRACE)
+  lines.push(REFUSE)
   lines.push(FIND_RESOURCE)
   lines.push(target ? PACKAGE : FREE_OFFSET)
   if (exposes(spec)) lines.push(EXPOSE)
@@ -349,11 +383,11 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
     lines.push(say('instances_of'))
     lines.push(`    watching = instances_in_view(app, ${quote(target.graph)})`)
     lines.push('    if watching:')
-    lines.push("        print('refusing to build: a graph view is open on ' + ', '.join(watching) + ',')")
-    lines.push("        print('which instances this graph. An instance holds the interface of what it')")
-    lines.push("        print('points at, and rebuilding replaces that under an open view, which takes')")
-    lines.push("        print('Designer down. Switch that tab to another graph, or close it, and run')")
-    lines.push("        print('again. Nothing has been changed.')")
+    lines.push("        refuse(app,")
+    lines.push("               'A graph view is open on ' + ', '.join(watching) + ', which instances this graph.',")
+    lines.push("               'An instance holds the interface of what it points at, and rebuilding replaces '")
+    lines.push("               'that under an open view, which takes Designer down. Switch that tab to another '")
+    lines.push("               'graph, or close it, and run again. Nothing has been changed.')")
     lines.push('        return')
     lines.push('')
     lines.push(`    package_path = ${quote(target.packagePath)}`)
@@ -375,7 +409,9 @@ export function emitPython (spec, target = null, { trace = false } = {}) {
   } else {
     lines.push('    graph = app.getUIMgr().getCurrentGraph()')
     lines.push('    if graph is None:')
-    lines.push("        print('open a compositing graph first')")
+    lines.push("        refuse(app, 'No compositing graph is open.',")
+    lines.push("               'These nodes go into whatever graph you are looking at, and there is nothing '")
+    lines.push("               'to look at. Open the graph you want them in, then run again.')")
     lines.push('        return')
     lines.push('')
     lines.push('    offset = free_offset(graph)')

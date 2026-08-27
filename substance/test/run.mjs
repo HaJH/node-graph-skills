@@ -880,7 +880,7 @@ check('a graph exposes parameters, and something inside follows them', () => {
   // Inside main() only: every one of these is also defined above it, and searching the whole
   // file finds the def rather than the call.
   const body = python.slice(python.indexOf('def main():'))
-  const refusalAt = body.indexOf('refusing to build')
+  const refusalAt = body.indexOf('refuse(app,')
   if (refusalAt === -1) problems.push('the payload does not refuse to build under a selected instance')
   for (const mutation of ['open_package(app, package_path)', 'target_graph(package', 'clear_graph(graph']) {
     const at = body.indexOf(mutation)
@@ -982,6 +982,45 @@ check('--trace instruments the payload without changing it', () => {
   return problems
 })
 
+check('a refusal is louder than the output around it', () => {
+  // A refused run changes nothing -- which is indistinguishable from a script that never ran,
+  // if the only difference is one more grey [MSG] line among the rest. stderr is what the
+  // Python Editor tags [ERR]; the dialog is what interrupts instead of waiting to be read. The
+  // point of having both is that each covers the other's way of being missed.
+  const problems = []
+  const spec = parseSpec('graph g\nn perlin_noise\no output\nn -> o', catalogue)
+
+  for (const [mode, python] of [
+    ['package mode', emitPython(spec, { graph: 'g', packageName: 'P', packagePath: 'C:/p/P.sbs' })],
+    ['free mode', emitPython(spec)],
+  ]) {
+    const body = python.slice(python.indexOf('def main():'))
+    if (!body.includes('refuse(app,')) problems.push(`${mode} refuses without saying so loudly`)
+    // print() is for what happened. A refusal is what did not.
+    for (const line of body.split('\n')) {
+      if (/^\s+print\(/.test(line) && /refus|graph is open|graph first/.test(line)) {
+        problems.push(`${mode} still prints a refusal: ${line.trim()}`)
+      }
+    }
+  }
+
+  const payload = emitPython(spec)
+  const stderrAt = payload.indexOf('sys.stderr.write')
+  const dialogAt = payload.indexOf('QMessageBox')
+  if (!payload.includes('import sys')) problems.push('sys is used but not imported')
+  if (stderrAt === -1) problems.push('the refusal never reaches stderr, so it is tagged [MSG] like everything else')
+  if (!payload.includes('sys.stderr.flush()')) problems.push('the refusal is not flushed')
+  if (dialogAt === -1) problems.push('the refusal raises no dialog')
+  if (stderrAt !== -1 && dialogAt !== -1 && dialogAt < stderrAt) {
+    problems.push('the dialog is tried before the console line, so a dialog that fails takes the refusal with it')
+  }
+  // Everything the dialog needs is optional -- PySide6, the wrapper, the window pointer -- and
+  // none of it may take down the half that always works.
+  const guardAt = payload.indexOf('    try:', stderrAt)
+  if (guardAt === -1 || guardAt > dialogAt) problems.push('the dialog is unguarded, so it can take the refusal with it')
+  return problems
+})
+
 // Compiles each file it is given and prints one line per failure, nothing on success.
 const COMPILES = [
   'import sys',
@@ -1007,7 +1046,7 @@ check('every payload is Python that parses', () => {
 
   // Two specs cover every helper the emitter can write: free mode brings free_offset, package
   // mode brings open_package, instances_in_view, target_graph, clear_graph, expose and bind,
-  // and tracing either brings step().
+  // a refusal in either brings refuse(), and tracing either brings step().
   const free = parseSpec(fs.readFileSync(path.join(HERE, '..', 'example', 'worn_painted_metal.spec'), 'utf8'), catalogue)
   const owned = parseSpec([
     'graph g',

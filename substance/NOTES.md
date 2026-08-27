@@ -753,6 +753,34 @@ generator, because the generator's own tests only ever read the payload as text.
 the right words still has to be a program.** `test/run.mjs` now hands every payload variant to
 Python's `compile()`, which is the check that catches this whole class and costs one subprocess.
 
+## Saying no where it will be seen
+
+A refused run changes nothing, which is exactly what a script that never ran also looks like. One
+more `[MSG]` line among the rest does not tell those apart, so `refuse()` uses two channels.
+
+**stderr, always and first.** The Python Editor tags stdout `[MSG]` and stderr `[ERR]` -- which is
+why the crash tracebacks stood out from ordinary output. `sys.stderr.write` alone makes a refusal
+visible with no dependency at all, and unlike a dialog it is still there after it has been
+dismissed.
+
+**A modal box on top of that.** PySide6 6.5.8 is in the interpreter's own site-packages --
+`plugins/pythonsdk/Lib/site-packages/PySide6`, with `pyside6.cp311-win_amd64.dll` and
+`shiboken6.cp311-win_amd64.dll` beside the executable -- and `sd/api/qtforpythonuimgrwrapper.py`
+wraps the main window for it:
+
+```python
+QtForPythonUIMgrWrapper(uiMgr).getMainWindow()   # shiboken6.wrapInstance(getMainWindowPtr(), QMainWindow)
+```
+
+so `QtWidgets.QMessageBox` parented to Designer is available from a pasted script. Every part of
+that is optional and the whole attempt is guarded: PySide6, the wrapper, the window pointer. It
+runs after the console line is already written, so nothing about it can take the refusal down
+with it.
+
+**Read off the install, not yet run.** The import paths, the version and the wrapper's body are
+from the files. Whether `QMessageBox.exec()` behaves from inside the Python Editor's script
+context is the one part that needs Designer to answer.
+
 ## The shipped API reference is behind the binary
 
 `blend` has a parameter called `maskvectorresourcepath`. It is in the executable and a live node
