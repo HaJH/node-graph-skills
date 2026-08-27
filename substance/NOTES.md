@@ -734,6 +734,25 @@ takes the console with it; it does not take a flushed file. **Point it at the gr
 crashes** -- the first run of it proved something true about a graph that was not the one in
 question.
 
+## `--trace` never ran, because it was not Python
+
+The trace helper was emitted with a raw newline inside a single-quoted string:
+
+```python
+    _trace.write(message + '
+')
+```
+
+That is a `SyntaxError`, so a traced payload died on the line Designer read it and did nothing at
+all. It shipped that way in the commit that introduced it and stayed for five more. The crash
+above got settled by observation instead, which is why nobody noticed.
+
+Two things worth keeping from it. The mistake is the one the memory note about heredocs describes
+-- `\n` written through a shell heredoc arrives as a real newline -- and it fails silently in a
+generator, because the generator's own tests only ever read the payload as text. **Text that says
+the right words still has to be a program.** `test/run.mjs` now hands every payload variant to
+Python's `compile()`, which is the check that catches this whole class and costs one subprocess.
+
 ## The shipped API reference is behind the binary
 
 `blend` has a parameter called `maskvectorresourcepath`. It is in the executable and a live node

@@ -982,6 +982,74 @@ check('--trace instruments the payload without changing it', () => {
   return problems
 })
 
+// Compiles each file it is given and prints one line per failure, nothing on success.
+const COMPILES = [
+  'import sys',
+  'for path in sys.argv[1:]:',
+  '    source = open(path, encoding="utf-8").read()',
+  '    try:',
+  '        compile(source, path, "exec")',
+  '    except SyntaxError as error:',
+  '        print("{0}: line {1}: {2}".format(path, error.lineno, error.msg))',
+].join('\n')
+
+check('every payload is Python that parses', () => {
+  // --trace shipped for five commits emitting a raw newline inside a single-quoted string --
+  // a SyntaxError, so a traced payload died on the line Designer read it, before doing
+  // anything. Every other check reads the payload as text, and text that says the right words
+  // still has to be a program. This one hands it to Python.
+  const python = ['python', 'python3', 'py'].find(exe =>
+    spawnSync(exe, ['--version'], { encoding: 'utf8' }).status === 0)
+  if (!python) {
+    console.log('        (skipped: no python on PATH)')
+    return []
+  }
+
+  // Two specs cover every helper the emitter can write: free mode brings free_offset, package
+  // mode brings open_package, instances_in_view, target_graph, clear_graph, expose and bind,
+  // and tracing either brings step().
+  const free = parseSpec(fs.readFileSync(path.join(HERE, '..', 'example', 'worn_painted_metal.spec'), 'utf8'), catalogue)
+  const owned = parseSpec([
+    'graph g',
+    'category Filters',
+    'physical_size [1, 1, 1]',
+    'param amount float default=0.1',
+    'preset "R" amount=0.8',
+    'sc scratches_generator spline_width=@amount',
+    'o output usage=height',
+    'sc -> o',
+  ].join('\n'), catalogue)
+  const target = {
+    graph: 'g',
+    packageName: 'P',
+    packagePath: 'C:/p/P.sbs',
+    describe: owned.describe,
+  }
+
+  const variants = {
+    'free.py': emitPython(free),
+    'free-traced.py': emitPython(free, null, { trace: true }),
+    'owned.py': emitPython(owned, target),
+    'owned-traced.py': emitPython(owned, target, { trace: true }),
+  }
+
+  const scratch = fs.mkdtempSync(path.join(os.tmpdir(), 'sbspy-'))
+  try {
+    const written = Object.entries(variants).map(([name, source]) => {
+      const at = path.join(scratch, name)
+      fs.writeFileSync(at, source)
+      return at
+    })
+    const run = spawnSync(python, ['-c', COMPILES, ...written], { encoding: 'utf8' })
+    if (run.status !== 0) return ['the compile check would not run:\n' + (run.stderr || run.stdout)]
+    return run.stdout.split('\n')
+      .map(line => line.trim().split(scratch + path.sep).join(''))
+      .filter(Boolean)
+  } finally {
+    fs.rmSync(scratch, { recursive: true, force: true })
+  }
+})
+
 check('the payload button tries to copy, and leaves a fallback if it cannot', () => {
   // An artifact is framed cross-origin without clipboard-write delegated. execCommand is the
   // route that can survive that, so it has to be tried first and synchronously -- awaiting the

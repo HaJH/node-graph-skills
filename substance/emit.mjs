@@ -248,8 +248,7 @@ _trace = open(TRACE_LOG, 'w', encoding='utf-8')
 
 
 def step(message):
-    _trace.write(message + '
-')
+    _trace.write(message + '\\n')
     _trace.flush()
     os.fsync(_trace.fileno())
 `
