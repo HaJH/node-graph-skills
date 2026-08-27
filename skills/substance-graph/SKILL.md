@@ -23,8 +23,11 @@ Reaching for both in one answer is normal: work out *what* to build with the adv
 
 ## Workflow
 
-1. Write a spec to a `.spec` file — the scratchpad directory is the right home. Unsure of a
-   pin or parameter id? `node <plugin>/substance/describe.mjs <node>` first — see "Node names".
+1. Write a spec to a `.spec` file. For a one-off network the scratchpad directory is the right
+   home; **in a project that has a Substance library it goes to `<library>/specs/`**, because
+   the build finds the library by walking up from the spec and a spec in the scratchpad builds
+   a network to paste even when a library exists — see "Setting up a library". Unsure of a pin
+   or parameter id? `node <plugin>/substance/describe.mjs <node>` first — see "Node names".
 2. `node <plugin>/substance/build.mjs <spec>` — the plugin root is two levels up from this file.
    It writes `<spec>.html` and `<spec>.py` beside the spec.
 3. Publish the HTML with the Artifact tool and give the user the link.
@@ -252,6 +255,39 @@ cross-origin without `clipboard-write` delegated, so `navigator.clipboard` rejec
 permission, so the button tries that first -- synchronously, because awaiting the clipboard
 promise ahead of it would spend the activation -- and the async API second. Whichever runs, the
 payload is left selected, so a browser that refuses both still leaves the reader one Ctrl+C away.
+
+## Setting up a library
+
+A library is a folder the game project owns, with Designer's own project file committed in it:
+
+```
+<Project>/Resources/Substance/
+  Substance.sbsprj    Designer's project file -- declares the alias and the watched path
+  packages/           the alias folder: every .sbs a spec builds, and any made by hand
+  specs/              one spec per graph. The source; the .sbs beside it is output
+  outputs.txt         optional -- the library's additions to the output vocabulary
+```
+
+Any folder and any names work: the build finds the library by walking up from the spec to the
+nearest `.sbsprj` and reads the alias folder out of it. The shape above is the one the dump
+tool assumes when it looks for `specs/`.
+
+**Make the `.sbsprj` in Designer, not by hand.** `Edit > Preferences > Projects`, a new
+project saved into the library folder, with two things set on it: a **URL alias** — `hb`, say
+— pointing at `packages/`, and a **watched path** `hb://`, recursive. That is how the one in
+use was made. Designer writes the alias as `file:packages`, relative to the project file, once
+the folder is inside the project's own, so the committed file works on any checkout. The test
+that it took is `build.mjs` printing `library:` for a spec under the folder.
+
+Registering it is per machine, and it is the one step no payload can take — the `sd` API has
+nothing for aliases: each person adds the committed `.sbsprj` under `Edit > Preferences >
+Projects` and restarts. The page says so whenever it finds a library.
+
+**Specs live in the library.** `<library>/specs/<name>.spec`, committed: that is the source
+of the graph, reviewed and diffed, and the `.sbs` is what it produces. A graph made or refined
+by hand comes into the same folder through the dump tool. Nothing else goes in the folder — no
+README about how this works; that was tried and rotted within a session. The game project's
+own `CLAUDE.md` needs one line saying where the library is, and this file says the rest.
 
 ## A spec inside a library
 

@@ -119,7 +119,7 @@ what Designer itself does, not conforming to it.
 ## Where a library lives
 
 The root is **the folder holding the library**, not the game project's top directory --
-`<Project>/Resource/Substance` is exactly the shape. A build finds it by walking up from the spec
+`<Project>/Resources/Substance` is exactly the shape. A build finds it by walking up from the spec
 it was given, so one repository can hold several libraries and each spec resolves against its own.
 
 **Designer already has the file that describes one, so do not invent another.** `.sbsprj` is its
@@ -139,7 +139,7 @@ two things a shared library needs:
 
 - **An alias is how one package references another.** Across the whole install, 2018 dependencies
   are written `sbs://functions.sbs` and only 3 are a plain path. A team that declares
-  `mylib -> <Project>/Resource/Substance` gets `mylib://panel_base.sbs` in every `.sbs` that
+  `mylib -> <Project>/Resources/Substance` gets `mylib://panel_base.sbs` in every `.sbs` that
   instances it, which resolves on any machine. Without an alias the reference is a path, and a
   path is a different string on every checkout.
 - **A watched path is how a graph reaches the Library panel.** `sbs://` is watched recursively,
@@ -152,8 +152,10 @@ watched path. Anything our build needs and Designer does not (which spec directo
 to write the project catalogue) is ours, and it should read the alias out of the `.sbsprj` rather
 than repeat it, so the mapping is declared once.
 
-The Python API has no alias management -- `sd` exposes none -- so the `.sbsprj` is edited as a
-file or through Designer's preferences, never by a payload.
+The Python API has no alias management -- `sd` exposes none -- so the `.sbsprj` is made and
+edited through Designer's preferences, never by a payload. The one in use was made there and
+registered there; a hand-written one has not been tried, and the skill says to make it in
+Designer for that reason.
 
 **`outputs.txt` is the one file of ours beside it, and the reason is that last sentence.**
 Designer rewrites the `.sbsprj` in its own format whenever it touches the project, so anything of
