@@ -233,9 +233,22 @@ be seen" in NOTES. Both halves are in, and the box was raised from a pasted payl
 - `node substance/verify.mjs <spec>` -- does the `.sbs` on disk still say what the spec says?
   Needs the install, since it cooks; everything else here does not.
 
-The live library this was built against is `F:\Workspaces\main\HB\Resources\Substance`, with its
-own README covering the Designer-side setup. Its `specs/nodes/panel_base.spec` is the one that
-exercises exposed parameters and presets end to end.
+**There is no live library any more, and that is deliberate.** Everything built in a project
+folder while this was being developed -- a hand-made graph dumped to a spec, a reusable bevel
+panel, a spec that instanced it, a copy of the worked example -- was scaffolding for proving the
+tool, and it was removed once it had. A project's Substance folder starts empty except for its
+`.sbsprj`; the first real spec is the project's to write.
+
+Nothing in this repo depends on that folder existing. The 27 checks are offline and self
+contained, and `substance/example/worn_painted_metal.spec` is the worked example that ships here.
+`verify.mjs` is the one command that needs anything outside this repo, and what it needs is the
+Designer install rather than any particular library.
+
+A project's Substance folder should hold **no documentation of its own about how this works**.
+That was tried and it rotted within one session: a README there restating the alias reasoning and
+the naming convention went stale the moment the build started enforcing the convention, and
+described as a hoped-for practice what had become a refusal. What belongs in a project is its
+`.sbsprj`, its specs and its packages. How the tool works belongs here.
 
 **The one workflow rule that is not obvious:** do not have a graph that instances the target open
 in a tab when rebuilding it. The payload refuses in that case and names the graph to switch away

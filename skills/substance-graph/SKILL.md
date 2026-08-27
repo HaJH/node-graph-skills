@@ -151,7 +151,7 @@ spec can wave away is not a rule.
 What turns a graph from a network into something another person can use without opening it.
 
 ```
-graph panel_base
+graph bevel_panel
 param amount float default=0.1 min=0 max=1 label="Scratch amount" group="Wear" editor=slider
 param flip   bool  default=false label_true="Yes" label_false="No"
 
@@ -267,9 +267,9 @@ A person stands in the middle of every build: the payload is pasted into Designe
 writes the file. `verify.mjs` looks at the far side of that.
 
 ```
-node <plugin>/substance/verify.mjs Resources/Substance/specs/nodes/panel_base.spec
-  against F:\...\packages\HBNoises.sbs
-  panel_base: 2 outputs, 4 exposed parameters, 2 presets
+node <plugin>/substance/verify.mjs Resources/Substance/specs/nodes/bevel_panel.spec
+  against ...\packages\Bases.sbs
+  bevel_panel: 2 outputs, 4 exposed parameters, 2 presets
   the package matches the spec
 ```
 
@@ -293,10 +293,10 @@ are what everything downstream matches on.
 graphs and Adobe's own do -- `blur_hq.sbs` holds `blur_hq` and `blur_hq_grayscale`.
 
 ```
-graph panel_base
-package HBNoises
-category HB/Bases
-label "Panel Base"
+graph bevel_panel
+package Bases
+category PBR Materials/Metal
+label "Bevel Panel"
 ```
 
 The graph itself takes ten described values, all optional: `category`, `label`, `description`,
