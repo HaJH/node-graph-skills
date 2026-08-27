@@ -14,15 +14,14 @@ import { stringsFor } from './strings.mjs'
 
 const ATOMIC_PIN_TYPE = 'either' // atomic filters take whatever the graph is carrying
 
+// A library node's pins are typed by its package, and a graph the project owns is a library
+// node in every way but colour -- so the split is atomic against everything else, not library
+// against everything else.
+const pinType = (node, pin) => (node.kind === 'atomic' ? ATOMIC_PIN_TYPE : pin.type)
+
 function shapeOf (node) {
-  const inputs = node.def.inputs.map(p => ({
-    id: p.id,
-    type: node.kind === 'library' ? p.type : ATOMIC_PIN_TYPE,
-  }))
-  const outputs = node.def.outputs.map(p => ({
-    id: p.id,
-    type: node.kind === 'library' ? p.type : ATOMIC_PIN_TYPE,
-  }))
+  const inputs = node.def.inputs.map(p => ({ id: p.id, type: pinType(node, p) }))
+  const outputs = node.def.outputs.map(p => ({ id: p.id, type: pinType(node, p) }))
   return {
     name: node.name,
     type: node.type,
@@ -118,12 +117,13 @@ export function draw (spec, options) {
   const nodes = spec.nodes.map(shapeOf)
   const graph = render(nodes, spec.wires, theme)
 
-  const libraryCount = spec.nodes.filter(n => n.kind === 'library').length
+  const libraryCount = spec.nodes.filter(n => n.kind !== 'atomic').length
   const subtitle = words.subtitle(spec.nodes.length, spec.wires.length) +
     (libraryCount ? words.subtitleSplit(libraryCount, spec.nodes.length - libraryCount) : '')
 
   return page({
     title: spec.name ?? 'Substance graph',
+    lang,
     subtitle,
     graph: graph.svg,
     theme,

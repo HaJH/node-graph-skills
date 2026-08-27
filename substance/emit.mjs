@@ -45,8 +45,9 @@ function valueExpression (value) {
 
 function imports (spec, target = null) {
   const classes = new Set()
+  const structs = new Set(['float2']) // setPosition always needs it
   // A parameter's default and its annotations are values like any other, and a binding writes a
-  // string, so both decide what has to be imported.
+  // string, so both decide what has to be imported. A vector default is a struct.
   if (exposes(spec)) classes.add('SDValueString')
   for (const param of spec.params ?? []) {
     for (const { value } of [{ value: param.value }, ...param.annotations]) {
@@ -56,7 +57,6 @@ function imports (spec, target = null) {
       if (struct) structs.add(struct)
     }
   }
-  const structs = new Set(['float2']) // setPosition always needs it
   for (const described of Object.values(target?.describe ?? {})) {
     const value = described.type === 'string' ? { class: 'SDValueString' } : described.value
     classes.add(value.class)

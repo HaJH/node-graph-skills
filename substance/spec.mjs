@@ -30,7 +30,7 @@ export const IDENTIFIER = /^[A-Za-z_][A-Za-z0-9_]*$/
 
 // Every compositing node carries these on top of whatever its definition declares, instance
 // nodes included -- they are not in a library graph's <paraminputs> but they are settable.
-const BASE_PARAMETERS = {
+export const BASE_PARAMETERS = {
   $outputsize: 'int2',
   $format: 'sbs::compositing::format',
   $pixelsize: 'float2',
@@ -119,7 +119,9 @@ export const SD_TYPE_CLASS = {
   bool: 'SDTypeBool', string: 'SDTypeString',
 }
 
-// Value is the parameter's own type; the rest are fixed.
+// A range setting is in the parameter's own type; the rest are fixed. Which is which is decided
+// by the key, never by comparing the two types -- a label on a string parameter is not a range
+// because both happen to spell "string".
 const EXPOSED_ANNOTATIONS = {
   label: 'string', description: 'string', group: 'string', userdata: 'string',
   visible_if: 'string', editor: 'string',
@@ -127,6 +129,7 @@ const EXPOSED_ANNOTATIONS = {
   clamp: 'bool', randomizable: 'bool',
   min: null, max: null, step: null,
 }
+const RANGE = new Set(['min', 'max', 'step'])
 
 const isEnum = type => type.includes('::')
 
@@ -145,6 +148,19 @@ export class SpecError extends Error {
     this.name = 'SpecError'
     this.problems = problems
   }
+}
+
+// A wire is a line with "->" outside any quoted value. A label is free text and an arrow is a
+// thing people write in one; reading it off the raw line turned such a node into two wire
+// endpoints nothing had declared, and the errors named the wrong problem.
+function isWire (line) {
+  let quote = null
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i]
+    if (quote) { if (c === quote) quote = null } else if (c === '"' || c === "'") quote = c
+    else if (c === '-' && line[i + 1] === '>') return true
+  }
+  return false
 }
 
 function stripComment (line) {
@@ -329,17 +345,18 @@ function readParam (rest, line, params, problems) {
 
     // min, max and step are in the parameter's own type. Designer reports them as ints on an int
     // parameter, so they are not floats that happen to hold whole numbers.
-    const declared = EXPOSED_ANNOTATIONS[key] ?? type
-    if (declared === type && !NUMERIC.has(type)) {
+    const range = RANGE.has(key)
+    if (range && !NUMERIC.has(type)) {
       fail(`${key} only means something on a number, and ${id} is ${type}`)
       continue
     }
-    if (declared === type && !SCALAR.has(type)) {
+    if (range && !SCALAR.has(type)) {
       // A vector's min/max was not read off a live graph, so the spec does not pretend to know
       // whether it is one number or one per component.
       fail(`${key} on a ${type} is untested, so the spec will not write it -- set it in Designer`)
       continue
     }
+    const declared = range ? type : EXPOSED_ANNOTATIONS[key]
     if ((key === 'label_true' || key === 'label_false') && type !== 'bool') {
       fail(`${key} only means something on a bool, and ${id} is ${type}`)
       continue
@@ -461,7 +478,7 @@ export function parseSpec (text, catalogue, { outputs = OUTPUTS, strict = false 
       return
     }
 
-    if (line.includes('->')) {
+    if (isWire(line)) {
       const sides = line.split('->')
       if (sides.length !== 2) {
         problems.push({ line: at, message: 'a wire has exactly one "->"' })

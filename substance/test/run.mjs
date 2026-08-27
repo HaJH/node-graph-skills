@@ -19,6 +19,8 @@ import { findProject, projectNodes, mergeCatalogue, projectOutputs, mergeOutputs
 import { OUTPUTS } from '../outputs.generated.mjs'
 import { readInterfaces, isExposedParameter } from '../sbsar.mjs'
 import { LANGUAGES } from '../strings.mjs'
+import { theme } from '../theme.mjs'
+import { describe } from '../describe.mjs'
 import os from 'node:os'
 import { spawnSync } from 'node:child_process'
 
@@ -160,6 +162,43 @@ check('the spec parser reports every problem at once', () => {
       if (!error.message.includes(needle)) problems.push(`expected "${needle}", got: ${error.message.replace(/\n/g, ' | ')}`)
     }
   }
+  return problems
+})
+
+check('an arrow inside a quoted value does not make the line a wire', () => {
+  // A label is free text and "->" is a thing people write in one. Reading the arrow off the raw
+  // line turned such a node into two wire endpoints that nothing had declared, and the errors
+  // named the wrong problem.
+  const spec = parseSpec('graph g\nn perlin_noise\nmk output usage=height label="Height -> done"\nn -> mk', catalogue)
+  const problems = []
+  if (spec.nodes.length !== 2) problems.push(`${spec.nodes.length} nodes read for 2`)
+  if (spec.wires.length !== 1) problems.push(`${spec.wires.length} wires read for 1`)
+  const label = spec.nodes[1]?.annotations.find(a => a.id === 'label')?.value.components[0]
+  if (label !== 'Height -> done') problems.push('the label lost its arrow: ' + label)
+  return problems
+})
+
+check('a node can be looked up without reading the catalogue file', () => {
+  // "Grep the catalogue" was the advice, and a 261 KB table does not grep: every library node
+  // has an output called output. This is the lookup an agent writing a spec actually needs.
+  const problems = []
+  const text = describe(catalogue, ['blend', 'blur_hq_grayscale', 'flood_fill'])
+  for (const wanted of [
+    'sbs::compositing::blend', 'destination*', 'unique_filter_output',
+    // An enum lists its value ids, because Designer's spelling is not guessable.
+    'substract',
+    // Library pins are per node, capitalisation and all, and typed.
+    'Source', 'Blur_HQ', 'grayscale', 'blur_hq.sbs',
+    // Two outputs, so a wire has to say which.
+    'referenceMap',
+    // The base parameters are settable on every node and in no library entry's own list.
+    '$outputsize',
+  ]) {
+    if (!text.includes(wanted)) problems.push(`the description of blend / blur_hq_grayscale / flood_fill does not mention ${wanted}`)
+  }
+  let refused = null
+  try { describe(catalogue, ['nope']) } catch (error) { refused = error.message }
+  if (!refused?.includes('nope')) problems.push('an unknown node is not refused by name')
   return problems
 })
 
@@ -535,8 +574,17 @@ check('a graph the project owns is a node the next spec can name', () => {
     if (!python.includes("'TeamNoises', 'team_base'")) problems.push('the payload does not instance the project graph')
     if (!python.includes('TeamNoises.sbs')) problems.push('the payload does not say where the package is')
 
-    if (!draw(spec, { project }).includes(LANGUAGES.en.legend.project)) {
+    const html = draw(spec, { project })
+    if (!html.includes(LANGUAGES.en.legend.project)) {
       problems.push('the page does not mark the project as a kind of node')
+    }
+    // Its pins carry the types the package declares -- the colour output is a colour pin, and
+    // only the legend would use that colour otherwise -- and it is not a built-in filter.
+    if ((html.match(new RegExp(theme.types.color, 'g')) ?? []).length < 2) {
+      problems.push('a project graph draws its pins as either, not as what they carry')
+    }
+    if (!html.includes(LANGUAGES.en.subtitleSplit(1, 1))) {
+      problems.push('the subtitle counts a project graph as a built-in filter')
     }
 
     // Shadowing a shipped node would silently change what a spec means.
@@ -756,7 +804,9 @@ check('the dump carries the values and names a real graph has', () => {
 
   const HELP = 'Provides an exit point for an image or raw value out of a graph.'
   const fixture = {
-    graph: { identifier: 'edges', packagePath: '', annotations: {} },
+    // A quote inside a label is a person's text, and a spec string is quoted -- the same rule
+    // literal() already applies to parameter values.
+    graph: { identifier: 'edges', packagePath: '', annotations: { label: { class: 'SDValueString', components: ['Edge "scan"'] } } },
     nodes: [
       {
         uid: 'a', definitionId: 'sbs::compositing::normal', definitionLabel: 'Normal',
@@ -790,6 +840,7 @@ check('the dump carries the values and names a real graph has', () => {
         outputs: [{ id: 'unique_filter_output' }], values: {},
         annotations: {
           identifier: { class: 'SDValueString', components: ['normal'] },
+          label: { class: 'SDValueString', components: ['6" Panel'] },
           description: { class: 'SDValueString', components: [HELP] },
           usages: { class: 'SDValueArray', usages: [{ name: 'normal', components: 'RGBA', colorSpace: '' }] },
         },
@@ -826,6 +877,9 @@ check('the dump carries the values and names a real graph has', () => {
     // RGBA is what the spec assumes, so a dump that says it differs from the hand written spec.
     if (text.includes('usage=normal:RGBA')) problems.push('the default usage components were written out')
     if (!text.includes('usage=normal')) problems.push('the usage was not carried')
+    // A quote inside a label would end the string early, so it goes the way literal() sends it.
+    if (!text.includes("label=\"6' Panel\"")) problems.push('a quote inside an output label was written unescaped')
+    if (!text.includes("label \"Edge 'scan'\"")) problems.push('a quote inside the graph label was written unescaped')
 
     try {
       parseSpec(text, catalogue)
@@ -934,6 +988,21 @@ check('a graph exposes parameters, and something inside follows them', () => {
   // A payload that exposes nothing should not carry the machinery.
   const plain = emitPython(parseSpec('graph g\nn perlin_noise\no output\nn -> o', catalogue))
   if (plain.includes('def expose')) problems.push('a spec that exposes nothing still carries the helpers')
+
+  // label, description and the rest go on every type, and clamp on any number or bool. They
+  // were refused whenever the setting's own fixed type happened to spell the parameter's.
+  const texty = rejects('graph g\nparam name string default="steel" label="Name" group="Text"\nparam flip bool default=false clamp=true\nn perlin_noise')
+  if (texty) problems.push('a string or bool parameter refuses a setting every type takes: ' + texty)
+  // A vector default is a struct, and the struct it needs has to be imported.
+  let vector = null
+  try {
+    vector = emitPython(parseSpec('graph g\nparam cells int2 default=[2,3]\nn perlin_noise', catalogue))
+  } catch (error) {
+    problems.push('a vector default breaks the emitter: ' + error.message)
+  }
+  if (vector && !vector.includes('from sd.api.sdbasetypes import float2, int2')) {
+    problems.push('the struct a vector default needs is not imported')
+  }
   return problems
 })
 

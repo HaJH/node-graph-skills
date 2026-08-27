@@ -49,6 +49,12 @@ ARITY = {
 }
 
 
+def quoted(text):
+    """A spec string is quoted, so a quote inside one has to go. The same rule for a parameter
+    value, a bridge's label and the graph's own: a 6" panel is a 6' panel in a spec."""
+    return '"%s"' % str(text).replace('"', "'")
+
+
 def literal(value):
     """An SDValue as the spec would write it, or None when the spec cannot say it."""
     class_name = safe(lambda: value.getClassName(), '')
@@ -59,8 +65,7 @@ def literal(value):
     if class_name == 'SDValueBool':
         return 'true' if value.get() else 'false'
     if class_name == 'SDValueString':
-        # A spec string is quoted, so a quote inside one has to go.
-        return '"%s"' % str(value.get()).replace('"', "'")
+        return quoted(value.get())
 
     raw = safe(lambda: value.get(), None)
     if raw is None:
@@ -187,7 +192,7 @@ def read_bridge(node, dropped):
         value = safe(lambda: node.getAnnotationPropertyValueFromId(key), None)
         text = safe(lambda: value.get(), '') if value is not None else ''
         if text and text != inherited.get(key, ''):
-            lines.append('%s="%s"' % (key, text))
+            lines.append('%s=%s' % (key, quoted(text)))
 
     usages = safe(lambda: node.getAnnotationPropertyValueFromId('usages'), None)
     for entry in (safe(lambda: usages.get(), []) or []) if usages is not None else []:
@@ -220,7 +225,7 @@ def read_describe(graph):
         value = safe(lambda: graph.getAnnotationPropertyValueFromId(key), None)
         text = safe(lambda: value.get(), '') if value is not None else ''
         if text:
-            out.append('%s %s' % (key, text if key == 'category' else '"%s"' % text))
+            out.append('%s %s' % (key, text if key == 'category' else quoted(text)))
     return out
 
 
