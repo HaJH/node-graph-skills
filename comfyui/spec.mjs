@@ -18,6 +18,9 @@
 //
 //   group "Prompt" pos neg $color=#3f789e
 //
+// `graph` titles the page and seeds the workflow's id -- a word, or a title in quotes. `lang` is
+// the page's language.
+//
 // A statement is a line; a """ block is the one thing that carries it onto the next. A line with
 // -> is a wire, one starting with graph, lang or group says so, anything else is a node. # starts
 // a comment where a word could start, so $color=#3f789e is a colour and not a comment.
@@ -34,6 +37,7 @@
 import { expandInputs, inputAt, isWidget, hasControl, defaultControl, defaultValue, checkValue, typesMatch,
   autogrowSlots, CONTROL_MODES, UNSUPPORTED, AUTOGROW } from './defs.mjs'
 import { RESERVED } from './ui.mjs'
+import { LANGUAGES } from './strings.mjs'
 
 export const NAME = /^[\p{L}_][\p{L}\p{N}_]*$/u
 
@@ -166,9 +170,17 @@ export function parseSpec (text, catalogue) {
 
   for (const { line, tokens } of statements(text, problems)) {
     const head = tokens[0]
-    if (head === 'graph' || head === 'lang') {
-      if (tokens.length !== 2) { fail(line, `${head} takes one word`); continue }
-      graph[head === 'graph' ? 'name' : 'lang'] = tokens[1]
+    if (head === 'graph') {
+      // The page's title, and the seed of the workflow's id. A word, or a title in quotes.
+      const title = tokens.length === 2 ? parseValue(tokens[1]) : null
+      if (!title || typeof title.value !== 'string' || !title.value.trim()) { fail(line, 'graph takes one word, or a title in quotes: graph "Restyle with IP-Adapter"'); continue }
+      graph.name = title.value
+      continue
+    }
+    if (head === 'lang') {
+      if (tokens.length !== 2) { fail(line, 'lang takes one code'); continue }
+      if (!LANGUAGES[tokens[1]]) { fail(line, `there is no "${tokens[1]}" page language -- there is ${Object.keys(LANGUAGES).join(', ')}`); continue }
+      graph.lang = tokens[1]
       continue
     }
     if (head === 'group') { rawGroups.push({ line, tokens }); continue }
@@ -351,6 +363,11 @@ export function parseSpec (text, catalogue) {
     graph.wires.push({ from: fromName, slot, to: toName, input: inPath, line })
   }
 
+  // A node a wire failed to reach is not also told its sockets are empty: that is the same
+  // mistake reported twice, and the wire's own message is the one that says how to fix it.
+  const reached = new Set(graph.wires.map(w => w.line))
+  const brokenTargets = new Set(rawWires.filter(w => !reached.has(w.line)).map(w => w.text.split('->')[1]?.trim().split('.')[0]))
+
   // --- every required socket has a wire ---
   for (const node of graph.nodes) {
     const def = catalogue[node.type]
@@ -363,7 +380,9 @@ export function parseSpec (text, catalogue) {
         }
         continue
       }
-      if (!optional && !wired.has(path)) fail(node.line, `${node.name}.${path} (${input.type}) is required and has no wire`)
+      if (!optional && !wired.has(path) && !brokenTargets.has(node.name)) {
+        fail(node.line, `${node.name}.${path} (${input.type}) is required and has no wire`)
+      }
     }
   }
 
@@ -406,7 +425,7 @@ export function parseSpec (text, catalogue) {
       inGroup.set(token, line)
       group.members.push(token)
     }
-    if (!group.members.length) fail(line, `group "${group.title}" has no nodes in it`)
+    if (!rest.some(t => !t.startsWith('$'))) fail(line, `group "${group.title}" has no nodes in it`)
     graph.groups.push(group)
   }
 
@@ -430,7 +449,7 @@ export function formatValue (value) {
 /** The spec text that parses back into the graph. */
 export function formatSpec (graph, catalogue) {
   const lines = []
-  if (graph.name) lines.push(`graph ${graph.name}`)
+  if (graph.name) lines.push(`graph ${formatValue(graph.name)}`)
   if (graph.lang) lines.push(`lang ${graph.lang}`)
   if (lines.length) lines.push('')
 

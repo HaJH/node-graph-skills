@@ -59,7 +59,8 @@ export function describe (name) {
     (def.deprecated ? ' -- deprecated' : '') + (def.experimental ? ' -- experimental' : '')]
   const sockets = def.inputs.filter(i => !isWidget(i))
   const widgets = def.inputs.filter(isWidget)
-  lines.push(`  sockets   ${sockets.length ? sockets.map(socketText).join(', ') : '-'}   (? is optional)`)
+  const legend = sockets.some(s => s.optional) ? '   (? is optional)' : ''
+  lines.push(`  sockets   ${sockets.length ? sockets.map(socketText).join(', ') : '-'}${legend}`)
   if (widgets.length) {
     const width = Math.max(...widgets.map(w => w.name.length))
     lines.push('  widgets')

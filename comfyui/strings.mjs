@@ -7,9 +7,11 @@
 // Adding a language means adding a key here with every field filled. The test refuses a partial
 // one: half a translated page reads worse than an untranslated one.
 
+const count = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
+
 const en = {
   name: 'English',
-  subtitle: (nodes, wires, groups) => `${nodes} nodes, ${wires} wires` + (groups ? `, ${groups} groups` : ''),
+  subtitle: (nodes, wires, groups) => `${count(nodes, 'node')}, ${count(wires, 'wire')}` + (groups ? `, ${count(groups, 'group')}` : ''),
   catalogue: (version, packs) => ` — ComfyUI ${version}` + (packs.length ? `, ${packs.join(', ')}` : ''),
 
   legend: {

@@ -60,7 +60,8 @@ fs.writeFileSync(apiAt, json(writeApi(graph, NODES)))
 fs.writeFileSync(htmlAt, draw(graph, NODES, { lang, uiText }))
 
 const packs = [...new Set(graph.nodes.map(n => NODES[n.type].pack).filter(Boolean))]
-console.log(`${graph.nodes.length} nodes, ${graph.wires.length} wires, ${graph.groups.length} groups`)
+const count = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`
+console.log(`${count(graph.nodes.length, 'node')}, ${count(graph.wires.length, 'wire')}, ${count(graph.groups.length, 'group')}`)
 console.log('ui  :', uiAt, '  -- open it in ComfyUI, or paste it onto the canvas')
 console.log('api :', apiAt, '  -- what /prompt takes, keyed by node name')
 console.log('page:', htmlAt, '-', (fs.statSync(htmlAt).size / 1024).toFixed(0) + ' KB')

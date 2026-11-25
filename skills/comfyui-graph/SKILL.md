@@ -31,7 +31,9 @@ specific network and hands over something that loads. Using both in one answer i
    - `<spec>.json` -- the workflow in the UI format, what ComfyUI's window opens
    - `<spec>.api.json` -- the same workflow in the API format, what `/prompt` takes
    - `<spec>.html` -- the page, with the workflow under a **Copy** button
-3. Publish the HTML with the Artifact tool and give the user the link.
+3. Publish the HTML with the Artifact tool and give the user the link. The page is the graph and
+   the workflow; it has no place for prose, so why the workflow is built the way it is -- the
+   denoise, the model -- goes in your reply.
 4. To put it in ComfyUI: **Copy on the page, then Ctrl+V on the ComfyUI canvas.** A pasted workflow
    opens as a new tab and leaves the open one alone. Dropping `<spec>.json` on the window does the
    same.
@@ -76,12 +78,16 @@ group "Prompt" pos neg $color="#3f789e"
 
 A statement is a line. A line with `->` is a wire, one starting with `graph`, `lang` or `group`
 says so, anything else is a node. `#` starts a comment where a word could start, so
-`$color=#3f789e` is a colour, not a comment.
+`$color=#3f789e` is a colour, not a comment. Comments stay in the spec; the page does not show them.
 
-**Nodes: `<name> <Type> [<input>=<value> ...]`.** The name is yours -- letters, digits and `_` --
-and the type is ComfyUI's node type, not its display name: `CLIPTextEncode`, not "CLIP Text
-Encode (Prompt)". The values are the node's widgets, by input name; leave one out and it takes the
-node's default.
+**`graph` titles the page** and seeds the workflow's id, so a rebuild writes the same file. A word,
+or a title in quotes: `graph "IP-Adapter 리스타일"`. Without one the spec's file name is used.
+Give it a readable title when the page is going to be published.
+
+**Nodes: `<name> <Type> [<input>=<value> ...]`.** The name is yours -- letters in any script,
+digits and `_` -- and the type is ComfyUI's node type, not its display name: `CLIPTextEncode`, not
+"CLIP Text Encode (Prompt)". The values are the node's widgets, by input name; leave one out and it
+takes the node's default.
 
 - **Values are literals**: `30`, `0.8`, `true`, `"two words"`. A word with no spaces needs no
   quotes -- `sampler_name=dpmpp_2m`, `ckpt_name=sd_xl_base_1.0.safetensors`. An INT given `2.5`, a
@@ -89,7 +95,8 @@ node's default.
 - **A combo takes its value by name**, and a wrong one is answered with the values it does take.
 - **A combo that names a file** -- a checkpoint, a LoRA, an input image -- takes any string. The
   files are the machine's, not the catalogue's, so the build cannot check them; one with no
-  default has to be given.
+  default has to be given. `LoadImage`'s upload button is written by the build; there is nothing
+  to set for it.
 - **Text over several lines** goes in a `"""` block, taken verbatim -- shader source, a long prompt:
 
   ```text
@@ -107,7 +114,7 @@ node's default.
 
 | | |
 |---|---|
-| `$title="Stage 2 sampler"` | the title on the node's bar |
+| `$title="Stage 2 sampler"` | the title on the node's bar. It is part of the workflow, not of the page -- it shows in ComfyUI and is the node's `_meta.title` in the API file -- so write it in the language the workflow's users read, not the page's |
 | `$control.seed=fixed` | what the widget does after each run: `fixed`, `increment`, `decrement`, `randomize`. Left out, it is the node's default -- `randomize` for KSampler's seed, `fixed` for `PrimitiveInt` |
 | `$collapsed=true` | drawn as its title bar alone |
 | `$color=` `$bgcolor=` | the node's colours, as ComfyUI stores them |
@@ -183,7 +190,9 @@ redefine one of ComfyUI's own nodes is refused.
 
 **The UI file** (`<spec>.json`) is what the window opens and what the Copy button carries. Every
 node gets a position from the same layout the page uses, at sizes taken from what the frontend
-itself saves, and the view opens on the whole graph.
+itself saves, and the view opens on the whole graph. The layout reads left to right in columns: a
+node with no inputs -- every loader -- sits in the first column, and each other node one column
+past the furthest node that feeds it.
 
 **The API file** (`<spec>.api.json`) is for anything that queues the workflow without the window:
 `POST /prompt` with `{"prompt": <the file>}`. **It is keyed by node name, not number** --
@@ -231,6 +240,10 @@ Groups are drawn as their tinted rectangles. Every socket a node has is drawn, w
 - **The upload button is written for image inputs only.** `LoadImage` grows an `upload` widget,
   verified; the audio and video loaders' are not written.
 - **Positions are the layout's, not a person's.** A workflow read back and rebuilt is re-arranged.
+- **A long wire runs straight.** A loader in the first column feeding a node near the end -- an
+  upscale model, a VAE -- crosses the whole graph behind the nodes between, and can line up with
+  one of their pins. Follow it by colour, or check the wire list in the spec.
+- **A wide graph scrolls sideways inside its frame** rather than shrinking to fit.
 - **Group nesting is not handled.**
 - **File names are not checked**, since the catalogue does not carry the machine's files.
 

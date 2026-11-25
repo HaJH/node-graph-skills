@@ -274,7 +274,32 @@ check('the build refuses what would not run, and says why', () => {
     expectProblem('c CheckpointLoaderSimple', /names a file and has no default/),
     expectProblem('s PrimitiveStringMultiline value="""\nopen', /never closed/),
     expectProblem('a ImageScale\nb ImageScale\na -> b.image\nb -> a.image', /loop/),
+    expectProblem('lang kr\nn VAEDecode', /no "kr" page language -- there is en, ko/),
+    expectProblem('graph two words', /a title in quotes/),
   ].flat()
+})
+
+check('one mistake is reported once', () => {
+  const problems = []
+  // A wire that cannot be resolved is the mistake; the sockets it would have filled are not a second one.
+  const ambiguous = problemsOf('ckpt CheckpointLoaderSimple ckpt_name=x.safetensors\nlora LoraLoader lora_name=l.safetensors\nckpt -> lora')
+  if (ambiguous.length !== 1) problems.push(`an ambiguous wire gave ${ambiguous.length} problems: ${ambiguous.join(' | ')}`)
+  // A group whose member was refused for its own reason still has nodes in it.
+  const grouped = problemsOf('n VAEDecode\nm VAEEncode\ngroup "A" n\ngroup "B" n m')
+  if (grouped.some(p => /has no nodes/.test(p))) problems.push('a group with a refused member is said to be empty')
+  // Every problem at once, the page language included.
+  const all = problemsOf('lang kr\nn KSamplr')
+  if (all.length !== 2) problems.push(`expected the language and the node together, got ${all.join(' | ')}`)
+  return problems
+})
+
+check('a graph title may be quoted, and comes back quoted', () => {
+  const graph = parseSpec('graph "IP-Adapter 리스타일"\nn PrimitiveInt\n', NODES)
+  const problems = []
+  if (graph.name !== 'IP-Adapter 리스타일') problems.push(`name is ${JSON.stringify(graph.name)}`)
+  const again = parseSpec(formatSpec(graph, NODES), NODES)
+  if (again.name !== graph.name) problems.push(`rewritten, it is ${JSON.stringify(again.name)}`)
+  return problems
 })
 
 // --- the page and the tools ---------------------------------------------------------------------
