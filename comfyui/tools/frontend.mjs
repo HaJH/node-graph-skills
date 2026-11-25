@@ -5,6 +5,9 @@
 //       loads the workflow and writes what the frontend serialises -- what Save writes
 //   node comfyui/tools/frontend.mjs api <workflow.json> <out.api.json>
 //       loads the workflow and writes what graphToPrompt makes -- what Export (API) writes
+//   node comfyui/tools/frontend.mjs shot <workflow.json> <out.png>
+//       loads the workflow and screenshots the canvas, with each group's members as the
+//       frontend itself computes them -- the check that a layout keeps strangers out of a group
 //   node comfyui/tools/frontend.mjs eval "<expression>"
 //       evaluates an expression in the loaded page, for finding out how the frontend works
 //
@@ -119,15 +122,41 @@ async function load (cdp, file) {
 }
 
 const [command, a, b] = process.argv.slice(2)
-if (!['save', 'api', 'eval'].includes(command) || !a || (command !== 'eval' && !b)) {
-  console.error('usage: node comfyui/tools/frontend.mjs save|api <workflow.json> <out> | eval "<expression>"')
+if (!['save', 'api', 'shot', 'eval'].includes(command) || !a || (command !== 'eval' && !b)) {
+  console.error('usage: node comfyui/tools/frontend.mjs save|api|shot <workflow.json> <out> | eval "<expression>"')
   process.exit(2)
 }
 
 const app = await openApp()
 try {
   if (command === 'eval') {
-    console.log(JSON.stringify(await evaluate(app.cdp, a), null, 2))
+    // @file reads the expression from a file, for one too long for a command line
+    const expression = a.startsWith('@') ? fs.readFileSync(a.slice(1), 'utf8') : a
+    console.log(JSON.stringify(await evaluate(app.cdp, expression), null, 2))
+  } else if (command === 'shot') {
+    const loaded = await load(app.cdp, a)
+    console.log(`loaded ${loaded.nodes} nodes${loaded.errors.length ? ', with errors on ' + loaded.errors.join(', ') : ''}`)
+    const groups = await evaluate(app.cdp, `(() => window.app.graph.groups.map(g => {
+      g.recomputeInsideNodes()
+      const members = [...(g.nodes ?? g._nodes ?? g.children ?? [])].filter(n => n.type).map(n => n.title)
+      return g.title + ': ' + members.join(', ')
+    }))()`)
+    for (const line of groups) console.log('  group', line)
+    // Overlap is checked on the frontend's own boxes, title bars included.
+    const overlaps = await evaluate(app.cdp, `(() => {
+      const boxes = window.app.graph.nodes.map(n => ({ t: n.title, b: n.boundingRect }))
+      const hit = []
+      for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+        const [ax, ay, aw, ah] = boxes[i].b, [bx, by, bw, bh] = boxes[j].b
+        if (ax < bx + bw && bx < ax + aw && ay < by + bh && by < ay + ah) hit.push(boxes[i].t + ' / ' + boxes[j].t)
+      }
+      return hit
+    })()`)
+    console.log(overlaps.length ? `  overlapping: ${overlaps.join('; ')}` : '  no two nodes overlap')
+    await sleep(1500)
+    const shot = await app.cdp.send('Page.captureScreenshot', { format: 'png' })
+    fs.writeFileSync(b, Buffer.from(shot.data, 'base64'))
+    console.log(`-> ${b}`)
   } else {
     const loaded = await load(app.cdp, a)
     console.log(`loaded ${loaded.nodes} nodes${loaded.errors.length ? ', with errors on ' + loaded.errors.join(', ') : ''}`)

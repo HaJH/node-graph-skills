@@ -90,6 +90,39 @@ ComfyUI ships in its own `custom_nodes`). **A custom node's `python_module` is
 - Hidden inputs (`PROMPT`, `EXTRA_PNGINFO`, `UNIQUE_ID`, the API nodes' auth tokens) appear in
   neither format.
 
+## Past the gate
+
+**Two whole production workflows went through a spec and back.** The 55-node one the gate sample
+was cut from, and a 68-node two-stage one (Qwen-Image-Edit draws, SDXL + IP-Adapter repaints, with
+a 37-slot autogrow): `graph-to-spec`, then `build.mjs`. For both, the built UI file reads back as
+the same graph as the original, and the built API file asks for exactly what the frontend's own
+export of the original asks for (`tools/roundtrip.mjs compare`, 333 and 269 lines).
+
+**A spec built from the gate's sample, and the worked example, ran.** The example's API file hit
+the server's cache for every node the gate run had already computed, which the server only does
+when each node's inputs are identical -- an independent check that the two are the same work.
+
+**Layout keeps groups intact in the frontend's own terms.** The built file loaded, each group's
+members as `LGraphGroup.recomputeInsideNodes` computes them matched the spec, and no two nodes'
+bounding boxes (title bars included) overlap -- `tools/frontend.mjs shot`.
+
+**Ctrl+V on the canvas opens a workflow.** A paste event carrying the UI file as text, dispatched
+in the frontend, opened it as a new workflow tab (two open tabs became three) and left the open
+one as it was -- which is why the page's Copy button carries the UI file.
+
+**Node sizes** in `place.mjs` reproduce what the frontend saved: KSampler 270 x 262, VAEDecode
+140 x 46, CheckpointLoaderSimple 270 x 98, IPAdapterAdvanced 270 x 278, a collapsed LoadImage
+270 x 102. The frontend keeps the size a file gives it.
+
+## The catalogue's file lists
+
+A combo lists files when it carries an upload flag (`image_upload` and the rest), when its list is
+empty (an empty folder on this machine -- never an enum), or when any value names something under
+the install's `input/`, `output/` or `models/*/`, or ends in a model or media extension. A slash
+alone is not enough: `FluxKontextMultiReferenceLatentMethod` offers `uxo/uno` and
+`SetUnionControlNetType` offers `canny/lineart/anime_lineart/mlsd`, both enums. 65 inputs come out
+as file lists on this install, every one a loader or an input picker.
+
 ## Pin colours
 
 The frontend's palettes are plain data in its bundle (`colorPaletteTheme-*.js`, `node_slot`):
