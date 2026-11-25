@@ -22,7 +22,24 @@ const outDir = path.resolve(process.argv[2] ?? path.join(root, '_site'))
 fs.mkdirSync(outDir, { recursive: true })
 
 // One directory of examples per domain, so the index can say which tool a page belongs to.
-const domains = [{ name: 'substance', tool: 'Substance 3D Designer', dir: path.join(root, 'substance', 'example') }]
+// Each builds a page and writes its payload files beside it; the payload is inside the page, so
+// those files are build.mjs's habit and are removed again.
+const domains = [
+  {
+    name: 'substance',
+    tool: 'Substance 3D Designer',
+    dir: path.join(root, 'substance', 'example'),
+    build: (spec, html, stem) => [path.join(root, 'substance', 'build.mjs'), spec, '--html', html, '--py', stem + '.py'],
+    extras: stem => [stem + '.py'],
+  },
+  {
+    name: 'comfyui',
+    tool: 'ComfyUI',
+    dir: path.join(root, 'comfyui', 'example'),
+    build: (spec, html, stem) => [path.join(root, 'comfyui', 'build.mjs'), spec, '--html', html, '--ui', stem + '.json', '--api', stem + '.api.json'],
+    extras: stem => [stem + '.json', stem + '.api.json'],
+  },
+]
 
 const escape = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
@@ -43,18 +60,17 @@ for (const domain of domains) {
     const specPath = path.join(domain.dir, file)
     const name = path.basename(file, '.spec')
     const html = path.join(outDir, `${name}.html`)
-    const py = path.join(outDir, `${name}.py`)
-    execFileSync(process.execPath,
-      [path.join(root, 'substance', 'build.mjs'), specPath, '--html', html, '--py', py],
-      { stdio: 'inherit' })
-    fs.rmSync(py) // the payload is inside the page; the file beside it is build.mjs's habit
+    const stem = path.join(outDir, name)
+    execFileSync(process.execPath, domain.build(specPath, html, stem), { stdio: 'inherit' })
+    for (const extra of domain.extras(stem)) fs.rmSync(extra)
     const text = fs.readFileSync(specPath, 'utf8')
     built.push({ ...describe(text), tool: domain.tool, file: `${name}.html`, kb: Math.round(fs.statSync(html).size / 1024), text })
   }
 }
 if (!built.length) throw new Error('no example specs found')
 
-// The first example is the preview: the graph alone, as an SVG the README can show.
+// The first example is the preview: the graph alone, as an SVG the README can show. It is the
+// Substance one, which is first in domains, and is read with Substance's parser.
 const preview = built[0]
 fs.writeFileSync(path.join(outDir, 'preview.svg'), graphSvg(parseSpec(preview.text, catalogue)))
 
@@ -89,8 +105,8 @@ fs.writeFileSync(path.join(outDir, 'index.html'), `<!doctype html>
   <p class="eyebrow">node-graph-skills</p>
   <h1>Example graphs</h1>
   <p class="dek">Each page is a single self-contained file that makes no network requests.
-  Every pin is named and typed, values sit under the node that holds them, and the Python under
-  the graph builds the same network inside the tool it came from.</p>
+  Every pin is named and typed, values sit under the node that holds them, and the payload under
+  the graph puts the same network back into the tool it came from.</p>
   <ul>
 ${built.map(b => `    <li><a class="item" href="${b.file}">
       <div class="t">${escape(b.title)}</div>

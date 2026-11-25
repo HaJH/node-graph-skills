@@ -25,7 +25,9 @@ jobs:
         with:
           node-version: 20
       - name: Run the offline checks
-        run: node substance/test/run.mjs
+        run: |
+          node substance/test/run.mjs
+          node comfyui/test/run.mjs
       - name: Build example pages
         run: node scripts/build-site.mjs _site
       - uses: actions/upload-pages-artifact@v3

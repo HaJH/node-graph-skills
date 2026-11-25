@@ -23,14 +23,14 @@ spec  ->  emitter  ->  tool payload
 ## Structure
 
 ```
-lib/            layout + SVG renderer + page shell, shared by every domain
+lib/            layout, group layout, SVG renderer, page shell -- shared by every domain
 <domain>/       emit, catalogue, theme, flow -- one directory per tool
   tools/        scripts run inside the tool itself (catalogue dumps, probes)
 skills/<name>/  SKILL.md, one per tool
 ```
 
-A skill is named after its tool (`substance-graph`, later `blender-graph`, `houdini-graph`,
-`comfyui-graph`). The plugin name is the umbrella and never appears in a skill name — a SKILL.md
+A skill is named after its tool (`substance-graph`, `comfyui-graph`, later `blender-graph`,
+`houdini-graph`). The plugin name is the umbrella and never appears in a skill name — a SKILL.md
 description has to name the tool explicitly or the skill will not trigger.
 
 ## Rules
@@ -43,7 +43,8 @@ description has to name the tool explicitly or the skill will not trigger.
 - **Catalogues are generated, never transcribed.** Node ids, pin ids, pin order and types come out
   of the installed tool via a script under `<domain>/tools/`, into a generated `.mjs` table.
 - `lib/layout.mjs` is copied from `unreal-graph-skills`, deliberately. Flow direction is a theme
-  parameter here (`LR`/`TB`) because Houdini SOP and Nuke read top to bottom.
+  parameter here (`LR`/`TB`) because Houdini SOP and Nuke read top to bottom. Group layout is
+  `lib/clusters.mjs`, built on top of it rather than inside it, so the copy stays a copy.
 - The tool is the user's to drive. Claude writes the scripts; running them and reporting what came
   back is the user's step.
 

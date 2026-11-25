@@ -1,6 +1,7 @@
 # Built pages and payloads are generated from a spec; the spec is the source, they are not.
 *.html
 substance/example/*.py
+comfyui/example/*.json
 _site/
 node_modules/
 
