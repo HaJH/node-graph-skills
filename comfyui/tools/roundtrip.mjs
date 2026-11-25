@@ -371,10 +371,14 @@ function graphLines (graph) {
   return lines
 }
 
+// _meta.title is kept apart. The backend never reads it, and on a node with no title of its own
+// the frontend fills it with the display name in the user's language -- "체크포인트 로드" under a
+// Korean locale -- so it says which locale exported the file, not what the workflow does.
 function apiLines (api, nameOf = k => k) {
   const lines = []
   for (const [key, node] of Object.entries(api)) {
-    lines.push(`node ${nameOf(key)} ${node.class_type} title=${JSON.stringify(node._meta?.title)}`)
+    lines.push(`node ${nameOf(key)} ${node.class_type}`)
+    lines.push(`  title ${nameOf(key)} ${JSON.stringify(node._meta?.title)}`)
     for (const [k, v] of Object.entries(node.inputs)) {
       const shown = Array.isArray(v) && v.length === 2 && typeof v[1] === 'number' && (typeof v[0] === 'string') && v[0] in api
         ? `<- ${nameOf(v[0])}.${v[1]}`
@@ -385,19 +389,21 @@ function apiLines (api, nameOf = k => k) {
   return lines
 }
 
+const isNote = line => line.startsWith('  title ')
+
 function diff (a, b, labelA, labelB) {
   const sa = new Set(a)
   const sb = new Set(b)
   const onlyA = a.filter(l => !sb.has(l))
   const onlyB = b.filter(l => !sa.has(l))
-  if (!onlyA.length && !onlyB.length) {
-    console.log(`same: ${a.length} lines`)
-    return true
-  }
-  for (const l of onlyA) console.log(`- ${labelA}: ${l}`)
-  for (const l of onlyB) console.log(`+ ${labelB}: ${l}`)
-  console.log(`${onlyA.length} only in ${labelA}, ${onlyB.length} only in ${labelB}`)
-  return false
+  const notes = [...onlyA, ...onlyB].filter(isNote).length
+  for (const l of onlyA) console.log(`${isNote(l) ? '  note' : '-'} ${labelA}: ${l.trim()}`)
+  for (const l of onlyB) console.log(`${isNote(l) ? '  note' : '+'} ${labelB}: ${l.trim()}`)
+  const real = onlyA.length + onlyB.length - notes
+  console.log(real
+    ? `${real} differences`
+    : `same: ${a.length} lines${notes ? ` (${notes} title notes, which the backend does not read)` : ''}`)
+  return real === 0
 }
 
 const isApi = json => !Array.isArray(json.nodes) && Object.values(json).every(v => v && typeof v === 'object' && 'class_type' in v)
