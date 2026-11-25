@@ -36,10 +36,9 @@
 
 import { expandInputs, inputAt, isWidget, hasControl, defaultControl, defaultValue, checkValue, typesMatch,
   autogrowSlots, CONTROL_MODES, UNSUPPORTED, AUTOGROW } from './defs.mjs'
-import { RESERVED } from './ui.mjs'
+import { RESERVED, NAME } from './ui.mjs'
 import { LANGUAGES } from './strings.mjs'
 
-export const NAME = /^[\p{L}_][\p{L}\p{N}_]*$/u
 
 const ATTRIBUTES = ['$title', '$collapsed', '$color', '$bgcolor']
 

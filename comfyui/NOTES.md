@@ -110,6 +110,12 @@ bounding boxes (title bars included) overlap -- `tools/frontend.mjs shot`.
 in the frontend, opened it as a new workflow tab (two open tabs became three) and left the open
 one as it was -- which is why the page's Copy button carries the UI file.
 
+**A node's spec name rides in its `properties`.** The UI format has no field for it, and without
+one a workflow read back named its nodes from titles and types -- `scaled` came back as
+`image_scale`, which changes the API keys a run script sets. `properties` is a dictionary the
+frontend serialises as it finds it: a key `node-graph name` written by the build came back from
+the frontend's save on all 21 nodes of the worked example, and graph-to-spec named them from it.
+
 **Node sizes** in `place.mjs` reproduce what the frontend saved: KSampler 270 x 262, VAEDecode
 140 x 46, CheckpointLoaderSimple 270 x 98, IPAdapterAdvanced 270 x 278, a collapsed LoadImage
 270 x 102. The frontend keeps the size a file gives it.

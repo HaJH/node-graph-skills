@@ -212,8 +212,10 @@ after a build: save it in ComfyUI, run this, rebuild.
 
 - **It will not replace a spec that exists without `--force`.** A spec carries comments; this writes
   none, so a refreshed spec loses them.
-- **Node names** come from the node's title, three words of it at most, and from its type
-  otherwise, numbered where one repeats. Rename them; they are yours.
+- **Node names come back as the spec had them.** A build keeps each node's name in its
+  `properties` (`node-graph name`), which ComfyUI saves untouched, so the API keys a script uses
+  survive an edit in the window. A node added on the canvas is named from its title, three words
+  of it at most, or its type, numbered where one repeats -- and so is a pasted copy of a built one.
 - **It refuses rather than writing a spec that builds something else**: a node the catalogue does
   not know, a muted or bypassed node, a subgraph, a node inside two groups.
 - A widget with a wire on it has no value in the spec -- the wire wins, so the value it kept in the

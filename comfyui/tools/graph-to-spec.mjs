@@ -7,8 +7,9 @@
 // It writes beside the workflow (<workflow>.spec) unless told otherwise, and will not replace a
 // spec that exists without --force -- a spec carries comments, and this writes none.
 //
-// Node names are the node's title where it has one, three words of it at most, and its type
-// otherwise, numbered where one repeats. Rename them; they are yours.
+// A node a build made comes back under the name the spec gave it, kept in its properties. One
+// added on the canvas is named from its title, three words of it at most, or its type, numbered
+// where one repeats. Rename those; they are yours.
 //
 // What it refuses, rather than writing a spec that builds something else: a node the catalogue
 // does not know (a frontend-only Note or Reroute, or a pack nobody generated), a muted or

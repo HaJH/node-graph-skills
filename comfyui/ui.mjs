@@ -13,6 +13,12 @@ import crypto from 'node:crypto'
 import { expandInputs, inputAt, isWidget, hasControl, defaultControl, defaultValue, uploadWidget } from './defs.mjs'
 
 export const RESERVED = new Set(['graph', 'lang', 'group'])
+export const NAME = /^[\p{L}_][\p{L}\p{N}_]*$/u
+
+// Where a node keeps its spec name in the UI format. `properties` is a dictionary the frontend
+// saves as it finds it, so the name survives a trip through the window, and with it every API
+// key a script uses -- without it, `scaled` would come back as `image_scale`.
+export const NAME_PROPERTY = 'node-graph name'
 
 // --- names ----------------------------------------------------------------------------------
 
@@ -26,11 +32,16 @@ const snake = type => type
 // A name is typed in every wire that touches the node.
 const slug = text => text.toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(Boolean).slice(0, 3).join('_')
 
-/** A spec name for every node: its title where it has one, its type otherwise, numbered on repeats. */
+/**
+ * A spec name for every node: the one a build gave it, else its title, else its type. A copy
+ * pasted on the canvas carries its original's name, so repeats are numbered.
+ */
 export function nameNodes (nodes) {
   const used = new Map()
   return nodes.map(node => {
-    let base = (node.title && slug(node.title)) || snake(node.type)
+    const kept = node.properties?.[NAME_PROPERTY]
+    let base = (typeof kept === 'string' && NAME.test(kept) && !RESERVED.has(kept) && kept) ||
+      (node.title && slug(node.title)) || snake(node.type)
     if (/^\p{N}/u.test(base)) base = 'n_' + base
     if (RESERVED.has(base)) base += '_node'
     const count = (used.get(base) ?? 0) + 1
@@ -199,7 +210,7 @@ export function writeUi (graph, catalogue, placement = null) {
       mode: 0,
       inputs,
       outputs: def.outputs.map(o => ({ name: o.name, type: o.type, links: null })),
-      properties: { 'Node name for S&R': node.type },
+      properties: { 'Node name for S&R': node.type, [NAME_PROPERTY]: node.name },
       widgets_values: widgetsValues,
     }
     if (node.title != null) record.title = node.title

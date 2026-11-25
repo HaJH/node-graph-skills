@@ -39,6 +39,7 @@ function check (name, fn) {
 }
 
 const load = file => JSON.parse(fs.readFileSync(path.join(HERE, file), 'utf8'))
+const structuredCloneish = value => JSON.parse(JSON.stringify(value)) // structuredClone is Node 17+
 const gate = load('gate-workflow.json')
 const gateApi = load('gate-workflow.api.json')
 const read = () => readUi(gate, NODES)
@@ -205,6 +206,22 @@ check('a spec built into a UI file reads back as the same graph, groups included
   const reparsed = parseSpec(formatSpec(graph, NODES), NODES)
   const written = writeUi(reparsed, NODES, placeUi(reparsed, NODES))
   return sameGraph(reparsed, readUi(written, NODES).graph, 'spec', 'built')
+})
+
+check('spec names survive a trip through the UI file, and a pasted copy is numbered', () => {
+  // The API keys are the spec names, so a run script's --set breaks if the names drift when a
+  // workflow is edited in the window and read back.
+  const graph = parseSpec(fs.readFileSync(path.join(DOMAIN, 'example', 'ip_adapter_restyle.spec'), 'utf8'), NODES)
+  const written = writeUi(graph, NODES, placeUi(graph, NODES))
+  const back = readUi(written, NODES).graph
+  const problems = []
+  const names = g => g.nodes.map(n => n.name).join(' ')
+  if (names(back) !== names(graph)) problems.push(`came back as ${names(back)}`)
+  const copied = structuredCloneish(written)
+  copied.nodes.push({ ...copied.nodes.find(n => n.properties['node-graph name'] === 'decode'), id: 99, inputs: [], outputs: [] })
+  const twice = readUi(copied, NODES).graph.nodes.map(n => n.name).filter(n => n.startsWith('decode'))
+  if (twice.join(' ') !== 'decode decode_2') problems.push(`a copy is named ${twice.join(' ')}`)
+  return problems
 })
 
 check('the worked example builds, and is the gate workflow under other names', () => {
